@@ -45,6 +45,8 @@ namespace ConsoleApp1
 
     class RuntimeType
     {
+        private volatile bool _initialized;
+
         private volatile object _instance;
 
         private Func<object> _func;
@@ -53,47 +55,50 @@ namespace ConsoleApp1
 
         private string _id;
 
-        //public Func<object> Func
-        //{
-        //    get
-        //    {
-        //        return _func;
-        //    }
-        //    set
-        //    {
-        //        if (value != _func)
-        //        {
-        //            _instance = default;
-        //        }
-        //        _func = value;
-        //    }
-        //}
+        public RuntimeType(string id) { _id = id; }
 
-        //public Runtime Type
-        //{
-        //    get
-        //    {
-        //        return _type;
-        //    }
-        //    set
-        //    {
-        //        if (_type != value)
-        //        {
-        //            _instance = default;
-        //        }
-        //        _type = value;
-        //    }
-        //}
+        public bool Initialized
+        {
+            get
+            {
+                return _initialized;
+            }
+        }
+
+        public Runtime Type
+        {
+            get
+            {
+                return _type;
+            }
+        }
+        public string Id
+        {
+            get
+            {
+                return _id;
+            }
+        }
 
         public void Initialize(Func<object> func, Runtime type, string id)
         {
-            if (_func != null)
+            if (_id != id)
             {
-                throw new Exception(string.Format("{0} type already initialized", id));
+                throw new Exception(string.Format("{0} is referenced more than once", _id));
             }
-            _func = func;
-            _type = type;
-            _id = id;
+            if (_initialized)
+            {
+                throw new Exception(string.Format("{0} is already initialized", _id));
+            }
+            lock (this)
+            {
+                if (!_initialized)
+                {
+                    _func = func ?? throw new Exception(string.Format("{0} is required iniitialization", _id));
+                    _type = type;
+                    _initialized = true;
+                }
+            }
         }
 
         internal object CreateInstance()
@@ -113,11 +118,16 @@ namespace ConsoleApp1
                     }
                     return _instance;
                 case Runtime.CreateInstance:
+                    if (_func != null)
+                    {
+                        return _func();
+                    }
+                    return _instance;
                 case Runtime.None:
                 default:
                     if (_func != null)
                     {
-                        return _func();
+                        throw new Exception(string.Format("{0} is not allowed to initialize", _id));
                     }
                     return _instance;
             }
@@ -131,7 +141,7 @@ namespace ConsoleApp1
 
     class TypeBuilder
     {
-        private IDictionary<string, RuntimeType> d = new Dictionary<string, RuntimeType>();
+        private IDictionary<string, RuntimeType> types = new Dictionary<string, RuntimeType>();
 
         public object CreateInstance(Type type)
         {
@@ -144,92 +154,105 @@ namespace ConsoleApp1
                     id = classAttribute.Id;
                 }
             }
-            if (d.ContainsKey(id))
+            if (types.ContainsKey(id))
             {
-                return d[id].CreateInstance();
+                return types[id].CreateInstance();
             }
             return default;
         }
 
         public void RegisterType(Type type)
         {
+            string GetName(IRuntimeAttribute attribute, Type referenceType, string defaultValue)
+            {
+                if (attribute != null)
+                {
+                    Type instanceType = attribute.Type;
+                    if (instanceType != null)
+                    {
+                        if (!referenceType.IsAssignableFrom(instanceType))
+                        {
+                            throw new Exception(string.Format("{0} is not assignable from to {1}", referenceType.FullName, instanceType.FullName));
+                        }
+                        return attribute.Type.FullName;
+                    }
+                    else
+                    {
+                        if (attribute.Id != null)
+                        {
+                            return attribute.Id;
+                        }
+                        return defaultValue;
+                    }
+                }
+                else
+                {
+                    return defaultValue;
+                }
+            }
+            void LoadConstructor(ConstructorInfo mi, List<RuntimeType> args)
+            {
+                Runtime runtimeInstance = Runtime.CreateInstance;
+                string typeId = type.FullName;
+                DependencyAttribute attribute = mi.GetCustomAttribute<DependencyAttribute>();
+                if (attribute == null)
+                {
+                    attribute = type.GetCustomAttribute<DependencyAttribute>();
+                }
+                typeId = GetName(attribute, type, typeId);
+                if (attribute != null)
+                {
+                    if (attribute.Runtime != runtimeInstance)
+                    {
+                        runtimeInstance = attribute.Runtime;
+                    }
+                }
+                if (types.ContainsKey(typeId))
+                {
+                    if (types[typeId].Initialized)
+                    {
+                        throw new Exception(string.Format("{0} amibiguity between constructors in type", typeId));
+                    }
+                }
+                object init()
+                {
+                    Console.WriteLine("{0}({1})", type.FullName, string.Join(",", args.Select(p => p.Id)));
+                    return Activator.CreateInstance(type, args.Select(p => p.CreateInstance()).ToArray());
+                }
+                this[typeId].Initialize(init, runtimeInstance, typeId);
+            }
             foreach (ConstructorInfo constructor in type.GetConstructors())
             {
                 List<ParameterInfo> parameters = constructor.GetParameters().ToList();
                 List<RuntimeType> args = new List<RuntimeType>();
                 IEnumerator<ParameterInfo> parametersEnumerator = parameters.GetEnumerator();
-                string getTypeName(IRuntimeAttribute attribute, Type referenceType, string defaultValue)
-                {
-                    if (attribute != null)
-                    {
-                        Type instanceType = attribute.Type;
-                        if (instanceType != null)
-                        {
-                            if (!referenceType.IsAssignableFrom(instanceType))
-                            {
-                                throw new Exception(string.Format("{0} is not assignable from to {1}", referenceType.FullName, instanceType.FullName));
-                            }
-                            return attribute.Type.FullName;
-                        }
-                        else
-                        {
-                            if (attribute.Id != null)
-                            {
-                                return attribute.Id;
-                            }
-                            return defaultValue;
-                        }
-                    }
-                    else
-                    {
-                        return defaultValue;
-                    }
-                };
                 while (parametersEnumerator.MoveNext())
                 {
                     ParameterInfo parameterInfo = parametersEnumerator.Current;
                     InjectAttribute attribute = parameterInfo.GetCustomAttribute<InjectAttribute>();
                     Type parameterType = parameterInfo.ParameterType;
-                    args.Add(this[getTypeName(attribute, parameterType, parameterType.FullName)]);
-                }
-                Runtime runtimeInstance = Runtime.None;
-                string id = type.FullName;
-                void load(MemberInfo mi)
-                {
-                    DependencyAttribute attribute = mi.GetCustomAttribute<DependencyAttribute>();
-                    if (attribute != null)
+                    string typeId = type.FullName;
+                    typeId = GetName(attribute, parameterType, parameterType.FullName);
+                    if (type.FullName == typeId)
                     {
-                        string typeName = getTypeName(attribute, type, id);
-                        if (typeName != id)
-                        {
-                            id = typeName;
-                        }
-                        if (attribute.Runtime != runtimeInstance)
-                        {
-                            runtimeInstance = attribute.Runtime;
-                        }
+                        typeId = parameterType.FullName;
                     }
+                    args.Add(this[typeId]);
                 }
-                load(type);
-                load(constructor);
-                if (d.ContainsKey(id))
-                {
-                    throw new Exception(string.Format("{0} amibiguity between constructors in type", id));
-                }
-                object init() => Activator.CreateInstance(type, args.Select(p => p.CreateInstance()).ToArray());
-                this[id].Initialize(init, runtimeInstance, id);
+                LoadConstructor(constructor, args);
             }
+
         }
 
         RuntimeType this[string type]
         {
             get
             {
-                if (!d.ContainsKey(type))
+                if (!types.ContainsKey(type))
                 {
-                    d.Add(type, new RuntimeType());
+                    types.Add(type, new RuntimeType(type));
                 }
-                return d[type];
+                return types[type];
             }
         }
     }
