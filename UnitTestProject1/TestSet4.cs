@@ -5,9 +5,9 @@ using System.Text;
 
 namespace UnitTestProject1
 {
-    namespace TestSet3
+    namespace TestSet4
     {
-        [Dependency(Runtime.Singleton)]
+        [Dependency(typeof(SqlDataRepository), Runtime.Singleton)]
         public class SqlDataRepository : IPersonRepository
         {
             [Dependency("Ho ho ho")]

@@ -5,16 +5,15 @@ using System.Text;
 
 namespace UnitTestProject1
 {
-    namespace TestSet3
+    namespace TestSet6
     {
-        [Dependency(Runtime.Singleton)]
         public class SqlDataRepository : IPersonRepository
         {
-            [Dependency("Ho ho ho")]
             public SqlDataRepository()
             {
             }
 
+            [Dependency("Ho ho ho")]
             public SqlDataRepository(int personId)
             {
             }
@@ -28,7 +27,7 @@ namespace UnitTestProject1
 
         public class ServiceDataRepository : IPersonRepository
         {
-            public ServiceDataRepository([Inject(typeof(SqlDataRepository))]IPersonRepository repository)
+            public ServiceDataRepository([Inject("Ho ho ho")]IPersonRepository repository)
             {
                 Repository = repository;
             }

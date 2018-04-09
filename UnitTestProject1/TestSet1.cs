@@ -7,7 +7,6 @@ namespace UnitTestProject1
 {
     namespace TestSet1
     {
-        //[Dependency(typeof(SqlDataRepository))]
         public class SqlDataRepository : IPersonRepository
         {
             [Dependency("Ho ho ho")]
@@ -15,7 +14,6 @@ namespace UnitTestProject1
             {
             }
 
-            //[Dependency("Ho ho ho 2", Runtime.Singleton)]
             public SqlDataRepository(int personId)
             {
             }
@@ -27,7 +25,6 @@ namespace UnitTestProject1
             }
         }
 
-        //[Dependency("Cristmas Tree", Runtime.Singleton)]
         public class ServiceDataRepository : IPersonRepository
         {
             public ServiceDataRepository([Inject(typeof(SqlDataRepository))]IPersonRepository repository)

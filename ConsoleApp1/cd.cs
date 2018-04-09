@@ -28,6 +28,7 @@ namespace ConsoleApp1
         public string Id { get; private set; }
         public Runtime Runtime { get; private set; } = Runtime.CreateInstance;
         public DependencyAttribute(string id, Runtime runtime) { Id = id; Runtime = runtime; }
+        public DependencyAttribute(Type type, Runtime runtime) { Type = type; Runtime = runtime; }
         public DependencyAttribute(Runtime runtime) { Runtime = runtime; }
         public DependencyAttribute(string id) { Id = id; }
         public DependencyAttribute(Type type) { Type = type; }
@@ -39,7 +40,7 @@ namespace ConsoleApp1
     {
         public Type Type { get; private set; }
         public string Id { get; private set; }
-        public InjectAttribute(string serviceName) { Id = serviceName; }
+        public InjectAttribute(string id) { Id = id; }
         public InjectAttribute(Type type) { Type = type; }
     }
 
