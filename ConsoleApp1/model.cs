@@ -9,14 +9,15 @@ namespace ConsoleApp1
         Person GetPerson(int personId);
     }
 
-    [Dependency(typeof(SqlDataRepository))]
+    [Dependency("Ho ho ho")]
     public class SqlDataRepository : IPersonRepository
     {
-        public SqlDataRepository()
-        {
-        }
+        //public SqlDataRepository()
+        //{
+        //}
 
-        [Dependency("SqlDataRepository2", Runtime.Singleton)]
+
+        //[Dependency("SqlDataRepository2", Runtime.Singleton)]
         public SqlDataRepository(int personId)
         {
         }
@@ -32,7 +33,7 @@ namespace ConsoleApp1
     public class ServiceDataRepository : IPersonRepository
     {
         IPersonRepository _repository;
-        public ServiceDataRepository([Inject(typeof(SqlDataRepository))]IPersonRepository repository)
+        public ServiceDataRepository([Inject("Ho ho ho")]IPersonRepository repository)
         {
             _repository = repository;
         }

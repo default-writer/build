@@ -35,7 +35,7 @@ namespace ConsoleApp1
     }
 
     [AttributeUsage(AttributeTargets.Parameter)]
-    public class InjectAttribute : Attribute
+    public class InjectAttribute : Attribute, IRuntimeAttribute
     {
         public Type Type { get; private set; }
         public string Id { get; private set; }
@@ -158,43 +158,8 @@ namespace ConsoleApp1
                 List<ParameterInfo> parameters = constructor.GetParameters().ToList();
                 List<RuntimeType> args = new List<RuntimeType>();
                 IEnumerator<ParameterInfo> parametersEnumerator = parameters.GetEnumerator();
-                while (parametersEnumerator.MoveNext())
+                string getTypeName(IRuntimeAttribute attribute, Type referenceType, string defaultValue)
                 {
-                    ParameterInfo parameterInfo = parametersEnumerator.Current;
-                    string parameterName = default;
-                    Type dependencyType = parameterInfo.ParameterType;
-                    InjectAttribute attribute = parameterInfo.GetCustomAttribute<InjectAttribute>();
-                    if (attribute != null)
-                    {
-                        Type instanceType = attribute.Type;
-                        if (instanceType != null)
-                        {
-                            if (!dependencyType.IsAssignableFrom(instanceType))
-                            {
-                                throw new Exception(string.Format("{0} is not assignable from to {1}", dependencyType.FullName, instanceType.FullName));
-                            }
-                            parameterName = attribute.Type.FullName;
-                        }
-                        else
-                        {
-                            if (attribute.Id != null)
-                            {
-                                parameterName = attribute.Id;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        parameterName = dependencyType.FullName;
-                    }
-                    args.Add(this[parameterName]);
-                }
-                string id = type.FullName;
-                Runtime runtimeInstance = Runtime.CreateInstance;
-                Type referenceType = type;
-                void load(MemberInfo mi)
-                {
-                    DependencyAttribute attribute = mi.GetCustomAttribute<DependencyAttribute>();
                     if (attribute != null)
                     {
                         Type instanceType = attribute.Type;
@@ -204,21 +169,46 @@ namespace ConsoleApp1
                             {
                                 throw new Exception(string.Format("{0} is not assignable from to {1}", referenceType.FullName, instanceType.FullName));
                             }
-                            id = attribute.Type.FullName;
+                            return attribute.Type.FullName;
                         }
                         else
                         {
                             if (attribute.Id != null)
                             {
-                                id = attribute.Id;
+                                return attribute.Id;
                             }
+                            return defaultValue;
                         }
                     }
                     else
                     {
-                        id = referenceType.FullName;
+                        return defaultValue;
                     }
-                    runtimeInstance = attribute?.Runtime ?? Runtime.None;
+                };
+                while (parametersEnumerator.MoveNext())
+                {
+                    ParameterInfo parameterInfo = parametersEnumerator.Current;
+                    InjectAttribute attribute = parameterInfo.GetCustomAttribute<InjectAttribute>();
+                    Type parameterType = parameterInfo.ParameterType;
+                    args.Add(this[getTypeName(attribute, parameterType, parameterType.FullName)]);
+                }
+                Runtime runtimeInstance = Runtime.None;
+                string id = type.FullName;
+                void load(MemberInfo mi)
+                {
+                    DependencyAttribute attribute = mi.GetCustomAttribute<DependencyAttribute>();
+                    if (attribute != null)
+                    {
+                        string typeName = getTypeName(attribute, type, id);
+                        if (typeName != id)
+                        {
+                            id = typeName;
+                        }
+                        if (attribute.Runtime != runtimeInstance)
+                        {
+                            runtimeInstance = attribute.Runtime;
+                        }
+                    }
                 }
                 load(type);
                 load(constructor);
