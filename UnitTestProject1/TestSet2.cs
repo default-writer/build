@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UnitTestProject1
 {
-    namespace TestSet1
+    namespace TestSet2
     {
         //[Dependency(typeof(SqlDataRepository))]
         public class SqlDataRepository : IPersonRepository
@@ -27,7 +27,7 @@ namespace UnitTestProject1
             }
         }
 
-        //[Dependency("Cristmas Tree", Runtime.Singleton)]
+        [Dependency(Runtime.Singleton)]
         public class ServiceDataRepository : IPersonRepository
         {
             public ServiceDataRepository([Inject(typeof(SqlDataRepository))]IPersonRepository repository)
