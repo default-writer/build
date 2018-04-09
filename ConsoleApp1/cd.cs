@@ -84,7 +84,7 @@ namespace ConsoleApp1
         {
             if (_id != id)
             {
-                throw new Exception(string.Format("{0} is referenced more than once", _id));
+                throw new Exception(string.Format("{0} is amibiguous for initialization", _id));
             }
             if (_initialized)
             {
@@ -133,7 +133,8 @@ namespace ConsoleApp1
             }
         }
     }
-    interface IContainer
+
+    public interface IContainer
     {
         T CreateInstance<T>();
         void RegisterType<T>();
@@ -211,7 +212,7 @@ namespace ConsoleApp1
                 {
                     if (types[typeId].Initialized)
                     {
-                        throw new Exception(string.Format("{0} amibiguity between constructors in type", typeId));
+                        throw new Exception(string.Format("{0} is amibiguous for creation", typeId));
                     }
                 }
                 object init()
@@ -273,7 +274,7 @@ namespace ConsoleApp1
         {
             if (!_filter(typeof(T)))
             {
-                throw new Exception(string.Format("{0} is not allowed type", typeof(T).FullName));
+                throw new Exception(string.Format("{0} is not allowed", typeof(T).FullName));
             }
             return (T)typeBuilder.CreateInstance(typeof(T));
         }
@@ -282,7 +283,7 @@ namespace ConsoleApp1
         {
             if (!_filter(typeof(T)))
             {
-                throw new Exception(string.Format("{0} is not allowed type", typeof(T).FullName));
+                throw new Exception(string.Format("{0} is not allowed", typeof(T).FullName));
             }
             typeBuilder.RegisterType(typeof(T));
         }
