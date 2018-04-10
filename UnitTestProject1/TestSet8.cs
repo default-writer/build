@@ -2,15 +2,17 @@
 
 namespace UnitTests
 {
-    namespace TestSet2
+    namespace TestSet8
     {
+        [DependencyAttribute("Ho ho ho")]
         public class SqlDataRepository : IPersonRepository
         {
-            [DependencyAttribute("Ho ho ho", RuntimeInstance.None)]
+            
             public SqlDataRepository()
             {
             }
 
+            [DependencyAttribute(typeof(SqlDataRepository))]
             public SqlDataRepository(int personId)
             {
             }
@@ -22,7 +24,6 @@ namespace UnitTests
             }
         }
 
-        [DependencyAttribute(RuntimeInstance.Singleton)]
         public class ServiceDataRepository : IPersonRepository
         {
             public ServiceDataRepository([Injection(typeof(SqlDataRepository))]IPersonRepository repository)

@@ -1,16 +1,13 @@
-﻿using ConsoleApp1;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Build;
 
-namespace UnitTestProject1
+namespace UnitTests
 {
     namespace TestSet3
     {
-        [Dependency(Runtime.Singleton)]
+        [DependencyAttribute(RuntimeInstance.Singleton)]
         public class SqlDataRepository : IPersonRepository
         {
-            [Dependency("Ho ho ho")]
+            [DependencyAttribute("Ho ho ho")]
             public SqlDataRepository()
             {
             }
@@ -28,7 +25,7 @@ namespace UnitTestProject1
 
         public class ServiceDataRepository : IPersonRepository
         {
-            public ServiceDataRepository([Inject(typeof(SqlDataRepository))]IPersonRepository repository)
+            public ServiceDataRepository([Injection(typeof(SqlDataRepository))]IPersonRepository repository)
             {
                 Repository = repository;
             }

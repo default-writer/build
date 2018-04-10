@@ -3,10 +3,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests
 {
-    namespace TestSet3
+    namespace TestSet12
     {
         [TestClass]
-        public class UnitTest3
+        public class UnitTest12
         {
             ServiceDataRepository srv1, srv2;
 
@@ -22,41 +22,41 @@ namespace UnitTests
                 srv2 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
             }
             [TestMethod]
-            public void TestSet3_Method1()
+            public void TestSet12_Method1()
             {
-                //TestSet3
+                //TestSet12
                 Assert.IsNotNull(srv1);
             }
             [TestMethod]
-            public void TestSet3_Method2()
+            public void TestSet12_Method2()
             {
-                //TestSet3
+                //TestSet12
                 Assert.IsNotNull(srv2);
             }
             [TestMethod]
-            public void TestSet3_Method3()
+            public void TestSet12_Method3()
             {
-                //TestSet3
-                TestSet3_Method1();
+                //TestSet12
+                TestSet12_Method1();
                 Assert.IsNotNull(srv1.Repository);
             }
             [TestMethod]
-            public void TestSet3_Method4()
+            public void TestSet12_Method4()
             {
-                //TestSet3
-                TestSet3_Method2();
+                //TestSet12
+                TestSet12_Method2();
                 Assert.IsNotNull(srv2.Repository);
             }
             [TestMethod]
-            public void TestSet3_Method5()
+            public void TestSet12_Method5()
             {
-                //TestSet3
+                //TestSet12
                 Assert.AreNotEqual(srv1, srv2);
             }
             [TestMethod]
-            public void TestSet3_Method6()
+            public void TestSet12_Method6()
             {
-                //TestSet3
+                //TestSet12
                 Assert.AreEqual(srv1.Repository, srv2.Repository);
             }
         }

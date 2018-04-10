@@ -2,15 +2,15 @@
 
 namespace UnitTests
 {
-    namespace TestSet2
+    namespace Fail_TestSet3
     {
+        public interface IOtherRepository
+        {
+        }
+
+        [Dependency(typeof(IOtherRepository))]
         public class SqlDataRepository : IPersonRepository
         {
-            [DependencyAttribute("Ho ho ho", RuntimeInstance.None)]
-            public SqlDataRepository()
-            {
-            }
-
             public SqlDataRepository(int personId)
             {
             }
@@ -21,15 +21,14 @@ namespace UnitTests
                 return new Person(this);
             }
         }
-
-        [DependencyAttribute(RuntimeInstance.Singleton)]
+        
         public class ServiceDataRepository : IPersonRepository
         {
-            public ServiceDataRepository([Injection(typeof(SqlDataRepository))]IPersonRepository repository)
+            public ServiceDataRepository([Injection(typeof(IOtherRepository))]IOtherRepository repository)
             {
                 Repository = repository;
             }
-            public IPersonRepository Repository { get; }
+            public IOtherRepository Repository { get; }
             public Person GetPerson(int personId)
             {
                 // get the data from Web service and return Person instance.

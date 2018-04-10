@@ -1,62 +1,64 @@
-using ConsoleApp1;
+using Build;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
-namespace UnitTestProject1
+namespace UnitTests
 {
-    [TestClass]
-    public class UnitTest4
+    namespace TestSet4
     {
-        TestSet4.ServiceDataRepository srv1, srv2;
+        [TestClass]
+        public class UnitTest4
+        {
+            ServiceDataRepository srv1, srv2;
 
-        [TestInitialize]
-        public void Initialize()
-        {
-            IContainer commonPersonContainer = new Container();
-            commonPersonContainer.RegisterType<TestSet4.SqlDataRepository>();
-            commonPersonContainer.RegisterType<TestSet4.ServiceDataRepository>();
+            [TestInitialize]
+            public void Initialize()
+            {
+                IContainer commonPersonContainer = new Container();
+                commonPersonContainer.RegisterType<SqlDataRepository>();
+                commonPersonContainer.RegisterType<ServiceDataRepository>();
 
-            //SqlDataRepository sql = commonPersonContainer.CreateInstance<SqlDataRepository>();
-            srv1 = commonPersonContainer.CreateInstance<TestSet4.ServiceDataRepository>();
-            srv2 = commonPersonContainer.CreateInstance<TestSet4.ServiceDataRepository>();
-        }
-        [TestMethod]
-        public void TestMethod1()
-        {
-            //TestSet4
-            Assert.IsNotNull(srv1);
-        }
-        [TestMethod]
-        public void TestMethod2()
-        {
-            //TestSet4
-            Assert.IsNotNull(srv2);
-        }
-        [TestMethod]
-        public void TestMethod3()
-        {
-            //TestSet4
-            TestMethod1();
-            Assert.IsNotNull(srv1.Repository);
-        }
-        [TestMethod]
-        public void TestMethod4()
-        {
-            //TestSet4
-            TestMethod2();
-            Assert.IsNotNull(srv2.Repository);
-        }
-        [TestMethod]
-        public void TestMethod5()
-        {
-            //TestSet4
-            Assert.AreNotEqual(srv1, srv2);
-        }
-        [TestMethod]
-        public void TestMethod6()
-        {
-            //TestSet4
-            Assert.AreEqual(srv1.Repository, srv2.Repository);
+                //SqlDataRepository sql = commonPersonContainer.CreateInstance<SqlDataRepository>();
+                srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
+                srv2 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
+            }
+            [TestMethod]
+            public void TestSet4_Method1()
+            {
+                //TestSet4
+                Assert.IsNotNull(srv1);
+            }
+            [TestMethod]
+            public void TestSet4_Method2()
+            {
+                //TestSet4
+                Assert.IsNotNull(srv2);
+            }
+            [TestMethod]
+            public void TestSet4_Method3()
+            {
+                //TestSet4
+                TestSet4_Method1();
+                Assert.IsNotNull(srv1.Repository);
+            }
+            [TestMethod]
+            public void TestSet4_Method4()
+            {
+                //TestSet4
+                TestSet4_Method2();
+                Assert.IsNotNull(srv2.Repository);
+            }
+            [TestMethod]
+            public void TestSet4_Method5()
+            {
+                //TestSet4
+                Assert.AreNotEqual(srv1, srv2);
+            }
+            [TestMethod]
+            public void TestSet4_Method6()
+            {
+                //TestSet4
+                Assert.AreEqual(srv1.Repository, srv2.Repository);
+            }
         }
     }
 }
