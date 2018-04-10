@@ -36,26 +36,6 @@ namespace UnitTests
                 commonPersonContainer.RegisterType<ServiceDataRepository>();
                 Assert.IsNotNull(commonPersonContainer.CreateInstance<ServiceDataRepository>());
             }
-
-            //[TestMethod]
-            //public void Fail_TestSet3_Method4()
-            //{
-            //    //Fail_TestSet3
-            //    Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<Int32>());
-            //}
-            //[TestMethod]
-            //public void Fail_TestSet3_Method5()
-            //{
-            //    //Fail_TestSet3
-            //    Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<IPersonRepository>());
-            //}
-            //[TestMethod]
-            //public void Fail_TestSet3_Method6()
-            //{
-            //    //Fail_TestSet3
-            //    commonPersonContainer.RegisterType<ServiceDataRepository>();
-            //    Assert.IsNull(commonPersonContainer.CreateInstance<IPersonRepository>());
-            //}
         }
     }
 }
