@@ -40,6 +40,7 @@ namespace Build
         public string Id { get; }
         public InjectionAttribute(string id) { Id = id; }
         public InjectionAttribute(Type type) { Type = type; }
+        public InjectionAttribute() { }
     }
 
     internal class RuntimeType
@@ -54,23 +55,10 @@ namespace Build
 
         public RuntimeType(string id) { _id = id; }
 
-        public Type Type { get { return _type; } }
         public string Id { get { return _id; } }
 
         public void Initialize(RuntimeInstance runtime, string id, Type type, Func<object> func)
         {
-            if (id == null)
-            {
-                throw new Exception(string.Format("{0} parameter is required", nameof(id)));
-            }
-            if (type == null)
-            {
-                throw new Exception(string.Format("{0} parameter is required", nameof(type)));
-            }
-            if (func == null)
-            {
-                throw new Exception(string.Format("{0} parameter is required", nameof(func)));
-            }
             _type = type;
             if (_init)
             {
@@ -240,10 +228,8 @@ namespace Build
             {
                 List<ParameterInfo> parameters = constructor.GetParameters().ToList();
                 List<RuntimeType> args = new List<RuntimeType>();
-                IEnumerator<ParameterInfo> parametersEnumerator = parameters.GetEnumerator();
-                while (parametersEnumerator.MoveNext())
-                {
-                    ParameterInfo parameterInfo = parametersEnumerator.Current;
+                foreach(var parameterInfo in parameters)
+                { 
                     InjectionAttribute attribute = parameterInfo.GetCustomAttribute<InjectionAttribute>();
                     Type parameterType = parameterInfo.ParameterType;
                     if (attribute != null && attribute.Type != null && !parameterType.IsAssignableFrom(attribute.Type))
