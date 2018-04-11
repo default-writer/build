@@ -16,7 +16,7 @@ namespace Build
         Type _type;
         string _id;
         public string Id { get { return _id; } }
-        public RuntimeType(string id) => _id = id;
+        public RuntimeType(string id) => _id = id;        
         public void Initialize(RuntimeInstance runtime, string id, Type type, Func<object> func)
         {
             if (_init)
@@ -56,8 +56,7 @@ namespace Build
                     return _instance;
                 case RuntimeInstance.None:
                 default:
-                    if (_func != null)
-                        throw new Exception(string.Format("{0} is not allowed to initialize", Id));
+                    if (_func != null) throw new Exception(string.Format("{0} is not allowed to initialize", Id));
                     return _instance;
             }
         }
@@ -80,7 +79,7 @@ namespace Build
             {
                 if (types.ContainsKey(id))
                     return types[id].CreateInstance();
-                throw new Exception(string.Format("{0} is not registered as constructible type (no constructors available)", id));
+                return default;
             }
             var classAttribute = type.GetCustomAttribute<DependencyAttribute>();
             if (classAttribute != null)
@@ -141,12 +140,8 @@ namespace Build
                         throw new Exception(string.Format("{0} is not assignable from {1}", parameterType.FullName, attribute.Type.FullName));
                     string typeId = type.FullName;
                     typeId = GetTypeId(attribute, parameterType, parameterType.FullName);
-                    if (typeId == type.FullName && typeId == parameterType.FullName)
-                        throw new Exception(string.Format("{0} is self-referenced from parameter {1}", type.FullName, parameterInfo.Name));
                     if (type.FullName == typeId)
-                    {
                         typeId = parameterType.FullName;
-                    }
                     args.Add(this[typeId]);
                 }
                 Initialize(RuntimeInstance.CreateInstance, constructor, args);
