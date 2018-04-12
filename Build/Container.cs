@@ -15,13 +15,13 @@ namespace Build
         public T CreateInstance<T>()
         {
             if (!_createFilter(typeof(T)))
-                throw new Exception(string.Format("{0} is not allowed", typeof(T).FullName));
+                throw new Exception(string.Format("{0} is not instantiable (not an allowed type)", typeof(T).FullName));
             return (T)typeBuilder.CreateInstance(typeof(T));
         }
         public void RegisterType<T>()
         {
             if (!_registerFilter(typeof(T)))
-                throw new Exception(string.Format("{0} is not allowed", typeof(T).FullName));
+                throw new Exception(string.Format("{0} is not instantiable (not an allowed type)", typeof(T).FullName));
             typeBuilder.RegisterType(typeof(T));
         }
         public void RegisterAssemblyTypes(Assembly assembly)

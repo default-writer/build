@@ -17,10 +17,10 @@ namespace Build
         string _id;
         public string Id { get { return _id; } }
         public RuntimeType(string id) => _id = id;
-        public void Initialize(RuntimeInstance runtime, string id, Type type, Func<object> func)
+        public void RegiterType(RuntimeInstance runtime, string id, Type type, Func<object> func)
         {
             if (_init)
-                throw new Exception(string.Format("{0} is amibiguous for initialization (more than one constructors available)", Id));
+                throw new Exception(string.Format("{0} is not registered (more than one constructors available)", Id));
             _runtime = runtime;
             _type = type;
             _id = _type.FullName;
@@ -52,7 +52,7 @@ namespace Build
                 case RuntimeInstance.None:
                 default:
                     if (_func != null)
-                        throw new Exception(string.Format("{0} is not allowed to evaluate", Id));
+                        throw new Exception(string.Format("{0} is not evaluated (no instance)", Id));
                     return _instance;
             }
         }
@@ -86,7 +86,7 @@ namespace Build
             {
                 if (types.ContainsKey(id))
                     return types[id].CreateInstance();
-                throw new Exception(string.Format("{0} is not registered as constructible type (no constructors available)", id));
+                throw new Exception(string.Format("{0} is not instantiable (no constructors available)", id));
             }
             return CreateInstance(GetTypeId(type.GetCustomAttribute<DependencyAttribute>(), type.FullName));
         }
@@ -102,7 +102,7 @@ namespace Build
                 string typeId = GetTypeId(attribute, type.FullName);
                 var attributeType = type.Assembly.GetType(typeId);
                 if (attributeType != null && !attributeType.IsAssignableFrom(type))
-                    throw new Exception(string.Format("{0} is not assignable from {1}", attributeType.FullName, type.FullName));
+                    throw new Exception(string.Format("{0} is not registered (not assignable from {1})", attributeType.FullName, type.FullName));
                 if (attribute != null && attribute.Runtime != runtimeInstance)
                     runtimeInstance = attribute.Runtime;
                 object init()
@@ -110,11 +110,11 @@ namespace Build
                     Debug.WriteLine("{0}({1})", type.FullName, string.Join(",", args.Select(p => p.Id)));
                     return Activator.CreateInstance(type, args.Select(p => p.CreateInstance()).ToArray());
                 }
-                this[typeId].Initialize(runtimeInstance, typeId, type, init);
+                this[typeId].RegiterType(runtimeInstance, typeId, type, init);
             }
             var constructors = type.GetConstructors();
             if (constructors.Length == 0)
-                throw new Exception(string.Format("{0} is not registered as constructible type (no constructors available)", type.FullName));
+                throw new Exception(string.Format("{0} is not registered (no constructors available)", type.FullName));
             foreach (var constructor in constructors)
             {
                 var parameters = constructor.GetParameters().ToList();
@@ -127,9 +127,9 @@ namespace Build
                     string typeId = GetTypeId(attribute, parameterType.FullName);
                     var attributeType = type.Assembly.GetType(typeId);
                     if (attributeType != null && !parameterType.IsAssignableFrom(attributeType))
-                        throw new Exception(string.Format("{0} is not assignable from {1}", parameterType.FullName, attributeType.FullName));
+                        throw new Exception(string.Format("{0} is not registered (not assignable from {1})", parameterType.FullName, attributeType.FullName));
                     if (typeId == type.FullName && typeId == parameterType.FullName)
-                        throw new Exception(string.Format("{0} is self-referenced from parameter {1}", type.FullName, parameterInfo.Name));
+                        throw new Exception(string.Format("{0} is not registered (circular references found)", type.FullName, parameterInfo.Name));
                     args.Add(this[typeId]);
                 }
             }
