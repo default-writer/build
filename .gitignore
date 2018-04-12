@@ -1,0 +1,15 @@
+﻿/.vs
+/TestResults
+/UnitTestsDotNet
+/packages
+/UnitTestProject1/bin
+/UnitTestProject1/obj
+/ConsoleApp1/bin
+/ConsoleApp1/obj
+/BuildDotNet/bin
+/BuildDotNet/obj
+/BuildCoverage/bin
+/BuildCoverage/obj
+/Build/bin
+/Build/obj
+*.user
