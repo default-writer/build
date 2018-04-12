@@ -20,7 +20,7 @@ namespace Build
         public void Initialize(RuntimeInstance runtime, string id, Type type, Func<object> func)
         {
             if (_init)
-                throw new Exception(string.Format("{0} is amibiguous for initialization, (more than one constructors available)", Id));
+                throw new Exception(string.Format("{0} is amibiguous for initialization (more than one constructors available)", Id));
             _runtime = runtime;
             _type = type;
             _id = _type.FullName;
@@ -32,7 +32,7 @@ namespace Build
             object Evaluate()
             {
                 if (_guard)
-                    throw new Exception(string.Format("{0} is evaluated", Id));
+                    throw new Exception(string.Format("{0} is not evaluated (circular references found)", Id));
                 _guard = true;
                 object result = _func();
                 _guard = false;
@@ -52,7 +52,7 @@ namespace Build
                 case RuntimeInstance.None:
                 default:
                     if (_func != null)
-                        throw new Exception(string.Format("{0} is not allowed to evaluated", Id));
+                        throw new Exception(string.Format("{0} is not allowed to evaluate", Id));
                     return _instance;
             }
         }
