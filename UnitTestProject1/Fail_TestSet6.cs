@@ -2,19 +2,23 @@
 
 namespace UnitTests
 {
-    namespace TestSet7
+    namespace Fail_TestSet6
     {
+        public interface IOtherRepository
+        {
+        }
+
+        public class OtherRepository
+        {
+        }
+
         public class SqlDataRepository : IPersonRepository
         {
-            [Dependency("Ho ho ho")]
-            public SqlDataRepository()
+            public SqlDataRepository(ServiceDataRepository repository)
             {
+                Repository = repository;
             }
-            
-            public SqlDataRepository(int personId)
-            {
-            }
-
+            public IPersonRepository Repository { get; }
             public Person GetPerson(int personId)
             {
                 // get the data from SQL DB and return Person instance.
@@ -24,7 +28,7 @@ namespace UnitTests
 
         public class ServiceDataRepository : IPersonRepository
         {
-            public ServiceDataRepository([Injection("Ho ho ho")]IPersonRepository repository)
+            public ServiceDataRepository(SqlDataRepository repository)
             {
                 Repository = repository;
             }

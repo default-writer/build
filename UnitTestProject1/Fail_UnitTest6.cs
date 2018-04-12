@@ -4,10 +4,10 @@ using System;
 
 namespace UnitTests
 {
-    namespace Fail_TestSet3
+    namespace Fail_TestSet6
     {
         [TestClass]
-        public class UnitTest3
+        public class UnitTest5
         {
             IContainer commonPersonContainer;
 
@@ -17,30 +17,26 @@ namespace UnitTests
                 commonPersonContainer = new Container();
             }
             [TestMethod]
-            public void Fail_TestSet3_Method1()
+            public void Fail_TestSet6_Method1()
             {
-                //Fail_TestSet3
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
-            }
-            [TestMethod]
-            public void Fail_TestSet3_Method2()
-            {
-                //Fail_TestSet3
+                //Fail_TestSet6
+                commonPersonContainer.RegisterType<SqlDataRepository>();
                 commonPersonContainer.RegisterType<ServiceDataRepository>();
-                Assert.IsNull(commonPersonContainer.CreateInstance<SqlDataRepository>());
+                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance<SqlDataRepository>());
             }
             [TestMethod]
-            public void Fail_TestSet3_Method3()
+            public void Fail_TestSet6_Method2()
             {
-                //Fail_TestSet3
+                commonPersonContainer.RegisterType<SqlDataRepository>();
+                commonPersonContainer.RegisterType<ServiceDataRepository>();
+                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance<ServiceDataRepository>());
+            }
+            [TestMethod]
+            public void Fail_TestSet6_Method3()
+            {
+                //Fail_TestSet6
                 commonPersonContainer.RegisterType<ServiceDataRepository>();
                 Assert.IsNotNull(commonPersonContainer.CreateInstance<ServiceDataRepository>());
-            }
-            [TestMethod]
-            public void Fail_TestSet3_Method4()
-            {
-                //Fail_TestSet13
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance<OtherRepository>());
             }
         }
     }

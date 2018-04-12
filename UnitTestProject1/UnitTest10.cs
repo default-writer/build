@@ -17,7 +17,6 @@ namespace UnitTests
                 commonPersonContainer.RegisterType<SqlDataRepository>();
                 commonPersonContainer.RegisterType<ServiceDataRepository>();
 
-                //SqlDataRepository sql = commonPersonContainer.CreateInstance<SqlDataRepository>();
                 srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
                 srv2 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
             }

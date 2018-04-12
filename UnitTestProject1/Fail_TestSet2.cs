@@ -4,7 +4,7 @@ namespace UnitTests
 {
     namespace Fail_TestSet2
     {
-        [Dependency(typeof(IPersonRepository))]
+        [Dependency("UnitTests.IPersonRepository")]
         public class SqlDataRepository : IPersonRepository
         {
             public SqlDataRepository(int personId)
@@ -20,9 +20,9 @@ namespace UnitTests
         
         public class ServiceDataRepository : IPersonRepository
         {
-            public ServiceDataRepository([Injection(typeof(IPersonRepository))]SqlDataRepository repository)
+            public ServiceDataRepository([Injection(typeof(IPersonRepository))]int repository)
             {
-                Repository = repository;
+                //Repository = repository;
             }
             public IPersonRepository Repository { get; }
             public Person GetPerson(int personId)

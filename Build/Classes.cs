@@ -20,9 +20,7 @@ namespace Build
         public void Initialize(RuntimeInstance runtime, string id, Type type, Func<object> func)
         {
             if (_init)
-                throw new Exception(string.Format("{0} is amibiguous for initialization (more than one matching initialization method found)", Id));
-            if (Id != id)
-                throw new Exception(string.Format("{0} is amibiguous for initialization", Id));
+                throw new Exception(string.Format("{0} is amibiguous for initialization, (more than one constructors available)", Id));
             _runtime = runtime;
             _type = type;
             _id = _type.FullName;
@@ -33,12 +31,8 @@ namespace Build
         {
             object Evaluate()
             {
-                if (!_init)
-                    throw new Exception(string.Format("{0} is required to initialize", Id));
-                if (_func == null)
-                    throw new Exception(string.Format("{0} is required to evaluate", Id));
                 if (_guard)
-                    throw new Exception(string.Format("{0} is already evaluated", Id));
+                    throw new Exception(string.Format("{0} is evaluated", Id));
                 _guard = true;
                 object result = _func();
                 _guard = false;
@@ -47,17 +41,18 @@ namespace Build
             switch (_runtime)
             {
                 case RuntimeInstance.Singleton:
-                    if (_instance == null)
+                    if (!_guard)
+                    {
                         _instance = Evaluate();
+                        _guard = true;
+                    }
                     return _instance;
                 case RuntimeInstance.CreateInstance:
-                    if (_func != null)
-                        return Evaluate();
-                    return _instance;
+                    return Evaluate();
                 case RuntimeInstance.None:
                 default:
                     if (_func != null)
-                        throw new Exception(string.Format("{0} is not allowed to initialize", Id));
+                        throw new Exception(string.Format("{0} is not allowed to evaluated", Id));
                     return _instance;
             }
         }
@@ -94,13 +89,13 @@ namespace Build
         }
         public void RegisterType(Type type)
         {
-            string GetTypeId(IRuntimeAttribute attribute, Type referenceType, string defaultValue)
+            string GetTypeId(IRuntimeAttribute attribute, string defaultValue)
             {
                 if (attribute != null)
                 {
                     var instanceType = attribute.Type;
                     if (instanceType != null)
-                        return attribute.Type.FullName;
+                        return instanceType.FullName;
                     else
                     {
                         if (attribute.Id != null)
@@ -111,15 +106,16 @@ namespace Build
                 else
                     return defaultValue;
             }
-            void Initialize(RuntimeInstance runtimeInstance, ConstructorInfo mi, List<RuntimeType> args)
+            void Initialize(ConstructorInfo constructor, List<RuntimeType> args)
             {
-                string typeId = type.FullName;
-                var attribute = mi.GetCustomAttribute<DependencyAttribute>();
+                RuntimeInstance runtimeInstance = RuntimeInstance.CreateInstance;
+                var attribute = constructor.GetCustomAttribute<DependencyAttribute>();
                 if (attribute == null)
                     attribute = type.GetCustomAttribute<DependencyAttribute>();
-                if (attribute != null && attribute.Type != null && !attribute.Type.IsAssignableFrom(type))
-                    throw new Exception(string.Format("{0} is not assignable from {1}", attribute.Type.FullName, type.FullName));
-                typeId = GetTypeId(attribute, type, typeId);
+                string typeId = GetTypeId(attribute, type.FullName);
+                Type attributeType = type.Assembly.GetType(typeId);
+                if (attributeType != null && !attributeType.IsAssignableFrom(type))
+                    throw new Exception(string.Format("{0} is not assignable from {1}", attributeType.FullName, type.FullName));
                 if (attribute != null && attribute.Runtime != runtimeInstance)
                     runtimeInstance = attribute.Runtime;
                 object init()
@@ -129,27 +125,28 @@ namespace Build
                 }
                 this[typeId].Initialize(runtimeInstance, typeId, type, init);
             }
-            foreach (var constructor in type.GetConstructors())
+            var constructors = type.GetConstructors();
+            if (constructors.Length == 0)
+            {
+                throw new Exception(string.Format("{0} is not registered as constructible type (no constructors available)", type.FullName));
+            }
+            foreach (var constructor in constructors)
             {
                 var parameters = constructor.GetParameters().ToList();
                 var args = new List<RuntimeType>();
+                Initialize(constructor, args);
                 foreach (var parameterInfo in parameters)
                 {
                     var attribute = parameterInfo.GetCustomAttribute<InjectionAttribute>();
                     var parameterType = parameterInfo.ParameterType;
-                    if (attribute != null && attribute.Type != null && !parameterType.IsAssignableFrom(attribute.Type))
-                        throw new Exception(string.Format("{0} is not assignable from {1}", parameterType.FullName, attribute.Type.FullName));
-                    string typeId = type.FullName;
-                    typeId = GetTypeId(attribute, parameterType, parameterType.FullName);
+                    string typeId = GetTypeId(attribute, parameterType.FullName);
+                    Type attributeType = type.Assembly.GetType(typeId);
+                    if (attributeType != null && !parameterType.IsAssignableFrom(attributeType))
+                        throw new Exception(string.Format("{0} is not assignable from {1}", parameterType.FullName, attributeType.FullName));
                     if (typeId == type.FullName && typeId == parameterType.FullName)
                         throw new Exception(string.Format("{0} is self-referenced from parameter {1}", type.FullName, parameterInfo.Name));
-                    if (type.FullName == typeId)
-                    {
-                        typeId = parameterType.FullName;
-                    }
                     args.Add(this[typeId]);
                 }
-                Initialize(RuntimeInstance.CreateInstance, constructor, args);
             }
         }
     }

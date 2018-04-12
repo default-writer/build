@@ -6,7 +6,7 @@ namespace UnitTests
     {
         public class SqlDataRepository : IPersonRepository
         {
-            [DependencyAttribute("Ho ho ho", RuntimeInstance.None)]
+            [Dependency("Ho ho ho", RuntimeInstance.None)]
             public SqlDataRepository()
             {
             }
@@ -22,7 +22,7 @@ namespace UnitTests
             }
         }
 
-        [DependencyAttribute(RuntimeInstance.Singleton)]
+        [Dependency(RuntimeInstance.Singleton)]
         public class ServiceDataRepository : IPersonRepository
         {
             public ServiceDataRepository([Injection(typeof(SqlDataRepository))]IPersonRepository repository)

@@ -26,8 +26,7 @@ namespace UnitTests
             public void Fail_TestSet1_Method2()
             {
                 //Fail_TestSet1
-                commonPersonContainer.RegisterType<ServiceDataRepository>();
-                Assert.IsNotNull(commonPersonContainer.CreateInstance<ServiceDataRepository>());
+                Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<PrivateConstructorServiceDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet1_Method3()
@@ -42,7 +41,7 @@ namespace UnitTests
             public void Fail_TestSet1_Method4()
             {
                 //Fail_TestSet1
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<Int32>());
+                Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<int>());
             }
             [TestMethod]
             public void Fail_TestSet1_Method5()
@@ -55,7 +54,7 @@ namespace UnitTests
             {
                 //Fail_TestSet1
                 commonPersonContainer.RegisterType<ServiceDataRepository>();
-                Assert.IsNull(commonPersonContainer.CreateInstance<IPersonRepository>());
+                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance<IPersonRepository>());
             }
         }
     }

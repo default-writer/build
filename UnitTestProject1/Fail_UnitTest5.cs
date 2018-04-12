@@ -20,8 +20,7 @@ namespace UnitTests
             public void Fail_TestSet5_Method1()
             {
                 //Fail_TestSet5
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
-                //Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance<SqlDataRepository>());
+                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance<SqlDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet5_Method2()
@@ -34,8 +33,15 @@ namespace UnitTests
             public void Fail_TestSet5_Method3()
             {
                 //Fail_TestSet5
-                commonPersonContainer.RegisterType<ServiceDataRepository>();
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance<ServiceDataRepository>());
+                Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
+            }
+            [TestMethod]
+            public void Fail_TestSet5_Method4()
+            {
+                //Fail_TestSet5
+                commonPersonContainer.RegisterType<OtherRepository>();
+                commonPersonContainer.RegisterType<NoSqlDataRepository>();
+                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance<NoSqlDataRepository>());
             }
         }
     }

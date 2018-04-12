@@ -40,8 +40,7 @@ namespace UnitTests
             public void Fail_TestSet4_Method4()
             {
                 //Fail_TestSet4
-                commonPersonContainer.RegisterType<ServiceDataRepository>();
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance<ServiceDataRepository>());
+                Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<ServiceDataRepository>());
             }
         }
     }

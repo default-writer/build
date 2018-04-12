@@ -8,11 +8,14 @@ namespace UnitTests
         {
         }
 
-        public class OtherRepository
+        [Dependency(RuntimeInstance.None)]
+        public class OtherRepository : NoSqlDataRepository, IOtherRepository
         {
+            public OtherRepository(int param): base(null)
+            {
+            }
         }
 
-        //[Dependency("Ho ho ho", RuntimeInstance.CreateInstance)]
         public class SqlDataRepository : IPersonRepository
         {
             public SqlDataRepository([Injection(typeof(SqlDataRepository))]ServiceDataRepository repository)
@@ -38,6 +41,20 @@ namespace UnitTests
             {
                 // get the data from Web service and return Person instance.
                 return new Person(this);
+            }
+        }
+
+
+        public class NoSqlDataRepository
+        {
+            public NoSqlDataRepository([Injection(typeof(OtherRepository))]IOtherRepository other)
+            {
+            }
+
+            public Person GetPerson(int personId)
+            {
+                // get the data from SQL DB and return Person instance.
+                return new Person(null);
             }
         }
     }

@@ -4,10 +4,10 @@ namespace UnitTests
 {
     namespace TestSet3
     {
-        [DependencyAttribute(RuntimeInstance.Singleton)]
+        [Dependency(RuntimeInstance.Singleton)]
         public class SqlDataRepository : IPersonRepository
         {
-            [DependencyAttribute("Ho ho ho")]
+            [Dependency("Ho ho ho")]
             public SqlDataRepository()
             {
             }

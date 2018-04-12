@@ -37,7 +37,7 @@ namespace UnitTests
             //{
             //}
 
-            [Dependency("UnitTests.Fail_TestSet4.SqlDataRepository")]
+            [Dependency(typeof(SqlDataRepository))]
             public ServiceDataRepository(SqlDataRepository repository)
             {
             }
