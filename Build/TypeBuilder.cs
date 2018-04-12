@@ -44,7 +44,7 @@ namespace Build
             {
                 var parameters = constructor.GetParameters().ToList();
                 var args = new List<RuntimeType>();
-                RuntimeInstance runtimeInstance = RuntimeInstance.CreateInstance;
+                var runtimeInstance = RuntimeInstance.CreateInstance;
                 {
                     var attribute = constructor.GetCustomAttribute<DependencyAttribute>();
                     if (attribute == null)

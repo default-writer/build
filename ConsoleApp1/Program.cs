@@ -13,8 +13,8 @@ namespace Console
             commonPersonContainer.RegisterType<ServiceDataRepository>();
 
             //SqlDataRepository sql = commonPersonContainer.CreateInstance<SqlDataRepository>();
-            ServiceDataRepository srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
-            ServiceDataRepository srv2 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
+            var srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
+            var srv2 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
         }
     }
 
