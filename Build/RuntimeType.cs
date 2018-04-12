@@ -18,8 +18,8 @@ namespace Build
             if (_init)
                 throw new Exception(string.Format("{0} is not registered (more than one constructors available)", Id));
             _runtime = runtime;
+            _id = type.FullName;
             _type = type;
-            _id = _type.FullName;
             _func = func;
             _init = true;
         }
