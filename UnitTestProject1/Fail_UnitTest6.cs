@@ -7,7 +7,7 @@ namespace UnitTests
     namespace Fail_TestSet6
     {
         [TestClass]
-        public class UnitTest5
+        public class UnitTest6
         {
             IContainer commonPersonContainer;
 

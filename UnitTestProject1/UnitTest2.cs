@@ -22,41 +22,41 @@ namespace UnitTests
                 srv2 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
             }
             [TestMethod]
-            public void TestSet2_Method1()
+            public void TestSet7_Method1()
             {
-                //TestSet2
+                //TestSet7
                 Assert.IsNotNull(srv1);
             }
             [TestMethod]
-            public void TestSet2_Method2()
+            public void TestSet7_Method2()
             {
-                //TestSet2
+                //TestSet7
                 Assert.IsNotNull(srv2);
             }
             [TestMethod]
-            public void TestSet2_Method3()
+            public void TestSet7_Method3()
             {
-                //TestSet2
-                TestSet2_Method1();
+                //TestSet7
+                TestSet7_Method1();
                 Assert.IsNotNull(srv1.Repository);
             }
             [TestMethod]
-            public void TestSet2_Method4()
+            public void TestSet7_Method4()
             {
-                //TestSet2
-                TestSet2_Method2();
+                //TestSet7
+                TestSet7_Method2();
                 Assert.IsNotNull(srv2.Repository);
             }
             [TestMethod]
-            public void TestSet2_Method5()
+            public void TestSet7_Method5()
             {
-                //TestSet2
+                //TestSet7
                 Assert.AreEqual(srv1, srv2);
             }
             [TestMethod]
-            public void TestSet2_Method6()
+            public void TestSet7_Method6()
             {
-                //TestSet2
+                //TestSet7
                 Assert.AreEqual(srv1.Repository, srv2.Repository);
             }
         }
