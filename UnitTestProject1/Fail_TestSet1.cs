@@ -4,6 +4,21 @@ namespace UnitTests
 {
     namespace Fail_TestSet1
     {
+        public interface IPersonRepository
+        {
+            Person GetPerson(int personId);
+        }
+
+        public class Person
+        {
+            readonly IPersonRepository _personRepository;
+
+            public Person(IPersonRepository personRepository)
+            {
+                _personRepository = personRepository;
+            }
+        }
+
         [Dependency(typeof(IPersonRepository))]
         public class SqlDataRepository : IPersonRepository
         {

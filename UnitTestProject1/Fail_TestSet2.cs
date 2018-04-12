@@ -4,7 +4,23 @@ namespace UnitTests
 {
     namespace Fail_TestSet2
     {
-        [Dependency("UnitTests.IPersonRepository")]
+        public interface IPersonRepository
+        {
+            Person GetPerson(int personId);
+        }
+
+        public class Person
+        {
+            readonly IPersonRepository _personRepository;
+
+            public Person(IPersonRepository personRepository)
+            {
+                _personRepository = personRepository;
+            }
+        }
+
+        //[Dependency(typeof(IPersonRepository))]
+        [Dependency("UnitTests.Fail_TestSet2.IPersonRepository")]
         public class SqlDataRepository : IPersonRepository
         {
             public SqlDataRepository(int personId)
@@ -20,7 +36,7 @@ namespace UnitTests
         
         public class ServiceDataRepository : IPersonRepository
         {
-            public ServiceDataRepository([Injection(typeof(IPersonRepository))]int repository)
+            public ServiceDataRepository([Injection("UnitTests.Fail_TestSet2.IPersonRepository, UnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null")]int repository)
             {
                 //Repository = repository;
             }

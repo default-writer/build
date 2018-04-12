@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Console
+﻿namespace Console
 {
     using Build;
 

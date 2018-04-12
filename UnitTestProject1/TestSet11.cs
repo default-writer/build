@@ -1,9 +1,22 @@
-﻿using Build;
-
-namespace UnitTests
+﻿namespace UnitTests
 {
     namespace TestSet11
     {
+        public interface IPersonRepository
+        {
+            Person GetPerson(int personId);
+        }
+
+        public class Person
+        {
+            readonly IPersonRepository _personRepository;
+
+            public Person(IPersonRepository personRepository)
+            {
+                _personRepository = personRepository;
+            }
+        }
+
         public class SqlDataRepository : IPersonRepository
         {
             public SqlDataRepository()

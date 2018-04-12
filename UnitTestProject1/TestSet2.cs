@@ -4,6 +4,21 @@ namespace UnitTests
 {
     namespace TestSet2
     {
+        public interface IPersonRepository
+        {
+            Person GetPerson(int personId);
+        }
+
+        public class Person
+        {
+            readonly IPersonRepository _personRepository;
+
+            public Person(IPersonRepository personRepository)
+            {
+                _personRepository = personRepository;
+            }
+        }
+
         public class SqlDataRepository : IPersonRepository
         {
             [Dependency("Ho ho ho", RuntimeInstance.None)]
