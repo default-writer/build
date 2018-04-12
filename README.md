@@ -1,2 +1,2 @@
 # build
-.NET Core 2.1 Dependency Injection framework
+.NET Core 2.1 simple Dependency Injection micro framework
