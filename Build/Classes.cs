@@ -64,8 +64,7 @@ namespace Build
         {
             get
             {
-                if (!types.ContainsKey(type))
-                    types.Add(type, new RuntimeType(type));
+                if (!types.ContainsKey(type)) types.Add(type, new RuntimeType(type));
                 return types[type];
             }
         }
@@ -73,10 +72,8 @@ namespace Build
         {
             if (attribute != null)
             {
-                if (attribute.Type != null)
-                    return attribute.Type.FullName;
-                if (attribute.Id != null)
-                    return attribute.Id;
+                if (attribute.Type != null) return attribute.Type.FullName;
+                if (attribute.Id != null) return attribute.Id;
             }
             return defaultValue;
         }
@@ -84,34 +81,13 @@ namespace Build
         {
             object CreateInstance(string id)
             {
-                if (types.ContainsKey(id))
-                    return types[id].CreateInstance();
+                if (types.ContainsKey(id)) return types[id].CreateInstance();
                 throw new Exception(string.Format("{0} is not instantiable (no constructors available)", id));
             }
             return CreateInstance(GetTypeId(type.GetCustomAttribute<DependencyAttribute>(), type.FullName));
         }
         public void RegisterType(Type type)
         {
-
-            void Initialize(ConstructorInfo constructor, List<RuntimeType> args)
-            {
-                RuntimeInstance runtimeInstance = RuntimeInstance.CreateInstance;
-                var attribute = constructor.GetCustomAttribute<DependencyAttribute>();
-                if (attribute == null)
-                    attribute = type.GetCustomAttribute<DependencyAttribute>();
-                string typeId = GetTypeId(attribute, type.FullName);
-                var attributeType = type.Assembly.GetType(typeId);
-                if (attributeType != null && !attributeType.IsAssignableFrom(type))
-                    throw new Exception(string.Format("{0} is not registered (not assignable from {1})", attributeType.FullName, type.FullName));
-                if (attribute != null && attribute.Runtime != runtimeInstance)
-                    runtimeInstance = attribute.Runtime;
-                object init()
-                {
-                    Debug.WriteLine("{0}({1})", type.FullName, string.Join(",", args.Select(p => p.Id)));
-                    return Activator.CreateInstance(type, args.Select(p => p.CreateInstance()).ToArray());
-                }
-                this[typeId].RegiterType(runtimeInstance, typeId, type, init);
-            }
             var constructors = type.GetConstructors();
             if (constructors.Length == 0)
                 throw new Exception(string.Format("{0} is not registered (no constructors available)", type.FullName));
@@ -119,7 +95,24 @@ namespace Build
             {
                 var parameters = constructor.GetParameters().ToList();
                 var args = new List<RuntimeType>();
-                Initialize(constructor, args);
+                RuntimeInstance runtimeInstance = RuntimeInstance.CreateInstance;
+                {
+                    var attribute = constructor.GetCustomAttribute<DependencyAttribute>();
+                    if (attribute == null)
+                        attribute = type.GetCustomAttribute<DependencyAttribute>();
+                    string typeId = GetTypeId(attribute, type.FullName);
+                    var attributeType = type.Assembly.GetType(typeId);
+                    if (attributeType != null && !attributeType.IsAssignableFrom(type))
+                        throw new Exception(string.Format("{0} is not registered (not assignable from {1})", attributeType.FullName, type.FullName));
+                    if (attribute != null && attribute.Runtime != runtimeInstance)
+                        runtimeInstance = attribute.Runtime;
+                    object init()
+                    {
+                        Debug.WriteLine("{0}({1})", type.FullName, string.Join(",", args.Select(p => p.Id)));
+                        return Activator.CreateInstance(type, args.Select(p => p.CreateInstance()).ToArray());
+                    }
+                    this[typeId].RegiterType(runtimeInstance, typeId, type, init);
+                }
                 foreach (var parameterInfo in parameters)
                 {
                     var attribute = parameterInfo.GetCustomAttribute<InjectionAttribute>();
