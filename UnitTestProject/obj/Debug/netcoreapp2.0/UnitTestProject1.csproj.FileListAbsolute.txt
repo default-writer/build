@@ -1,0 +1,17 @@
+C:\Users\artur\source\repos\ConsoleApp1\UnitTestProject1\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\artur\source\repos\ConsoleApp1\UnitTestProject1\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\artur\source\repos\ConsoleApp1\UnitTestProject1\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\artur\source\repos\ConsoleApp1\UnitTestProject1\bin\Debug\netcoreapp2.0\UnitTestProject1.deps.json
+C:\Users\artur\source\repos\ConsoleApp1\UnitTestProject1\bin\Debug\netcoreapp2.0\UnitTestProject1.runtimeconfig.json
+C:\Users\artur\source\repos\ConsoleApp1\UnitTestProject1\bin\Debug\netcoreapp2.0\UnitTestProject1.runtimeconfig.dev.json
+C:\Users\artur\source\repos\ConsoleApp1\UnitTestProject1\bin\Debug\netcoreapp2.0\UnitTestProject1.dll
+C:\Users\artur\source\repos\ConsoleApp1\UnitTestProject1\bin\Debug\netcoreapp2.0\UnitTestProject1.pdb
+C:\Users\artur\source\repos\ConsoleApp1\UnitTestProject1\bin\Debug\netcoreapp2.0\ConsoleApp1.dll
+C:\Users\artur\source\repos\ConsoleApp1\UnitTestProject1\bin\Debug\netcoreapp2.0\ConsoleApp1.pdb
+C:\Users\artur\source\repos\ConsoleApp1\UnitTestProject1\obj\Debug\netcoreapp2.0\UnitTestProject1.csprojResolveAssemblyReference.cache
+C:\Users\artur\source\repos\ConsoleApp1\UnitTestProject1\obj\Debug\netcoreapp2.0\UnitTestProject1.csproj.CoreCompileInputs.cache
+C:\Users\artur\source\repos\ConsoleApp1\UnitTestProject1\obj\Debug\netcoreapp2.0\UnitTestProject1.AssemblyInfoInputs.cache
+C:\Users\artur\source\repos\ConsoleApp1\UnitTestProject1\obj\Debug\netcoreapp2.0\UnitTestProject1.AssemblyInfo.cs
+C:\Users\artur\source\repos\ConsoleApp1\UnitTestProject1\obj\Debug\netcoreapp2.0\UnitTestProject1.csproj.CopyComplete
+C:\Users\artur\source\repos\ConsoleApp1\UnitTestProject1\obj\Debug\netcoreapp2.0\UnitTestProject1.dll
+C:\Users\artur\source\repos\ConsoleApp1\UnitTestProject1\obj\Debug\netcoreapp2.0\UnitTestProject1.pdb
