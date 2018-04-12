@@ -1,8 +1,8 @@
 ﻿/.git
 /.vs
-/UnitTestProject/bin
-/UnitTestProject/obj
-/Build/bin
-/Build/obj
+/UnitTestProject/bin/*
+/UnitTestProject/obj/*
+/Build/bin/*
+/Build/obj/*
 *.user
-/packages
+/packages/*
