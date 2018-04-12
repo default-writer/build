@@ -69,6 +69,17 @@ namespace Build
                 return types[type];
             }
         }
+        string GetTypeId(IRuntimeAttribute attribute, string defaultValue)
+        {
+            if (attribute != null)
+            {
+                if (attribute.Type != null)
+                    return attribute.Type.FullName;
+                if (attribute.Id != null)
+                    return attribute.Id;
+            }
+            return defaultValue;
+        }
         public object CreateInstance(Type type)
         {
             object CreateInstance(string id)
@@ -77,35 +88,11 @@ namespace Build
                     return types[id].CreateInstance();
                 throw new Exception(string.Format("{0} is not registered as constructible type (no constructors available)", id));
             }
-            var classAttribute = type.GetCustomAttribute<DependencyAttribute>();
-            if (classAttribute != null)
-            {
-                if (classAttribute.Id != null)
-                    return CreateInstance(classAttribute.Id);
-                if (classAttribute.Type != null)
-                    return CreateInstance(classAttribute.Type.FullName);
-            }
-            return CreateInstance(type.FullName);
+            return CreateInstance(GetTypeId(type.GetCustomAttribute<DependencyAttribute>(), type.FullName));
         }
         public void RegisterType(Type type)
         {
-            string GetTypeId(IRuntimeAttribute attribute, string defaultValue)
-            {
-                if (attribute != null)
-                {
-                    var instanceType = attribute.Type;
-                    if (instanceType != null)
-                        return instanceType.FullName;
-                    else
-                    {
-                        if (attribute.Id != null)
-                            return attribute.Id;
-                        return defaultValue;
-                    }
-                }
-                else
-                    return defaultValue;
-            }
+
             void Initialize(ConstructorInfo constructor, List<RuntimeType> args)
             {
                 RuntimeInstance runtimeInstance = RuntimeInstance.CreateInstance;
@@ -113,7 +100,7 @@ namespace Build
                 if (attribute == null)
                     attribute = type.GetCustomAttribute<DependencyAttribute>();
                 string typeId = GetTypeId(attribute, type.FullName);
-                Type attributeType = type.Assembly.GetType(typeId);
+                var attributeType = type.Assembly.GetType(typeId);
                 if (attributeType != null && !attributeType.IsAssignableFrom(type))
                     throw new Exception(string.Format("{0} is not assignable from {1}", attributeType.FullName, type.FullName));
                 if (attribute != null && attribute.Runtime != runtimeInstance)
@@ -127,9 +114,7 @@ namespace Build
             }
             var constructors = type.GetConstructors();
             if (constructors.Length == 0)
-            {
                 throw new Exception(string.Format("{0} is not registered as constructible type (no constructors available)", type.FullName));
-            }
             foreach (var constructor in constructors)
             {
                 var parameters = constructor.GetParameters().ToList();
@@ -140,7 +125,7 @@ namespace Build
                     var attribute = parameterInfo.GetCustomAttribute<InjectionAttribute>();
                     var parameterType = parameterInfo.ParameterType;
                     string typeId = GetTypeId(attribute, parameterType.FullName);
-                    Type attributeType = type.Assembly.GetType(typeId);
+                    var attributeType = type.Assembly.GetType(typeId);
                     if (attributeType != null && !parameterType.IsAssignableFrom(attributeType))
                         throw new Exception(string.Format("{0} is not assignable from {1}", parameterType.FullName, attributeType.FullName));
                     if (typeId == type.FullName && typeId == parameterType.FullName)
@@ -148,41 +133,6 @@ namespace Build
                     args.Add(this[typeId]);
                 }
             }
-        }
-    }
-    public interface IContainer
-    {
-        T CreateInstance<T>();
-        void RegisterType<T>();
-    }
-    public class Container : IContainer
-    {
-        bool _createFilter(Type type) => type.IsPublic;
-        bool _registerFilter(Type type) =>
-            !type.IsInterface && !type.IsAbstract && !type.IsValueType && !type.IsGenericType &&
-            !typeof(Attribute).IsAssignableFrom(type) && !typeof(MarshalByRefObject).IsAssignableFrom(type) &&
-            _createFilter(type);
-
-        TypeBuilder typeBuilder = new TypeBuilder();
-        public T CreateInstance<T>()
-        {
-            if (!_createFilter(typeof(T)))
-                throw new Exception(string.Format("{0} is not allowed", typeof(T).FullName));
-            return (T)typeBuilder.CreateInstance(typeof(T));
-        }
-        public void RegisterType<T>()
-        {
-            if (!_registerFilter(typeof(T)))
-                throw new Exception(string.Format("{0} is not allowed", typeof(T).FullName));
-            typeBuilder.RegisterType(typeof(T));
-        }
-        public void RegisterAssemblyTypes(Assembly assembly)
-        {
-            if (assembly == null)
-                throw new Exception(nameof(assembly));
-            foreach (var type in assembly.GetTypes())
-                if (_registerFilter(type))
-                    typeBuilder.RegisterType(type);
         }
     }
 }
