@@ -1,4 +1,4 @@
-# build
+# Build
 
 # .NET Core 2.1 simple Dependency Injection micro framework
 
@@ -7,14 +7,14 @@
 * Declarative metadata attribute driven initialization
 * Lazy type resolution and initialization
 * Circular references detection
-* Singleton initialzation
+* Singleton initialization
 * Automated and manual type registration
 * Type aliases
 * External assembly types
 
 The goal of development of this framework is build automation of complex types.
 
-Build can use declarative approach to define dependencies between types and their requirememts.
+Build can use declarative approach to define dependencies between types and their requirements.
 
 Constructor injection uses type resolution to resolve devendencies
 

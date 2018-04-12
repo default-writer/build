@@ -6,3 +6,9 @@
 /Build/obj/*
 *.user
 /packages/*
+/Examples/ClassLibraryA/obj/*
+/Examples/ClassLibraryA/bin/*
+/Examples/ClassLibraryB/obj/*
+/Examples/ClassLibraryB/bin/*
+/Examples/AssemblyLoader/obj/*
+/Examples/AssemblyLoader/bin/*
