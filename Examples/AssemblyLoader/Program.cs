@@ -11,7 +11,7 @@ namespace AssemblyLoader
         {
             //building external types
 
-            //Lib1 uses Api and Build
+            //Lib1 depends on Api and Build type resolution
             Assembly lib1 = Assembly.LoadFrom("Lib1.dll");
             Assembly lib2 = Assembly.LoadFrom("Lib2.dll");
 
