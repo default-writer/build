@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Build;
+using System;
 using System.Reflection;
 
 namespace AssemblyLoader
@@ -8,8 +9,12 @@ namespace AssemblyLoader
         static void Main(string[] args)
         {
             //TODO: Assembly loader for building types
-            Assembly alib = Assembly.LoadFrom("Lib1.dll");
-            Assembly blib = Assembly.LoadFrom("Lib2.dll");
+            Assembly lib1 = Assembly.LoadFrom("Lib1.dll");
+            Assembly lib2 = Assembly.LoadFrom("Lib2.dll");
+
+            Container container = new Container();
+            container.RegisterAssemblyTypes(lib1);
+            container.RegisterAssemblyTypes(lib2);
         }
     }
 }
