@@ -32,8 +32,7 @@ Usage:
         commonPersonContainer.RegisterType<SqlDataRepository>();
         commonPersonContainer.RegisterType<ServiceDataRepository>();
 
-        srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
-        srv2 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
+        ServiceDataRepository srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
 ```
 
 Definition:
