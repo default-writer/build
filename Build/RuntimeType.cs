@@ -13,7 +13,7 @@ namespace Build
         string _id;
         public string Id { get { return _id; } }
         public RuntimeType(string id) => _id = id;
-        public void RegiterType(RuntimeInstance runtime, string id, Type type, Func<object> func)
+        public void RegisterType(RuntimeInstance runtime, string id, Type type, Func<object> func)
         {
             if (_init)
                 throw new Exception(string.Format("{0} is not registered (more than one constructors available)", Id));

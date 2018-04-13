@@ -62,7 +62,7 @@ namespace Build
                         Debug.WriteLine("{0}({1})", type.FullName, string.Join(",", args.Select(p => p.Id)));
                         return Activator.CreateInstance(type, args.Select(p => p.CreateInstance()).ToArray());
                     }
-                    this[typeId].RegiterType(runtimeInstance, type.FullName, type, init);
+                    this[typeId].RegisterType(runtimeInstance, type.FullName, type, init);
                 }
                 foreach (var parameterInfo in parameters)
                 {
