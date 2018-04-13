@@ -9,4 +9,8 @@
     <OutputPath>..\AssemblyLoader\bin\Debug</OutputPath>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Api\Api.csproj" />
+  </ItemGroup>
+
 </Project>
