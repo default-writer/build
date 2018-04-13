@@ -1,4 +1,5 @@
-﻿using Build;
+﻿using Api;
+using Build;
 using System;
 using System.Reflection;
 
@@ -8,13 +9,18 @@ namespace AssemblyLoader
     {
         static void Main(string[] args)
         {
-            //TODO: Assembly loader for building types
+            //building external types
+
+            //Lib1 uses Api and Build
             Assembly lib1 = Assembly.LoadFrom("Lib1.dll");
             Assembly lib2 = Assembly.LoadFrom("Lib2.dll");
 
             Container container = new Container();
             container.RegisterAssemblyTypes(lib1);
             container.RegisterAssemblyTypes(lib2);
+
+            // Loads A1 type registered as an interface IA default implementation
+            IA a = container.CreateInstance<IA>();
         }
     }
 }
