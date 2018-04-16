@@ -24,7 +24,7 @@ namespace UnitTests
             {
             }
 
-            [DependencyAttribute("Ho ho ho")]
+            [Dependency("Ho ho ho")]
             public SqlDataRepository(int personId)
             {
             }

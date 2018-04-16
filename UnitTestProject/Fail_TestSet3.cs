@@ -27,10 +27,9 @@ namespace UnitTests
         {
         }
 
-        //[Dependency(typeof(IOtherRepository))]
         public class SqlDataRepository : IPersonRepository
         {
-            [DependencyAttribute(typeof(IOtherRepository))]
+            [Dependency(typeof(IOtherRepository))]
             public SqlDataRepository(int personId)
             {
             }

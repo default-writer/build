@@ -19,11 +19,9 @@ namespace UnitTests
             }
         }
 
-        //[Dependency(typeof(IPersonRepository))]
-        //[Dependency("UnitTests.Fail_TestSet2.IPersonRepository")]
         public class SqlDataRepository : IPersonRepository
         {
-            [DependencyAttribute("UnitTests.Fail_TestSet2.IPersonRepository")]
+            [Dependency("UnitTests.Fail_TestSet2.IPersonRepository")]
             public SqlDataRepository(int personId)
             {
             }

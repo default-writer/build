@@ -27,14 +27,13 @@ namespace UnitTests
         {
         }
 
-        //[Dependency("Ho ho ho")]
         public class SqlDataRepository : IPersonRepository
         {
             public SqlDataRepository([Injection(typeof(SqlDataRepository))]SqlDataRepository repository)
             {
             }
 
-            [DependencyAttribute("UnitTests.Fail_TestSet4.SqlDataRepository")]
+            [Dependency("UnitTests.Fail_TestSet4.SqlDataRepository")]
             public SqlDataRepository([Injection("UnitTests.Fail_TestSet4.ServiceDataRepository")]ServiceDataRepository repository, int value)
             {
             }
@@ -52,7 +51,7 @@ namespace UnitTests
             //{
             //}
 
-            [DependencyAttribute(typeof(SqlDataRepository))]
+            [Dependency(typeof(SqlDataRepository))]
             public ServiceDataRepository(SqlDataRepository repository)
             {
             }
