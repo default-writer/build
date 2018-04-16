@@ -5,7 +5,7 @@ Welcome to the build wiki!
 ## Latest changes (experimental tag)
 
 * Elimination of overlapped attribute specificators (removes violation of the SOLID principles)
-* Circular references detection phase moved to type registeration rather instantiation
+* Circular references detection phase moved to type registration rather instantiation
 * Automatic type resolution for all supprted types if used in type instantiation
 * Pure type instantiation as descriptive string with particular constructor and corresponding parameters
 
