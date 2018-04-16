@@ -32,7 +32,8 @@ Usage:
                 commonPersonContainer.RegisterType<SqlDataRepository>();
                 commonPersonContainer.RegisterType<ServiceDataRepository>();
                 var sql = new SqlDataRepository();
-                var srv1 = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet14.ServiceDataRepository(UnitTests.TestSet14.SqlDataRepository)", sql);
+                var srv1 = (ServiceDataRepository)commonPersonContainer.CreateInstance(
+                    "UnitTests.TestSet14.ServiceDataRepository(UnitTests.TestSet14.SqlDataRepository)", sql);
 ```
 
 Definition:
