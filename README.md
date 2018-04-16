@@ -1,6 +1,6 @@
 Welcome to the build wiki!
 
-# .NET Core 2.1 simple Dependency Injection micro framework
+# .NET Core 2.1 Dependency Injection framework
 
 ## Features
 
@@ -23,6 +23,62 @@ Constructor injection uses type resolution to resolve devendencies
 #### Simple load of type registered as default interface implementation from the external assembly
 
 [Load type using interface binding](https://github.com/hack2root/build/blob/master/Examples/AssemblyLoader/Program.cs)
+
+### Create instance with parameters
+
+Usage:
+```c#
+                var commonPersonContainer = new Container();
+                commonPersonContainer.RegisterType<SqlDataRepository>();
+                commonPersonContainer.RegisterType<ServiceDataRepository>();
+                var sql = new SqlDataRepository();
+                var srv1 = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet14.ServiceDataRepository(UnitTests.TestSet14.SqlDataRepository)", sql);
+```
+
+Definition:
+```c#
+        public interface IPersonRepository
+        {
+            Person GetPerson(int personId);
+        }
+        public class Person
+        {
+            readonly IPersonRepository _personRepository;
+
+            public Person(IPersonRepository personRepository)
+            {
+                _personRepository = personRepository;
+            }
+        }
+
+        public class SqlDataRepository : IPersonRepository
+        {
+            public SqlDataRepository()
+            {
+            }
+
+            public Person GetPerson(int personId)
+            {
+                // get the data from SQL DB and return Person instance.
+                return new Person(this);
+            }
+        }
+
+        public class ServiceDataRepository : IPersonRepository
+        {
+            public ServiceDataRepository([Injection]SqlDataRepository repository)
+            {
+                Repository = repository;
+            }
+            public IPersonRepository Repository { get; }
+            public Person GetPerson(int personId)
+            {
+                // get the data from Web service and return Person instance.
+                return new Person(this);
+            }
+        }
+    }
+```
 
 ### Load simple types (not attributes specified)
 
@@ -79,6 +135,7 @@ Definition:
             }
         }
 ```
+
 ## Links
 
 [Dependency injection in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.1)
