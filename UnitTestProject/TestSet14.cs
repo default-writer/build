@@ -18,7 +18,6 @@ namespace UnitTests
             }
         }
 
-        //[Dependency]
         public class SqlDataRepository : IPersonRepository
         {
             public SqlDataRepository()
@@ -34,7 +33,7 @@ namespace UnitTests
 
         public class ServiceDataRepository : IPersonRepository
         {
-            public ServiceDataRepository([Injection]SqlDataRepository repository)
+            public ServiceDataRepository(SqlDataRepository repository)
             {
                 Repository = repository;
             }

@@ -26,7 +26,6 @@ namespace UnitTests
             {
             }
 
-            //[Dependency]
             public SqlDataRepository()
             {
             }

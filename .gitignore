@@ -1,5 +1,6 @@
 ﻿/.git
 /.vs
+/TestResults/*
 /UnitTestProject/bin/*
 /UnitTestProject/obj/*
 /Build/bin/*
