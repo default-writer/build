@@ -20,7 +20,7 @@ namespace UnitTests
             public void Fail_TestSet7_Method1()
             {
                 //Fail_TestSet7
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
+                Assert.ThrowsException<TypeDependencyException>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet7_Method2()

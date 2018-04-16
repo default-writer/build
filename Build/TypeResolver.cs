@@ -5,7 +5,7 @@ namespace Build
 {
     class TypeResolver : ITypeResolver
     {
-        public string GetName(Type type) => type.AssemblyQualifiedName;
+        public string GetName(Type type) => type.FullName;
         public Type GetType(Assembly assembly, string typeName) => assembly.GetType(typeName) ?? Type.GetType(typeName);
     }
 }

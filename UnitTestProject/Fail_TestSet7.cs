@@ -23,9 +23,10 @@ namespace UnitTests
             }
         }
 
-        [Dependency("UnitTests.Fail_TestSet7.IOtherRepository")]
+        //[Dependency("UnitTests.Fail_TestSet7.IOtherRepository")]
         public class SqlDataRepository : IPersonRepository
         {
+            [DependencyAttribute("UnitTests.Fail_TestSet7.IOtherRepository")]
             public SqlDataRepository(int personId)
             {
             }
@@ -37,9 +38,10 @@ namespace UnitTests
             }
         }
 
-        [Dependency(typeof(IOtherRepository))]
+        //[Dependency(typeof(IOtherRepository))]
         public class OtherRepository : IOtherRepository
         {
+            [DependencyAttribute(typeof(IOtherRepository))]
             public OtherRepository(int personId)
             {
             }
@@ -53,7 +55,7 @@ namespace UnitTests
 
         public class ServiceDataRepository : IPersonRepository
         {
-            public ServiceDataRepository([Injection("UnitTests.Fail_TestSet7.IOtherRepository, UnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null")]IPersonRepository repository)
+            public ServiceDataRepository([Injection("UnitTests.Fail_TestSet7.IOtherRepository")]IPersonRepository repository)
             {
                 Repository = repository;
             }

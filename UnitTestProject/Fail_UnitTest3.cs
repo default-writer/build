@@ -20,27 +20,27 @@ namespace UnitTests
             public void Fail_TestSet3_Method1()
             {
                 //Fail_TestSet3
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
+                Assert.ThrowsException<TypeDependencyException>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet3_Method2()
             {
                 //Fail_TestSet3
                 commonPersonContainer.RegisterType<ServiceDataRepository>();
-                Assert.IsNull(commonPersonContainer.CreateInstance<SqlDataRepository>());
+                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance<SqlDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet3_Method3()
             {
                 //Fail_TestSet3
-                commonPersonContainer.RegisterType<ServiceDataRepository>();
-                Assert.IsNotNull(commonPersonContainer.CreateInstance<ServiceDataRepository>());
+                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance<OtherRepository>());
             }
             [TestMethod]
             public void Fail_TestSet3_Method4()
             {
-                //Fail_TestSet13
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance<OtherRepository>());
+                //Fail_TestSet3
+                commonPersonContainer.RegisterType<ServiceDataRepository>();
+                Assert.IsNotNull(commonPersonContainer.CreateInstance<ServiceDataRepository>());
             }
         }
     }

@@ -20,7 +20,7 @@ namespace UnitTests
 
         public class SqlDataRepository : IPersonRepository
         {
-            [Dependency("Ho ho ho")]
+            [DependencyAttribute("Ho ho ho")]
             public SqlDataRepository()
             {
             }

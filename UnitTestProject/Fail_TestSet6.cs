@@ -23,7 +23,7 @@ namespace UnitTests
         {
         }
 
-        public class OtherRepository
+        public class OtherRepository: IOtherRepository
         {
         }
 
@@ -34,6 +34,20 @@ namespace UnitTests
                 Repository = repository;
             }
             public IPersonRepository Repository { get; }
+            public Person GetPerson(int personId)
+            {
+                // get the data from SQL DB and return Person instance.
+                return new Person(this);
+            }
+        }
+
+        public class PublicDataRepository : IPersonRepository
+        {
+            public PublicDataRepository(OtherRepository repository)
+            {
+                Repository = repository;
+            }
+            public IOtherRepository Repository { get; }
             public Person GetPerson(int personId)
             {
                 // get the data from SQL DB and return Person instance.

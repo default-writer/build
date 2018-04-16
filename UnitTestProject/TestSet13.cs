@@ -18,7 +18,7 @@ namespace UnitTests
             }
         }
 
-        [Dependency]
+        //[Dependency]
         public class SqlDataRepository : IPersonRepository
         {
             public SqlDataRepository()

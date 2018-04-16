@@ -18,14 +18,15 @@ namespace UnitTests
             }
         }
 
-        [Dependency(RuntimeInstance.Singleton)]
+        //[Dependency(RuntimeInstance.Singleton)]
         public class SqlDataRepository : IPersonRepository
         {
-            [Dependency("Ho ho ho")]
+            [DependencyAttribute("Ho ho ho")]
             public SqlDataRepository()
             {
             }
 
+            [DependencyAttribute(RuntimeInstance.Singleton)]
             public SqlDataRepository(int personId)
             {
             }

@@ -34,13 +34,13 @@ namespace UnitTests
             public void Fail_TestSet4_Method3()
             {
                 //Fail_TestSet4
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
+                Assert.ThrowsException<TypeInjectionException>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet4_Method4()
             {
                 //Fail_TestSet4
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<ServiceDataRepository>());
+                Assert.ThrowsException<TypeDependencyException>(() => commonPersonContainer.RegisterType<ServiceDataRepository>());
             }
         }
     }

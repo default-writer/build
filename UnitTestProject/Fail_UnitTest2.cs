@@ -34,7 +34,7 @@ namespace UnitTests
             public void Fail_TestSet2_Method3()
             {
                 //Fail_TestSet2
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<ServiceDataRepository>());
+                Assert.ThrowsException<TypeInjectionException>(() => commonPersonContainer.RegisterType<ServiceDataRepository>());
             }
         }
     }

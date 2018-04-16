@@ -19,7 +19,7 @@ namespace UnitTests
             }
         }
 
-        [Dependency(typeof(IPersonRepository))]
+        //[Dependency(typeof(IPersonRepository))]
         public class SqlDataRepository : IPersonRepository
         {
             public SqlDataRepository()

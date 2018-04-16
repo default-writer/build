@@ -36,7 +36,6 @@ namespace UnitTests
                 ServiceDataRepository srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
                 Assert.IsNull(srv1.Repository);
             }
-
             [TestMethod]
             public void Fail_TestSet1_Method4()
             {

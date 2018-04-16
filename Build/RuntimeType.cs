@@ -12,7 +12,10 @@ namespace Build
         Type _type;
         string _id;
         public string Id { get { return _id; } }
-        public RuntimeType(string id) => _id = id;
+        public bool IsRegistered { get { return _init; } }
+        //public RuntimeType(string id) => _id = id;
+        public Type Type => _type;
+        public RuntimeType(Type type) { _id = type.FullName; _type = type; }
         public void RegisterType(RuntimeInstance runtime, string id, Type type, Func<object> func)
         {
             if (_init)

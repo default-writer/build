@@ -3,8 +3,12 @@ using Build;
 
 namespace ClassLibraryA
 {
-    [Dependency(typeof(IA))]
+    //[Dependency(typeof(IA))]
     public class A1: IA
     {
+        [DependencyAttribute(typeof(IA))]
+        public A1()
+        {
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Build
 {
-    [AttributeUsage(AttributeTargets.Constructor | AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Constructor)]
     public class DependencyAttribute : Attribute, IRuntimeAttribute
     {
         public Type Type { get; }

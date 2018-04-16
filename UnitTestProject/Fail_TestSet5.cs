@@ -23,9 +23,10 @@ namespace UnitTests
         {
         }
 
-        [Dependency(RuntimeInstance.None)]
+        //[Dependency(RuntimeInstance.None)]
         public class OtherRepository : NoSqlDataRepository, IOtherRepository
         {
+            [DependencyAttribute(RuntimeInstance.None)]
             public OtherRepository(int param): base(null)
             {
             }
@@ -44,9 +45,10 @@ namespace UnitTests
             }
         }
 
-        [Dependency("Ho ho ho", RuntimeInstance.None)]
+        //[Dependency("Ho ho ho", RuntimeInstance.None)]
         public class ServiceDataRepository : IPersonRepository
         {
+            [DependencyAttribute("Ho ho ho", RuntimeInstance.None)]
             public ServiceDataRepository([Injection("Ho ho ho")]ServiceDataRepository repository)
             {
                 Repository = repository;

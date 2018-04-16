@@ -26,14 +26,13 @@ namespace UnitTests
             public void Fail_TestSet5_Method2()
             {
                 //Fail_TestSet5
-                commonPersonContainer.RegisterType<ServiceDataRepository>();
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance<ServiceDataRepository>());
+                Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<ServiceDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet5_Method3()
             {
                 //Fail_TestSet5
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
+                Assert.ThrowsException<TypeInjectionException>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet5_Method4()
