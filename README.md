@@ -27,10 +27,6 @@ Constructor injection uses type resolution to resolve devendencies
 
 ## Examples
 
-#### Simple load of type registered as default interface implementation from the external assembly
-
-[Load type using interface binding](https://github.com/hack2root/build/blob/master/Examples/AssemblyLoader/Program.cs)
-
 ### Create instance with parameters
 
 Usage:
@@ -53,9 +49,13 @@ Usage:
         var srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
 ```
 
+### Load of external assembly type
+
+[Load type using interface](https://github.com/hack2root/build/blob/master/Examples/AssemblyLoader/Program.cs)
+
 ### Classes
 
-Classes:
+Definition:
 ```c#
         public interface IPersonRepository
         {
