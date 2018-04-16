@@ -35,57 +35,12 @@ Constructor injection uses type resolution to resolve devendencies
 
 Usage:
 ```c#
-                var commonPersonContainer = new Container();
-                commonPersonContainer.RegisterType<SqlDataRepository>();
-                commonPersonContainer.RegisterType<ServiceDataRepository>();
-                var sql = new SqlDataRepository();
-                var srv1 = (ServiceDataRepository)commonPersonContainer.CreateInstance(
-                    "UnitTests.TestSet14.ServiceDataRepository(UnitTests.TestSet14.SqlDataRepository)", sql);
-```
-
-Definition:
-```c#
-        public interface IPersonRepository
-        {
-            Person GetPerson(int personId);
-        }
-        public class Person
-        {
-            readonly IPersonRepository _personRepository;
-
-            public Person(IPersonRepository personRepository)
-            {
-                _personRepository = personRepository;
-            }
-        }
-
-        public class SqlDataRepository : IPersonRepository
-        {
-            public SqlDataRepository()
-            {
-            }
-
-            public Person GetPerson(int personId)
-            {
-                // get the data from SQL DB and return Person instance.
-                return new Person(this);
-            }
-        }
-
-        public class ServiceDataRepository : IPersonRepository
-        {
-            public ServiceDataRepository([Injection]SqlDataRepository repository)
-            {
-                Repository = repository;
-            }
-            public IPersonRepository Repository { get; }
-            public Person GetPerson(int personId)
-            {
-                // get the data from Web service and return Person instance.
-                return new Person(this);
-            }
-        }
-    }
+        var commonPersonContainer = new Container();
+        commonPersonContainer.RegisterType<SqlDataRepository>();
+        commonPersonContainer.RegisterType<ServiceDataRepository>();
+        var sql = new SqlDataRepository();
+        var srv1 = (ServiceDataRepository)commonPersonContainer.CreateInstance(
+            "UnitTests.TestSet14.ServiceDataRepository(UnitTests.TestSet14.SqlDataRepository)", sql);
 ```
 
 ### Load simple types (not attributes specified)
@@ -95,11 +50,12 @@ Usage:
         IContainer commonPersonContainer = new Container();
         commonPersonContainer.RegisterType<SqlDataRepository>();
         commonPersonContainer.RegisterType<ServiceDataRepository>();
-
-        ServiceDataRepository srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
+        var srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
 ```
 
-Definition:
+### Classes
+
+Classes:
 ```c#
         public interface IPersonRepository
         {
