@@ -2,13 +2,12 @@
 
 namespace UnitTests
 {
-    namespace Fail_TestSet1
+    namespace TestSet14
     {
         public interface IPersonRepository
         {
             Person GetPerson(int personId);
         }
-
         public class Person
         {
             readonly IPersonRepository _personRepository;
@@ -19,13 +18,10 @@ namespace UnitTests
             }
         }
 
+        //[Dependency]
         public class SqlDataRepository : IPersonRepository
         {
             public SqlDataRepository()
-            {
-            }
-
-            public SqlDataRepository(int personId)
             {
             }
 
@@ -36,29 +32,9 @@ namespace UnitTests
             }
         }
 
-        public class Other : IPersonRepository
-        {
-            Other() { }
-            public Person GetPerson(int personId) => throw new System.NotImplementedException();
-        }
-
         public class ServiceDataRepository : IPersonRepository
         {
-            public ServiceDataRepository([Injection(typeof(Other))]IPersonRepository repository)
-            {
-                Repository = repository;
-            }
-            public IPersonRepository Repository { get; }
-            public Person GetPerson(int personId)
-            {
-                // get the data from Web service and return Person instance.
-                return new Person(this);
-            }
-        }
-
-        public class PrivateConstructorServiceDataRepository : IPersonRepository
-        {
-            PrivateConstructorServiceDataRepository(IPersonRepository repository)
+            public ServiceDataRepository([Injection]SqlDataRepository repository)
             {
                 Repository = repository;
             }

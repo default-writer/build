@@ -7,6 +7,7 @@ namespace Build
     {
         public Type Type { get; }
         public string Id { get; }
+        public RuntimeInstance Runtime => RuntimeInstance.None;
         public InjectionAttribute(string id) => Id = id;
         public InjectionAttribute(Type type) => Type = type;
         public InjectionAttribute() { }

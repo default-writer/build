@@ -33,7 +33,7 @@ namespace UnitTests
             public void Fail_TestSet3_Method3()
             {
                 //Fail_TestSet3
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance<OtherRepository>());
+                Assert.ThrowsException<TypeFilterException>(() => commonPersonContainer.CreateInstance<OtherRepository>());
             }
             [TestMethod]
             public void Fail_TestSet3_Method4()

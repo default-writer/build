@@ -20,7 +20,7 @@ namespace UnitTests
             public void Fail_TestSet1_Method1()
             {
                 //Fail_TestSet1
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
+                Assert.ThrowsException<TypeInjectionException>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet1_Method2()
@@ -40,13 +40,13 @@ namespace UnitTests
             public void Fail_TestSet1_Method4()
             {
                 //Fail_TestSet1
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<int>());
+                Assert.ThrowsException<TypeFilterException>(() => commonPersonContainer.RegisterType<int>());
             }
             [TestMethod]
             public void Fail_TestSet1_Method5()
             {
                 //Fail_TestSet1
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<IPersonRepository>());
+                Assert.ThrowsException<TypeFilterException>(() => commonPersonContainer.RegisterType<IPersonRepository>());
             }
             [TestMethod]
             public void Fail_TestSet1_Method6()

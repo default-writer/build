@@ -40,7 +40,7 @@ namespace UnitTests
                 //Fail_TestSet5
                 commonPersonContainer.RegisterType<OtherRepository>();
                 commonPersonContainer.RegisterType<NoSqlDataRepository>();
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance<NoSqlDataRepository>());
+                Assert.ThrowsException<Build.TypeInitializationException>(() => commonPersonContainer.CreateInstance<NoSqlDataRepository>());
             }
         }
     }
