@@ -2,10 +2,17 @@ Welcome to the build wiki!
 
 # .NET Core 2.1 Dependency Injection framework
 
+## Latest changes (experimental tag)
+
+* Elimination of overlapped attribute specificators (violation of the SOLID principles)
+* Circular references detection phase moved to type registeration rather instantiation
+* Automatic type resolution for all supprted types if used in type instantiation
+* Pure type instantiation as descriptive string with particular constructor and corresponding parameters
+
 ## Features
 
 * Declarative metadata attribute driven initialization
-* Lazy type resolution and initialization
+* Lazy type resolution and initialization (supports pure dependency decoupling anti-pattern)
 * Circular references detection
 * Singleton initialization
 * Automated and manual type registration
