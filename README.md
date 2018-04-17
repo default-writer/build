@@ -1,11 +1,18 @@
 Welcome to the build wiki!
 
-# .NET Core 2.1 simple Dependency Injection micro framework
+# .NET Core 2.1 Dependency Injection framework
+
+## Latest changes (experimental tag)
+
+* Elimination of overlapped attribute specificators (removes violation of the SOLID principles)
+* Circular references detection phase moved to type registration rather instantiation
+* Automatic type resolution for all supprted types if used in type instantiation
+* Pure type instantiation as descriptive string with particular constructor and corresponding parameters
 
 ## Features
 
 * Declarative metadata attribute driven initialization
-* Lazy type resolution and initialization
+* Lazy type resolution and initialization (supports pure dependency decoupling anti-pattern)
 * Circular references detection
 * Singleton initialization
 * Automated and manual type registration
@@ -20,9 +27,17 @@ Constructor injection uses type resolution to resolve devendencies
 
 ## Examples
 
-#### Simple load of type registered as default interface implementation from the external assembly
+### Create instance with parameters
 
-[Load type using interface binding](https://github.com/hack2root/build/blob/master/Examples/AssemblyLoader/Program.cs)
+Usage:
+```c#
+        var commonPersonContainer = new Container();
+        commonPersonContainer.RegisterType<SqlDataRepository>();
+        commonPersonContainer.RegisterType<ServiceDataRepository>();
+        var sql = new SqlDataRepository();
+        var srv1 = (ServiceDataRepository)commonPersonContainer.CreateInstance(
+            "UnitTests.TestSet14.ServiceDataRepository(UnitTests.TestSet14.SqlDataRepository)", sql);
+```
 
 ### Load simple types (not attributes specified)
 
@@ -31,9 +46,14 @@ Usage:
         IContainer commonPersonContainer = new Container();
         commonPersonContainer.RegisterType<SqlDataRepository>();
         commonPersonContainer.RegisterType<ServiceDataRepository>();
-
-        ServiceDataRepository srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
+        var srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
 ```
+
+### Load of external assembly type
+
+[Load type using interface](https://github.com/hack2root/build/blob/master/Examples/AssemblyLoader/Program.cs)
+
+### Classes
 
 Definition:
 ```c#
@@ -79,6 +99,7 @@ Definition:
             }
         }
 ```
+
 ## Links
 
 [Dependency injection in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.1)
