@@ -19,7 +19,7 @@ Welcome to the build wiki!
 * Type aliases
 * External assembly types
 
-The goal of development of this framework is to uild automation of complex types.
+The goal of development of this framework is to build automation of complex types.
 
 Build can use declarative approach to define dependencies between types and their requirememts.
 
