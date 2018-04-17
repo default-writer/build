@@ -105,3 +105,7 @@ Definition:
 [Dependency injection in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.1)
 
 [Inversion of Control Containers and the Dependency Injection pattern](https://www.martinfowler.com/articles/injection.html)
+
+## Donate
+
+Please, feel free to donate me [5$](https://www.paypal.me/experimentalworld/25) to expand project development (wiki, samples, etc.)
