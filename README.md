@@ -108,4 +108,4 @@ Definition:
 
 ## Donate
 
-Please, feel free to donate me [5$](https://www.paypal.me/experimentalworld/25) to expand project development (wiki, samples, etc.)
+Please, feel free to donate me [5$](https://www.paypal.me/experimentalworld/5) to expand project development (wiki, samples, etc.)
