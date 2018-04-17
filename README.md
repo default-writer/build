@@ -2,7 +2,20 @@ Welcome to the build wiki!
 
 # .NET Core 2.1 Dependency Injection framework
 
-## Latest changes (experimental tag)
+## Description
+
+* Interface first-class support (instantiation, strong typing, external assembly)
+* Circular references detection in type registration
+* Automatic type resolution for all supported types
+* Pure type instantiation (weak coupling)
+* Declarative metadata attribute driven initialization
+* Lazy type resolution and initialization (supports pure dependency injection decoupling anti-pattern)
+* Singleton initialization support
+* Automated and manual type registration
+* Types aliases (user-friendly type identification)
+* External assembly types support
+
+## Latest changes (experimental tag, 1.0.0.0)
 
 * Elimination of overlapped attribute specificators (removes violation of the SOLID principles)
 * Circular references detection phase moved to type registration rather instantiation
@@ -19,10 +32,10 @@ Welcome to the build wiki!
 * Type aliases
 * External assembly types
 
-The goal of development of this framework is to build automation of complex types.
+## Goal 
 
+The goal of development of this framework is to build automation of complex types initialization.
 Build can use declarative approach to define dependencies between types and their requirememts.
-
 Constructor injection uses type resolution to resolve devendencies
 
 ## Examples
@@ -105,3 +118,7 @@ Definition:
 [Dependency injection in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.1)
 
 [Inversion of Control Containers and the Dependency Injection pattern](https://www.martinfowler.com/articles/injection.html)
+
+## Donate
+
+Please, feel free to donate me [5$](https://www.paypal.me/experimentalworld/5) to expand project development (wiki, samples, etc.)

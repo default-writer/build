@@ -14,3 +14,4 @@
 /Examples/AssemblyLoader/obj/*
 /Examples/AssemblyLoader/bin/*
 /Examples/Api/obj
+/Examples/Api/bin/Release/netcoreapp2.0

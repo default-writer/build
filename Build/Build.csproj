@@ -3,6 +3,29 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <Platforms>AnyCPU</Platforms>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Artur Mustafin (hack2root)</Authors>
+    <Company>Artur Mustafin (hack2root)</Company>
+    <Description>.NET Core 2.1 Dependency Injection framework</Description>
+    <Copyright>Artur Mustafin (hack2root)</Copyright>
+    <PackageLicenseUrl>https://github.com/hack2root/build/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/hack2root/build</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/hack2root/build.git</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageTags>DI</PackageTags>
+    <PackageReleaseNotes>Features:
+-interface first-class support (instantiation, strong typing, external assembly)
+-circular references detection in type registration
+-automatic type resolution for all supported types
+-pure type instantiation (weak coupling)
+-declarative metadata attribute driven initialization
+-lazy type resolution and initialization (supports pure dependency injection decoupling anti-pattern)
+-singleton initialization support
+-automated and manual type registration
+-types aliases (user-friendly type identification)
+-external assembly types support</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageId>dependency_injection_build</PackageId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
