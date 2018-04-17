@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Build
 {

@@ -1,6 +1,4 @@
-﻿using Build;
-
-namespace UnitTests
+﻿namespace UnitTests
 {
     namespace Fail_TestSet6
     {
