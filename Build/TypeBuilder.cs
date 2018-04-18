@@ -37,15 +37,6 @@ namespace Build
                 return _types[typeId];
             }
         }
-        string GetTypeId(IRuntimeAttribute attribute, string defaultValue)
-        {
-            if (attribute != null)
-            {
-                if (attribute.Type != null) return _typeResolver.GetName(attribute.Type);
-                if (attribute.Id != null) return attribute.Id;
-            }
-            return defaultValue;
-        }
         public object CreateInstance(Type type)
         {
             string id = _typeResolver.GetName(type);
@@ -69,7 +60,7 @@ namespace Build
         public void RegisterType(Type type) => RegisterTypeId(type);
         void RegisterTypeId(Type type)
         {
-            string typeId = _typeResolver.GetName(type);
+            string typeId = type.FullName;
             if (!(_types.ContainsKey(typeId) && this[typeId, type].IsRegistered))
             {
                 visited.Add(type);
@@ -89,11 +80,11 @@ namespace Build
                 {
                     var attribute = parameterInfo.GetCustomAttribute<InjectionAttribute>();
                     var parameterType = parameterInfo.ParameterType;
-                    string typeId = GetTypeId(attribute, _typeResolver.GetName(parameterType));
+                    string typeId = _typeResolver.GetTypeId(attribute, parameterType.FullName);
                     var attributeType = _typeResolver.GetType(type.Assembly, typeId);
                     if (attributeType != null && !parameterType.IsAssignableFrom(attributeType))
                         throw new TypeInjectionException(string.Format("{0} is not registered (not assignable from {1})", parameterType.FullName, attributeType.FullName));
-                    if (typeId == _typeResolver.GetName(type) && typeId == _typeResolver.GetName(parameterType))
+                    if (typeId == type.FullName && typeId == parameterType.FullName)
                         throw new TypeInjectionException(string.Format("{0} is not registered (circular references found)", type.FullName));
                     args.Add(this[typeId, parameterType]);
                     if (_typeFilter.CanRegister(parameterType))
@@ -104,15 +95,14 @@ namespace Build
         }
         void RegisterConstructorType(IRuntimeAttribute attribute, Type type, RuntimeType[] args)
         {
-            string typeId = GetTypeId(attribute, _typeResolver.GetName(type));
+            string typeId = _typeResolver.GetTypeId(attribute, type.FullName);
             if (attribute != null && _types.ContainsKey(typeId) && this[typeId, type].IsRegistered)
                 return;
             var attributeType = _typeResolver.GetType(type.Assembly, typeId);
             if (attributeType != null && !attributeType.IsAssignableFrom(type))
                 throw new TypeDependencyException(string.Format("{0} is not registered (not assignable from {1})", attributeType.FullName, type.FullName));
             var runtimeInstance = attribute?.Runtime ?? RuntimeInstance.CreateInstance;
-            this[typeId, type].RegisterType(runtimeInstance, args);
-            Debug.WriteLine("{0}({1})", type.FullName, string.Join(", ", args.Select(p => p.Id)));
+            this[typeId, type].RegisterType(runtimeInstance, args);//Debug.WriteLine("{0}({1})", type.FullName, string.Join(", ", args.Select(p => p.Id)));
         }
     }
 }
