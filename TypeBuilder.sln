@@ -29,6 +29,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "interface", "interface", "{301DE5D4-3DC9-4E15-9214-43B0D5500361}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "decoupling", "decoupling", "{E46ABA7C-9784-498B-9E1B-CA4499836F49}"
+	ProjectSection(SolutionItems) = preProject
+		Examples\CodeProject\TierDecoupling\readme.md = Examples\CodeProject\TierDecoupling\readme.md
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessCore.API", "Examples\CodeProject\TierDecoupling\BusinessCore.API\BusinessCore.API.csproj", "{63E759CF-38F4-461A-A47B-59AC75FC8620}"
 EndProject
