@@ -2,7 +2,7 @@
 
 namespace Build
 {
-    public class TypeFilter : ITypeFilter
+    class TypeFilter : ITypeFilter
     {
         bool _createFilter(Type type) => type.IsPublic;
         bool _registerFilter(Type type) =>

@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\AssemblyLoader\bin\Debug\</OutputPath>
+    <OutputPath></OutputPath>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy $(TargetPath) $(SolutionDir)Examples\AssemblyLoader\$(OutDir)$(TargetFileName)" />
+  </Target>
 
 </Project>

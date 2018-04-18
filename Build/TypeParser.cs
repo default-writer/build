@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Build
 {
-    public class TypeParser : ITypeParser
+    class TypeParser : ITypeParser
     {
         public IRuntimeType Find(string id, IEnumerable<IRuntimeType> types)
         {

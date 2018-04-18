@@ -1,5 +1,6 @@
 ﻿using Api;
 using Build;
+using System;
 using System.Reflection;
 
 namespace AssemblyLoader
@@ -20,6 +21,8 @@ namespace AssemblyLoader
 
             // Loads A1 type registered as an interface IA default implementation
             IA a = container.CreateInstance<IA>();
+            Console.WriteLine(a?.ToString() ?? "null");
+            Console.ReadLine();
         }
     }
 }
