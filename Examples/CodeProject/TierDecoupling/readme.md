@@ -3,8 +3,7 @@
 
 ## Description 
 
-
-Original projects *Presentation Businesss Data* contains unmodified source code from the original article.
+Original projects Presentation, Businesss, Data contains unmodified source code from the original article.
 
 ### Tier tight coupling 
 
