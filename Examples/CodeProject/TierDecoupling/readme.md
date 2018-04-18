@@ -13,9 +13,9 @@ Original projects source codes for Presentation, Businesss, Data contains unmodi
 ### Tier decoupling
 
 * Extracted API interfaces from Business, Data
-* PresentationCore linked to Business.API, Data.API (interface-only assembly)
-* Buisiness linked to Business,API, Data.API (interface-only assembly)
-* Data linked to Data.API (interface-only assembly)
+* PresentationCore linked to BusinessCore.API, DataCore.API (interface-only assemblies)
+* BuisinessCore linked to BusinessCore,API, DataCore.API (interface-only assemblies)
+* DataCore linked to DataCore.API (interface-only assemblies)
 
 ## Links
 
