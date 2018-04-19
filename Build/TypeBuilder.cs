@@ -102,7 +102,7 @@ namespace Build
             if (attributeType != null && !attributeType.IsAssignableFrom(type))
                 throw new TypeDependencyException(string.Format("{0} is not registered (not assignable from {1})", attributeType.FullName, type.FullName));
             var runtimeInstance = attribute?.Runtime ?? RuntimeInstance.CreateInstance;
-            this[typeId, type].RegisterType(runtimeInstance, args);//Debug.WriteLine("{0}({1})", type.FullName, string.Join(", ", args.Select(p => p.Id)));
+            this[typeId, type].RegisterType(runtimeInstance, args);
         }
     }
 }

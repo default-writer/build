@@ -76,5 +76,6 @@ namespace Build
                     return _instance;
             }
         }
+        public override string ToString() => string.Format("{0}({1})", _type.FullName, string.Join(", ", _args.Select(p => p.Id)));
     }
 }
