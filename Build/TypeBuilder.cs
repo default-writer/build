@@ -46,7 +46,7 @@ namespace Build
         }
         public object CreateInstance(string id, params object[] args)
         {
-            RuntimeType type = (RuntimeType)_typeParser.Find(id, _types.Values);
+            var type = (RuntimeType)_typeParser.Find(id, _types.Values);
             if (type != null) return type.CreateInstance(args);
             throw new Exception(string.Format("{0} is not instantiable (no constructors available)", id));
         }

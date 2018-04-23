@@ -33,7 +33,7 @@ namespace UnitTests
             {
                 //Fail_TestSet1
                 commonPersonContainer.RegisterType<ServiceDataRepository>();
-                ServiceDataRepository srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
+                var srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
                 Assert.IsNull(srv1.Repository);
             }
             [TestMethod]

@@ -9,15 +9,15 @@ namespace PresentationCore
     {
         static void Main(string[] args)
         {
-            Container container = new Container();
+            var container = new Container();
 
-            Assembly dataClasses = Assembly.LoadFrom("DataCore.dll");
-            Assembly businessClasses = Assembly.LoadFrom("BusinessCore.dll");
+            var dataClasses = Assembly.LoadFrom("DataCore.dll");
+            var businessClasses = Assembly.LoadFrom("BusinessCore.dll");
 
             container.RegisterAssemblyTypes(dataClasses);
             container.RegisterAssemblyTypes(businessClasses);
 
-            IBusiness business = container.CreateInstance<IBusiness>();
+            var business = container.CreateInstance<IBusiness>();
             string data = business.GetBusinessData();
 
             Console.WriteLine(data);

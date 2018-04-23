@@ -6,7 +6,7 @@ namespace Presentation
   {
     static void Main(string[] args)
     {
-      Business.BusinessClass businessClass = new Business.BusinessClass();
+      var businessClass = new Business.BusinessClass();
       string data = businessClass.GetBusinessData();
       Console.WriteLine(data);
       Console.ReadLine();
