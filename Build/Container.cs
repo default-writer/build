@@ -17,7 +17,10 @@ namespace Build
         public void RegisterType<T>()
         {
             if (_typeBuilder.CanRegister(typeof(T)))
+            {
                 _typeBuilder.RegisterType(typeof(T));
+                return;
+            }
             throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", typeof(T).FullName));
         }
         public void RegisterAssemblyTypes(Assembly assembly)
