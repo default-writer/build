@@ -10,17 +10,16 @@ namespace Build
         public Container(ITypeFilter typeFilter, ITypeResolver typeResolver, ITypeParser typeParser) => _typeBuilder = new TypeBuilder(typeFilter, typeResolver, typeParser);
         public T CreateInstance<T>()
         {
-            if (!_typeBuilder.CanCreate(typeof(T)))
-                throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", typeof(T).FullName));
-            return (T)_typeBuilder.CreateInstance(typeof(T));
+            if (_typeBuilder.CanCreate(typeof(T)))
+                return (T)_typeBuilder.CreateInstance(typeof(T));
+            throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", typeof(T).FullName));
         }
         public void RegisterType<T>()
         {
-            if (!_typeBuilder.CanRegister(typeof(T)))
-                throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", typeof(T).FullName));
-            _typeBuilder.RegisterType(typeof(T));
+            if (_typeBuilder.CanRegister(typeof(T)))
+                _typeBuilder.RegisterType(typeof(T));
+            throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", typeof(T).FullName));
         }
-
         public void RegisterAssemblyTypes(Assembly assembly)
         {
             if (assembly == null)
