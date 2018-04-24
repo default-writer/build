@@ -12,6 +12,8 @@ namespace Build
         readonly ITypeResolver _typeResolver;
         readonly ITypeParser _typeParser;
         IDictionary<string, RuntimeType> _types = new Dictionary<string, RuntimeType>();
+        internal bool CanCreate(Type type) => _typeFilter.CanCreate(type);
+        internal bool CanRegister(Type type) => _typeFilter.CanRegister(type);
         public ITypeFilter Filter => _typeFilter;
         public ITypeResolver Resolver => _typeResolver;
         public ITypeParser Parser => _typeParser;
@@ -37,6 +39,9 @@ namespace Build
                 return _types[typeId];
             }
         }
+
+
+
         public object CreateInstance(Type type)
         {
             string id = _typeResolver.GetName(type);
