@@ -39,9 +39,6 @@ namespace Build
                 return _types[typeId];
             }
         }
-
-
-
         public object CreateInstance(Type type)
         {
             string id = _typeResolver.GetName(type);
@@ -62,8 +59,8 @@ namespace Build
                 throw new Exception(string.Format("{0} is not registered (circular references found)", type.FullName));
             RegisterTypeId(type);
         }
-        public void RegisterType(Type type) => RegisterTypeId(type);
-        void RegisterTypeId(Type type)
+        public bool RegisterType(Type type) => RegisterTypeId(type);
+        bool RegisterTypeId(Type type)
         {
             string typeId = type.FullName;
             if (!(_types.ContainsKey(typeId) && this[typeId, type].IsRegistered))
@@ -71,7 +68,9 @@ namespace Build
                 visited.Add(type);
                 RegisterConstructor(type);
                 visited.Remove(type);
+                return true;
             }
+            return false;
         }
         void RegisterConstructor(Type type)
         {

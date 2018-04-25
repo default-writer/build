@@ -3,34 +3,43 @@ using System.Reflection;
 
 namespace Build
 {
+    /// <summary>
+    /// Public class for type container
+    /// </summary>
     public class Container : IContainer
     {
         TypeBuilder _typeBuilder;
         public Container() => _typeBuilder = new TypeBuilder();
         public Container(ITypeFilter typeFilter, ITypeResolver typeResolver, ITypeParser typeParser) => _typeBuilder = new TypeBuilder(typeFilter, typeResolver, typeParser);
+        /// <summary>
+        /// Creates an object identified as instance of type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
+        /// <returns>Returns instance of identified type</returns>
         public T CreateInstance<T>()
         {
             if (_typeBuilder.CanCreate(typeof(T)))
                 return (T)_typeBuilder.CreateInstance(typeof(T));
             throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", typeof(T).FullName));
         }
-        public void RegisterType<T>()
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">Type identifier</typeparam>
+        /// <returns>Returns instance of identified type</returns>
+        public object CreateInstance(Type type)
         {
-            if (_typeBuilder.CanRegister(typeof(T)))
-            {
-                _typeBuilder.RegisterType(typeof(T));
-                return;
-            }
-            throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", typeof(T).FullName));
+            if (_typeBuilder.CanCreate(type))
+                return _typeBuilder.CreateInstance(type);
+            throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", type.FullName));
         }
-        public void RegisterAssemblyTypes(Assembly assembly)
-        {
-            if (assembly == null)
-                throw new ArgumentNullException(nameof(assembly));
-            foreach (var type in assembly.GetTypes())
-                if (_typeBuilder.CanRegister(type))
-                    _typeBuilder.RegisterType(type);
-        }
+         /// <summary>
+        /// Creates an object from identifed type with parameters
+        /// </summary>
+        /// <param name="typeId">Type identifier with/without parameters 'typeid(args)' or 'typeid'</param>
+        /// <param name="args">Argument list (not null)</param>
+        /// <returns>Returns instance of identified type</returns>
         public object CreateInstance(string id, params object[] args)
         {
             if (id == null)
@@ -38,6 +47,41 @@ namespace Build
             if (args == null)
                 throw new ArgumentNullException(nameof(args));
             return _typeBuilder.CreateInstance(id, args);
+        }  
+        /// <summary>
+        /// Registers identified type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
+        /// <returns>Returns true if type is supported and acually added to collection of identified types</returns>
+        public bool RegisterType<T>()
+        {
+            if (_typeBuilder.CanRegister(typeof(T)))
+                return _typeBuilder.RegisterType(typeof(T));
+            throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", typeof(T).FullName));
         }
+        /// <summary>
+        /// Registers type
+        /// </summary>
+        /// <param name="type">Type identifier</param>
+        /// <returns>Returns true if type is supported and acually added to collection of identified types</returns>
+        public bool Register(Type type)
+        {
+            if (_typeBuilder.CanRegister(type))
+                return _typeBuilder.RegisterType(type);
+            throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", type.FullName));
+        }
+        /// <summary>
+        /// Registers all supported types in assembly
+        /// </summary>
+        /// <param name="assembly">Assembly for add type identifiers</param>
+        public void RegisterAssembly(Assembly assembly)
+        {
+            if (assembly == null)
+                throw new ArgumentNullException(nameof(assembly));
+            foreach (var type in assembly.GetTypes())
+                if (_typeBuilder.CanRegister(type))
+                    _typeBuilder.RegisterType(type);
+        }
+
     }
 }

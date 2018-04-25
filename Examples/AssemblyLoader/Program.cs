@@ -16,8 +16,8 @@ namespace AssemblyLoader
             var lib2 = Assembly.LoadFrom("Lib2.dll");
 
             var container = new Container();
-            container.RegisterAssemblyTypes(lib1);
-            container.RegisterAssemblyTypes(lib2);
+            container.RegisterAssembly(lib1);
+            container.RegisterAssembly(lib2);
 
             // Loads A1 type registered as an interface IA default implementation
             var a = container.CreateInstance<IA>();
