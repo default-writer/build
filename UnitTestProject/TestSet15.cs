@@ -2,7 +2,7 @@
 
 namespace UnitTests
 {
-    namespace TestSet6
+    namespace TestSet15
     {
         public interface IPersonRepository
         {
@@ -25,7 +25,7 @@ namespace UnitTests
             {
             }
 
-            [Dependency("Ho ho ho")]
+            [Dependency(typeof(IPersonRepository))]
             public SqlDataRepository(int personId)
             {
             }
@@ -39,7 +39,7 @@ namespace UnitTests
 
         public class ServiceDataRepository : IPersonRepository
         {
-            public ServiceDataRepository([Injection("Ho ho ho")]IPersonRepository repository)
+            public ServiceDataRepository([Injection("UnitTests.TestSet15.SqlDataRepository(System.Int32)", 2018)]IPersonRepository repository)
             {
                 Repository = repository;
             }

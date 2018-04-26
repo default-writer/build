@@ -38,7 +38,7 @@ namespace Build
         /// Creates an object from identifed type with parameters
         /// </summary>
         /// <param name="typeId">Type identifier with/without parameters 'typeid(args)' or 'typeid'</param>
-        /// <param name="args">Argument list (not null)</param>
+        /// <param name="args">Argument list</param>
         /// <returns>Returns instance of identified type</returns>
         public object CreateInstance(string id, params object[] args)
         {
