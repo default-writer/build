@@ -1,5 +1,6 @@
 using Build;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace UnitTests
 {
@@ -39,7 +40,15 @@ namespace UnitTests
                 //TestSet15
                 commonPersonContainer.RegisterType<SqlDataRepository>();
                 commonPersonContainer.RegisterType<ServiceDataRepository>();
-                srv = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet15.ServiceDataRepository(UnitTests.TestSet15.SqlDataRepository)", new object[] { null });
+                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance("UnitTests.TestSet15.ServiceDataRepository(UnitTests.TestSet15.SqlDataRepository)", new object[] { null }));
+            }
+            [TestMethod]
+            public void TestSet15_Method4()
+            {
+                //TestSet15
+                commonPersonContainer.RegisterType<SqlDataRepository>();
+                commonPersonContainer.RegisterType<ServiceDataRepository>();
+                srv = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet15.ServiceDataRepository(UnitTests.TestSet15.IPersonRepository)", new object[] { null });
                 Assert.AreNotEqual(srv, null);
             }
         }
