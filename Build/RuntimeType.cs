@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Build
@@ -6,53 +7,60 @@ namespace Build
     public interface IRuntimeType
     {
         string Id { get; }
-        IRuntimeType[] Parameters { get; }
-        object CreateInstance(object[] args);
+        IRuntimeType[] RuntimeParameters { get; }
+        Type Type { get; }
+
+        object CreateInstance(IRuntimeType runtimeType, params object[] args);
+        Type FindParameteTyper(string v);
     }
     class RuntimeType : IRuntimeType
     {
-        readonly string _id;
         readonly Type _type;
+        readonly HashSet<Type> _types = new HashSet<Type>();
         bool _init;
         bool _guard;
-        object _instance;
         Func<object> _func;
         RuntimeInstance _runtime;
-        RuntimeType[] _args;
-        public string Id => _id;
+        RuntimeType[] _args = new RuntimeType[0];
+        public IEnumerable<Type> Parameters => _types; 
         public Type Type => _type;
         public bool IsRegistered => _init;
-        public IRuntimeType[] Parameters => _args;
-        public RuntimeType(Type type) { _id = type.FullName; _type = type; }
-        public void RegisterType(RuntimeInstance runtime, RuntimeType[] args)
+        public string Id => _type.FullName;
+        public IRuntimeType[] RuntimeParameters => _args;
+        public RuntimeType(Type type) { _type = type; }
+        public void RegisterRuntimeType(RuntimeInstance runtime, RuntimeType[] args)
         {
             if (_init)
-                throw new TypeInjectionException(string.Format("{0} is not registered (more than one constructor available)", _id));
+                throw new TypeRegistrationException(string.Format("{0} is not registered (more than one constructor available)", _type.FullName));
             _runtime = runtime;
             _args = args;
             _func = Evaluate;
             _init = true;
         }
-        object Evaluate() => Activator.CreateInstance(_type, _args.Select(p => p.CreateInstance()).ToArray());
-        object Call() => Activator.CreateInstance(_type, _args.Select(p => p._instance).ToArray());
-        public object CreateInstance(params object[] args)
+        public void RegisterType(Type type)
         {
-            if (args.Length != _args.Length)
-                throw new TypeInitializationException(string.Format("{0} is not instantiated (parameters count mismatch)", _id));
-            for (int i = 0; i < args.Length; i++)
-            {
-                if (args[i] != null && args[i].GetType() != _args[i].Type)
-                    throw new TypeInitializationException(string.Format("{0} is not instantiated (parameter type mismatch)", _id));
-                _args[i]._instance = args[i];
-            }
-            return Call();
+            if (!_types.Contains(type))
+                _types.Add(type);
         }
-        public object CreateInstance()
+        IDictionary<IRuntimeType, object> _values = new Dictionary<IRuntimeType, object>();
+        public object this[RuntimeType runtimeType]
+        {
+            get
+            {
+                if (!_values.ContainsKey(runtimeType))
+                    _values.Add(runtimeType, null);
+                return _values[runtimeType];
+            }
+            set => _values[runtimeType] = value;
+        }
+        object Evaluate() => Activator.CreateInstance(_type, _args.Select(p => p.Create(this)).ToArray());
+        object Call() => Activator.CreateInstance(_type, _args.Select(p => p[this]).ToArray());
+        object Create(RuntimeType type)
         {
             object Evaluate()
             {
                 if (_guard)
-                    throw new TypeInitializationException(string.Format("{0} is not instantiated (circular references found)", _id));
+                    throw new TypeInstantiationException(string.Format("{0} is not instantiated (circular references found)", _type.FullName));
                 _guard = true;
                 object result = _func();
                 _guard = false;
@@ -63,19 +71,45 @@ namespace Build
                 case RuntimeInstance.Singleton:
                     if (!_guard)
                     {
-                        _instance = Evaluate();
+                        this[type] = Evaluate();
                         _guard = true;
                     }
-                    return _instance;
+                    return this[type];
                 case RuntimeInstance.CreateInstance:
                     return Evaluate();
                 case RuntimeInstance.None:
                 default:
                     if (_func != null)
-                        throw new TypeInitializationException(string.Format("{0} is not instantiated (constructor not allowed)", _id));
-                    return _instance;
+                        throw new TypeInstantiationException(string.Format("{0} is not instantiated (constructor not allowed)", _type.FullName));
+                    return this[type];
             }
         }
-        public override string ToString() => string.Format("{0}({1})", _type.FullName, string.Join(", ", _args.Select(p => p.Id)));
+        public object CreateInstance(IRuntimeType runtimeType, params object[] args)
+        {
+            if (!_init)
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructor available)", _type.FullName));
+            if (!RegisterParameters(args))
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated (parameters mismatch)", _type.FullName));
+            if (args.Length == 0)
+                return Create(this);
+            return Call();
+        }
+        public bool RegisterParameters(params object[] args)
+        {
+            if (_args != null && _args.Length > 0 && args == null)
+                return false;
+            if (args != null && _args.Length == args.Length)
+                for (int i = 0; i < args.Length; i++)
+                {
+                    var parameterType = _args[i].Type;
+                    var attributeType = args[i] == null ? typeof(object) : args[i].GetType();
+                    if (args[i] != null && !parameterType.IsAssignableFrom(attributeType))
+                        return false;
+                    _args[i][this] = args[i];
+                }
+            return true;
+        }
+        public override string ToString() => _args == null ? string.Format("{0}({1})", _type.FullName, string.Join(", ", _args.Select(p => p.Id))) : string.Format("{0}({1})", _type.FullName, string.Join(", ", _args.Select(p => p.Id)));
+        public Type FindParameteTyper(string v) => _types.FirstOrDefault(p => p.FullName == v);
     }
 }

@@ -20,13 +20,22 @@ namespace UnitTests
             public void Fail_TestSet1_Method1()
             {
                 //Fail_TestSet1
-                Assert.ThrowsException<TypeInjectionException>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
+                bool throwsException = false;
+                try
+                {
+                    commonPersonContainer.RegisterType<SqlDataRepository>();
+                }
+                catch (Exception)
+                {
+                    throwsException = true;
+                }
+                Assert.AreNotEqual(throwsException, true);
             }
             [TestMethod]
             public void Fail_TestSet1_Method2()
             {
                 //Fail_TestSet1
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<PrivateConstructorServiceDataRepository>());
+                Assert.ThrowsException<TypeRegistrationException>(() => commonPersonContainer.RegisterType<PrivateConstructorServiceDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet1_Method3()
@@ -53,7 +62,7 @@ namespace UnitTests
             {
                 //Fail_TestSet1
                 commonPersonContainer.RegisterType<ServiceDataRepository>();
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance<IPersonRepository>());
+                Assert.ThrowsException<TypeInstantiationException>(() => commonPersonContainer.CreateInstance<IPersonRepository>());
             }
         }
     }

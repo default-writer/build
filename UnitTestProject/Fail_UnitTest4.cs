@@ -21,26 +21,26 @@ namespace UnitTests
             {
                 //Fail_TestSet4
                 //commonPersonContainer.RegisterType<SqlDataRepository>();
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance<SqlDataRepository>());
+                Assert.ThrowsException<TypeInstantiationException>(() => commonPersonContainer.CreateInstance<SqlDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet4_Method2()
             {
                 //Fail_TestSet4
                 //commonPersonContainer.RegisterType<SqlDataRepository>();
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance<OtherRepository>());
+                Assert.ThrowsException<TypeInstantiationException>(() => commonPersonContainer.CreateInstance<OtherRepository>());
             }
             [TestMethod]
             public void Fail_TestSet4_Method3()
             {
                 //Fail_TestSet4
-                Assert.ThrowsException<TypeInjectionException>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
+                Assert.ThrowsException<TypeRegistrationException>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet4_Method4()
             {
                 //Fail_TestSet4
-                Assert.ThrowsException<TypeInjectionException>(() => commonPersonContainer.RegisterType<ServiceDataRepository>());
+                Assert.ThrowsException<TypeRegistrationException>(() => commonPersonContainer.RegisterType<ServiceDataRepository>());
             }
         }
     }

@@ -9,6 +9,12 @@ namespace UnitTests
             Person GetPerson(int personId);
         }
 
+        public enum Database : int
+        {
+            SQL,
+            WebService
+        }
+
         public class Person
         {
             readonly IPersonRepository _personRepository;
@@ -21,13 +27,11 @@ namespace UnitTests
 
         public class SqlDataRepository : IPersonRepository
         {
-            public SqlDataRepository()
-            {
-            }
+            public int PersonId { get; }
 
-            [Dependency(typeof(IPersonRepository))]
             public SqlDataRepository(int personId)
             {
+                PersonId = personId;
             }
 
             public Person GetPerson(int personId)
@@ -39,7 +43,7 @@ namespace UnitTests
 
         public class ServiceDataRepository : IPersonRepository
         {
-            public ServiceDataRepository([Injection("UnitTests.TestSet15.SqlDataRepository(System.Int32)", 2018)]IPersonRepository repository)
+            public ServiceDataRepository([Injection(typeof(SqlDataRepository), 2018)]IPersonRepository repository)
             {
                 Repository = repository;
             }

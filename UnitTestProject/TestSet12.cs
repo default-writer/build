@@ -20,12 +20,11 @@ namespace UnitTests
 
         public class SqlDataRepository : IPersonRepository
         {
-            [Dependency("Ho ho ho", RuntimeInstance.None)]
+            [Dependency(RuntimeInstance.Singleton)]
             public SqlDataRepository()
             {
             }
 
-            [Dependency(RuntimeInstance.Singleton)]
             public SqlDataRepository(int personId)
             {
             }

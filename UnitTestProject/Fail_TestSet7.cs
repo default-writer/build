@@ -53,7 +53,7 @@ namespace UnitTests
 
         public class ServiceDataRepository : IPersonRepository
         {
-            public ServiceDataRepository([Injection("UnitTests.Fail_TestSet7.IOtherRepository")]IPersonRepository repository)
+            public ServiceDataRepository([Injection("UnitTests.Fail_TestSet7.IOtherRepository", 2018)]IPersonRepository repository)
             {
                 Repository = repository;
             }

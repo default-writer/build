@@ -39,7 +39,7 @@ namespace UnitTests
 
         public class ServiceDataRepository : IPersonRepository
         {
-            public ServiceDataRepository([Injection("Ho ho ho")]IPersonRepository repository)
+            public ServiceDataRepository([Injection("Ho ho ho", 2018)]IPersonRepository repository)
             {
                 Repository = repository;
             }

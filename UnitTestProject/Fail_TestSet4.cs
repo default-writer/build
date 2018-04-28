@@ -47,10 +47,6 @@ namespace UnitTests
         
         public class ServiceDataRepository : IPersonRepository
         {
-            //public ServiceDataRepository()
-            //{
-            //}
-
             [Dependency(typeof(SqlDataRepository))]
             public ServiceDataRepository(SqlDataRepository repository)
             {

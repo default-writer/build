@@ -21,13 +21,13 @@ namespace UnitTests
 
         public class SqlDataRepository : IPersonRepository
         {
-            [Dependency("Ho ho ho")]
-            public SqlDataRepository()
-            {
-            }
+            public int PersonId { get; }
+
+            public SqlDataRepository() { }
 
             public SqlDataRepository(int personId)
             {
+                PersonId = personId;
             }
 
             public Person GetPerson(int personId)
@@ -39,7 +39,7 @@ namespace UnitTests
 
         public class ServiceDataRepository : IPersonRepository
         {
-            public ServiceDataRepository([Injection(typeof(SqlDataRepository))]IPersonRepository repository)
+            public ServiceDataRepository([Injection(typeof(SqlDataRepository), 2018)]IPersonRepository repository)
             {
                 Repository = repository;
             }

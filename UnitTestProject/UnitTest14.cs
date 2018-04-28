@@ -9,9 +9,7 @@ namespace UnitTests
         [TestClass]
         public class UnitTest14
         {
-            Container commonPersonContainer;
-            SqlDataRepository sql;
-            ServiceDataRepository srv1, srv2;
+            IContainer commonPersonContainer;
 
             [TestInitialize]
             public void Initialize()
@@ -19,58 +17,74 @@ namespace UnitTests
                 commonPersonContainer = new Container();
                 commonPersonContainer.RegisterType<SqlDataRepository>();
                 commonPersonContainer.RegisterType<ServiceDataRepository>();
-                sql = new SqlDataRepository();
-                srv1 = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet14.ServiceDataRepository(UnitTests.TestSet14.SqlDataRepository)", sql);
-                srv2 = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet14.ServiceDataRepository(UnitTests.TestSet14.SqlDataRepository)", new object[] { null });
             }
 
             [TestMethod]
             public void TestSet14_Method1()
             {
                 //TestSet14
+                var sql = new SqlDataRepository();
+                var srv1 = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet14.ServiceDataRepository(UnitTests.TestSet14.SqlDataRepository)", sql);
                 Assert.IsNotNull(srv1);
             }
             [TestMethod]
             public void TestSet14_Method2()
             {
                 //TestSet14
+                var srv2 = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet14.ServiceDataRepository(UnitTests.TestSet14.SqlDataRepository)", new object[] { null });
                 Assert.IsNotNull(srv2);
             }
             [TestMethod]
             public void TestSet14_Method3()
             {
                 //TestSet14
-                TestSet14_Method1();
+                var sql = new SqlDataRepository();
+                var srv1 = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet14.ServiceDataRepository(UnitTests.TestSet14.SqlDataRepository)", sql);
                 Assert.IsNotNull(srv1.Repository);
             }
             [TestMethod]
             public void TestSet14_Method4()
             {
                 //TestSet14
-                TestSet14_Method2();
+                var srv2 = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet14.ServiceDataRepository(UnitTests.TestSet14.SqlDataRepository)", new object[] { null });
                 Assert.IsNull(srv2.Repository);
             }
             [TestMethod]
             public void TestSet14_Method5()
             {
                 //TestSet14
+                var sql = new SqlDataRepository();
+                var srv1 = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet14.ServiceDataRepository(UnitTests.TestSet14.SqlDataRepository)", sql);
+                var srv2 = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet14.ServiceDataRepository(UnitTests.TestSet14.SqlDataRepository)", new object[] { null });
                 Assert.AreNotEqual(srv1, srv2);
             }
             [TestMethod]
             public void TestSet14_Method6()
             {
                 //TestSet14
+                var sql = new SqlDataRepository();
+                var srv1 = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet14.ServiceDataRepository(UnitTests.TestSet14.SqlDataRepository)", sql);
+                var srv2 = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet14.ServiceDataRepository(UnitTests.TestSet14.SqlDataRepository)", new object[] { null });
                 Assert.AreNotEqual(srv1.Repository, srv2.Repository);
             }
             [TestMethod]
             public void TestSet14_Method7()
             {
-                Assert.ThrowsException<Exception>(() => (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet14.ServiceDataRepository", new object[] { }));
+                var srv1 = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet14.ServiceDataRepository", new object[] { });
+                Assert.AreNotEqual(srv1, null);
             }
             [TestMethod]
             public void TestSet14_Method8()
             {
-                Assert.ThrowsException<Exception>(() => (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet14.ServiceDataRepository(System.Int32)", new object[] { }));
+                Assert.ThrowsException<TypeInstantiationException>(() => (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet14.ServiceDataRepository(System.Int32)", new object[] { }));
+            }
+            [TestMethod]
+            public void TestSet14_Method9()
+            {
+                //TestSet14
+                var sql = new SqlDataRepository();
+                var srv1 = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet14.ServiceDataRepository(UnitTests.TestSet14.SqlDataRepository)", sql);
+                Assert.AreEqual(srv1.Repository, sql);
             }
         }
     }

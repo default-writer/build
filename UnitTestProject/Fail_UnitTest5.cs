@@ -20,19 +20,19 @@ namespace UnitTests
             public void Fail_TestSet5_Method1()
             {
                 //Fail_TestSet5
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance<SqlDataRepository>());
+                Assert.ThrowsException<TypeInstantiationException>(() => commonPersonContainer.CreateInstance<SqlDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet5_Method2()
             {
                 //Fail_TestSet5
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.RegisterType<ServiceDataRepository>());
+                Assert.ThrowsException<TypeRegistrationException>(() => commonPersonContainer.RegisterType<ServiceDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet5_Method3()
             {
                 //Fail_TestSet5
-                Assert.ThrowsException<TypeInjectionException>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
+                Assert.ThrowsException<TypeRegistrationException>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet5_Method4()
@@ -40,7 +40,7 @@ namespace UnitTests
                 //Fail_TestSet5
                 commonPersonContainer.RegisterType<OtherRepository>();
                 commonPersonContainer.RegisterType<NoSqlDataRepository>();
-                Assert.ThrowsException<Build.TypeInitializationException>(() => commonPersonContainer.CreateInstance<NoSqlDataRepository>());
+                Assert.ThrowsException<TypeInstantiationException>(() => commonPersonContainer.CreateInstance<NoSqlDataRepository>());
             }
         }
     }

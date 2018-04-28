@@ -8,28 +8,26 @@ namespace UnitTests
         [TestClass]
         public class UnitTest12
         {
-            ServiceDataRepository srv1, srv2;
+            IContainer commonPersonContainer;
 
             [TestInitialize]
             public void Initialize()
             {
-                IContainer commonPersonContainer = new Container();
+                commonPersonContainer = new Container();
                 commonPersonContainer.RegisterType<SqlDataRepository>();
                 commonPersonContainer.RegisterType<ServiceDataRepository>();
-
-                //SqlDataRepository sql = commonPersonContainer.CreateInstance<SqlDataRepository>();
-                srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
-                srv2 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
             }
             [TestMethod]
             public void TestSet12_Method1()
             {
                 //TestSet12
+                var srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
                 Assert.IsNotNull(srv1);
             }
             [TestMethod]
             public void TestSet12_Method2()
             {
+                var srv2 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
                 //TestSet12
                 Assert.IsNotNull(srv2);
             }
@@ -37,26 +35,30 @@ namespace UnitTests
             public void TestSet12_Method3()
             {
                 //TestSet12
-                TestSet12_Method1();
+                var srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
                 Assert.IsNotNull(srv1.Repository);
             }
             [TestMethod]
             public void TestSet12_Method4()
             {
                 //TestSet12
-                TestSet12_Method2();
+                var srv2 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
                 Assert.IsNotNull(srv2.Repository);
             }
             [TestMethod]
             public void TestSet12_Method5()
             {
                 //TestSet12
+                var srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
+                var srv2 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
                 Assert.AreNotEqual(srv1, srv2);
             }
             [TestMethod]
             public void TestSet12_Method6()
             {
                 //TestSet12
+                var srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
+                var srv2 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
                 Assert.AreEqual(srv1.Repository, srv2.Repository);
             }
         }

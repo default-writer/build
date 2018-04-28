@@ -27,13 +27,13 @@ namespace UnitTests
             {
                 //Fail_TestSet2
                 commonPersonContainer.RegisterType<SqlDataRepository>();
-                Assert.IsNotNull(commonPersonContainer.CreateInstance<IPersonRepository>());
+                Assert.ThrowsException<TypeInstantiationException>(() => commonPersonContainer.CreateInstance<IPersonRepository>());
             }
             [TestMethod]
             public void Fail_TestSet2_Method3()
             {
                 //Fail_TestSet2
-                Assert.ThrowsException<TypeInjectionException>(() => commonPersonContainer.RegisterType<ServiceDataRepository>());
+                Assert.ThrowsException<TypeRegistrationException>(() => commonPersonContainer.RegisterType<ServiceDataRepository>());
             }
         }
     }

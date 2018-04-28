@@ -9,8 +9,6 @@ namespace UnitTests
         [TestClass]
         public class UnitTest15
         {
-            SqlDataRepository sql;
-            ServiceDataRepository srv;
             IContainer commonPersonContainer;
 
             [TestInitialize]
@@ -23,7 +21,7 @@ namespace UnitTests
             {
                 //TestSet15
                 commonPersonContainer.RegisterType<SqlDataRepository>();
-                sql = (SqlDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet15.SqlDataRepository");
+                var sql = (SqlDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet15.SqlDataRepository");
                 Assert.AreNotEqual(sql, null);
             }
             [TestMethod]
@@ -31,7 +29,7 @@ namespace UnitTests
             {
                 //TestSet15
                 commonPersonContainer.RegisterType<SqlDataRepository>();
-                sql = (SqlDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet15.SqlDataRepository(System.Int32)", 2018);
+                var sql = (SqlDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet15.SqlDataRepository(System.Int32)", 2018);
                 Assert.AreNotEqual(sql, null);
             }
             [TestMethod]
@@ -40,7 +38,8 @@ namespace UnitTests
                 //TestSet15
                 commonPersonContainer.RegisterType<SqlDataRepository>();
                 commonPersonContainer.RegisterType<ServiceDataRepository>();
-                Assert.ThrowsException<Exception>(() => commonPersonContainer.CreateInstance("UnitTests.TestSet15.ServiceDataRepository(UnitTests.TestSet15.SqlDataRepository)", new object[] { null }));
+                var sql = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet15.ServiceDataRepository(UnitTests.TestSet15.SqlDataRepository)");
+                Assert.AreNotEqual(sql.Repository, null);
             }
             [TestMethod]
             public void TestSet15_Method4()
@@ -48,8 +47,75 @@ namespace UnitTests
                 //TestSet15
                 commonPersonContainer.RegisterType<SqlDataRepository>();
                 commonPersonContainer.RegisterType<ServiceDataRepository>();
-                srv = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet15.ServiceDataRepository(UnitTests.TestSet15.IPersonRepository)", new object[] { null });
+                var srv = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet15.ServiceDataRepository(UnitTests.TestSet15.IPersonRepository)");
                 Assert.AreNotEqual(srv, null);
+            }
+            [TestMethod]
+            public void TestSet15_Method5()
+            {
+                //TestSet15
+                commonPersonContainer.RegisterType<SqlDataRepository>();
+                commonPersonContainer.RegisterType<ServiceDataRepository>();
+                var srv = commonPersonContainer.CreateInstance<ServiceDataRepository>(new object[] { null });
+                Assert.AreNotEqual(srv, null);
+            }
+            [TestMethod]
+            public void TestSet15_Method6()
+            {
+                //TestSet15
+                commonPersonContainer.RegisterType<SqlDataRepository>();
+                commonPersonContainer.RegisterType<ServiceDataRepository>();
+                var sql = commonPersonContainer.CreateInstance<SqlDataRepository>();
+                var srv = commonPersonContainer.CreateInstance<ServiceDataRepository>(new object[] { sql });
+                Assert.AreNotEqual(srv.Repository, null);
+            }
+            [TestMethod]
+            public void TestSet15_Method7()
+            {
+                //TestSet15
+                commonPersonContainer.RegisterType<SqlDataRepository>();
+                commonPersonContainer.RegisterType<ServiceDataRepository>();
+                var sql = commonPersonContainer.CreateInstance<SqlDataRepository>(new object[] { 0 });
+                var srv = commonPersonContainer.CreateInstance<ServiceDataRepository>(new object[] { sql });
+                var sqlRepository = srv.Repository as SqlDataRepository;
+                Assert.AreNotEqual(sqlRepository, null);
+            }
+            [TestMethod]
+            public void TestSet15_Method8()
+            {
+                //TestSet15
+                commonPersonContainer.RegisterType<SqlDataRepository>();
+                commonPersonContainer.RegisterType<ServiceDataRepository>();
+                var sql = commonPersonContainer.CreateInstance<SqlDataRepository>(new object[] { (int)Database.WebService });
+                var srv = commonPersonContainer.CreateInstance<ServiceDataRepository>(new object[] { sql });
+                var sqlRepository = srv.Repository as SqlDataRepository;
+                Assert.AreEqual(sqlRepository.PersonId, 1);
+            }
+            [TestMethod]
+            public void TestSet15_Method9()
+            {
+                //TestSet15
+                commonPersonContainer.RegisterType<SqlDataRepository>();
+                commonPersonContainer.RegisterType<ServiceDataRepository>();
+                Assert.ThrowsException<TypeInstantiationException>(() => commonPersonContainer.CreateInstance<SqlDataRepository>(new object[] { Database.SQL }));
+            }
+            [TestMethod]
+            public void TestSet15_Method10()
+            {
+                //TestSet15
+                commonPersonContainer.RegisterType<SqlDataRepository>();
+                commonPersonContainer.RegisterType<ServiceDataRepository>();
+                var srv = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet15.ServiceDataRepository(UnitTests.TestSet15.SqlDataRepository)");
+                var sqlRepository = srv.Repository as SqlDataRepository;
+                Assert.AreEqual(sqlRepository.PersonId, 2018);
+            }
+            [TestMethod]
+            public void TestSet15_Method11()
+            {
+                //TestSet15
+                commonPersonContainer.RegisterType<SqlDataRepository>();
+                var sql = (SqlDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet15.SqlDataRepository(System.Int32)", 2018);
+                Assert.AreEqual(sql.PersonId, 2018);
             }
         }
     }

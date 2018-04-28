@@ -59,10 +59,9 @@ namespace UnitTests
             }
         }
 
-
         public class NoSqlDataRepository
         {
-            public NoSqlDataRepository([Injection(typeof(OtherRepository))]IOtherRepository other)
+            public NoSqlDataRepository([Injection(typeof(OtherRepository), 2018)]IOtherRepository other)
             {
             }
 

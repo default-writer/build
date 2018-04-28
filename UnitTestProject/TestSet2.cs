@@ -40,7 +40,7 @@ namespace UnitTests
         public class ServiceDataRepository : IPersonRepository
         {
             [Dependency(RuntimeInstance.Singleton)]
-            public ServiceDataRepository([Injection(typeof(SqlDataRepository))]IPersonRepository repository)
+            public ServiceDataRepository([Injection(typeof(SqlDataRepository), 2018)]IPersonRepository repository)
             {
                 Repository = repository;
             }
