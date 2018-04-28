@@ -8,10 +8,8 @@ namespace Build
     {
         string Id { get; }
         IRuntimeType[] RuntimeParameters { get; }
-        Type Type { get; }
-
         object CreateInstance(IRuntimeType runtimeType, params object[] args);
-        Type FindParameteTyper(string v);
+        bool IsAssignableFrom(string typeId);
     }
     class RuntimeType : IRuntimeType
     {
@@ -101,15 +99,21 @@ namespace Build
             if (args != null && _args.Length == args.Length)
                 for (int i = 0; i < args.Length; i++)
                 {
-                    var parameterType = _args[i].Type;
-                    var attributeType = args[i] == null ? typeof(object) : args[i].GetType();
-                    if (args[i] != null && !parameterType.IsAssignableFrom(attributeType))
+                    var parameterType = _args[i]._type;
+                    var runtimeType = args[i]?.GetType();
+                    if (args[i] != null && !parameterType.IsAssignableFrom(runtimeType))
                         return false;
                     _args[i][this] = args[i];
                 }
             return true;
         }
         public override string ToString() => _args == null ? string.Format("{0}({1})", _type.FullName, string.Join(", ", _args.Select(p => p.Id))) : string.Format("{0}({1})", _type.FullName, string.Join(", ", _args.Select(p => p.Id)));
-        public Type FindParameteTyper(string v) => _types.FirstOrDefault(p => p.FullName == v);
+        public Type FindParameterType(string typeId) => _types.FirstOrDefault(p => p.FullName == typeId);
+        public bool IsAssignableFrom(string typeId)
+        {
+            var runtimeType = _type;
+            var parameterType = FindParameterType(typeId);
+            return parameterType != null && parameterType.IsAssignableFrom(runtimeType);
+        }
     }
 }

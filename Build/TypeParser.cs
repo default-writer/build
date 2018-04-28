@@ -21,14 +21,11 @@ namespace Build
                     return false;
                 for (int i = 0; i < args.Count; i++)
                 {
-                    string argumentType = args[i].Value.Trim();
-                    if (p.RuntimeParameters[i].Id != argumentType)
-                    {
-                        var parameterType = p.RuntimeParameters[i].Type;
-                        var assignableType = p.RuntimeParameters[i].FindParameteTyper(argumentType);
-                        if (assignableType == null || !assignableType.IsAssignableFrom(parameterType))
+                    var argumentType = args[i].Value.Trim();
+                    var parameterType = p.RuntimeParameters[i];
+                    if (parameterType.Id != argumentType)
+                        if (!parameterType.IsAssignableFrom(argumentType))
                             return false;
-                    }
                 }
                 return true;
             });

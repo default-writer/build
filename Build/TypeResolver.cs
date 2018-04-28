@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
 
 namespace Build
 {
@@ -16,6 +18,6 @@ namespace Build
         }
         public string GetName(Type type) => type.FullName;
         public Type GetType(Assembly assembly, string typeName) => assembly.GetType(typeName) ?? Type.GetType(typeName);
-        public Type GetType(string typeName) => Type.GetType(typeName);
+        public string GetTypeFullName(string typeId, Type[] parameterArgs, IRuntimeType runtimeType) => runtimeType == null ? string.Format("{0}({1})", typeId, string.Join(",", parameterArgs.Select(p => p.FullName).ToArray())) : string.Format("{0}({1})", runtimeType.Id, string.Join(",", parameterArgs.Select(p => p.FullName).ToArray()));
     }
 }

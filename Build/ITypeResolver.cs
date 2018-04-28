@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Build
@@ -8,5 +9,6 @@ namespace Build
         string GetTypeId(IRuntimeAttribute runtimeAttribute, string defaultValue);
         string GetName(Type type);
         Type GetType(Assembly assembly, string typeName);
+        string GetTypeFullName(string typeId, Type[] parameterArgs, IRuntimeType runtimeType);
     }
 }

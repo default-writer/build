@@ -43,11 +43,7 @@ namespace Build
         public object CreateInstance(Type type, params object[] args)
         {
             string typeId = _typeResolver.GetName(type);
-            if (_types.ContainsKey(typeId) && this[typeId, _types[typeId].Type].IsRegistered)
-                return _types[typeId].CreateInstance(_types[typeId], args);
-            var runtimeType = (RuntimeType)_typeParser.Find(typeId, _types.Values);
-            if (runtimeType != null) return runtimeType.CreateInstance(runtimeType, args);
-            throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructors available)", type.FullName));
+            return CreateInstance(typeId, args);
         }
         public object CreateInstance(string typeId, params object[] args)
         {
@@ -101,7 +97,7 @@ namespace Build
                     foreach (var parameter in attribute.Args)
                         parameterArgs.Add(parameter.GetType());
                 var runtimeType = _typeParser.Find(typeId, _types.Values);
-                string typeFullName = runtimeType == null ? string.Format("{0}({1})", typeId, string.Join(",", parameterArgs.Select(p => p.FullName).ToArray())) : string.Format("{0}({1})", runtimeType.Id, string.Join(",", parameterArgs.Select(p => p.FullName).ToArray()));
+                string typeFullName = _typeResolver.GetTypeFullName(typeId, parameterArgs.ToArray(), runtimeType); //runtimeType == null ? string.Format("{0}({1})", typeId, string.Join(",", parameterArgs.Select(p => p.FullName).ToArray())) : string.Format("{0}({1})", runtimeType.Id, string.Join(",", parameterArgs.Select(p => p.FullName).ToArray()));
                 var runtimeParameter = this[typeFullName, parameterType];
                 args.Add(runtimeParameter);
                 if (parameterArgs.Count > 0 && parameterArgs.Count == runtimeParameter.RuntimeParameters.Length)
@@ -123,7 +119,7 @@ namespace Build
             var runtimeInstance = attribute == null ? RuntimeInstance.CreateInstance : attribute.Runtime;
             var parameterArgs = new List<Type>(args.Select(p => p.Type));
             var runtimeType = _typeParser.Find(typeId, _types.Values);
-            string typeFullName = runtimeType == null ? string.Format("{0}({1})", typeId, string.Join(",", parameterArgs.Select(p => p.FullName).ToArray())) : string.Format("{0}({1})", runtimeType.Id, string.Join(",", parameterArgs.Select(p => p.FullName).ToArray()));
+            string typeFullName = _typeResolver.GetTypeFullName(typeId, parameterArgs.ToArray(), runtimeType);
             if (_types.ContainsKey(typeFullName) && this[typeFullName, type].IsRegistered)
                 return;
             this[typeFullName, type].RegisterRuntimeType(runtimeInstance, args.ToArray());
