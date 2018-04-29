@@ -1,6 +1,5 @@
 using Build;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace UnitTests
 {
@@ -9,29 +8,29 @@ namespace UnitTests
         [TestClass]
         public class UnitTest6
         {
-            IContainer commonPersonContainer;
+            IContainer container;
 
             [TestInitialize]
             public void Initialize()
             {
-                commonPersonContainer = new Container();
+                container = new Container();
             }
             [TestMethod]
             public void Fail_TestSet6_Method1()
             {
                 //Fail_TestSet6
-                Assert.ThrowsException<TypeRegistrationException>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
+                Assert.ThrowsException<TypeRegistrationException>(() => container.RegisterType<SqlDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet6_Method2()
             {
-                Assert.ThrowsException<TypeRegistrationException>(() => commonPersonContainer.RegisterType<ServiceDataRepository>());
+                Assert.ThrowsException<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository>());
             }
              [TestMethod]
             public void Fail_TestSet6_Method3()
             {
-                commonPersonContainer.RegisterType<PublicDataRepository>();
-                Assert.IsNotNull(commonPersonContainer.CreateInstance<PublicDataRepository>());
+                container.RegisterType<PublicDataRepository>();
+                Assert.IsNotNull(container.CreateInstance<PublicDataRepository>());
             }
         }
     }

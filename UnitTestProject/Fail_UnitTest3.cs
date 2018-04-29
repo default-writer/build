@@ -1,6 +1,5 @@
 using Build;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace UnitTests
 {
@@ -9,38 +8,38 @@ namespace UnitTests
         [TestClass]
         public class UnitTest3
         {
-            IContainer commonPersonContainer;
+            IContainer container;
 
             [TestInitialize]
             public void Initialize()
             {
-                commonPersonContainer = new Container();
+                container = new Container();
             }
             [TestMethod]
             public void Fail_TestSet3_Method1()
             {
                 //Fail_TestSet3
-                Assert.ThrowsException<TypeRegistrationException>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
+                Assert.ThrowsException<TypeRegistrationException>(() => container.RegisterType<SqlDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet3_Method2()
             {
                 //Fail_TestSet3
-                commonPersonContainer.RegisterType<ServiceDataRepository>();
-                Assert.ThrowsException<TypeInstantiationException>(() => commonPersonContainer.CreateInstance<SqlDataRepository>());
+                container.RegisterType<ServiceDataRepository>();
+                Assert.ThrowsException<TypeInstantiationException>(() => container.CreateInstance<SqlDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet3_Method3()
             {
                 //Fail_TestSet3
-                Assert.ThrowsException<TypeFilterException>(() => commonPersonContainer.CreateInstance<OtherRepository>());
+                Assert.ThrowsException<TypeFilterException>(() => container.CreateInstance<OtherRepository>());
             }
             [TestMethod]
             public void Fail_TestSet3_Method4()
             {
                 //Fail_TestSet3
-                commonPersonContainer.RegisterType<ServiceDataRepository>();
-                Assert.IsNotNull(commonPersonContainer.CreateInstance<ServiceDataRepository>());
+                container.RegisterType<ServiceDataRepository>();
+                Assert.IsNotNull(container.CreateInstance<ServiceDataRepository>());
             }
         }
     }

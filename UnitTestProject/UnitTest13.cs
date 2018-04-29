@@ -8,19 +8,19 @@ namespace UnitTests
         [TestClass]
         public class UnitTest13
         {
-            Container commonPersonContainer;
+            Container container;
             ServiceDataRepository srv1, srv2;
 
             [TestInitialize]
             public void Initialize()
             {
-                commonPersonContainer = new Container();
-                commonPersonContainer.RegisterType<SqlDataRepository>();
-                commonPersonContainer.RegisterType<ServiceDataRepository>();
+                container = new Container();
+                container.RegisterType<SqlDataRepository>();
+                container.RegisterType<ServiceDataRepository>();
 
-                //SqlDataRepository sql = commonPersonContainer.CreateInstance<SqlDataRepository>();
-                srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
-                srv2 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
+                //SqlDataRepository sql = container.CreateInstance<SqlDataRepository>();
+                srv1 = container.CreateInstance<ServiceDataRepository>();
+                srv2 = container.CreateInstance<ServiceDataRepository>();
             }
 
             [TestMethod]

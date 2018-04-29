@@ -8,32 +8,32 @@ namespace UnitTests
         [TestClass]
         public class UnitTest2
         {
-            IContainer commonPersonContainer;
+            IContainer container;
 
             [TestInitialize]
             public void Initialize()
             {
-                commonPersonContainer = new Container();
+                container = new Container();
             }
             [TestMethod]
             public void Fail_TestSet2_Method1()
             {
                 //Fail_TestSet2
-                commonPersonContainer.RegisterType<SqlDataRepository>();
-                Assert.IsNotNull(commonPersonContainer.CreateInstance<SqlDataRepository>());
+                container.RegisterType<SqlDataRepository>();
+                Assert.IsNotNull(container.CreateInstance<SqlDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet2_Method2()
             {
                 //Fail_TestSet2
-                commonPersonContainer.RegisterType<SqlDataRepository>();
-                Assert.ThrowsException<TypeInstantiationException>(() => commonPersonContainer.CreateInstance<IPersonRepository>());
+                container.RegisterType<SqlDataRepository>();
+                Assert.ThrowsException<TypeInstantiationException>(() => container.CreateInstance<IPersonRepository>());
             }
             [TestMethod]
             public void Fail_TestSet2_Method3()
             {
                 //Fail_TestSet2
-                Assert.ThrowsException<TypeRegistrationException>(() => commonPersonContainer.RegisterType<ServiceDataRepository>());
+                Assert.ThrowsException<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository>());
             }
         }
     }

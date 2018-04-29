@@ -1,6 +1,5 @@
 using Build;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace UnitTests
 {
@@ -9,38 +8,38 @@ namespace UnitTests
         [TestClass]
         public class UnitTest4
         {
-            IContainer commonPersonContainer;
+            IContainer container;
 
             [TestInitialize]
             public void Initialize()
             {
-                commonPersonContainer = new Container();
+                container = new Container();
             }
             [TestMethod]
             public void Fail_TestSet4_Method1()
             {
                 //Fail_TestSet4
-                //commonPersonContainer.RegisterType<SqlDataRepository>();
-                Assert.ThrowsException<TypeInstantiationException>(() => commonPersonContainer.CreateInstance<SqlDataRepository>());
+                //container.RegisterType<SqlDataRepository>();
+                Assert.ThrowsException<TypeInstantiationException>(() => container.CreateInstance<SqlDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet4_Method2()
             {
                 //Fail_TestSet4
-                //commonPersonContainer.RegisterType<SqlDataRepository>();
-                Assert.ThrowsException<TypeInstantiationException>(() => commonPersonContainer.CreateInstance<OtherRepository>());
+                //container.RegisterType<SqlDataRepository>();
+                Assert.ThrowsException<TypeInstantiationException>(() => container.CreateInstance<OtherRepository>());
             }
             [TestMethod]
             public void Fail_TestSet4_Method3()
             {
                 //Fail_TestSet4
-                Assert.ThrowsException<TypeRegistrationException>(() => commonPersonContainer.RegisterType<SqlDataRepository>());
+                Assert.ThrowsException<TypeRegistrationException>(() => container.RegisterType<SqlDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet4_Method4()
             {
                 //Fail_TestSet4
-                Assert.ThrowsException<TypeRegistrationException>(() => commonPersonContainer.RegisterType<ServiceDataRepository>());
+                Assert.ThrowsException<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository>());
             }
         }
     }

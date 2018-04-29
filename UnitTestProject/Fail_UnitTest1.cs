@@ -9,12 +9,12 @@ namespace UnitTests
         [TestClass]
         public class UnitTest1
         {
-            IContainer commonPersonContainer;
+            IContainer container;
 
             [TestInitialize]
             public void Initialize()
             {
-                commonPersonContainer = new Container();
+                container = new Container();
             }
             [TestMethod]
             public void Fail_TestSet1_Method1()
@@ -23,7 +23,7 @@ namespace UnitTests
                 bool throwsException = false;
                 try
                 {
-                    commonPersonContainer.RegisterType<SqlDataRepository>();
+                    container.RegisterType<SqlDataRepository>();
                 }
                 catch (Exception)
                 {
@@ -35,34 +35,34 @@ namespace UnitTests
             public void Fail_TestSet1_Method2()
             {
                 //Fail_TestSet1
-                Assert.ThrowsException<TypeRegistrationException>(() => commonPersonContainer.RegisterType<PrivateConstructorServiceDataRepository>());
+                Assert.ThrowsException<TypeRegistrationException>(() => container.RegisterType<PrivateConstructorServiceDataRepository>());
             }
             [TestMethod]
             public void Fail_TestSet1_Method3()
             {
                 //Fail_TestSet1
-                commonPersonContainer.RegisterType<ServiceDataRepository>();
-                var srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
+                container.RegisterType<ServiceDataRepository>();
+                var srv1 = container.CreateInstance<ServiceDataRepository>();
                 Assert.IsNull(srv1.Repository);
             }
             [TestMethod]
             public void Fail_TestSet1_Method4()
             {
                 //Fail_TestSet1
-                Assert.ThrowsException<TypeFilterException>(() => commonPersonContainer.RegisterType<int>());
+                Assert.ThrowsException<TypeFilterException>(() => container.RegisterType<int>());
             }
             [TestMethod]
             public void Fail_TestSet1_Method5()
             {
                 //Fail_TestSet1
-                Assert.ThrowsException<TypeFilterException>(() => commonPersonContainer.RegisterType<IPersonRepository>());
+                Assert.ThrowsException<TypeFilterException>(() => container.RegisterType<IPersonRepository>());
             }
             [TestMethod]
             public void Fail_TestSet1_Method6()
             {
                 //Fail_TestSet1
-                commonPersonContainer.RegisterType<ServiceDataRepository>();
-                Assert.ThrowsException<TypeInstantiationException>(() => commonPersonContainer.CreateInstance<IPersonRepository>());
+                container.RegisterType<ServiceDataRepository>();
+                Assert.ThrowsException<TypeInstantiationException>(() => container.CreateInstance<IPersonRepository>());
             }
         }
     }

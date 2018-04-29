@@ -14,10 +14,10 @@ Welcome to the build wiki!
 
 Usage:
 ```c#
-var commonPersonContainer = new Container();
-commonPersonContainer.RegisterType<SqlDataRepository>();
-commonPersonContainer.RegisterType<ServiceDataRepository>();
-var srv = (ServiceDataRepository)commonPersonContainer.CreateInstance(
+var container = new Container();
+container.RegisterType<SqlDataRepository>();
+container.RegisterType<ServiceDataRepository>();
+var srv = (ServiceDataRepository)container.CreateInstance(
     "UnitTests.TestSet15.ServiceDataRepository(UnitTests.TestSet15.IPersonRepository)");
 ```
 
@@ -97,11 +97,11 @@ Constructor injection uses type resolution to resolve devendencies
 
 Usage:
 ```c#
-var commonPersonContainer = new Container();
-commonPersonContainer.RegisterType<SqlDataRepository>();
-commonPersonContainer.RegisterType<ServiceDataRepository>();
+var container = new Container();
+container.RegisterType<SqlDataRepository>();
+container.RegisterType<ServiceDataRepository>();
 var sql = new SqlDataRepository();
-var srv1 = (ServiceDataRepository)commonPersonContainer.CreateInstance(
+var srv1 = (ServiceDataRepository)container.CreateInstance(
     "UnitTests.TestSet14.ServiceDataRepository(UnitTests.TestSet14.SqlDataRepository)", sql);
 ```
 
@@ -109,10 +109,10 @@ var srv1 = (ServiceDataRepository)commonPersonContainer.CreateInstance(
 
 Usage:
 ```c#
-IContainer commonPersonContainer = new Container();
-commonPersonContainer.RegisterType<SqlDataRepository>();
-commonPersonContainer.RegisterType<ServiceDataRepository>();
-var srv1 = commonPersonContainer.CreateInstance<ServiceDataRepository>();
+IContainer container = new Container();
+container.RegisterType<SqlDataRepository>();
+container.RegisterType<ServiceDataRepository>();
+var srv1 = container.CreateInstance<ServiceDataRepository>();
 ```
 
 ### Load of external assembly type
