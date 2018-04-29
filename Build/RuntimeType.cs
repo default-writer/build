@@ -8,7 +8,6 @@ namespace Build
     {
         string Id { get; }
         IRuntimeType[] RuntimeParameters { get; }
-        object CreateInstance(IRuntimeType runtimeType, params object[] args);
         bool IsAssignableFrom(string typeId);
     }
     class RuntimeType : IRuntimeType
@@ -17,10 +16,11 @@ namespace Build
         readonly HashSet<Type> _types = new HashSet<Type>();
         bool _init;
         bool _guard;
-        Func<object> _func;
+        Func<Type, object> _func;
         RuntimeInstance _runtime;
         RuntimeType[] _args = new RuntimeType[0];
-        public IEnumerable<Type> Parameters => _types; 
+        IDictionary<Type, object> _values = new Dictionary<Type, object>();
+        public IEnumerable<Type> Parameters => _types;
         public Type Type => _type;
         public bool IsRegistered => _init;
         public string Id => _type.FullName;
@@ -40,27 +40,26 @@ namespace Build
             if (!_types.Contains(type))
                 _types.Add(type);
         }
-        IDictionary<IRuntimeType, object> _values = new Dictionary<IRuntimeType, object>();
-        public object this[RuntimeType runtimeType]
+        public object this[Type type]
         {
             get
             {
-                if (!_values.ContainsKey(runtimeType))
-                    _values.Add(runtimeType, null);
-                return _values[runtimeType];
+                if (!_values.ContainsKey(type))
+                    _values.Add(type, null);
+                return _values[type];
             }
-            set => _values[runtimeType] = value;
+            set => _values[type] = value;
         }
-        object Evaluate() => Activator.CreateInstance(_type, _args.Select(p => p.Create(this)).ToArray());
-        object Call() => Activator.CreateInstance(_type, _args.Select(p => p[this]).ToArray());
-        object Create(RuntimeType type)
+        object Evaluate(Type type) => Activator.CreateInstance(_type, _args.Select(p => p.Create(type)).ToArray());
+        object Call(Type type) => Activator.CreateInstance(_type, _args.Select(p => p[type]).ToArray());
+        object Create(Type type)
         {
             object Evaluate()
             {
                 if (_guard)
                     throw new TypeInstantiationException(string.Format("{0} is not instantiated (circular references found)", _type.FullName));
                 _guard = true;
-                object result = _func();
+                object result = _func(type);
                 _guard = false;
                 return result;
             }
@@ -82,17 +81,17 @@ namespace Build
                     return this[type];
             }
         }
-        public object CreateInstance(IRuntimeType runtimeType, params object[] args)
+        public object CreateInstance(Type runtime, params object[] args)
         {
             if (!_init)
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructor available)", _type.FullName));
-            if (!RegisterParameters(args))
+            if (!RegisterParameters(runtime, args))
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (parameters mismatch)", _type.FullName));
             if (args.Length == 0)
-                return Create(this);
-            return Call();
+                return Create(runtime);
+            return Call(runtime);
         }
-        public bool RegisterParameters(params object[] args)
+        public bool RegisterParameters(Type type, params object[] args)
         {
             if (_args != null && _args.Length > 0 && args == null)
                 return false;
@@ -103,7 +102,7 @@ namespace Build
                     var runtimeType = args[i]?.GetType();
                     if (args[i] != null && !parameterType.IsAssignableFrom(runtimeType))
                         return false;
-                    _args[i][this] = args[i];
+                    _args[i][type] = args[i];
                 }
             return true;
         }

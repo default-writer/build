@@ -2,6 +2,58 @@ Welcome to the build wiki!
 
 # .NET Core 2.1 Dependency Injection framework
 
+## v1.0.0.1
+
+### Major improvements
+
+- Added support for default parameterless constructor with parameters injection using attributes
+
+### Examples
+
+### Default constructor with parameters injection
+
+Usage:
+```c#
+var commonPersonContainer = new Container();
+commonPersonContainer.RegisterType<SqlDataRepository>();
+commonPersonContainer.RegisterType<ServiceDataRepository>();
+var srv = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet15.ServiceDataRepository(UnitTests.TestSet15.IPersonRepository)");
+```
+
+Definition:
+
+```c#
+public class SqlDataRepository : IPersonRepository
+{
+    public int PersonId { get; }
+
+    public SqlDataRepository(int personId)
+    {
+        PersonId = personId;
+    }
+
+    public Person GetPerson(int personId)
+    {
+        // get the data from SQL DB and return Person instance.
+        return new Person(this);
+    }
+}
+
+public class ServiceDataRepository : IPersonRepository
+{
+    public ServiceDataRepository([Injection(typeof(SqlDataRepository), 2018)]IPersonRepository repository)
+    {
+        Repository = repository;
+    }
+    public IPersonRepository Repository { get; }
+    public Person GetPerson(int personId)
+    {
+        // get the data from Web service and return Person instance.
+        return new Person(this);
+    }
+}
+```
+
 ## Description
 
 * Interface first-class support (instantiation, strong typing, external assembly)
@@ -122,3 +174,5 @@ Definition:
 ## Donate
 
 Please, feel free to donate me [5$](https://www.paypal.me/experimentalworld/5) to expand project development (wiki, samples, etc.)
+
+ <a href="#dd">sss</a>

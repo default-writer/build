@@ -107,7 +107,7 @@ namespace UnitTests
                 commonPersonContainer.RegisterType<ServiceDataRepository>();
                 var srv = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet15.ServiceDataRepository(UnitTests.TestSet15.SqlDataRepository)");
                 var sqlRepository = srv.Repository as SqlDataRepository;
-                Assert.AreEqual(sqlRepository.PersonId, 2018);
+                Assert.AreEqual(2018, sqlRepository.PersonId);
             }
             [TestMethod]
             public void TestSet15_Method11()
@@ -115,7 +115,26 @@ namespace UnitTests
                 //TestSet15
                 commonPersonContainer.RegisterType<SqlDataRepository>();
                 var sql = (SqlDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet15.SqlDataRepository(System.Int32)", 2018);
-                Assert.AreEqual(sql.PersonId, 2018);
+                Assert.AreEqual(2018, sql.PersonId);
+            }
+            [TestMethod]
+            public void TestSet15_Method12()
+            {
+                //TestSet15
+                commonPersonContainer.RegisterType<SqlDataRepository>();
+                commonPersonContainer.RegisterType<ServiceDataRepository>();
+                var sql = (ServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet15.ServiceDataRepository(UnitTests.TestSet15.SqlDataRepository)");
+                Assert.AreEqual(2018, ((SqlDataRepository)sql.Repository).PersonId);
+            }
+            [TestMethod]
+            public void TestSet15_Method13()
+            {
+                //TestSet15
+                commonPersonContainer.RegisterType<SqlDataRepository>();
+                commonPersonContainer.RegisterType<ServiceDataRepository>();
+                commonPersonContainer.RegisterType<WebServiceDataRepository>();
+                var sql = (WebServiceDataRepository)commonPersonContainer.CreateInstance("UnitTests.TestSet15.WebServiceDataRepository(UnitTests.TestSet15.SqlDataRepository)");
+                Assert.AreEqual(2019, ((SqlDataRepository)sql.Repository).PersonId);
             }
         }
     }

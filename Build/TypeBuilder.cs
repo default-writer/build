@@ -48,9 +48,9 @@ namespace Build
         public object CreateInstance(string typeId, params object[] args)
         {
             if (_types.ContainsKey(typeId) && this[typeId, _types[typeId].Type].IsRegistered)
-                return _types[typeId].CreateInstance(_types[typeId], args);
+                return _types[typeId].CreateInstance(_types[typeId].Type, args);
             var runtimeType = (RuntimeType)_typeParser.Find(typeId, _types.Values);
-            if (runtimeType != null) return runtimeType.CreateInstance(runtimeType, args);
+            if (runtimeType != null) return runtimeType.CreateInstance(runtimeType.Type, args);
             throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructors available)", typeId));
         }
         HashSet<Type> visited = new HashSet<Type>();
@@ -96,12 +96,12 @@ namespace Build
                 if (attribute != null && attribute.Args != null)
                     foreach (var parameter in attribute.Args)
                         parameterArgs.Add(parameter.GetType());
-                var runtimeType = _typeParser.Find(typeId, _types.Values);
+                var runtimeType = (RuntimeType)_typeParser.Find(typeId, _types.Values);
                 string typeFullName = _typeResolver.GetTypeFullName(typeId, parameterArgs.ToArray(), runtimeType); //runtimeType == null ? string.Format("{0}({1})", typeId, string.Join(",", parameterArgs.Select(p => p.FullName).ToArray())) : string.Format("{0}({1})", runtimeType.Id, string.Join(",", parameterArgs.Select(p => p.FullName).ToArray()));
                 var runtimeParameter = this[typeFullName, parameterType];
                 args.Add(runtimeParameter);
                 if (parameterArgs.Count > 0 && parameterArgs.Count == runtimeParameter.RuntimeParameters.Length)
-                    if (!runtimeParameter.RegisterParameters(attribute.Args))
+                    if (!runtimeParameter.RegisterParameters(type, attribute.Args))
                         throw new TypeRegistrationException(string.Format("{0} is not registered (parameters mismatch)", type.FullName));
                 if (_typeFilter.CanRegister(parameterType))
                     RegisterConstructorParameters(parameterType);
@@ -118,7 +118,7 @@ namespace Build
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", attributeType.FullName, type.FullName));
             var runtimeInstance = attribute == null ? RuntimeInstance.CreateInstance : attribute.Runtime;
             var parameterArgs = new List<Type>(args.Select(p => p.Type));
-            var runtimeType = _typeParser.Find(typeId, _types.Values);
+            var runtimeType = (RuntimeType)_typeParser.Find(typeId, _types.Values);
             string typeFullName = _typeResolver.GetTypeFullName(typeId, parameterArgs.ToArray(), runtimeType);
             if (_types.ContainsKey(typeFullName) && this[typeFullName, type].IsRegistered)
                 return;

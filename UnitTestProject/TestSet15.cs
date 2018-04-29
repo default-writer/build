@@ -29,6 +29,7 @@ namespace UnitTests
         {
             public int PersonId { get; }
 
+            [Dependency(RuntimeInstance.Singleton)]
             public SqlDataRepository(int personId)
             {
                 PersonId = personId;
@@ -44,6 +45,20 @@ namespace UnitTests
         public class ServiceDataRepository : IPersonRepository
         {
             public ServiceDataRepository([Injection(typeof(SqlDataRepository), 2018)]IPersonRepository repository)
+            {
+                Repository = repository;
+            }
+            public IPersonRepository Repository { get; }
+            public Person GetPerson(int personId)
+            {
+                // get the data from Web service and return Person instance.
+                return new Person(this);
+            }
+        }
+
+        public class WebServiceDataRepository : IPersonRepository
+        {
+            public WebServiceDataRepository([Injection(typeof(SqlDataRepository), 2019)]IPersonRepository repository)
             {
                 Repository = repository;
             }

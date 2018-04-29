@@ -12,8 +12,9 @@
     <PackageProjectUrl>https://github.com/hack2root/build</PackageProjectUrl>
     <RepositoryUrl>https://github.com/hack2root/build.git</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
-    <PackageTags>DI</PackageTags>
+    <PackageTags>Dependency Injection</PackageTags>
     <PackageReleaseNotes>Features:
+-default parameterless constructor with parameters injection
 -interface first-class support (instantiation, strong typing, external assembly)
 -circular references detection in type registration
 -automatic type resolution for all supported types
@@ -26,6 +27,7 @@
 -external assembly types support</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageId>dependency_injection_build</PackageId>
+    <Version>1.0.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
