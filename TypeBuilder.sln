@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".circleci", ".circleci", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{3841B983-2EEA-4F5C-BE6E-8D8191A9AFA4}"
 	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
+		docs\README.md = docs\README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{B81CEE04-125B-4B50-A782-F9C73076E69B}"
