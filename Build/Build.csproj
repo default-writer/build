@@ -14,17 +14,8 @@
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Dependency Injection</PackageTags>
     <PackageReleaseNotes>Features:
--default parameterless constructor with parameters injection
--interface first-class support (instantiation, strong typing, external assembly)
--circular references detection in type registration
--automatic type resolution for all supported types
--pure type instantiation (weak coupling)
--declarative metadata attribute driven initialization
--lazy type resolution and initialization (supports pure dependency injection decoupling anti-pattern)
--singleton initialization support
--automated and manual type registration
--types aliases (user-friendly type identification)
--external assembly types support</PackageReleaseNotes>
+- default parameterless constructor with parameters injection
+</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageId>dependency_injection_build</PackageId>
     <Version>1.0.0.1</Version>
