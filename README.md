@@ -2,6 +2,12 @@ Welcome to the build wiki!
 
 # .NET Core 2.1 Dependency Injection framework
 
+## Continious Integration
+
+- [CircleCI](https://cirleci.com) integration
+
+[![CircleCI](https://circleci.com/gh/hack2root/build.svg?style=svg)](https://circleci.com/gh/hack2root/build)
+
 ## v1.0.0.1
 
 ### Major improvements
