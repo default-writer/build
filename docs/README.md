@@ -191,4 +191,6 @@ public class ServiceDataRepository : IPersonRepository
 
 ## Donate
 
+[![Support via PayPal](https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-200px.png)](https://www.paypal.me/experimentalworld/5)
+
 Please, feel free to donate me [5$](https://www.paypal.me/experimentalworld/5) to expand project development (wiki, samples, etc.)
