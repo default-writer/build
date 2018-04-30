@@ -8,7 +8,7 @@
 language: csharp
 dist: trusty
 mono: none
-dotnet: dotnet-sdk-2.1.300-preview2-008533
+dotnet: 2.1.300-preview2-008533
 script:
   - dotnet restore
   - dotnet build
