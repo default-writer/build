@@ -27,6 +27,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove=".msbump" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MSBump" Version="2.3.2" PrivateAssets="All" />
   </ItemGroup>
 
