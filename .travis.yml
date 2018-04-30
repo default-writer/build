@@ -6,11 +6,11 @@
   on:
     branch: master
 
-language: csharp
-dist: trusty
-mono: none
-dotnet: 2.1.300-preview2-008530
-script:
-  - dotnet restore
-  - dotnet build
-  - dotnet test --no-build Build.Tests
+#language: csharp
+#dist: trusty
+#mono: none
+#dotnet: 2.1.300-preview2-008530
+#script:
+#  - dotnet restore
+#  - dotnet build
+#  - dotnet test --no-build Build.Tests
