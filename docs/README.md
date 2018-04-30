@@ -4,7 +4,7 @@ Welcome to the build wiki!
 
 ## Continious Integration
 
-- [CircleCI](https://cirleci.com) integration
+- [CircleCI](https://circleci.com) integration
 - [TravisCI](https://travis-ci.org) integration
 
 [![CircleCI](https://circleci.com/gh/hack2root/build.svg?style=shield)](https://circleci.com/gh/hack2root/build)
