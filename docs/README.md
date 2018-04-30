@@ -50,7 +50,8 @@ public class SqlDataRepository : IPersonRepository
 
 public class ServiceDataRepository : IPersonRepository
 {
-    public ServiceDataRepository([Injection(typeof(SqlDataRepository), 2018)]IPersonRepository repository)
+    public ServiceDataRepository([Injection(typeof(SqlDataRepository), 2018)]
+      IPersonRepository repository)
     {
         Repository = repository;
     }
