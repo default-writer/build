@@ -1,16 +1,15 @@
-﻿deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
-  keep-history: true
-  on:
-    branch: master
-
-#language: csharp
-#dist: trusty
-#mono: none
-#dotnet: 2.1.300-preview2-008530
-#script:
-#  - dotnet restore
-#  - dotnet build
-#  - dotnet test --no-build Build.Tests
+﻿#deploy:
+#  provider: pages
+#  skip-cleanup: true
+#  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
+#  keep-history: true
+#  on:
+#    branch: master
+language: csharp
+dist: trusty
+mono: none
+dotnet: 2.1.300-preview2-008530
+script:
+  - dotnet restore
+  - dotnet build
+  - dotnet test --no-build Build.Tests
