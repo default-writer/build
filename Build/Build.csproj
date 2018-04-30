@@ -9,7 +9,7 @@
     <Description>.NET Core 2.1 Dependency Injection framework</Description>
     <Copyright>Artur Mustafin (hack2root)</Copyright>
     <PackageLicenseUrl>https://github.com/hack2root/build/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/hack2root/build</PackageProjectUrl>
+    <PackageProjectUrl>https://hack2root.github.io/build/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/hack2root/build.git</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Dependency Injection</PackageTags>
