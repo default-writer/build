@@ -19,7 +19,10 @@ namespace Build
 
         public object[] Args { get; } = new object[0];
         public override RuntimeInstance Runtime => RuntimeInstance.None;
+#if DEBUG
 
         public override string ToString() => string.Format("Injection Guid {0} Type {1} Id {2} Runtime {3}", Guid, Type, RuntimeTypeId, Runtime);
+
+#endif
     }
 }

@@ -101,7 +101,9 @@ namespace Build
                 //        throw new TypeRegistrationException(string.Format("{0} is not registered (parameters mismatch)", type.FullName));
                 //}
                 runtimeType.AddParameter(parameterRuntimeType);
+#if DEBUG
                 Debug.WriteLine(parameterRuntimeType);
+#endif
             }
             RegisterConstructorType(constructor, type, runtimeType);
         }
@@ -123,7 +125,9 @@ namespace Build
             if (runtimeType != null)
             {
                 runtimeType.Initialize(attribute.Runtime, type);
+#if DEBUG
                 Debug.WriteLine(runtimeType);
+#endif
             }
         }
 

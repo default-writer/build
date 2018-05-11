@@ -27,6 +27,10 @@ namespace Build
 
         public override RuntimeInstance Runtime { get; } = RuntimeInstance.CreateInstance;
 
+#if DEBUG
+
         public override string ToString() => string.Format("Dependency Guid {0} Type {1} Id {2} Runtime {3}", Guid, Type, RuntimeTypeId, Runtime);
+
+#endif
     }
 }

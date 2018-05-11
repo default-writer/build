@@ -65,6 +65,34 @@
 
         public WebServiceDataRepository(
             [Injection("Build.Tests.TestSet16.ServiceDataRepository", 2020)]IPersonRepository repositoryA,
+            [Injection("Build.Tests.TestSet16.SqlDataRepository", 2021)]IPersonRepository repositoryB)
+        {
+            RepositoryA = repositoryA;
+            RepositoryB = repositoryB;
+        }
+
+        public IPersonRepository RepositoryA { get; }
+        public IPersonRepository RepositoryB { get; }
+        public int RepositoryId { get; }
+
+        public Person GetPerson(int personId)
+        {
+            // get the data from Web service and return Person instance.
+            return new Person(this);
+        }
+    }
+
+    public class WebServiceDataRepository2 : IPersonRepository
+    {
+        public WebServiceDataRepository2(int repositoryId) => RepositoryId = repositoryId;
+
+        public WebServiceDataRepository2([Injection(typeof(ServiceDataRepository), 2019)]IPersonRepository repository)
+        {
+            RepositoryA = repository;
+        }
+
+        public WebServiceDataRepository2(
+            [Injection("Build.Tests.TestSet16.SqlDataRepository", 2020)]IPersonRepository repositoryA,
             [Injection("Build.Tests.TestSet16.ServiceDataRepository", 2021)]IPersonRepository repositoryB)
         {
             RepositoryA = repositoryA;
