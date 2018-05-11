@@ -4,13 +4,15 @@ namespace Build.Tests.TestSet1
 {
     public class UnitTest
     {
-        IContainer container;
+        private IContainer container;
+
         public UnitTest()
         {
             container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
         }
+
         [Fact]
         public void TestSet1_Method1()
         {
@@ -18,6 +20,7 @@ namespace Build.Tests.TestSet1
             var srv1 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv1);
         }
+
         [Fact]
         public void TestSet1_Method2()
         {
@@ -25,6 +28,7 @@ namespace Build.Tests.TestSet1
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv2);
         }
+
         [Fact]
         public void TestSet1_Method3()
         {
@@ -32,6 +36,7 @@ namespace Build.Tests.TestSet1
             var srv1 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv1.Repository);
         }
+
         [Fact]
         public void TestSet1_Method4()
         {
@@ -39,6 +44,7 @@ namespace Build.Tests.TestSet1
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv2.Repository);
         }
+
         [Fact]
         public void TestSet1_Method5()
         {
@@ -47,6 +53,7 @@ namespace Build.Tests.TestSet1
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotEqual(srv1, srv2);
         }
+
         [Fact]
         public void TestSet1_Method6()
         {

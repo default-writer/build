@@ -4,8 +4,8 @@ namespace Build.Tests.TestSet13
 {
     public class UnitTest
     {
-        Container container;
-        ServiceDataRepository srv1, srv2;
+        private Container container;
+        private ServiceDataRepository srv1, srv2;
 
         public UnitTest()
         {
@@ -22,12 +22,14 @@ namespace Build.Tests.TestSet13
             //TestSet13
             Assert.NotNull(srv1);
         }
+
         [Fact]
         public void TestSet13_Method2()
         {
             //TestSet13
             Assert.NotNull(srv2);
         }
+
         [Fact]
         public void TestSet13_Method3()
         {
@@ -35,6 +37,7 @@ namespace Build.Tests.TestSet13
             TestSet13_Method1();
             Assert.NotNull(srv1.Repository);
         }
+
         [Fact]
         public void TestSet13_Method4()
         {
@@ -42,12 +45,14 @@ namespace Build.Tests.TestSet13
             TestSet13_Method2();
             Assert.NotNull(srv2.Repository);
         }
+
         [Fact]
         public void TestSet13_Method5()
         {
             //TestSet13
             Assert.NotEqual(srv1, srv2);
         }
+
         [Fact]
         public void TestSet13_Method6()
         {

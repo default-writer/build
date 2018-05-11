@@ -5,9 +5,10 @@ namespace Build
 {
     public interface ITypeResolver
     {
-        string GetTypeId(IRuntimeAttribute runtimeAttribute, string defaultValue);
-        string GetName(Type type);
         Type GetType(Assembly assembly, string typeName);
-        string GetTypeFullName(string typeId, Type[] parameterArgs, IRuntimeType runtimeType);
+
+        string GetTypeFullName(IRuntimeType runtimeType, string[] parameterArgs, string typeId);
+
+        string GetTypeId(IRuntimeAttribute attribute, string defaultValue);
     }
 }

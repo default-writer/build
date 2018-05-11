@@ -1,31 +1,50 @@
 ﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Build
 {
-    class TypeParser : ITypeParser
+    internal class TypeParser : ITypeParser
     {
-        public IRuntimeType Find(string id, IEnumerable<IRuntimeType> types)
+        public IRuntimeType Find(string typeId, string[] args, IEnumerable<IRuntimeType> types)
         {
-            var func = Regex.Match(id, @"([^()]+)(?:\((.*)\)){0,1}$");
+            var func = Regex.Match(typeId, @"([^()]+)(?:\((.*)\)){0,1}$");
             var name = func.Groups[1].Value.Trim();
-            var pars = func.Groups[2].Value.Trim();
-            var args = Regex.Matches(pars, @"([^,]+\(.+?\))|([^,]+)");
-            var type = types.FirstOrDefault((p) => MatchParameters(p, name, args));
-            return type;
-        }
-        static bool MatchParameters(IRuntimeType p, string name, MatchCollection args)
-        {
-            if (p.Id != name)
-                return false;
-            if (args.Count > 0 && p.RuntimeParameters != null && p.RuntimeParameters.Length != args.Count)
-                return false;
-            for (int i = 0; i < args.Count; i++)
+            var pars = Regex.Matches(func.Groups[2].Value.Trim(), @"([^,]+\(.+?\))|([^,]+)");
+            var runtimeType = types.FirstOrDefault((p) => MatchParameters(p, name, args, pars));
+            if (runtimeType == null)
             {
-                var argumentType = args[i].Value.Trim();
-                var parameterType = p.RuntimeParameters[i];
-                if (parameterType.Id != argumentType)
+                var enumerator = types.GetEnumerator();
+                while (runtimeType == null && enumerator.MoveNext())
+                {
+                    var parameterType = enumerator.Current;
+                    runtimeType = Find(parameterType.Id, args, parameterType.RuntimeParameters);
+                }
+            }
+            return runtimeType;
+        }
+
+        private static bool MatchParameters(IRuntimeType runtimeType, string name, string[] args, MatchCollection match)
+        {
+            if (runtimeType.Type.FullName != name)
+                return false;
+            if (match.Count > 0 && runtimeType.RuntimeParameters.Length != match.Count)
+                return false;
+            for (int i = 0; i < match.Count; i++)
+            {
+                var argumentType = match[i].Value.Trim();
+                var parameterType = runtimeType.RuntimeParameters[i];
+                if (parameterType.Type.FullName != argumentType)
+                    if (!parameterType.IsAssignableFrom(argumentType))
+                        return false;
+            }
+            if (args.Length != 0 && args.Length != runtimeType.RuntimeParameters.Length)
+                return false;
+            for (int i = 0; i < args.Length; i++)
+            {
+                var argumentType = args[i];
+                var parameterType = runtimeType.RuntimeParameters[i];
+                if (parameterType.Type.FullName != argumentType)
                     if (!parameterType.IsAssignableFrom(argumentType))
                         return false;
             }

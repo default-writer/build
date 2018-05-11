@@ -4,7 +4,7 @@ namespace Build.Tests.TestSet14
 {
     public class UnitTest
     {
-        IContainer container;
+        private IContainer container;
 
         public UnitTest()
         {
@@ -21,6 +21,7 @@ namespace Build.Tests.TestSet14
             var srv1 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet14.ServiceDataRepository(Build.Tests.TestSet14.SqlDataRepository)", sql);
             Assert.NotNull(srv1);
         }
+
         [Fact]
         public void TestSet14_Method2()
         {
@@ -28,6 +29,7 @@ namespace Build.Tests.TestSet14
             var srv2 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet14.ServiceDataRepository(Build.Tests.TestSet14.SqlDataRepository)", new object[] { null });
             Assert.NotNull(srv2);
         }
+
         [Fact]
         public void TestSet14_Method3()
         {
@@ -36,6 +38,7 @@ namespace Build.Tests.TestSet14
             var srv1 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet14.ServiceDataRepository(Build.Tests.TestSet14.SqlDataRepository)", sql);
             Assert.NotNull(srv1.Repository);
         }
+
         [Fact]
         public void TestSet14_Method4()
         {
@@ -43,6 +46,7 @@ namespace Build.Tests.TestSet14
             var srv2 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet14.ServiceDataRepository(Build.Tests.TestSet14.SqlDataRepository)", new object[] { null });
             Assert.Null(srv2.Repository);
         }
+
         [Fact]
         public void TestSet14_Method5()
         {
@@ -52,6 +56,7 @@ namespace Build.Tests.TestSet14
             var srv2 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet14.ServiceDataRepository(Build.Tests.TestSet14.SqlDataRepository)", new object[] { null });
             Assert.NotEqual(srv1, srv2);
         }
+
         [Fact]
         public void TestSet14_Method6()
         {
@@ -61,24 +66,27 @@ namespace Build.Tests.TestSet14
             var srv2 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet14.ServiceDataRepository(Build.Tests.TestSet14.SqlDataRepository)", new object[] { null });
             Assert.NotEqual(srv1.Repository, srv2.Repository);
         }
+
         [Fact]
         public void TestSet14_Method7()
         {
             var srv1 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet14.ServiceDataRepository", new object[] { });
             Assert.NotNull(srv1);
         }
+
         [Fact]
         public void TestSet14_Method8()
         {
             Assert.Throws<TypeInstantiationException>(() => (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet14.ServiceDataRepository(System.Int32)", new object[] { }));
         }
+
         [Fact]
         public void TestSet14_Method9()
         {
             //TestSet14
             var sql = new SqlDataRepository();
             var srv1 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet14.ServiceDataRepository(Build.Tests.TestSet14.SqlDataRepository)", sql);
-            Assert.Equal(srv1.Repository, sql);
+            Assert.Equal(sql, srv1.Repository);
         }
     }
 }

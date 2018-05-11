@@ -1,5 +1,9 @@
 ﻿namespace Build.Tests.Fail_TestSet3
 {
+    public interface IOtherRepository
+    {
+    }
+
     public interface IPersonRepository
     {
         Person GetPerson(int personId);
@@ -7,7 +11,7 @@
 
     public class Person
     {
-        readonly IPersonRepository _personRepository;
+        private readonly IPersonRepository _personRepository;
 
         public Person(IPersonRepository personRepository)
         {
@@ -15,12 +19,20 @@
         }
     }
 
-    public interface IOtherRepository
+    public class ServiceDataRepository : IPersonRepository
     {
-    }
+        public ServiceDataRepository([Injection(typeof(IOtherRepository))]IOtherRepository repository)
+        {
+            Repository = repository;
+        }
 
-    class OtherRepository
-    {
+        public IOtherRepository Repository { get; }
+
+        public Person GetPerson(int personId)
+        {
+            // get the data from Web service and return Person instance.
+            return new Person(this);
+        }
     }
 
     public class SqlDataRepository : IPersonRepository
@@ -41,17 +53,7 @@
         }
     }
 
-    public class ServiceDataRepository : IPersonRepository
+    internal class OtherRepository
     {
-        public ServiceDataRepository([Injection(typeof(IOtherRepository))]IOtherRepository repository)
-        {
-            Repository = repository;
-        }
-        public IOtherRepository Repository { get; }
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
     }
 }

@@ -4,6 +4,6 @@ namespace Build
 {
     public interface ITypeParser
     {
-        IRuntimeType Find(string id, IEnumerable<IRuntimeType> args);
+        IRuntimeType Find(string type, string[] args, IEnumerable<IRuntimeType> types);
     }
 }

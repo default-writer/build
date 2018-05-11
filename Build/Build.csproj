@@ -4,7 +4,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <Platforms>AnyCPU</Platforms>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Artur Mustafin (hack2root)</Authors>
     <Company>Artur Mustafin (hack2root)</Company>
     <Description>.NET Core 2.1 Dependency Injection framework</Description>
@@ -19,7 +19,7 @@
 </PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageId>dependency_injection_build</PackageId>
-    <Version>1.0.0.1-dev7</Version>
+    <Version>1.0.0.1-dev0916</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

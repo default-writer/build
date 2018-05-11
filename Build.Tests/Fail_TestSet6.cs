@@ -1,39 +1,25 @@
 ﻿namespace Build.Tests.Fail_TestSet6
 {
+    public interface IOtherRepository
+    {
+    }
+
     public interface IPersonRepository
     {
         Person GetPerson(int personId);
-    }
-
-    public class Person
-    {
-        readonly IPersonRepository _personRepository;
-
-        public Person(IPersonRepository personRepository)
-        {
-            _personRepository = personRepository;
-        }
-    }
-
-    public interface IOtherRepository
-    {
     }
 
     public class OtherRepository : IOtherRepository
     {
     }
 
-    public class SqlDataRepository : IPersonRepository
+    public class Person
     {
-        public SqlDataRepository(ServiceDataRepository repository)
+        private readonly IPersonRepository _personRepository;
+
+        public Person(IPersonRepository personRepository)
         {
-            Repository = repository;
-        }
-        public IPersonRepository Repository { get; }
-        public Person GetPerson(int personId)
-        {
-            // get the data from SQL DB and return Person instance.
-            return new Person(this);
+            _personRepository = personRepository;
         }
     }
 
@@ -43,7 +29,9 @@
         {
             Repository = repository;
         }
+
         public IOtherRepository Repository { get; }
+
         public Person GetPerson(int personId)
         {
             // get the data from SQL DB and return Person instance.
@@ -57,10 +45,28 @@
         {
             Repository = repository;
         }
+
         public IPersonRepository Repository { get; }
+
         public Person GetPerson(int personId)
         {
             // get the data from Web service and return Person instance.
+            return new Person(this);
+        }
+    }
+
+    public class SqlDataRepository : IPersonRepository
+    {
+        public SqlDataRepository(ServiceDataRepository repository)
+        {
+            Repository = repository;
+        }
+
+        public IPersonRepository Repository { get; }
+
+        public Person GetPerson(int personId)
+        {
+            // get the data from SQL DB and return Person instance.
             return new Person(this);
         }
     }

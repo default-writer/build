@@ -4,8 +4,13 @@ namespace Build
 {
     public interface IRuntimeAttribute
     {
-        Type Type { get; }
-        string Id { get; }
+        Guid Guid { get; }
         RuntimeInstance Runtime { get; }
+        string RuntimeTypeId { get; }
+        Type Type { get; }
+
+        IRuntimeAttribute GetRuntimeType(string typeId);
+
+        void RegisterRuntimeType(string typeId, IRuntimeAttribute attribute);
     }
 }

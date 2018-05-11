@@ -1,22 +1,25 @@
 ﻿namespace Build.Tests.Fail_TestSet5
 {
+    public interface IOtherRepository
+    {
+    }
+
     public interface IPersonRepository
     {
         Person GetPerson(int personId);
     }
 
-    public class Person
+    public class NoSqlDataRepository
     {
-        readonly IPersonRepository _personRepository;
-
-        public Person(IPersonRepository personRepository)
+        public NoSqlDataRepository([Injection(typeof(OtherRepository), 2018)]IOtherRepository other)
         {
-            _personRepository = personRepository;
         }
-    }
 
-    public interface IOtherRepository
-    {
+        public Person GetPerson(int personId)
+        {
+            // get the data from SQL DB and return Person instance.
+            return new Person(null);
+        }
     }
 
     public class OtherRepository : NoSqlDataRepository, IOtherRepository
@@ -24,6 +27,33 @@
         [Dependency(RuntimeInstance.None)]
         public OtherRepository(int param) : base(null)
         {
+        }
+    }
+
+    public class Person
+    {
+        private readonly IPersonRepository _personRepository;
+
+        public Person(IPersonRepository personRepository)
+        {
+            _personRepository = personRepository;
+        }
+    }
+
+    public class ServiceDataRepository : IPersonRepository
+    {
+        [Dependency("Ho ho ho", RuntimeInstance.None)]
+        public ServiceDataRepository([Injection("Ho ho ho")]ServiceDataRepository repository)
+        {
+            Repository = repository;
+        }
+
+        public IPersonRepository Repository { get; }
+
+        public Person GetPerson(int personId)
+        {
+            // get the data from Web service and return Person instance.
+            return new Person(this);
         }
     }
 
@@ -37,34 +67,6 @@
         {
             // get the data from SQL DB and return Person instance.
             return new Person(this);
-        }
-    }
-
-    public class ServiceDataRepository : IPersonRepository
-    {
-        [Dependency("Ho ho ho", RuntimeInstance.None)]
-        public ServiceDataRepository([Injection("Ho ho ho")]ServiceDataRepository repository)
-        {
-            Repository = repository;
-        }
-        public IPersonRepository Repository { get; }
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
-    }
-
-    public class NoSqlDataRepository
-    {
-        public NoSqlDataRepository([Injection(typeof(OtherRepository), 2018)]IOtherRepository other)
-        {
-        }
-
-        public Person GetPerson(int personId)
-        {
-            // get the data from SQL DB and return Person instance.
-            return new Person(null);
         }
     }
 }

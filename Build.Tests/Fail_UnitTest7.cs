@@ -4,23 +4,26 @@ namespace Build.Tests.Fail_TestSet7
 {
     public class UnitTest
     {
-        IContainer container;
+        private IContainer container;
 
         public UnitTest()
         {
             container = new Container();
         }
+
         [Fact]
         public void Fail_TestSet7_Method1()
         {
             //Fail_TestSet7
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<SqlDataRepository>());
         }
+
         [Fact]
         public void Fail_TestSet7_Method2()
         {
             Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository>());
         }
+
         [Fact]
         public void Fail_TestSet7_Method3()
         {
@@ -29,6 +32,7 @@ namespace Build.Tests.Fail_TestSet7
             var serviceDataRepository = container.CreateInstance<ServiceDataRepository>();
             Assert.Null(serviceDataRepository.Repository);
         }
+
         [Fact]
         public void Fail_TestSet7_Method4()
         {
@@ -38,6 +42,7 @@ namespace Build.Tests.Fail_TestSet7
             var serviceDataRepository = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(serviceDataRepository.Repository);
         }
+
         [Fact]
         public void Fail_TestSet7_Method5()
         {

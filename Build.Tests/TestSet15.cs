@@ -1,40 +1,23 @@
 ﻿namespace Build.Tests.TestSet15
 {
-    public interface IPersonRepository
-    {
-        Person GetPerson(int personId);
-    }
-
     public enum Database : int
     {
         SQL,
         WebService
     }
 
+    public interface IPersonRepository
+    {
+        Person GetPerson(int personId);
+    }
+
     public class Person
     {
-        readonly IPersonRepository _personRepository;
+        private readonly IPersonRepository _personRepository;
 
         public Person(IPersonRepository personRepository)
         {
             _personRepository = personRepository;
-        }
-    }
-
-    public class SqlDataRepository : IPersonRepository
-    {
-        public int PersonId { get; }
-
-        [Dependency(RuntimeInstance.Singleton)]
-        public SqlDataRepository(int personId)
-        {
-            PersonId = personId;
-        }
-
-        public Person GetPerson(int personId)
-        {
-            // get the data from SQL DB and return Person instance.
-            return new Person(this);
         }
     }
 
@@ -44,10 +27,29 @@
         {
             Repository = repository;
         }
+
         public IPersonRepository Repository { get; }
+
         public Person GetPerson(int personId)
         {
             // get the data from Web service and return Person instance.
+            return new Person(this);
+        }
+    }
+
+    public class SqlDataRepository : IPersonRepository
+    {
+        [Dependency(RuntimeInstance.Singleton)]
+        public SqlDataRepository(int personId)
+        {
+            PersonId = personId;
+        }
+
+        public int PersonId { get; }
+
+        public Person GetPerson(int personId)
+        {
+            // get the data from SQL DB and return Person instance.
             return new Person(this);
         }
     }
@@ -58,7 +60,9 @@
         {
             Repository = repository;
         }
+
         public IPersonRepository Repository { get; }
+
         public Person GetPerson(int personId)
         {
             // get the data from Web service and return Person instance.

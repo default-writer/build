@@ -5,13 +5,53 @@
         Person GetPerson(int personId);
     }
 
+    public class Other : IPersonRepository
+    {
+        private Other()
+        { }
+
+        public Person GetPerson(int personId) => throw new System.NotImplementedException();
+    }
+
     public class Person
     {
-        readonly IPersonRepository _personRepository;
+        private readonly IPersonRepository _personRepository;
 
         public Person(IPersonRepository personRepository)
         {
             _personRepository = personRepository;
+        }
+    }
+
+    public class PrivateConstructorServiceDataRepository : IPersonRepository
+    {
+        private PrivateConstructorServiceDataRepository(IPersonRepository repository)
+        {
+            Repository = repository;
+        }
+
+        public IPersonRepository Repository { get; }
+
+        public Person GetPerson(int personId)
+        {
+            // get the data from Web service and return Person instance.
+            return new Person(this);
+        }
+    }
+
+    public class ServiceDataRepository : IPersonRepository
+    {
+        public ServiceDataRepository([Injection(typeof(Other))]IPersonRepository repository)
+        {
+            Repository = repository;
+        }
+
+        public IPersonRepository Repository { get; }
+
+        public Person GetPerson(int personId)
+        {
+            // get the data from Web service and return Person instance.
+            return new Person(this);
         }
     }
 
@@ -31,39 +71,4 @@
             return new Person(this);
         }
     }
-
-    public class Other : IPersonRepository
-    {
-        Other() { }
-        public Person GetPerson(int personId) => throw new System.NotImplementedException();
-    }
-
-    public class ServiceDataRepository : IPersonRepository
-    {
-        public ServiceDataRepository([Injection(typeof(Other))]IPersonRepository repository)
-        {
-            Repository = repository;
-        }
-        public IPersonRepository Repository { get; }
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
-    }
-
-    public class PrivateConstructorServiceDataRepository : IPersonRepository
-    {
-        PrivateConstructorServiceDataRepository(IPersonRepository repository)
-        {
-            Repository = repository;
-        }
-        public IPersonRepository Repository { get; }
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
-    }
 }
-
