@@ -22,6 +22,10 @@ Welcome to the build wiki!
 
 Added support for automatic type resolution (type dependency resolution)
 
+### Examples
+
+#### Automatic type dependency resolution
+
 Usage:
 
 ```c#
@@ -67,10 +71,6 @@ public class ServiceDataRepository : IPersonRepository
     }
 }
 ```
-
-### Examples
-
-#### Automatic type dependency resolution
 
 ## v1.0.0.2
 
@@ -192,7 +192,7 @@ public class ServiceDataRepository : IPersonRepository
 * Types aliases (user-friendly type identification)
 * External assembly types support
 
-## Latest changes (experimental tag, 1.0.0.0)
+## v1.0.0.0
 
 * Elimination of overlapped attribute specificators (removes violation of the SOLID principles)
 * Circular references detection phase moved to type registration rather instantiation
