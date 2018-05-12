@@ -7,7 +7,7 @@ namespace Build
     {
         Type GetType(Assembly assembly, string typeName);
 
-        string GetTypeFullName(IRuntimeType runtimeType, string[] parameterArgs, string typeId);
+        string GetTypeFullName(IRuntimeType constructor, string typeFullName, string[] args);
 
         string GetTypeId(IRuntimeAttribute attribute, string defaultValue);
     }

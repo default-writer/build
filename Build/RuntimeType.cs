@@ -24,7 +24,7 @@ namespace Build
             _type = type;
             _parameters = args;
             _parent = parent ?? this;
-            _attribute = attribute;
+            _attribute = attribute ?? throw new ArgumentNullException(nameof(attribute));
         }
 
         public IRuntimeAttribute Attribute => _attribute;
@@ -32,7 +32,7 @@ namespace Build
         public bool IsInitialized => _init;
         public IEnumerable<Type> Parameters => _types;
         public IRuntimeType Parent => _parent;
-        public IRuntimeType[] RuntimeParameters => _args == null ? new RuntimeType[0] : _args.ToArray();
+        public IRuntimeType[] RuntimeParameters => _args == null ? Array.Empty<RuntimeType>() : _args.ToArray();
         public string RuntimeTypeId => string.Format("{0}({1})", _type.FullName, string.Join(",", _args.Select(p => p.Type.FullName)));
         public Type Type => _type;
 
@@ -106,9 +106,6 @@ namespace Build
                 _types.Add(type);
             _types.Sort(RuntimeTypeComparer.Instance);
         }
-
-        //public object GetValue(RuntimeType type) => _values[type.Attribute];
-        public override string ToString() => string.Format("Runtime {0}({1}) Attribute {2}", _type.FullName, string.Join(",", _args.Select(p => p.Type.FullName)), _attribute);
 
         private object Call(IRuntimeType type, IRuntimeAttribute attribute) => Activator.CreateInstance(_type, _args.Select((p, i) => p[attribute, Id, i]).ToArray());
 

@@ -4,9 +4,9 @@ namespace Build
 {
     internal class TypeFilter : ITypeFilter
     {
-        public bool CanCreate(Type type) => _createFilter(type);
+        public bool CanCreate(Type type) => type != null && _createFilter(type);
 
-        public bool CanRegister(Type type) => _registerFilter(type);
+        public bool CanRegister(Type type) => type != null && _registerFilter(type);
 
         private bool _createFilter(Type type) => type.IsPublic;
 

@@ -21,7 +21,7 @@ namespace Build
         {
         }
 
-        public object[] Args { get; } = new object[0];
+        public object[] Args { get; } = Array.Empty<object>();
         public override RuntimeInstance RuntimeInstance => RuntimeInstance.None;
     }
 }

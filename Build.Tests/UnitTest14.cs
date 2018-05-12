@@ -70,14 +70,14 @@ namespace Build.Tests.TestSet14
         [Fact]
         public void TestSet14_Method7()
         {
-            var srv1 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet14.ServiceDataRepository", new object[] { });
+            var srv1 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet14.ServiceDataRepository", System.Array.Empty<object>());
             Assert.NotNull(srv1);
         }
 
         [Fact]
         public void TestSet14_Method8()
         {
-            Assert.Throws<TypeInstantiationException>(() => (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet14.ServiceDataRepository(System.Int32)", new object[] { }));
+            Assert.Throws<TypeInstantiationException>(() => (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet14.ServiceDataRepository(System.Int32)", System.Array.Empty<object>()));
         }
 
         [Fact]
