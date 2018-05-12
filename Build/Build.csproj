@@ -15,7 +15,7 @@
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Dependency Injection</PackageTags>
     <PackageReleaseNotes>Features:
-- default parameterless constructor with parameters injection
+- Added support for multiple constrctor parameters injection attributes, added support of dependency injection and added capability of overload attributed behaviour in code (instantiate with parameters)
 </PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageId>dependency_injection_build</PackageId>

@@ -18,6 +18,57 @@ Welcome to the build wiki!
 [![CircleCI](https://circleci.com/gh/hack2root/build.svg?style=shield)](https://circleci.com/gh/hack2root/build)
 [![Build Status](https://travis-ci.org/hack2root/build.svg?branch=master)](https://travis-ci.org/hack2root/build)
 
+## v1.0.0.2
+
+Added support for multiple dependency injection attributes
+
+### Examples
+
+#### Constrctor parametrization
+
+Usage:
+
+```c#
+var sql1 = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet16.WebServiceDataRepository(Build.Tests.TestSet16.ServiceDataRepository)");
+Assert.Equal(2019, ((ServiceDataRepository)sql1.RepositoryA).RepositoryId);
+
+var sql2 = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet16.WebServiceDataRepository(Build.Tests.TestSet16.IPersonRepository, Build.Tests.TestSet16.IPersonRepository)");
+Assert.Equal(2020, ((ServiceDataRepository)sql2.RepositoryA).RepositoryId);
+
+var sql3 = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet16.WebServiceDataRepository(Build.Tests.TestSet16.IPersonRepository, Build.Tests.TestSet16.IPersonRepository)");
+Assert.Equal(2021, ((SqlDataRepository)sql3.RepositoryB).RepositoryId);
+```
+
+```c#
+public class WebServiceDataRepository : IPersonRepository
+{
+    public WebServiceDataRepository(int repositoryId) => RepositoryId = repositoryId;
+
+    public WebServiceDataRepository([Injection(typeof(ServiceDataRepository), 2019)]IPersonRepository repository)
+    {
+        RepositoryA = repository;
+    }
+
+    public WebServiceDataRepository(
+        [Injection("Build.Tests.TestSet16.ServiceDataRepository", 2020)]IPersonRepository repositoryA,
+        [Injection("Build.Tests.TestSet16.SqlDataRepository", 2021)]IPersonRepository repositoryB)
+    {
+        RepositoryA = repositoryA;
+        RepositoryB = repositoryB;
+    }
+
+    public IPersonRepository RepositoryA { get; }
+    public IPersonRepository RepositoryB { get; }
+    public int RepositoryId { get; }
+
+    public Person GetPerson(int personId)
+    {
+        // get the data from Web service and return Person instance.
+        return new Person(this);
+    }
+}
+```
+
 ## v1.0.0.1
 
 ### Major improvements
@@ -26,7 +77,7 @@ Welcome to the build wiki!
 
 ### Examples
 
-### Default constructor with parameters injection
+#### Default constructor with parameters injection
 
 Usage:
 ```c#
