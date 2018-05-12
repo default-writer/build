@@ -9,9 +9,13 @@ namespace Build
 
         public InjectionAttribute(Type type, params object[] args) : this(type) => Args = args;
 
-        public InjectionAttribute(string typeFullName) : base(typeFullName) { }
+        public InjectionAttribute(string typeFullName) : base(typeFullName)
+        {
+        }
 
-        public InjectionAttribute(Type type) : base(type) { }
+        public InjectionAttribute(Type type) : base(type)
+        {
+        }
 
         public InjectionAttribute()
         {

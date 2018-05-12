@@ -11,10 +11,10 @@ namespace Build
 
         public string GetTypeId(IRuntimeAttribute attribute, string defaultValue)
         {
-            if (attribute != null)
-            {
-                if (attribute.TypeFullName != null) return attribute.TypeFullName;
-            }
+            if (defaultValue == default)
+                throw new ArgumentNullException(nameof(defaultValue));
+            if (attribute != null && attribute.TypeFullName != null)
+                return attribute.TypeFullName;
             return defaultValue;
         }
     }

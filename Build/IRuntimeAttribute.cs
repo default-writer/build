@@ -7,7 +7,9 @@ namespace Build
         Guid Guid { get; }
         RuntimeInstance Runtime { get; }
         string TypeFullName { get; }
+
         IRuntimeAttribute GetRuntimeType(string typeId);
+
         void RegisterRuntimeType(string typeId, IRuntimeAttribute attribute);
     }
 }

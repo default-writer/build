@@ -11,9 +11,13 @@ namespace Build
 
         public DependencyAttribute(RuntimeInstance runtime) => Runtime = runtime;
 
-        public DependencyAttribute(string typeFullName) : base(typeFullName) { }
+        public DependencyAttribute(string typeFullName) : base(typeFullName)
+        {
+        }
 
-        public DependencyAttribute(Type type) : base(type) { }
+        public DependencyAttribute(Type type) : base(type)
+        {
+        }
 
         public DependencyAttribute()
         {
