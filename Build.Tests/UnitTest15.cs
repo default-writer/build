@@ -55,7 +55,6 @@ namespace Build.Tests.TestSet15
         {
             //TestSet15
             container.RegisterType<SqlDataRepository>();
-            container.RegisterType<ServiceDataRepository>();
             container.RegisterType<WebServiceDataRepository>();
             var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)");
             Assert.Equal(2019, ((SqlDataRepository)sql.Repository).PersonId);
@@ -65,9 +64,8 @@ namespace Build.Tests.TestSet15
         public void TestSet15_Method14()
         {
             //TestSet15
-            container.RegisterType<SqlDataRepository>();
             container.RegisterType<WebServiceDataRepository>();
-            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<SqlDataRepository>();
             var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)");
             Assert.Equal(2019, ((SqlDataRepository)sql.Repository).PersonId);
         }
@@ -76,9 +74,51 @@ namespace Build.Tests.TestSet15
         public void TestSet15_Method15()
         {
             //TestSet15
+            container.RegisterType<WebServiceDataRepository>();
+            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)");
+            Assert.Equal(2019, ((SqlDataRepository)sql.Repository).PersonId);
+        }
+
+        [Fact]
+        public void TestSet15_Method16()
+        {
+            //TestSet15
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<WebServiceDataRepository>();
             container.RegisterType<ServiceDataRepository>();
+            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)");
+            Assert.Equal(2019, ((SqlDataRepository)sql.Repository).PersonId);
+        }
+
+        [Fact]
+        public void TestSet15_Method17()
+        {
+            //TestSet15
+            container.RegisterType<WebServiceDataRepository>();
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)");
+            Assert.Equal(2019, ((SqlDataRepository)sql.Repository).PersonId);
+        }
+
+        [Fact]
+        public void TestSet15_Method18()
+        {
+            //TestSet15
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<WebServiceDataRepository>();
+            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)");
+            Assert.Equal(2019, ((SqlDataRepository)sql.Repository).PersonId);
+        }
+
+        [Fact]
+        public void TestSet15_Method19()
+        {
+            //TestSet15
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<WebServiceDataRepository>();
             var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)");
             Assert.Equal(2019, ((SqlDataRepository)sql.Repository).PersonId);
         }

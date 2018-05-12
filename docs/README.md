@@ -18,6 +18,60 @@ Welcome to the build wiki!
 [![CircleCI](https://circleci.com/gh/hack2root/build.svg?style=shield)](https://circleci.com/gh/hack2root/build)
 [![Build Status](https://travis-ci.org/hack2root/build.svg?branch=master)](https://travis-ci.org/hack2root/build)
 
+## v1.0.0.3
+
+Added support for automatic type resolution (type dependency resolution)
+
+Usage:
+
+```c#
+// ServiceDataRepository depends upon SqlDataRepository
+container.RegisterType<ServiceDataRepository>();
+var sql = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet16.ServiceDataRepository(Build.Tests.TestSet16.SqlDataRepository)");
+Assert.NotNull(sql.Repository);
+```
+
+Definition: 
+
+```c#
+public class SqlDataRepository : IPersonRepository
+{
+    [Dependency(RuntimeInstance.Singleton)]
+    public SqlDataRepository(int repositoryId) => RepositoryId = repositoryId;
+
+    public int RepositoryId { get; }
+
+    public Person GetPerson(int personId)
+    {
+        // get the data from SQL DB and return Person instance.
+        return new Person(this);
+    }
+}
+
+public class ServiceDataRepository : IPersonRepository
+{
+    public ServiceDataRepository(int repositoryId) => RepositoryId = repositoryId;
+
+    public ServiceDataRepository([Injection(typeof(SqlDataRepository), 2018)]IPersonRepository repository)
+    {
+        Repository = repository;
+    }
+
+    public IPersonRepository Repository { get; }
+    public int RepositoryId { get; }
+
+    public Person GetPerson(int personId)
+    {
+        // get the data from Web service and return Person instance.
+        return new Person(this);
+    }
+}
+```
+
+### Examples
+
+#### Automatic type dependency resolution
+
 ## v1.0.0.2
 
 Added support for multiple dependency injection attributes
@@ -38,6 +92,8 @@ Assert.Equal(2020, ((ServiceDataRepository)sql2.RepositoryA).RepositoryId);
 var sql3 = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet16.WebServiceDataRepository(Build.Tests.TestSet16.IPersonRepository, Build.Tests.TestSet16.IPersonRepository)");
 Assert.Equal(2021, ((SqlDataRepository)sql3.RepositoryB).RepositoryId);
 ```
+
+Definition:
 
 ```c#
 public class WebServiceDataRepository : IPersonRepository
@@ -73,7 +129,7 @@ public class WebServiceDataRepository : IPersonRepository
 
 ### Major improvements
 
-- Added support for default parameterless constructor with parameters injection using attributes
+Added support for default parameterless constructor with parameters injection using attributes
 
 ### Examples
 
@@ -190,6 +246,7 @@ var srv1 = container.CreateInstance<ServiceDataRepository>();
 ### Classes
 
 Definition:
+
 ```c#
 public interface IPersonRepository
 {

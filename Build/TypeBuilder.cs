@@ -33,7 +33,11 @@ namespace Build
 
         public ITypeParser Parser => _typeParser;
 
+        public IEnumerable<string> RegisteredIds => _types.Keys;
+
         public ITypeResolver Resolver => _typeResolver;
+
+        internal IEnumerable<RuntimeType> RegisteredTypes => _types.Values;
 
         private RuntimeType this[string typeId, RuntimeType type]
         {
@@ -84,6 +88,19 @@ namespace Build
                 if (typeId == type.FullName && typeId == parameterType.FullName)
                     throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type.FullName));
                 string[] parameterArgs = attribute.Args.Select((p) => p == null ? typeof(object).FullName : p.GetType().FullName).ToArray();
+                if (attributeType != null && _typeFilter.CanRegister(attributeType) && _typeParser.Find(typeId, parameterArgs, _types.Values) == null)
+                {
+                    if (visited.Contains(attributeType))
+                        throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", parameterType.FullName));
+                    try
+                    {
+                        RegisterTypeId(attributeType);
+                    }
+                    catch (TypeRegistrationException ex)
+                    {
+                        throw ex;
+                    }
+                }
                 var injectedType = (RuntimeType)_typeParser.Find(typeId, parameterArgs, _types.Values);
                 string typeFullName = _typeResolver.GetTypeFullName(injectedType, parameterArgs, typeId);
                 if (_typeFilter.CanRegister(parameterType))

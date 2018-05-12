@@ -120,7 +120,7 @@ namespace Build
                     throw new TypeInstantiationException(string.Format("{0} is not instantiated (circular references found)", _type.FullName));
                 _guard = true;
                 object result = null;
-                IRuntimeAttribute runtimeAttribute = i.HasValue ? _attribute.GetRuntimeType(string.Format("{0}:({1})", type.Id, i)) : null;
+                var runtimeAttribute = i.HasValue ? _attribute.GetRuntimeType(string.Format("{0}:({1})", type.Id, i)) : null;
                 if (runtimeAttribute != null)
                 {
                     result = _func(type, runtimeAttribute);

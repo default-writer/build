@@ -189,6 +189,15 @@ namespace Build.Tests.TestSet16
         }
 
         [Fact]
+        public void TestSet16_Method25()
+        {
+            //TestSet16
+            container.RegisterType<ServiceDataRepository>();
+            var sql = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet16.ServiceDataRepository(Build.Tests.TestSet16.SqlDataRepository)");
+            Assert.NotNull(sql.Repository);
+        }
+
+        [Fact]
         public void TestSet16_Method3()
         {
             //TestSet16
