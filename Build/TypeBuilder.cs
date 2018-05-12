@@ -132,7 +132,7 @@ namespace Build
             var runtimeType = this[typeFullName, baseRuntimeType];
             if (runtimeType != null)
             {
-                runtimeType.Initialize(attribute.Runtime, type);
+                runtimeType.Initialize(attribute.RuntimeInstance, type);
             }
         }
 
