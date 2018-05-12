@@ -62,6 +62,28 @@ namespace Build.Tests.TestSet15
         }
 
         [Fact]
+        public void TestSet15_Method14()
+        {
+            //TestSet15
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<WebServiceDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)");
+            Assert.Equal(2019, ((SqlDataRepository)sql.Repository).PersonId);
+        }
+
+        [Fact]
+        public void TestSet15_Method15()
+        {
+            //TestSet15
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<WebServiceDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)");
+            Assert.Equal(2019, ((SqlDataRepository)sql.Repository).PersonId);
+        }
+
+        [Fact]
         public void TestSet15_Method2()
         {
             //TestSet15
