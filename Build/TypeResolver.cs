@@ -13,8 +13,7 @@ namespace Build
         {
             if (attribute != null)
             {
-                if (attribute.Type != null) return attribute.Type.FullName;
-                if (attribute.RuntimeTypeId != null) return attribute.RuntimeTypeId;
+                if (attribute.TypeFullName != null) return attribute.TypeFullName;
             }
             return defaultValue;
         }

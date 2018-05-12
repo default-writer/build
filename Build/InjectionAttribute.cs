@@ -9,9 +9,9 @@ namespace Build
 
         public InjectionAttribute(Type type, params object[] args) : this(type) => Args = args;
 
-        public InjectionAttribute(string runtimeTypeId) => RuntimeTypeId = runtimeTypeId;
+        public InjectionAttribute(string typeFullName) : base(typeFullName) { }
 
-        public InjectionAttribute(Type type) => Type = type;
+        public InjectionAttribute(Type type) : base(type) { }
 
         public InjectionAttribute()
         {
@@ -19,10 +19,5 @@ namespace Build
 
         public object[] Args { get; } = new object[0];
         public override RuntimeInstance Runtime => RuntimeInstance.None;
-#if DEBUG
-
-        public override string ToString() => string.Format("Injection Guid {0} Type {1} Id {2} Runtime {3}", Guid, Type, RuntimeTypeId, Runtime);
-
-#endif
     }
 }

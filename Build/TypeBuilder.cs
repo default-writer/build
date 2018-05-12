@@ -112,15 +112,7 @@ namespace Build
                 var parameterRuntimeTypeBase = new RuntimeType(attribute, runtimeType, parameterType, attribute.Args);
                 var parameterRuntimeType = this[typeFullName, parameterRuntimeTypeBase];
                 parameterRuntimeType.Attribute.RegisterRuntimeType(string.Format("{0}:({1})", constructorTypeFullName, i), attribute);
-                //if (attribute != null && attribute.Args != null /*&& attribute.Args.Length > 0 &&*/&& attribute.Args.Length == parameterRuntimeType.RuntimeParameters.Length)
-                //{
-                //    if (!parameterRuntimeType.RegisterParameters(constructorTypeFullName, attribute.Args))
-                //        throw new TypeRegistrationException(string.Format("{0} is not registered (parameters mismatch)", type.FullName));
-                //}
                 runtimeType.AddParameter(parameterRuntimeType);
-#if DEBUG
-                Debug.WriteLine(parameterRuntimeType);
-#endif
             }
             RegisterConstructorType(constructor, type, runtimeType);
         }
@@ -142,9 +134,6 @@ namespace Build
             if (runtimeType != null)
             {
                 runtimeType.Initialize(attribute.Runtime, type);
-#if DEBUG
-                Debug.WriteLine(runtimeType);
-#endif
             }
         }
 

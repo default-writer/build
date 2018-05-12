@@ -8,8 +8,11 @@ namespace Build
         private IDictionary<string, IRuntimeAttribute> _runtimeTypes = new Dictionary<string, IRuntimeAttribute>();
         public Guid Guid { get; } = Guid.NewGuid();
         public abstract RuntimeInstance Runtime { get; }
-        public string RuntimeTypeId { get; protected set; }
-        public Type Type { get; protected set; }
+        public string TypeFullName { get; }
+
+        protected RuntimeAttribute(string typeFullName = default) => TypeFullName = typeFullName;
+
+        protected RuntimeAttribute(Type type) => TypeFullName = type.FullName;
 
         public IRuntimeAttribute GetRuntimeType(string typeId)
         {
