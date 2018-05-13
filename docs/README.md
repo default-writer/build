@@ -16,9 +16,44 @@ Welcome to the build wiki!
 [![NuGet](https://img.shields.io/nuget/dt/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build)
 
 
+Removed public type attribute reqirement
 ## v1.0.0.4
 
 Removed public type attribute reqirement
+
+#### Private type resolution
+
+Usage:
+
+```c#
+container.RegisterType<PrivateSqlDataRepository>();
+var srv1 = container.CreateInstance("Build.Tests.TestSet1.PrivateSqlDataRepository");
+Assert.NotNull(srv1);
+```
+
+Definition: 
+
+```c#
+class PrivateSqlDataRepository : IPersonRepository
+{
+    public PrivateSqlDataRepository()
+    {
+    }
+
+    public PrivateSqlDataRepository(int personId)
+    {
+        PersonId = personId;
+    }
+
+    public int PersonId { get; }
+
+    public Person GetPerson(int personId)
+    {
+        // get the data from SQL DB and return Person instance.
+        return new Person(this);
+    }
+}
+```
 
 ## v1.0.0.3
 
