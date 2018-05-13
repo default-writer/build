@@ -10,13 +10,10 @@ Welcome to the build wiki!
 
 [wiki](https://github.com/hack2root/build/wiki)
 
-## Continious Integration
-
-- [CircleCI](https://circleci.com) integration
-- [TravisCI](https://travis-ci.org) integration
-
-[![CircleCI](https://circleci.com/gh/hack2root/build.svg?style=shield)](https://circleci.com/gh/hack2root/build)
-[![Build Status](https://travis-ci.org/hack2root/build.svg?branch=master)](https://travis-ci.org/hack2root/build)
+[![CircleCI](https://img.shields.io/circleci/project/github/hack2root/build.svg)](https://circleci.com/gh/hack2root/build)
+[![Travis](https://img.shields.io/travis/hack2root/build/master.svg)](https://travis-ci.org/hack2root/build)
+[![NuGet](https://img.shields.io/nuget/v/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build)
+[![NuGet](https://img.shields.io/nuget/dt/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build)
 
 ## v1.0.0.3
 
@@ -290,6 +287,11 @@ public class ServiceDataRepository : IPersonRepository
     }
 }
 ```
+
+## Continious Integration
+
+[CircleCI](https://circleci.com/gh/hack2root/build)
+[TravisCI](https://travis-ci.org/hack2root/build) integration
 
 ## Links
 
