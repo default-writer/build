@@ -50,4 +50,24 @@
             return new Person(this);
         }
     }
+
+    class PrivateSqlDataRepository : IPersonRepository
+    {
+        public PrivateSqlDataRepository()
+        {
+        }
+
+        public PrivateSqlDataRepository(int personId)
+        {
+            PersonId = personId;
+        }
+
+        public int PersonId { get; }
+
+        public Person GetPerson(int personId)
+        {
+            // get the data from SQL DB and return Person instance.
+            return new Person(this);
+        }
+    }
 }

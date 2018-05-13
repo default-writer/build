@@ -15,6 +15,11 @@ Welcome to the build wiki!
 [![NuGet](https://img.shields.io/nuget/v/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build)
 [![NuGet](https://img.shields.io/nuget/dt/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build)
 
+
+## v1.0.0.4
+
+Removed public type attribute reqirement
+
 ## v1.0.0.3
 
 Added support for automatic type resolution (type dependency resolution)

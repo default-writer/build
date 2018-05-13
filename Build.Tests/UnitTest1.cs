@@ -62,5 +62,14 @@ namespace Build.Tests.TestSet1
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotEqual(srv1.Repository, srv2.Repository);
         }
+
+        [Fact]
+        public void TestSet1_Method7()
+        {
+            //TestSet1
+            container.RegisterType<PrivateSqlDataRepository>();
+            var srv1 = container.CreateInstance("Build.Tests.TestSet1.PrivateSqlDataRepository");
+            Assert.NotNull(srv1);
+        }
     }
 }
