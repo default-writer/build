@@ -21,6 +21,8 @@ Removed public type attribute reqirement
 
 Removed public type attribute reqirement
 
+### Examples
+
 #### Private type resolution
 
 Usage:
