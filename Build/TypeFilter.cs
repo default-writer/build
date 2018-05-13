@@ -8,9 +8,9 @@ namespace Build
 
         public bool CanRegister(Type type) => type != null && _registerFilter(type);
 
-        private bool _createFilter(Type type) => type.IsPublic;
+        bool _createFilter(Type type) => type.IsPublic;
 
-        private bool _registerFilter(Type type) =>
+        bool _registerFilter(Type type) =>
             !type.IsInterface && !type.IsAbstract && !type.IsValueType && !type.IsGenericType &&
             !typeof(Attribute).IsAssignableFrom(type) && !typeof(MarshalByRefObject).IsAssignableFrom(type) &&
             _createFilter(type);

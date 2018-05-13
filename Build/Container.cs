@@ -8,7 +8,7 @@ namespace Build
     /// </summary>
     public class Container : IContainer
     {
-        private TypeBuilder _typeBuilder;
+        readonly TypeBuilder _typeBuilder;
 
         public Container() => _typeBuilder = new TypeBuilder();
 

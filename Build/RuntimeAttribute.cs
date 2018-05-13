@@ -5,7 +5,7 @@ namespace Build
 {
     public abstract class RuntimeAttribute : Attribute, IRuntimeAttribute
     {
-        private IDictionary<string, IRuntimeAttribute> _runtimeTypes = new Dictionary<string, IRuntimeAttribute>();
+        readonly IDictionary<string, IRuntimeAttribute> _runtimeTypes = new Dictionary<string, IRuntimeAttribute>();
         public Guid Guid { get; } = Guid.NewGuid();
         public abstract RuntimeInstance RuntimeInstance { get; }
         public string TypeFullName { get; }

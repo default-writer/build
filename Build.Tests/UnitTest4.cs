@@ -4,7 +4,7 @@ namespace Build.Tests.TestSet4
 {
     public class UnitTest
     {
-        private IContainer container;
+        readonly IContainer container;
 
         public UnitTest()
         {

@@ -7,12 +7,11 @@ namespace Build
 {
     public class TypeBuilder
     {
-        private readonly ITypeFilter _typeFilter;
-        private readonly ITypeParser _typeParser;
-        private readonly ITypeResolver _typeResolver;
-        private IDictionary<string, RuntimeType> _types = new Dictionary<string, RuntimeType>();
-
-        private HashSet<Type> visited = new HashSet<Type>();
+        readonly ITypeFilter _typeFilter;
+        readonly ITypeParser _typeParser;
+        readonly ITypeResolver _typeResolver;
+        IDictionary<string, RuntimeType> _types = new Dictionary<string, RuntimeType>();
+        readonly HashSet<Type> visited = new HashSet<Type>();
 
         public TypeBuilder()
         {
@@ -38,7 +37,7 @@ namespace Build
 
         internal IEnumerable<RuntimeType> RegisteredTypes => _types.Values;
 
-        private RuntimeType this[string typeId, RuntimeType type]
+        RuntimeType this[string typeId, RuntimeType type]
         {
             get
             {
@@ -53,10 +52,7 @@ namespace Build
 
         public bool CanRegister(Type type) => _typeFilter.CanRegister(type);
 
-        public object CreateInstance(Type type, params object[] args)
-        {
-            return CreateInstance(type.FullName, args);
-        }
+        public object CreateInstance(Type type, params object[] args) => CreateInstance(type.FullName, args);
 
         public object CreateInstance(string typeId, params object[] args)
         {
@@ -68,11 +64,11 @@ namespace Build
             throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructors available)", typeId));
         }
 
-        private static string[] GetParameterArgs(object[] args) => args == null ? Array.Empty<string>() : args.Select(p => p == null ? typeof(object).FullName : p.GetType().FullName).ToArray();
+        static string[] GetParameterArgs(object[] args) => args == null ? Array.Empty<string>() : args.Select(p => p == null ? typeof(object).FullName : p.GetType().FullName).ToArray();
 
         public void RegisterType(Type type) => RegisterTypeId(type);
 
-        private void RegisterConstructor(Type type)
+        void RegisterConstructor(Type type)
         {
             var constructors = type.GetConstructors();
             if (constructors.Length == 0)
@@ -90,7 +86,7 @@ namespace Build
             }
         }
 
-        private void RegisterConstructorParameter(int i, Type type, RuntimeType constructor, ParameterInfo[] parameters)
+        void RegisterConstructorParameter(int i, Type type, RuntimeType constructor, ParameterInfo[] parameters)
         {
             var parameterType = parameters[i].ParameterType;
             var injectionAttribute = GetParameterAttribute(parameters[i]);
@@ -111,9 +107,9 @@ namespace Build
             }
         }
 
-        private static string GetParameterTypeFullName(Type type, ParameterInfo[] parameters) => string.Format("{0}({1})", type.FullName, string.Join(",", parameters.Select(p => p.ParameterType.FullName)));
+        static string GetParameterTypeFullName(Type type, ParameterInfo[] parameters) => string.Format("{0}({1})", type.FullName, string.Join(",", parameters.Select(p => p.ParameterType.FullName)));
 
-        private string[] GetInjectedParameterArgs(Type type, Type parameterType, InjectionAttribute injectionAttribute, string typeId, Type attributeType)
+        static string[] GetInjectedParameterArgs(Type type, Type parameterType, InjectionAttribute injectionAttribute, string typeId, Type attributeType)
         {
             if (attributeType != null && !parameterType.IsAssignableFrom(attributeType))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", parameterType.FullName, attributeType.FullName));
@@ -122,7 +118,7 @@ namespace Build
             return GetParameterArgs(injectionAttribute.Args);
         }
 
-        private void RegisterConstructorType(Type type)
+        void RegisterConstructorType(Type type)
         {
             if (_typeFilter.CanRegister(type))
             {
@@ -139,9 +135,9 @@ namespace Build
             }
         }
 
-        private static InjectionAttribute GetParameterAttribute(ParameterInfo parameter) => parameter.GetCustomAttribute<InjectionAttribute>() ?? new InjectionAttribute(parameter.ParameterType);
+        static InjectionAttribute GetParameterAttribute(ParameterInfo parameter) => parameter.GetCustomAttribute<InjectionAttribute>() ?? new InjectionAttribute(parameter.ParameterType);
 
-        private void RegisterConstructorType(ConstructorInfo constructorInfo, Type type, RuntimeType constructor)
+        void RegisterConstructorType(ConstructorInfo constructorInfo, Type type, RuntimeType constructor)
         {
             var attribute = constructor.Attribute;
             string typeId = GetTypeId(type, attribute);
@@ -158,7 +154,7 @@ namespace Build
             }
         }
 
-        private string GetTypeId(Type type, IRuntimeAttribute attribute)
+        string GetTypeId(Type type, IRuntimeAttribute attribute)
         {
             string typeId = _typeResolver.GetTypeId(attribute, type.FullName);
             var attributeType = _typeResolver.GetType(type.Assembly, typeId);
@@ -167,7 +163,7 @@ namespace Build
             return typeId;
         }
 
-        private void RegisterTypeId(Type type)
+        void RegisterTypeId(Type type)
         {
             visited.Add(type);
             RegisterConstructor(type);

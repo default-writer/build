@@ -24,7 +24,7 @@ namespace Build
             return runtimeType;
         }
 
-        private static bool MatchParameters(IRuntimeType runtimeType, string name, string[] args, MatchCollection match)
+        static bool MatchParameters(IRuntimeType runtimeType, string name, string[] args, MatchCollection match)
         {
             if (runtimeType.Type.FullName != name)
                 return false;

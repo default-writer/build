@@ -3,7 +3,7 @@
 namespace Build
 {
     [AttributeUsage(AttributeTargets.Parameter)]
-    public class InjectionAttribute : RuntimeAttribute, IRuntimeAttribute
+    public sealed class InjectionAttribute : RuntimeAttribute, IRuntimeAttribute
     {
         public InjectionAttribute(string runtimeTypeId, params object[] args) : this(runtimeTypeId) => Args = args;
 

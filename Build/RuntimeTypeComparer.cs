@@ -5,7 +5,7 @@ namespace Build
 {
     internal class RuntimeTypeComparer : IComparer<Type>
     {
-        private RuntimeTypeComparer()
+        RuntimeTypeComparer()
         {
         }
 

@@ -4,20 +4,20 @@ using System.Linq;
 
 namespace Build
 {
-    partial class RuntimeType : IRuntimeType
+    class RuntimeType : IRuntimeType
     {
-        private List<RuntimeType> _args = new List<RuntimeType>();
-        private IRuntimeAttribute _attribute;
-        private Func<IRuntimeType, IRuntimeAttribute, object> _func;
-        private bool _guard;
-        private bool _init;
-        private object[] _parameters;
-        private IRuntimeType _parent;
-        private RuntimeInstance _runtimeInstance;
-        private Type _type;
-        private List<Type> _types = new List<Type>();
-        private object _value;
-        private IDictionary<IRuntimeAttribute, object> _values = new Dictionary<IRuntimeAttribute, object>();
+        readonly List<RuntimeType> _args = new List<RuntimeType>();
+        readonly object[] _parameters;
+        readonly IRuntimeType _parent;
+        IRuntimeAttribute _attribute;
+        Func<IRuntimeType, IRuntimeAttribute, object> _func;
+        bool _guard;
+        bool _init;
+        RuntimeInstance _runtimeInstance;
+        Type _type;
+        List<Type> _types = new List<Type>();
+        object _value;
+        IDictionary<IRuntimeAttribute, object> _values = new Dictionary<IRuntimeAttribute, object>();
 
         public RuntimeType(IRuntimeAttribute attribute, RuntimeType parent, Type type, params object[] args)
         {
@@ -107,9 +107,9 @@ namespace Build
             _types.Sort(RuntimeTypeComparer.Instance);
         }
 
-        private object Call(IRuntimeType type, IRuntimeAttribute attribute) => Activator.CreateInstance(_type, _args.Select((p, i) => p[attribute, Id, i]).ToArray());
+        object Call(IRuntimeType type, IRuntimeAttribute attribute) => Activator.CreateInstance(type.Type, _args.Select((p, i) => p[attribute, Id, i]).ToArray());
 
-        private object Create(IRuntimeType type, IRuntimeAttribute attribute, string typeId, int? i)
+        object Create(IRuntimeType type, IRuntimeAttribute attribute, string typeId, int? i)
         {
             object Evaluate()
             {
@@ -153,6 +153,6 @@ namespace Build
             }
         }
 
-        private object Evaluate(IRuntimeType type, IRuntimeAttribute attribute) => Activator.CreateInstance(_type, _args.Select((p, i) => p.Create(type, attribute, Id, i)).ToArray());
+        object Evaluate(IRuntimeType type, IRuntimeAttribute attribute) => Activator.CreateInstance(_type, _args.Select((p, i) => p.Create(type, attribute, Id, i)).ToArray());
     }
 }

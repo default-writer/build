@@ -11,7 +11,7 @@
 
     public class Person
     {
-        private readonly IPersonRepository _personRepository;
+        readonly IPersonRepository _personRepository;
 
         public Person(IPersonRepository personRepository)
         {

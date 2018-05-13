@@ -5,7 +5,7 @@ namespace Build.Tests.Fail_TestSet1
 {
     public class UnitTest
     {
-        private IContainer container;
+        readonly IContainer container;
 
         public UnitTest() => container = new Container();
 

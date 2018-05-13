@@ -3,7 +3,7 @@
 namespace Build
 {
     [AttributeUsage(AttributeTargets.Constructor)]
-    public class DependencyAttribute : RuntimeAttribute, IRuntimeAttribute
+    public sealed class DependencyAttribute : RuntimeAttribute, IRuntimeAttribute
     {
         public DependencyAttribute(string typeFullName, RuntimeInstance runtimeInstance) : base(typeFullName) => RuntimeInstance = runtimeInstance;
 
