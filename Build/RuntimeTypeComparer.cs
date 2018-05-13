@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Build
 {
-    internal class RuntimeTypeComparer : IComparer<Type>
+    class RuntimeTypeComparer : IComparer<Type>
     {
         RuntimeTypeComparer()
         {

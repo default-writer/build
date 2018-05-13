@@ -53,7 +53,7 @@
         }
     }
 
-    internal class OtherRepository
+    class OtherRepository
     {
     }
 }

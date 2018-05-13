@@ -30,7 +30,7 @@ namespace Build.Tests.Fail_TestSet3
         public void Fail_TestSet3_Method3()
         {
             //Fail_TestSet3
-            Assert.Throws<TypeFilterException>(() => container.CreateInstance<OtherRepository>());
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<OtherRepository>());
         }
 
         [Fact]

@@ -1,8 +1,9 @@
 ﻿*.git*
-*TestResults*
+*.localhistory*
 *.user
 *packages*
 *.vs*
 *bin*
 *obj*
-/.localhistory/*
+*TestResults*
+*.lock.json

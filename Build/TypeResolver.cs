@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Build
 {
-    internal class TypeResolver : ITypeResolver
+    class TypeResolver : ITypeResolver
     {
         public Type GetType(Assembly assembly, string typeName) => assembly.GetType(typeName) ?? Type.GetType(typeName);
 

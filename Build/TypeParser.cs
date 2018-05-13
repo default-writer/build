@@ -1,13 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 using System.Text.RegularExpressions;
 
 namespace Build
 {
-    internal class TypeParser : ITypeParser
+    class TypeParser : ITypeParser
     {
+        IDictionary<string, IRuntimeType> _cache = new Dictionary<string, IRuntimeType>();
+
         public IRuntimeType Find(string typeId, string[] args, IEnumerable<IRuntimeType> types)
         {
+            if (_cache.ContainsKey(typeId))
+                return _cache[typeId];
             var func = Regex.Match(typeId, @"([^()]+)(?:\((.*)\)){0,1}$");
             var name = func.Groups[1].Value.Trim();
             var pars = Regex.Matches(func.Groups[2].Value.Trim(), @"([^,]+\(.+?\))|([^,]+)");
@@ -20,6 +25,12 @@ namespace Build
                     var parameterType = enumerator.Current;
                     runtimeType = Find(parameterType.Id, args, parameterType.RuntimeParameters);
                 }
+            }
+            if (runtimeType != null)
+            {
+                if (!_cache.ContainsKey(typeId))
+                    _cache.Add(typeId, runtimeType);
+                return _cache[typeId];
             }
             return runtimeType;
         }
