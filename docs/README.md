@@ -16,14 +16,13 @@ Welcome to the build wiki!
 [![NuGet](https://img.shields.io/nuget/dt/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build)
 
 
-Removed public type specificator reqirement
 ## v1.0.0.4
 
 Removed public type specificator reqirement
 
 ### Examples
 
-#### Private type resolution
+#### Private type resolution (removed public type requirement)
 
 Usage:
 
