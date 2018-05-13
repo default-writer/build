@@ -35,30 +35,33 @@ namespace Build
             return runtimeType;
         }
 
+        static bool MatchParameters(IEnumerable<string> arguments, IEnumerable<IRuntimeType> parameters)
+        {
+            var args = arguments.GetEnumerator();
+            var pars = parameters.GetEnumerator();
+            while (args.MoveNext() && pars.MoveNext())
+            {
+                var argumentType = args.Current;
+                var parameterType = pars.Current;
+                if (parameterType.Type.FullName != argumentType)
+                    if (!parameterType.IsAssignableFrom(argumentType))
+                        return false;
+            }
+            return true;
+        }
+
         static bool MatchParameters(IRuntimeType runtimeType, string name, string[] args, MatchCollection match)
         {
             if (runtimeType.Type.FullName != name)
                 return false;
             if (match.Count > 0 && runtimeType.RuntimeParameters.Length != match.Count)
                 return false;
-            for (int i = 0; i < match.Count; i++)
-            {
-                var argumentType = match[i].Value.Trim();
-                var parameterType = runtimeType.RuntimeParameters[i];
-                if (parameterType.Type.FullName != argumentType)
-                    if (!parameterType.IsAssignableFrom(argumentType))
-                        return false;
-            }
-            if (args.Length != 0 && args.Length != runtimeType.RuntimeParameters.Length)
+            if (!MatchParameters(match.Select(capture => capture.Value.Trim()), runtimeType.RuntimeParameters))
                 return false;
-            for (int i = 0; i < args.Length; i++)
-            {
-                var argumentType = args[i];
-                var parameterType = runtimeType.RuntimeParameters[i];
-                if (parameterType.Type.FullName != argumentType)
-                    if (!parameterType.IsAssignableFrom(argumentType))
-                        return false;
-            }
+            if (args.Length > 0 && args.Length != runtimeType.RuntimeParameters.Length)
+                return false;
+            if (!MatchParameters(args, runtimeType.RuntimeParameters))
+                return false;
             return true;
         }
     }
