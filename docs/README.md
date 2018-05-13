@@ -278,9 +278,7 @@ container.RegisterType<ServiceDataRepository>();
 var srv1 = container.CreateInstance<ServiceDataRepository>();
 ```
 
-### Load of external assembly type
-
-[Load type using interface](https://github.com/hack2root/build/blob/master/Examples/AssemblyLoader/Program.cs)
+### API
 
 ### Classes
 
@@ -333,7 +331,7 @@ public class ServiceDataRepository : IPersonRepository
 ## Continious Integration
 
 [CircleCI](https://circleci.com/gh/hack2root/build)
-[TravisCI](https://travis-ci.org/hack2root/build) integration
+[TravisCI](https://travis-ci.org/hack2root/build)
 
 ## Links
 
