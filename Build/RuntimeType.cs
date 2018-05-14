@@ -40,8 +40,6 @@ namespace Build
 
         public IRuntimeType[] RuntimeParameters => _args == null ? Array.Empty<RuntimeType>() : _args.ToArray();
 
-        public string RuntimeTypeId => string.Format("{0}({1})", _type.FullName, string.Join(",", _args.Select(p => p.Type.FullName)));
-
         public Type Type => _type;
 
         public object this[IRuntimeAttribute attribute, string typeFullName, int? i]
