@@ -26,7 +26,7 @@ namespace Build
 
         public string Id => string.Format("{0}({1})", Type.FullName, string.Join(",", RuntimeTypes.Select(p => p.Types[0].FullName)));
 
-        public bool IsInitialized => RuntimeInstance.None != _runtimeInstance;
+        public bool IsInitialized => _runtimeInstance != RuntimeInstance.None;
 
         public int ParametersCount => RuntimeTypes.Count;
 
@@ -91,7 +91,7 @@ namespace Build
             for (int i = 0; i < args.Length; i++)
             {
                 var parameterType = RuntimeTypes[i].Type;
-                var runtimeType = args[i] == null ? typeof(object) : args[i].GetType();
+                var runtimeType = GetRuntimeType(args, i);
                 if (args[i] != null && !parameterType.IsAssignableFrom(runtimeType))
                     return false;
                 RuntimeTypes[i][Attribute, typeFullName, i] = args[i];
@@ -106,6 +106,8 @@ namespace Build
             Types.Sort(RuntimeTypeComparer.Instance);
         }
 
+        static Type GetRuntimeType(object[] args, int i) => args[i] == null ? typeof(object) : args[i].GetType();
+
         object Call(IRuntimeAttribute attribute) => Activator.CreateInstance(Type, RuntimeTypes.Select((p, i) => p[attribute, Id, i]).ToArray());
 
         object Create(IRuntimeType type, IRuntimeAttribute attribute, int? i)
@@ -119,19 +121,24 @@ namespace Build
                     return EvaluateInstance(type, i);
 
                 default:
-                    if (_func != null)
-                        throw new TypeInstantiationException(string.Format("{0} is not instantiated (constructor not allowed)", Type.FullName));
                     return EvaluateArgument(attribute, i);
             }
         }
 
         object Evaluate(IRuntimeType type, IRuntimeAttribute attribute) => Activator.CreateInstance(Type, RuntimeTypes.Select((p, i) => p.Create(type, attribute, i)).ToArray());
 
-        object EvaluateArgument(IRuntimeAttribute attribute, int? i)
+        object Evaluate(IRuntimeAttribute attribute, int? i)
         {
             if (attribute is InjectionAttribute injection && injection.Args.Length > 0 && i.HasValue)
                 return injection.Args[i.Value];
             return this[attribute, Id, i];
+        }
+
+        object EvaluateArgument(IRuntimeAttribute attribute, int? i)
+        {
+            if (_func != null)
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated (constructor not allowed)", Type.FullName));
+            return Evaluate(attribute, i);
         }
 
         object EvaluateInstance(IRuntimeType type, int? i)
@@ -141,14 +148,7 @@ namespace Build
             _guard = true;
             object result = null;
             var runtimeAttribute = i.HasValue ? Attribute.GetRuntimeType(string.Format("{0}:({1})", type.Id, i)) : null;
-            if (runtimeAttribute != null)
-            {
-                result = _func(type, runtimeAttribute);
-            }
-            else
-            {
-                result = _func(type, Attribute);
-            }
+            result = _func(type, runtimeAttribute ?? Attribute);
             _guard = false;
             return result;
         }

@@ -12,7 +12,9 @@ namespace Build
         protected RuntimeAttribute(Type type) => TypeFullName = type.FullName;
 
         public Guid Guid { get; } = Guid.NewGuid();
+
         public abstract RuntimeInstance RuntimeInstance { get; }
+
         public string TypeFullName { get; }
 
         public IRuntimeAttribute GetRuntimeType(string id)

@@ -16,17 +16,16 @@ namespace Build
             var func = Regex.Match(id, @"([^()]+)(?:\((.*)\)){0,1}$");
             var name = func.Groups[1].Value.Trim();
             var pars = Regex.Matches(func.Groups[2].Value.Trim(), @"([^,]+\(.+?\))|([^,]+)");
-            var runtimeType = types.FirstOrDefault((p) => MatchParameters(p, name, args, pars));
-            if (runtimeType == null)
-            {
-                var enumerator = types.GetEnumerator();
-                while (runtimeType == null && enumerator.MoveNext())
-                {
-                    var parameterType = enumerator.Current;
-                    runtimeType = Find(parameterType.Id, args, parameterType.RuntimeParameters);
-                }
-            }
+            var runtimeType = GetRuntimeType(args, types, name, pars);
             return CacheRuntimeType(id, runtimeType);
+        }
+
+        static bool IsAssignableFrom(IRuntimeType parameterType, string argumentType)
+        {
+            if (parameterType.Type.FullName != argumentType)
+                if (!parameterType.IsAssignableFrom(argumentType))
+                    return false;
+            return true;
         }
 
         static bool Match(IEnumerable<string> arguments, IEnumerable<IRuntimeType> parameters)
@@ -37,9 +36,8 @@ namespace Build
             {
                 var argumentType = args.Current;
                 var parameterType = pars.Current;
-                if (parameterType.Type.FullName != argumentType)
-                    if (!parameterType.IsAssignableFrom(argumentType))
-                        return false;
+                if (!IsAssignableFrom(parameterType, argumentType))
+                    return false;
             }
             return true;
         }
@@ -79,6 +77,22 @@ namespace Build
                     Cache.Add(id, runtimeType);
                 return Cache[id];
             }
+            return runtimeType;
+        }
+
+        IRuntimeType GetRuntimeType(string[] args, IEnumerable<IRuntimeType> types, string name, MatchCollection pars)
+        {
+            var runtimeType = types.FirstOrDefault((p) => MatchParameters(p, name, args, pars));
+            if (runtimeType == null)
+            {
+                var enumerator = types.GetEnumerator();
+                while (runtimeType == null && enumerator.MoveNext())
+                {
+                    var parameterType = enumerator.Current;
+                    runtimeType = Find(parameterType.Id, args, parameterType.RuntimeParameters);
+                }
+            }
+
             return runtimeType;
         }
     }

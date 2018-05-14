@@ -22,7 +22,7 @@ namespace Build
         /// <returns>Returns instance of identified type</returns>
         public T CreateInstance<T>(params object[] args)
         {
-            if (!_typeBuilder.Filter.CanCreate(typeof(T)))
+            if (!_typeBuilder.CanCreate(typeof(T)))
                 throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", typeof(T).FullName));
             return (T)_typeBuilder.CreateInstance(typeof(T), args);
         }
@@ -33,7 +33,7 @@ namespace Build
         /// identified type</returns>
         public object CreateInstance(Type type, params object[] args)
         {
-            if (!_typeBuilder.Filter.CanCreate(type))
+            if (!_typeBuilder.CanCreate(type))
                 throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", type.FullName));
             return _typeBuilder.CreateInstance(type, args);
         }
@@ -62,7 +62,7 @@ namespace Build
             if (assembly == null)
                 throw new ArgumentNullException(nameof(assembly));
             foreach (var type in assembly.GetTypes())
-                if (_typeBuilder.Filter.CanRegister(type))
+                if (_typeBuilder.CanRegister(type))
                     _typeBuilder.RegisterType(type);
         }
 
@@ -75,7 +75,7 @@ namespace Build
         /// </returns>
         public void RegisterType(Type type)
         {
-            if (!_typeBuilder.Filter.CanRegister(type))
+            if (!_typeBuilder.CanRegister(type))
                 throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", type.FullName));
             _typeBuilder.RegisterType(type);
         }
@@ -89,7 +89,7 @@ namespace Build
         /// </returns>
         public void RegisterType<T>()
         {
-            if (!_typeBuilder.Filter.CanRegister(typeof(T)))
+            if (!_typeBuilder.CanRegister(typeof(T)))
                 throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", typeof(T).FullName));
             _typeBuilder.RegisterType(typeof(T));
         }

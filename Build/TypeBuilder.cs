@@ -22,15 +22,17 @@ namespace Build
             Parser = typeParser ?? throw new ArgumentNullException(nameof(typeParser));
         }
 
-        public ITypeFilter Filter { get; }
+        ITypeFilter Filter { get; }
 
-        public ITypeParser Parser { get; }
+        ITypeParser Parser { get; }
 
-        public ITypeResolver Resolver { get; }
-
-        public List<Type> Visited { get; } = new List<Type>();
         IEnumerable<RuntimeType> RegisteredTypes => Types.Values;
+
+        ITypeResolver Resolver { get; }
+
         IDictionary<string, RuntimeType> Types { get; } = new Dictionary<string, RuntimeType>();
+
+        List<Type> Visited { get; } = new List<Type>();
 
         RuntimeType this[string id, RuntimeType type]
         {
@@ -42,6 +44,10 @@ namespace Build
                 return Types[id];
             }
         }
+
+        public bool CanCreate(Type type) => Filter.CanCreate(type);
+
+        public bool CanRegister(Type type) => Filter.CanRegister(type);
 
         public object CreateInstance(Type type, params object[] args) => CreateInstance(type.FullName, args);
 
@@ -62,12 +68,17 @@ namespace Build
             Visited.Remove(type);
         }
 
+        static void CheckParameterTypeFullName(Type type, Type parameterType, string id)
+        {
+            if (id == type.FullName && id == parameterType.FullName)
+                throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type.FullName));
+        }
+
         static string[] GetInjectedParameterArgs(Type type, Type parameterType, InjectionAttribute injectionAttribute, string id, Type attributeType)
         {
             if (attributeType != null && !parameterType.IsAssignableFrom(attributeType))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", parameterType.FullName, attributeType.FullName));
-            if (id == type.FullName && id == parameterType.FullName)
-                throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type.FullName));
+            CheckParameterTypeFullName(type, parameterType, id);
             return GetParameterArgs(injectionAttribute.Args);
         }
 
