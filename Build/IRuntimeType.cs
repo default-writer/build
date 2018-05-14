@@ -1,17 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Build
 {
     public interface IRuntimeType
     {
         IRuntimeAttribute Attribute { get; }
-        string Id { get; }
-        IRuntimeType[] RuntimeParameters { get; }
 
-        //string RuntimeTypeId { get; }
+        string Id { get; }
+
+        int ParametersCount { get; }
+
+        IEnumerable<IRuntimeType> RuntimeParameters { get; }
+
         Type Type { get; }
 
-        //IRuntimeType Runtime { get; }
         bool IsAssignableFrom(string id);
     }
 }

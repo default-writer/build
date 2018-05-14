@@ -7,12 +7,12 @@ namespace Build
 {
     class TypeParser : ITypeParser
     {
-        IDictionary<string, IRuntimeType> _cache = new Dictionary<string, IRuntimeType>();
+        IDictionary<string, IRuntimeType> Cache { get; } = new Dictionary<string, IRuntimeType>();
 
         public IRuntimeType Find(string id, string[] args, IEnumerable<IRuntimeType> types)
         {
-            if (_cache.ContainsKey(id))
-                return _cache[id];
+            if (Cache.ContainsKey(id))
+                return Cache[id];
             var func = Regex.Match(id, @"([^()]+)(?:\((.*)\)){0,1}$");
             var name = func.Groups[1].Value.Trim();
             var pars = Regex.Matches(func.Groups[2].Value.Trim(), @"([^,]+\(.+?\))|([^,]+)");
@@ -26,13 +26,7 @@ namespace Build
                     runtimeType = Find(parameterType.Id, args, parameterType.RuntimeParameters);
                 }
             }
-            if (runtimeType != null)
-            {
-                if (!_cache.ContainsKey(id))
-                    _cache.Add(id, runtimeType);
-                return _cache[id];
-            }
-            return runtimeType;
+            return CacheRuntimeType(id, runtimeType);
         }
 
         static bool Match(IEnumerable<string> arguments, IEnumerable<IRuntimeType> parameters)
@@ -50,25 +44,42 @@ namespace Build
             return true;
         }
 
-        static bool MatchArguments(IRuntimeType runtimeType, string[] args) => runtimeType.RuntimeParameters.Length == args.Length;
-
-        static bool MatchParameters(IRuntimeType runtimeType, string name, string[] args, MatchCollection match)
+        static bool MatchArguments(IRuntimeType runtimeType, string[] args)
         {
-            if (!MatchType(runtimeType, name))
-                return false;
-            if (match.Count > 0 && !MatchParameters(runtimeType, match))
-                return false;
-            if (!Match(match.Select(capture => capture.Value.Trim()), runtimeType.RuntimeParameters))
-                return false;
-            if (args.Length > 0 && !MatchArguments(runtimeType, args))
+            if (args.Length > 0 && runtimeType.ParametersCount != args.Length)
                 return false;
             if (!Match(args, runtimeType.RuntimeParameters))
                 return false;
             return true;
         }
 
-        static bool MatchParameters(IRuntimeType runtimeType, MatchCollection match) => runtimeType.RuntimeParameters.Length == match.Count;
+        static bool MatchParameters(IRuntimeType runtimeType, string name, string[] args, MatchCollection match)
+        {
+            if (!MatchType(runtimeType, name))
+                return false;
+            return MatchParameters(runtimeType, match) && MatchArguments(runtimeType, args);
+        }
+
+        static bool MatchParameters(IRuntimeType runtimeType, MatchCollection match)
+        {
+            if (match.Count > 0 && runtimeType.ParametersCount != match.Count)
+                return false;
+            if (!Match(match.Select(capture => capture.Value.Trim()), runtimeType.RuntimeParameters))
+                return false;
+            return true;
+        }
 
         static bool MatchType(IRuntimeType runtimeType, string name) => runtimeType.Type.FullName == name;
+
+        IRuntimeType CacheRuntimeType(string id, IRuntimeType runtimeType)
+        {
+            if (runtimeType != null)
+            {
+                if (!Cache.ContainsKey(id))
+                    Cache.Add(id, runtimeType);
+                return Cache[id];
+            }
+            return runtimeType;
+        }
     }
 }

@@ -5,7 +5,7 @@ namespace Build
     [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class InjectionAttribute : RuntimeAttribute, IRuntimeAttribute
     {
-        public InjectionAttribute(string runtimeTypeId, params object[] args) : this(runtimeTypeId) => Args = args;
+        public InjectionAttribute(string id, params object[] args) : this(id) => Args = args;
 
         public InjectionAttribute(Type type, params object[] args) : this(type) => Args = args;
 

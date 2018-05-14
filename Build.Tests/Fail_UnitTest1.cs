@@ -29,14 +29,15 @@ namespace Build.Tests.Fail_TestSet1
         public void Fail_TestSet1_Method10()
         {
             //Fail_TestSet1
+            container.RegisterType<SqlDataRepository>();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository>());
         }
 
         [Fact]
         public void Fail_TestSet1_Method11()
         {
-            var other = new Other2(typeof(int));
             //Fail_TestSet1
+            var other = new Other2(typeof(int));
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository>());
         }
 
@@ -69,6 +70,7 @@ namespace Build.Tests.Fail_TestSet1
         public void Fail_TestSet1_Method15()
         {
             //Fail_TestSet1
+            container.RegisterType<ServiceDataRepository2>();
             Assert.Throws<TypeFilterException>(() => container.RegisterType<ServiceDataRepository3>());
         }
 
@@ -94,6 +96,7 @@ namespace Build.Tests.Fail_TestSet1
         public void Fail_TestSet1_Method2()
         {
             //Fail_TestSet1
+            container.RegisterType<SqlDataRepository>();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<PrivateConstructorServiceDataRepository>());
         }
 
@@ -101,6 +104,7 @@ namespace Build.Tests.Fail_TestSet1
         public void Fail_TestSet1_Method3()
         {
             //Fail_TestSet1
+            container.RegisterType<SqlDataRepository>();
             Assert.Throws<TypeFilterException>(() => container.RegisterType<int>());
         }
 
@@ -108,6 +112,7 @@ namespace Build.Tests.Fail_TestSet1
         public void Fail_TestSet1_Method4()
         {
             //Fail_TestSet1
+            container.RegisterType<SqlDataRepository>();
             Assert.Throws<TypeFilterException>(() => container.RegisterType<IPersonRepository>());
         }
 

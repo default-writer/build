@@ -106,7 +106,7 @@ namespace Build.Tests.Fail_TestSet1
 
     public abstract class ServiceDataRepository3 : IPersonRepository
     {
-        public ServiceDataRepository3([Injection("Build.Tests.Fail_TestSet1.Other2")]IPersonRepository repository)
+        public ServiceDataRepository3([Injection("Build.Tests.Fail_TestSet1.Other2", typeof(PrivateConstructorServiceDataRepository))]IPersonRepository repository)
         {
             Repository = repository;
         }

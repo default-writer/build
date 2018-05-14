@@ -7,10 +7,7 @@ namespace Build
     {
         public Type GetType(Assembly assembly, string typeName) => assembly.GetType(typeName) ?? Type.GetType(typeName);
 
-        public string GetTypeFullName(IRuntimeType constructor, string typeFullName, string[] args)
-        {
-            return string.Format("{0}({1})", constructor == null ? typeFullName : constructor.Type.FullName, string.Join(",", args));
-        }
+        public string GetTypeFullName(IRuntimeType constructor, string typeFullName, string[] args) => string.Format("{0}({1})", constructor == null ? typeFullName : constructor.Type.FullName, string.Join(",", args));
 
         public string GetTypeId(IRuntimeAttribute attribute, string defaultValue)
         {

@@ -28,11 +28,13 @@ namespace Build
 
         public bool IsInitialized => RuntimeInstance.None != _runtimeInstance;
 
+        public int ParametersCount => RuntimeTypes.Count;
+
         public IRuntimeType Parent { get; }
 
-        public IRuntimeType[] RuntimeParameters => RuntimeTypes.ToArray();
+        public IEnumerable<IRuntimeType> RuntimeParameters => RuntimeTypes;
 
-        public Type Type { get; private set; }
+        public Type Type { get; }
 
         List<RuntimeType> RuntimeTypes { get; } = new List<RuntimeType>();
 

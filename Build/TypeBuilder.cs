@@ -44,10 +44,6 @@ namespace Build
             }
         }
 
-        public bool CanCreate(Type type) => Filter.CanCreate(type);
-
-        public bool CanRegister(Type type) => Filter.CanRegister(type);
-
         public object CreateInstance(Type type, params object[] args) => CreateInstance(type.FullName, args);
 
         public object CreateInstance(string id, params object[] args)
@@ -60,7 +56,12 @@ namespace Build
             throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructors available)", id));
         }
 
-        public void RegisterType(Type type) => RegisterTypeId(type);
+        public void RegisterType(Type type)
+        {
+            Visited.Add(type);
+            RegisterConstructor(type);
+            Visited.Remove(type);
+        }
 
         static string[] GetInjectedParameterArgs(Type type, Type parameterType, InjectionAttribute injectionAttribute, string id, Type attributeType)
         {
@@ -133,7 +134,7 @@ namespace Build
                     throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type.FullName));
                 try
                 {
-                    RegisterTypeId(type);
+                    RegisterType(type);
                 }
                 catch (TypeRegistrationException ex)
                 {
@@ -157,13 +158,6 @@ namespace Build
                     result.Initialize(attribute.RuntimeInstance);
                 }
             }
-        }
-
-        void RegisterTypeId(Type type)
-        {
-            Visited.Add(type);
-            RegisterConstructor(type);
-            Visited.Remove(type);
         }
     }
 }
