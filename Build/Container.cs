@@ -53,20 +53,6 @@ namespace Build
         }
 
         /// <summary>
-        /// Registers type
-        /// </summary>
-        /// <param name="type">Type identifier</param>
-        /// <returns>
-        /// Returns true if type is supported and acually added to collection of identified types
-        /// </returns>
-        public void Register(Type type)
-        {
-            if (!_typeBuilder.CanRegister(type))
-                throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", type.FullName));
-            _typeBuilder.RegisterType(type);
-        }
-
-        /// <summary>
         /// Registers all supported types in assembly
         /// </summary>
         /// <param name="assembly">Assembly for add type identifiers</param>
@@ -77,6 +63,20 @@ namespace Build
             foreach (var type in assembly.GetTypes())
                 if (_typeBuilder.CanRegister(type))
                     _typeBuilder.RegisterType(type);
+        }
+
+        /// <summary>
+        /// Registers type
+        /// </summary>
+        /// <param name="type">Type identifier</param>
+        /// <returns>
+        /// Returns true if type is supported and acually added to collection of identified types
+        /// </returns>
+        public void RegisterType(Type type)
+        {
+            if (!_typeBuilder.CanRegister(type))
+                throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", type.FullName));
+            _typeBuilder.RegisterType(type);
         }
 
         /// <summary>
