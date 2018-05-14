@@ -6,7 +6,6 @@ namespace Build
 {
     class RuntimeType : IRuntimeType
     {
-        Func<IRuntimeType, IRuntimeAttribute, object> _func;
         bool _guard;
         RuntimeInstance _runtimeInstance;
         object _value;
@@ -26,7 +25,7 @@ namespace Build
 
         public string Id => string.Format("{0}({1})", Type.FullName, string.Join(",", RuntimeTypes.Select(p => p.Types[0].FullName)));
 
-        public bool IsInitialized => _runtimeInstance != RuntimeInstance.None;
+        public bool IsInitialized => _runtimeInstance != RuntimeInstance.Default;
 
         public int ParametersCount => RuntimeTypes.Count;
 
@@ -65,8 +64,8 @@ namespace Build
             if (!Match(args))
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (parameter type mismatch)", Type.FullName));
             if (args.Length == 0)
-                return Create(this, Attribute, null);
-            return Call(Attribute);
+                return EvaluateRuntimeInstance(this, Attribute, null);
+            return CreateInstance(Attribute);
         }
 
         public Type FindParameterType(string id) => Types.FirstOrDefault(p => p.FullName == id);
@@ -76,7 +75,6 @@ namespace Build
             if (IsInitialized)
                 throw new TypeRegistrationException(string.Format("{0} is not registered (more than one constructor available)", Type.FullName));
             _runtimeInstance = runtimeInstance;
-            _func = Evaluate;
         }
 
         public bool IsAssignableFrom(string id)
@@ -108,9 +106,37 @@ namespace Build
 
         static Type GetRuntimeType(object[] args, int i) => args[i] == null ? typeof(object) : args[i].GetType();
 
-        object Call(IRuntimeAttribute attribute) => Activator.CreateInstance(Type, RuntimeTypes.Select((p, i) => p[attribute, Id, i]).ToArray());
+        object CreateInstance(IRuntimeAttribute attribute) => Activator.CreateInstance(Type, RuntimeTypes.Select((p, i) => p[attribute, Id, i]).ToArray());
 
-        object Create(IRuntimeType type, IRuntimeAttribute attribute, int? i)
+        object Evaluate(IRuntimeType type, IRuntimeAttribute attribute) => Activator.CreateInstance(Type, RuntimeTypes.Select((p, i) => p.EvaluateRuntimeInstance(type, attribute, i)).ToArray());
+
+        object EvaluateArgument(IRuntimeAttribute attribute, int? i)
+        {
+            if (_runtimeInstance == RuntimeInstance.None)
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated (constructor not allowed)", Type.FullName));
+            return EvaluateInjection(attribute, i);
+        }
+
+        object EvaluateInjection(IRuntimeAttribute attribute, int? i)
+        {
+            if (attribute is InjectionAttribute injection && injection.Args.Length > 0 && i.HasValue)
+                return injection.Args[i.Value];
+            return this[attribute, Id, i];
+        }
+
+        object EvaluateInstance(IRuntimeType type, int? i)
+        {
+            if (_guard)
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated (circular references found)", Type.FullName));
+            _guard = true;
+            object result = null;
+            var runtimeAttribute = i.HasValue ? Attribute.GetRuntimeType(string.Format("{0}:({1})", type.Id, i)) : null;
+            result = Evaluate(type, runtimeAttribute ?? Attribute);
+            _guard = false;
+            return result;
+        }
+
+        object EvaluateRuntimeInstance(IRuntimeType type, IRuntimeAttribute attribute, int? i)
         {
             switch (_runtimeInstance)
             {
@@ -123,34 +149,6 @@ namespace Build
                 default:
                     return EvaluateArgument(attribute, i);
             }
-        }
-
-        object Evaluate(IRuntimeType type, IRuntimeAttribute attribute) => Activator.CreateInstance(Type, RuntimeTypes.Select((p, i) => p.Create(type, attribute, i)).ToArray());
-
-        object Evaluate(IRuntimeAttribute attribute, int? i)
-        {
-            if (attribute is InjectionAttribute injection && injection.Args.Length > 0 && i.HasValue)
-                return injection.Args[i.Value];
-            return this[attribute, Id, i];
-        }
-
-        object EvaluateArgument(IRuntimeAttribute attribute, int? i)
-        {
-            if (_func != null)
-                throw new TypeInstantiationException(string.Format("{0} is not instantiated (constructor not allowed)", Type.FullName));
-            return Evaluate(attribute, i);
-        }
-
-        object EvaluateInstance(IRuntimeType type, int? i)
-        {
-            if (_guard)
-                throw new TypeInstantiationException(string.Format("{0} is not instantiated (circular references found)", Type.FullName));
-            _guard = true;
-            object result = null;
-            var runtimeAttribute = i.HasValue ? Attribute.GetRuntimeType(string.Format("{0}:({1})", type.Id, i)) : null;
-            result = _func(type, runtimeAttribute ?? Attribute);
-            _guard = false;
-            return result;
         }
 
         object EvaluateSingleton(IRuntimeType type, int? i)

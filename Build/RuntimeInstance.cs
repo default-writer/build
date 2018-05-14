@@ -2,6 +2,7 @@
 {
     public enum RuntimeInstance
     {
+        Default,
         None,
         CreateInstance,
         Singleton
