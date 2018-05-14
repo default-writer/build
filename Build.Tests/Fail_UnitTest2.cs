@@ -6,10 +6,7 @@ namespace Build.Tests.Fail_TestSet2
     {
         readonly IContainer container;
 
-        public UnitTest()
-        {
-            container = new Container();
-        }
+        public UnitTest() => container = new Container();
 
         [Fact]
         public void Fail_TestSet2_Method1()
@@ -31,6 +28,7 @@ namespace Build.Tests.Fail_TestSet2
         public void Fail_TestSet2_Method3()
         {
             //Fail_TestSet2
+            container.RegisterType<SqlDataRepository>();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository>());
         }
     }

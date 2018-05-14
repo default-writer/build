@@ -9,59 +9,53 @@ namespace Build
     public class TypeBuilder
 
     {
-        readonly ITypeFilter _typeFilter;
-        readonly ITypeParser _typeParser;
-        readonly ITypeResolver _typeResolver;
-        readonly List<Type> visited = new List<Type>();
-        IDictionary<string, RuntimeType> _types = new Dictionary<string, RuntimeType>();
-
         public TypeBuilder()
         {
-            _typeFilter = new TypeFilter();
-            _typeResolver = new TypeResolver();
-            _typeParser = new TypeParser();
+            Filter = new TypeFilter();
+            Resolver = new TypeResolver();
+            Parser = new TypeParser();
         }
 
         public TypeBuilder(ITypeFilter typeFilter, ITypeResolver typeResolver, ITypeParser typeParser)
         {
-            _typeFilter = typeFilter ?? throw new ArgumentNullException(nameof(typeFilter));
-            _typeResolver = typeResolver ?? throw new ArgumentNullException(nameof(typeResolver));
-            _typeParser = typeParser ?? throw new ArgumentNullException(nameof(typeParser));
+            Filter = typeFilter ?? throw new ArgumentNullException(nameof(typeFilter));
+            Resolver = typeResolver ?? throw new ArgumentNullException(nameof(typeResolver));
+            Parser = typeParser ?? throw new ArgumentNullException(nameof(typeParser));
         }
 
-        public ITypeFilter Filter => _typeFilter;
+        public ITypeFilter Filter { get; }
 
-        public ITypeParser Parser => _typeParser;
+        public ITypeParser Parser { get; }
 
-        public IEnumerable<string> RegisteredIds => _types.Keys;
+        public ITypeResolver Resolver { get; }
 
-        public ITypeResolver Resolver => _typeResolver;
-
-        internal IEnumerable<RuntimeType> RegisteredTypes => _types.Values;
+        public List<Type> Visited { get; } = new List<Type>();
+        IEnumerable<RuntimeType> RegisteredTypes => Types.Values;
+        IDictionary<string, RuntimeType> Types { get; } = new Dictionary<string, RuntimeType>();
 
         RuntimeType this[string id, RuntimeType type]
         {
             get
             {
-                if (!_types.ContainsKey(id))
-                    _types.Add(id, type);
-                _types[id].RegisterType(type.Type);
-                return _types[id];
+                if (!Types.ContainsKey(id))
+                    Types.Add(id, type);
+                Types[id].RegisterType(type.Type);
+                return Types[id];
             }
         }
 
-        public bool CanCreate(Type type) => _typeFilter.CanCreate(type);
+        public bool CanCreate(Type type) => Filter.CanCreate(type);
 
-        public bool CanRegister(Type type) => _typeFilter.CanRegister(type);
+        public bool CanRegister(Type type) => Filter.CanRegister(type);
 
         public object CreateInstance(Type type, params object[] args) => CreateInstance(type.FullName, args);
 
         public object CreateInstance(string id, params object[] args)
         {
-            if (_types.ContainsKey(id))
-                return _types[id].CreateInstance(args);
+            if (Types.ContainsKey(id))
+                return Types[id].CreateInstance(args);
             var parameterArgs = GetParameterArgs(args);
-            var runtimeType = (RuntimeType)_typeParser.Find(id, parameterArgs, _types.Values);
+            var runtimeType = (RuntimeType)Parser.Find(id, parameterArgs, Types.Values);
             if (runtimeType != null) return runtimeType.CreateInstance(args);
             throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructors available)", id));
         }
@@ -85,8 +79,8 @@ namespace Build
 
         string GetTypeId(Type type, IRuntimeAttribute attribute)
         {
-            string id = _typeResolver.GetTypeId(attribute, type.FullName);
-            var attributeType = _typeResolver.GetType(type.Assembly, id);
+            string id = Resolver.GetTypeId(attribute, type.FullName);
+            var attributeType = Resolver.GetType(type.Assembly, id);
             if (attributeType != null && !attributeType.IsAssignableFrom(type))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", attributeType.FullName, type.FullName));
             return id;
@@ -106,7 +100,7 @@ namespace Build
                 {
                     RegisterConstructorParameter(i, type, constructor, parameters);
                 }
-                RegisterConstructorType(constructorInfo, type, constructor);
+                RegisterConstructorType(constructorInfo, constructor);
             }
         }
 
@@ -115,14 +109,14 @@ namespace Build
             var parameterType = parameters[i].ParameterType;
             var injectionAttribute = GetParameterAttribute(parameters[i]);
             var parameter = new RuntimeType(injectionAttribute, constructor, parameters[i].ParameterType, injectionAttribute.Args);
-            string id = _typeResolver.GetTypeId(injectionAttribute, parameterType.FullName);
-            var attributeType = _typeResolver.GetType(type.Assembly, id);
+            string id = Resolver.GetTypeId(injectionAttribute, parameterType.FullName);
+            var attributeType = Resolver.GetType(type.Assembly, id);
             var parameterArgs = GetInjectedParameterArgs(type, parameterType, injectionAttribute, id, attributeType);
-            var runtimeType = _typeParser.Find(id, parameterArgs, _types.Values);
+            var runtimeType = Parser.Find(id, parameterArgs, Types.Values);
             if (runtimeType == null)
                 RegisterConstructorType(attributeType);
             RegisterConstructorType(parameterType);
-            string typeFullName = _typeResolver.GetTypeFullName(runtimeType, id, parameterArgs);
+            string typeFullName = Resolver.GetTypeFullName(runtimeType, id, parameterArgs);
             var result = this[typeFullName, parameter];
             if (result != null)
             {
@@ -133,9 +127,9 @@ namespace Build
 
         void RegisterConstructorType(Type type)
         {
-            if (_typeFilter.CanRegister(type))
+            if (Filter.CanRegister(type))
             {
-                if (visited.Contains(type))
+                if (Visited.Contains(type))
                     throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type.FullName));
                 try
                 {
@@ -148,28 +142,28 @@ namespace Build
             }
         }
 
-        void RegisterConstructorType(ConstructorInfo constructorInfo, Type type, RuntimeType constructor)
+        void RegisterConstructorType(ConstructorInfo constructorInfo, RuntimeType constructor)
         {
             var attribute = constructor.Attribute;
-            string id = GetTypeId(type, attribute);
+            string id = GetTypeId(constructorInfo.DeclaringType, attribute);
             var parameterArgs = constructorInfo.GetParameters().Select(p => p.ParameterType.FullName).ToArray();
-            var runtimeType = _typeParser.Find(id, parameterArgs, _types.Values);
-            string typeFullName = _typeResolver.GetTypeFullName(runtimeType, id, parameterArgs);
-            if (!_types.ContainsKey(typeFullName) || !this[typeFullName, _types[typeFullName]].IsInitialized)
+            var runtimeType = Parser.Find(id, parameterArgs, Types.Values);
+            string typeFullName = Resolver.GetTypeFullName(runtimeType, id, parameterArgs);
+            if (!Types.ContainsKey(typeFullName) || !this[typeFullName, Types[typeFullName]].IsInitialized)
             {
                 var result = this[typeFullName, constructor];
                 if (result != null)
                 {
-                    result.Initialize(attribute.RuntimeInstance, type);
+                    result.Initialize(attribute.RuntimeInstance);
                 }
             }
         }
 
         void RegisterTypeId(Type type)
         {
-            visited.Add(type);
+            Visited.Add(type);
             RegisterConstructor(type);
-            visited.Remove(type);
+            Visited.Remove(type);
         }
     }
 }

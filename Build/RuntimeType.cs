@@ -26,9 +26,7 @@ namespace Build
 
         public string Id => string.Format("{0}({1})", Type.FullName, string.Join(",", RuntimeTypes.Select(p => p.Types[0].FullName)));
 
-        public bool IsInitialized { get; private set; }
-
-        public IEnumerable<Type> Parameters => Types;
+        public bool IsInitialized => RuntimeInstance.None != _runtimeInstance;
 
         public IRuntimeType Parent { get; }
 
@@ -36,9 +34,9 @@ namespace Build
 
         public Type Type { get; private set; }
 
-        public List<Type> Types { get; } = new List<Type>();
+        List<RuntimeType> RuntimeTypes { get; } = new List<RuntimeType>();
 
-        internal List<RuntimeType> RuntimeTypes { get; } = new List<RuntimeType>();
+        List<Type> Types { get; } = new List<Type>();
 
         object this[IRuntimeAttribute attribute, string typeFullName, int? i]
         {
@@ -73,14 +71,12 @@ namespace Build
 
         public Type FindParameterType(string id) => Types.FirstOrDefault(p => p.FullName == id);
 
-        public void Initialize(RuntimeInstance runtimeInstance, Type type)
+        public void Initialize(RuntimeInstance runtimeInstance)
         {
             if (IsInitialized)
                 throw new TypeRegistrationException(string.Format("{0} is not registered (more than one constructor available)", Type.FullName));
             _runtimeInstance = runtimeInstance;
-            Type = type;
             _func = Evaluate;
-            IsInitialized = true;
         }
 
         public bool IsAssignableFrom(string id)
@@ -131,10 +127,9 @@ namespace Build
 
         object Evaluate(IRuntimeType type, IRuntimeAttribute attribute) => Activator.CreateInstance(Type, RuntimeTypes.Select((p, i) => p.Create(type, attribute, i)).ToArray());
 
-        private object EvaluateArgument(IRuntimeAttribute attribute, int? i)
+        object EvaluateArgument(IRuntimeAttribute attribute, int? i)
         {
-            var injection = attribute as InjectionAttribute;
-            if (injection != null && injection.Args.Length > 0 && i.HasValue)
+            if (attribute is InjectionAttribute injection && injection.Args.Length > 0 && i.HasValue)
                 return injection.Args[i.Value];
             return this[attribute, Id, i];
         }
@@ -158,7 +153,7 @@ namespace Build
             return result;
         }
 
-        private object EvaluateSingleton(IRuntimeType type, int? i)
+        object EvaluateSingleton(IRuntimeType type, int? i)
         {
             if (!_guard)
             {
