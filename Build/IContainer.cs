@@ -33,7 +33,7 @@ namespace Build
         /// Registers type
         /// </summary>
         /// <param name="type">Type identifier</param>
-        void Register(Type type);
+        void RegisterType(Type type);
 
         /// <summary>
         /// Registers all supported types in assembly
