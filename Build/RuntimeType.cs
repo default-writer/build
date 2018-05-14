@@ -30,7 +30,7 @@ namespace Build
 
         public IRuntimeType Parent { get; }
 
-        public IRuntimeType[] RuntimeParameters => RuntimeTypes == null ? Array.Empty<RuntimeType>() : RuntimeTypes.ToArray();
+        public IRuntimeType[] RuntimeParameters => RuntimeTypes.ToArray();
 
         public Type Type { get; private set; }
 
@@ -60,9 +60,7 @@ namespace Build
         {
             if (!IsInitialized)
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructor available)", Type.FullName));
-            if (ParametersMismatch())
-                throw new TypeInstantiationException(string.Format("{0} is not instantiated (parameter mismatch)", Type.FullName));
-            if (!RegisterParameters(Id, args))
+            if (!Match(args))
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (parameter type mismatch)", Type.FullName));
             if (args.Length == 0)
                 return Create(this, Attribute, null);
@@ -163,6 +161,6 @@ namespace Build
             return _value;
         }
 
-        bool ParametersMismatch() => (RuntimeTypes != null && Args == null && RuntimeTypes.Count > 0) || (RuntimeTypes == null && Args != null && Args.Length > 0);
+        bool Match(object[] args) => args.Length == 0 || RuntimeTypes == null || args.Length == RuntimeTypes.Count && RegisterParameters(Id, args);
     }
 }
