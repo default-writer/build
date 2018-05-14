@@ -27,7 +27,8 @@ namespace Build
             return (T)_typeBuilder.CreateInstance(typeof(T), args);
         }
 
-        /// <summary> Creates an object </summary> <param name="type">Type identifier</typeparam>
+        /// <summary> Creates an object </summary>
+        /// <param name="type">Type identifier</param>
         /// <param name="args">Arguments to constuctor</param> <returns>Returns instance of
         /// identified type</returns>
         public object CreateInstance(Type type, params object[] args)
