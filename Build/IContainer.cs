@@ -24,10 +24,10 @@ namespace Build
         /// <summary>
         /// Creates an object from identifed type with parameters
         /// </summary>
-        /// <param name="typeId">Type identifier with/without parameters 'typeid(args)' or 'typeid'</param>
+        /// <param name="id">Type identifier with/without parameters 'id(args)' or 'id'</param>
         /// <param name="args">Arguments to constuctor</param>
         /// <returns>Returns instance of identified type</returns>
-        object CreateInstance(string typeId, params object[] args);
+        object CreateInstance(string id, params object[] args);
 
         /// <summary>
         /// Registers type

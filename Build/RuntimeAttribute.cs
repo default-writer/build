@@ -15,15 +15,15 @@ namespace Build
         public abstract RuntimeInstance RuntimeInstance { get; }
         public string TypeFullName { get; }
 
-        public IRuntimeAttribute GetRuntimeType(string typeId)
+        public IRuntimeAttribute GetRuntimeType(string id)
         {
-            if (!_runtimeTypes.ContainsKey(typeId))
+            if (!_runtimeTypes.ContainsKey(id))
             {
                 return this;
             }
-            return _runtimeTypes[typeId];
+            return _runtimeTypes[id];
         }
 
-        public void RegisterRuntimeType(string typeId, IRuntimeAttribute runtimeType) => _runtimeTypes[typeId] = runtimeType;
+        public void RegisterRuntimeType(string id, IRuntimeAttribute runtimeType) => _runtimeTypes[id] = runtimeType;
     }
 }

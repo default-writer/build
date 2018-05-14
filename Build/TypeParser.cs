@@ -9,11 +9,11 @@ namespace Build
     {
         IDictionary<string, IRuntimeType> _cache = new Dictionary<string, IRuntimeType>();
 
-        public IRuntimeType Find(string typeId, string[] args, IEnumerable<IRuntimeType> types)
+        public IRuntimeType Find(string id, string[] args, IEnumerable<IRuntimeType> types)
         {
-            if (_cache.ContainsKey(typeId))
-                return _cache[typeId];
-            var func = Regex.Match(typeId, @"([^()]+)(?:\((.*)\)){0,1}$");
+            if (_cache.ContainsKey(id))
+                return _cache[id];
+            var func = Regex.Match(id, @"([^()]+)(?:\((.*)\)){0,1}$");
             var name = func.Groups[1].Value.Trim();
             var pars = Regex.Matches(func.Groups[2].Value.Trim(), @"([^,]+\(.+?\))|([^,]+)");
             var runtimeType = types.FirstOrDefault((p) => MatchParameters(p, name, args, pars));
@@ -28,9 +28,9 @@ namespace Build
             }
             if (runtimeType != null)
             {
-                if (!_cache.ContainsKey(typeId))
-                    _cache.Add(typeId, runtimeType);
-                return _cache[typeId];
+                if (!_cache.ContainsKey(id))
+                    _cache.Add(id, runtimeType);
+                return _cache[id];
             }
             return runtimeType;
         }

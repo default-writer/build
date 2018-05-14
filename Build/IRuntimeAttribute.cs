@@ -8,8 +8,8 @@ namespace Build
         RuntimeInstance RuntimeInstance { get; }
         string TypeFullName { get; }
 
-        IRuntimeAttribute GetRuntimeType(string typeId);
+        IRuntimeAttribute GetRuntimeType(string id);
 
-        void RegisterRuntimeType(string typeId, IRuntimeAttribute attribute);
+        void RegisterRuntimeType(string id, IRuntimeAttribute attribute);
     }
 }

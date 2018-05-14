@@ -12,6 +12,6 @@ namespace Build
         Type Type { get; }
 
         //IRuntimeType Runtime { get; }
-        bool IsAssignableFrom(string typeId);
+        bool IsAssignableFrom(string id);
     }
 }

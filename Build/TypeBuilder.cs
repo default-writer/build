@@ -39,14 +39,14 @@ namespace Build
 
         internal IEnumerable<RuntimeType> RegisteredTypes => _types.Values;
 
-        RuntimeType this[string typeId, RuntimeType type]
+        RuntimeType this[string id, RuntimeType type]
         {
             get
             {
-                if (!_types.ContainsKey(typeId))
-                    _types.Add(typeId, type);
-                _types[typeId].RegisterType(type.Type);
-                return _types[typeId];
+                if (!_types.ContainsKey(id))
+                    _types.Add(id, type);
+                _types[id].RegisterType(type.Type);
+                return _types[id];
             }
         }
 
@@ -56,23 +56,23 @@ namespace Build
 
         public object CreateInstance(Type type, params object[] args) => CreateInstance(type.FullName, args);
 
-        public object CreateInstance(string typeId, params object[] args)
+        public object CreateInstance(string id, params object[] args)
         {
-            if (_types.ContainsKey(typeId))
-                return _types[typeId].CreateInstance(args);
+            if (_types.ContainsKey(id))
+                return _types[id].CreateInstance(args);
             var parameterArgs = GetParameterArgs(args);
-            var runtimeType = (RuntimeType)_typeParser.Find(typeId, parameterArgs, _types.Values);
+            var runtimeType = (RuntimeType)_typeParser.Find(id, parameterArgs, _types.Values);
             if (runtimeType != null) return runtimeType.CreateInstance(args);
-            throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructors available)", typeId));
+            throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructors available)", id));
         }
 
         public void RegisterType(Type type) => RegisterTypeId(type);
 
-        static string[] GetInjectedParameterArgs(Type type, Type parameterType, InjectionAttribute injectionAttribute, string typeId, Type attributeType)
+        static string[] GetInjectedParameterArgs(Type type, Type parameterType, InjectionAttribute injectionAttribute, string id, Type attributeType)
         {
             if (attributeType != null && !parameterType.IsAssignableFrom(attributeType))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", parameterType.FullName, attributeType.FullName));
-            if (typeId == type.FullName && typeId == parameterType.FullName)
+            if (id == type.FullName && id == parameterType.FullName)
                 throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type.FullName));
             return GetParameterArgs(injectionAttribute.Args);
         }
@@ -85,11 +85,11 @@ namespace Build
 
         string GetTypeId(Type type, IRuntimeAttribute attribute)
         {
-            string typeId = _typeResolver.GetTypeId(attribute, type.FullName);
-            var attributeType = _typeResolver.GetType(type.Assembly, typeId);
+            string id = _typeResolver.GetTypeId(attribute, type.FullName);
+            var attributeType = _typeResolver.GetType(type.Assembly, id);
             if (attributeType != null && !attributeType.IsAssignableFrom(type))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", attributeType.FullName, type.FullName));
-            return typeId;
+            return id;
         }
 
         void RegisterConstructor(Type type)
@@ -115,14 +115,14 @@ namespace Build
             var parameterType = parameters[i].ParameterType;
             var injectionAttribute = GetParameterAttribute(parameters[i]);
             var parameter = new RuntimeType(injectionAttribute, constructor, parameters[i].ParameterType, injectionAttribute.Args);
-            string typeId = _typeResolver.GetTypeId(injectionAttribute, parameterType.FullName);
-            var attributeType = _typeResolver.GetType(type.Assembly, typeId);
-            var parameterArgs = GetInjectedParameterArgs(type, parameterType, injectionAttribute, typeId, attributeType);
-            var runtimeType = _typeParser.Find(typeId, parameterArgs, _types.Values);
+            string id = _typeResolver.GetTypeId(injectionAttribute, parameterType.FullName);
+            var attributeType = _typeResolver.GetType(type.Assembly, id);
+            var parameterArgs = GetInjectedParameterArgs(type, parameterType, injectionAttribute, id, attributeType);
+            var runtimeType = _typeParser.Find(id, parameterArgs, _types.Values);
             if (runtimeType == null)
                 RegisterConstructorType(attributeType);
             RegisterConstructorType(parameterType);
-            string typeFullName = _typeResolver.GetTypeFullName(runtimeType, typeId, parameterArgs);
+            string typeFullName = _typeResolver.GetTypeFullName(runtimeType, id, parameterArgs);
             var result = this[typeFullName, parameter];
             if (result != null)
             {
@@ -151,10 +151,10 @@ namespace Build
         void RegisterConstructorType(ConstructorInfo constructorInfo, Type type, RuntimeType constructor)
         {
             var attribute = constructor.Attribute;
-            string typeId = GetTypeId(type, attribute);
+            string id = GetTypeId(type, attribute);
             var parameterArgs = constructorInfo.GetParameters().Select(p => p.ParameterType.FullName).ToArray();
-            var runtimeType = _typeParser.Find(typeId, parameterArgs, _types.Values);
-            string typeFullName = _typeResolver.GetTypeFullName(runtimeType, typeId, parameterArgs);
+            var runtimeType = _typeParser.Find(id, parameterArgs, _types.Values);
+            string typeFullName = _typeResolver.GetTypeFullName(runtimeType, id, parameterArgs);
             if (!_types.ContainsKey(typeFullName) || !this[typeFullName, _types[typeFullName]].IsInitialized)
             {
                 var result = this[typeFullName, constructor];

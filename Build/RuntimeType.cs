@@ -46,15 +46,15 @@ namespace Build
         {
             get
             {
-                var typeId = string.Format("{0}:({1})", typeFullName, i);
-                if (!_values.ContainsKey(attribute.GetRuntimeType(typeId)))
-                    _values.Add(attribute.GetRuntimeType(typeId), null);
-                return _values[attribute.GetRuntimeType(typeId)];
+                var id = string.Format("{0}:({1})", typeFullName, i);
+                if (!_values.ContainsKey(attribute.GetRuntimeType(id)))
+                    _values.Add(attribute.GetRuntimeType(id), null);
+                return _values[attribute.GetRuntimeType(id)];
             }
             set
             {
-                var typeId = string.Format("{0}:({1})", typeFullName, i);
-                _values[attribute.GetRuntimeType(typeId)] = value;
+                var id = string.Format("{0}:({1})", typeFullName, i);
+                _values[attribute.GetRuntimeType(id)] = value;
             }
         }
 
@@ -71,7 +71,7 @@ namespace Build
             return Call(_attribute);
         }
 
-        public Type FindParameterType(string typeId) => _types.FirstOrDefault(p => p.FullName == typeId);
+        public Type FindParameterType(string id) => _types.FirstOrDefault(p => p.FullName == id);
 
         public void Initialize(RuntimeInstance runtimeInstance, Type type)
         {
@@ -83,10 +83,10 @@ namespace Build
             _init = true;
         }
 
-        public bool IsAssignableFrom(string typeId)
+        public bool IsAssignableFrom(string id)
         {
             var runtimeType = _type;
-            var parameterType = FindParameterType(typeId);
+            var parameterType = FindParameterType(id);
             return parameterType != null && parameterType.IsAssignableFrom(runtimeType);
         }
 
