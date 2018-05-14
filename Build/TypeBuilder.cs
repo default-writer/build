@@ -7,7 +7,6 @@ using System.Reflection;
 namespace Build
 {
     public class TypeBuilder
-
     {
         public TypeBuilder()
         {
