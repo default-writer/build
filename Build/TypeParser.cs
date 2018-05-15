@@ -20,15 +20,7 @@ namespace Build
             return CacheRuntimeType(id, runtimeType);
         }
 
-        static bool IsAssignableFrom(IRuntimeType parameterType, string argumentType)
-        {
-            if (parameterType.Type.FullName != argumentType)
-                if (!parameterType.IsAssignableFrom(argumentType))
-                    return false;
-            return true;
-        }
-
-        static bool Match(IEnumerable<string> arguments, IEnumerable<IRuntimeType> parameters)
+        static bool MatchArguments(IEnumerable<string> arguments, IEnumerable<IRuntimeType> parameters)
         {
             var args = arguments.GetEnumerator();
             var pars = parameters.GetEnumerator();
@@ -36,17 +28,17 @@ namespace Build
             {
                 var argumentType = args.Current;
                 var parameterType = pars.Current;
-                if (!IsAssignableFrom(parameterType, argumentType))
+                if (!parameterType.IsAssignableFrom(argumentType))
                     return false;
             }
             return true;
         }
 
-        static bool MatchArguments(IRuntimeType runtimeType, string[] args)
+        static bool MatchParameterArguments(IRuntimeType runtimeType, string[] args)
         {
             if (args.Length > 0 && runtimeType.ParametersCount != args.Length)
                 return false;
-            if (!Match(args, runtimeType.RuntimeParameters))
+            if (!MatchArguments(args, runtimeType.RuntimeParameters))
                 return false;
             return true;
         }
@@ -55,14 +47,14 @@ namespace Build
         {
             if (!MatchType(runtimeType, name))
                 return false;
-            return MatchParameters(runtimeType, match) && MatchArguments(runtimeType, args);
+            return MatchParameters(runtimeType, match) && MatchParameterArguments(runtimeType, args);
         }
 
         static bool MatchParameters(IRuntimeType runtimeType, MatchCollection match)
         {
             if (match.Count > 0 && runtimeType.ParametersCount != match.Count)
                 return false;
-            if (!Match(match.Select(capture => capture.Value.Trim()), runtimeType.RuntimeParameters))
+            if (!MatchArguments(match.Select(capture => capture.Value.Trim()), runtimeType.RuntimeParameters))
                 return false;
             return true;
         }

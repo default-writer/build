@@ -5,8 +5,6 @@ namespace Build
 {
     public abstract class RuntimeAttribute : Attribute, IRuntimeAttribute
     {
-        readonly IDictionary<string, IRuntimeAttribute> _runtimeTypes = new Dictionary<string, IRuntimeAttribute>();
-
         protected RuntimeAttribute(string typeFullName = default) => TypeFullName = typeFullName;
 
         protected RuntimeAttribute(Type type) => TypeFullName = type.FullName;
@@ -15,17 +13,16 @@ namespace Build
 
         public abstract RuntimeInstance RuntimeInstance { get; }
 
+        public IDictionary<string, IRuntimeAttribute> RuntimeTypes { get; } = new Dictionary<string, IRuntimeAttribute>();
         public string TypeFullName { get; }
 
         public IRuntimeAttribute GetRuntimeType(string id)
         {
-            if (!_runtimeTypes.ContainsKey(id))
-            {
+            if (!RuntimeTypes.ContainsKey(id))
                 return this;
-            }
-            return _runtimeTypes[id];
+            return RuntimeTypes[id];
         }
 
-        public void RegisterRuntimeType(string id, IRuntimeAttribute runtimeType) => _runtimeTypes[id] = runtimeType;
+        public void RegisterRuntimeType(string id, IRuntimeAttribute runtimeType) => RuntimeTypes[id] = runtimeType;
     }
 }

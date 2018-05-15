@@ -14,6 +14,8 @@ namespace Build
 
         public Container(ITypeFilter typeFilter, ITypeResolver typeResolver, ITypeParser typeParser) => _typeBuilder = new TypeBuilder(typeFilter, typeResolver, typeParser);
 
+        public ITypeFilter TypeFilter { get; }
+
         /// <summary>
         /// Creates an object identified as instance of type T
         /// </summary>
@@ -59,8 +61,6 @@ namespace Build
         /// <param name="assembly">Assembly for add type identifiers</param>
         public void RegisterAssembly(Assembly assembly)
         {
-            if (assembly == null)
-                throw new ArgumentNullException(nameof(assembly));
             foreach (var type in assembly.GetTypes())
                 if (_typeBuilder.CanRegister(type))
                     _typeBuilder.RegisterType(type);

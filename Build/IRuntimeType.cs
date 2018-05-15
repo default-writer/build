@@ -5,6 +5,8 @@ namespace Build
 {
     public interface IRuntimeType
     {
+        Type AssignableType { get; }
+
         IRuntimeAttribute Attribute { get; }
 
         string Id { get; }
