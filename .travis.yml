@@ -5,6 +5,8 @@
 #  keep-history: true
 #  on:
 #    branch: master
+notifications:
+  slack: build-core:9zFwG1mZVRxt2cNeW1HO3vv2
 language: csharp
 dist: trusty
 mono: none
