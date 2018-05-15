@@ -2,6 +2,10 @@ Welcome to the build wiki!
 
 # .NET Core 2.1 Dependency Injection framework
 
+## Community
+
+build at https://join.slack.com/t/build-core/signup
+
 ## Repository
 
 [build](https://github.com/hack2root/build)
