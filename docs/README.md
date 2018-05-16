@@ -16,6 +16,7 @@ Welcome to the build wiki!
 
 [wiki](https://github.com/hack2root/build/wiki)
 
+[![HitCount](http://hits.dwyl.io/hack2root/build.svg)](http://hits.dwyl.io/hack2root/build)
 [![GitLab](https://gitlab.com/hack2root/build/badges/master/pipeline.svg)](https://gitlab.com/hack2root/build/commits/master)
 [![CircleCI](https://img.shields.io/circleci/project/github/hack2root/build.svg)](https://circleci.com/gh/hack2root/build)
 [![Travis](https://img.shields.io/travis/hack2root/build/master.svg)](https://travis-ci.org/hack2root/build)
