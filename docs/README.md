@@ -4,7 +4,7 @@ Welcome to the build wiki!
 
 ## Community
 
-build at https://join.slack.com/t/build-core/signup
+build at [![#slack](https://join.slack.com/t/build-core/signup)
 
 ## Repository
 
