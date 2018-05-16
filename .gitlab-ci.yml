@@ -6,7 +6,6 @@ stages:
 restore:
   stage: dotnet
   script:
-    - find .
     - dotnet restore
     - dotnet build
     - dotnet test --no-build Build.Tests
