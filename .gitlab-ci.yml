@@ -3,7 +3,7 @@ image: microsoft/dotnet:2.1.300-preview2-sdk-alpine
 stages:
   - dotnet
 
-restore:
+build:
   stage: dotnet
   script:
     - find .
