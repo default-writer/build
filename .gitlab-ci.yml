@@ -1,25 +1,20 @@
 image: microsoft/dotnet:2.1.300-preview2-sdk-alpine
 
 stages:
-  - init
   - restore
   - build
   - test
 
-dotnet_init:
-  stage: init
-  script:
-    - dotnet --version
-dotnet_restore:
+restore:
   stage: restore
   script:
     - dotnet restore
 
-dotnet_build:
+build:
   stage: build
   script:
     - dotnet build
-dotnet_test:
+test:
   stage: test
   script:
     - dotnet test --no-build Build.Tests
