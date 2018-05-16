@@ -1,0 +1,10 @@
+﻿stages:
+  - build
+
+build:
+  image: microsoft/dotnet:2.1.300-preview2-sdk-alpine
+  script:
+    - find .
+    - dotnet restore
+    - dotnet build
+    - dotnet test --no-build Build.Tests
