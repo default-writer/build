@@ -1,22 +1,22 @@
 ﻿stages:
-  - pull
+  - init
   - restore
   - build
   - test
 
-job 1:
-  stage: pull
+job:
+  stage: init
   script:
     - find .
-job 2:
+job:
   stage: restore
   script:
     - dotnet restore
-job 3:
+job:
   stage: build
   script:
     - dotnet build
-job 4:
+job:
   stage: test
   script:
     - dotnet test --no-build Build.Tests
