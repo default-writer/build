@@ -4,9 +4,8 @@ Welcome to the build wiki!
 
 ## Community
 
-build at [#slack](https://join.slack.com/t/build-core/signup)
-
-trello at [#trello](https://trello.com/b/uv5QQOg7/build-slack)
+[#slack](https://join.slack.com/t/build-core/signup)
+[#trello](https://trello.com/b/uv5QQOg7/build-slack)
 
 ## Repository
 
@@ -16,6 +15,7 @@ trello at [#trello](https://trello.com/b/uv5QQOg7/build-slack)
 
 [wiki](https://github.com/hack2root/build/wiki)
 
+[![GitLab](https://gitlab.com/hack2root/build/badges/master/build.svg)](https://gitlab.com/hack2root/build)
 [![CircleCI](https://img.shields.io/circleci/project/github/hack2root/build.svg)](https://circleci.com/gh/hack2root/build)
 [![Travis](https://img.shields.io/travis/hack2root/build/master.svg)](https://travis-ci.org/hack2root/build)
 [![NuGet](https://img.shields.io/nuget/v/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build)
