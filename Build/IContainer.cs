@@ -47,5 +47,10 @@ namespace Build
         /// </summary>
         /// <typeparam name="T">Type identifier</typeparam>
         void RegisterType<T>();
+
+        /// <summary>
+        /// Drops any information about type registration
+        /// </summary>
+        void Reset();
     }
 }

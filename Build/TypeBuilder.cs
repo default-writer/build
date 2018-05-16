@@ -66,6 +66,8 @@ namespace Build
             Visited.Remove(type);
         }
 
+        internal void Reset() => Types.Clear();
+
         static void CheckParameterTypeFullName(Type type, Type parameterType, string id)
         {
             if (id == type.FullName && id == parameterType.FullName)

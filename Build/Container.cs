@@ -93,5 +93,7 @@ namespace Build
                 throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", typeof(T).FullName));
             _typeBuilder.RegisterType(typeof(T));
         }
+
+        public void Reset() => _typeBuilder.Reset();
     }
 }
