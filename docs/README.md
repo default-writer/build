@@ -10,6 +10,7 @@ Welcome to the build wiki!
 ## Repository
 
 [build](https://github.com/hack2root/build)
+[gitlab](https://gitlab.com/hack2root/build)
 
 ## Docs 
 
