@@ -2,6 +2,7 @@
   - build
 
 build:
+  stage: build
   script:
     - find .
     - dotnet restore
