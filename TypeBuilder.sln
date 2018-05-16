@@ -29,6 +29,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ver", "ver", "{C9F66766-F1C
 		Build\.msbump = Build\.msbump
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gitlab", "gitlab", "{D3F8D309-98F2-42CC-9F2C-AE052ABF0642}"
+	ProjectSection(SolutionItems) = preProject
+		.gitlab-ci.yml = .gitlab-ci.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +55,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{77701C22-8214-414B-9204-C38AEF64B6DE} = {56CD2471-65B0-4B05-8024-89C2121A102B}
 		{3C89ED61-97F9-42DC-BF0B-3D5C889B1593} = {56CD2471-65B0-4B05-8024-89C2121A102B}
+		{D3F8D309-98F2-42CC-9F2C-AE052ABF0642} = {56CD2471-65B0-4B05-8024-89C2121A102B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B8050DDE-235A-4B64-8B00-5F6C4FF85FCD}
