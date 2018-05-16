@@ -5,6 +5,7 @@ Welcome to the build wiki!
 ## Community
 
 build at [#slack](https://join.slack.com/t/build-core/signup)
+trello at [#trello](https://trello.com/b/uv5QQOg7/build-slack)
 
 ## Repository
 
