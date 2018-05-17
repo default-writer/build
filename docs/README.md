@@ -4,7 +4,10 @@ Welcome to the build wiki!
 
 ## Community
 
-[#slack](https://join.slack.com/t/build-core/signup) [#trello](https://trello.com/b/uv5QQOg7/build-slack)
+[#slack](https://join.slack.com/t/build-core/signup)
+[#trello](https://trello.com/b/uv5QQOg7/build-slack)
+
+[![Discord](https://img.shields.io/discord/446426366616010763.svg)](https://discord.gg/uqrmTY4)
 
 ## Repository
 
@@ -14,12 +17,8 @@ Welcome to the build wiki!
 
 [wiki](https://github.com/hack2root/build/wiki)
 
-[![Discord](https://img.shields.io/discord/446426366616010763.svg)](https://discord.gg/uqrmTY4)
-
-![VSTS](https://hack2root.visualstudio.com/_apis/public/build/definitions/6ec45376-8260-482c-906f-4bf4d4e8e451/4/badge)
-
+[![VSTS](https://hack2root.visualstudio.com/_apis/public/build/definitions/6ec45376-8260-482c-906f-4bf4d4e8e451/4/badge)](https://hack2root.visualstudio.com/build)
 [![CodeFactor](https://www.codefactor.io/repository/github/hack2root/build/badge)](https://www.codefactor.io/repository/github/hack2root/build) [![CircleCI](https://img.shields.io/circleci/project/github/hack2root/build.svg)](https://circleci.com/gh/hack2root/build) [![Travis](https://img.shields.io/travis/hack2root/build/master.svg)](https://travis-ci.org/hack2root/build) 
-
 [![NuGet version](https://img.shields.io/nuget/v/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build) [![NuGet downloads](https://img.shields.io/nuget/dt/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build)
 
 ## v1.0.0.4
