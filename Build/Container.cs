@@ -8,12 +8,28 @@ namespace Build
     /// </summary>
     public class Container : IContainer
     {
+        /// <summary>
+        /// The type builder
+        /// </summary>
         readonly TypeBuilder _typeBuilder;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Container"/> class.
+        /// </summary>
         public Container() => _typeBuilder = new TypeBuilder();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Container"/> class.
+        /// </summary>
+        /// <param name="typeFilter">The type filter.</param>
+        /// <param name="typeResolver">The type resolver.</param>
+        /// <param name="typeParser">The type parser.</param>
         public Container(ITypeFilter typeFilter, ITypeResolver typeResolver, ITypeParser typeParser) => _typeBuilder = new TypeBuilder(typeFilter, typeResolver, typeParser);
 
+        /// <summary>
+        /// Gets the type filter.
+        /// </summary>
+        /// <value>The type filter.</value>
         public ITypeFilter TypeFilter { get; }
 
         /// <summary>
@@ -29,10 +45,12 @@ namespace Build
             return (T)_typeBuilder.CreateInstance(typeof(T), args);
         }
 
-        /// <summary> Creates an object </summary>
+        /// <summary>
+        /// Creates an object
+        /// </summary>
         /// <param name="type">Type identifier</param>
-        /// <param name="args">Arguments to constuctor</param> <returns>Returns instance of
-        /// identified type</returns>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
         public object CreateInstance(Type type, params object[] args)
         {
             if (!_typeBuilder.CanCreate(type))
@@ -94,6 +112,9 @@ namespace Build
             _typeBuilder.RegisterType(typeof(T));
         }
 
+        /// <summary>
+        /// Resets information about type registration
+        /// </summary>
         public void Reset() => _typeBuilder.Reset();
     }
 }

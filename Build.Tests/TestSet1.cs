@@ -9,10 +9,7 @@
     {
         readonly IPersonRepository _personRepository;
 
-        public Person(IPersonRepository personRepository)
-        {
-            _personRepository = personRepository;
-        }
+        public Person(IPersonRepository personRepository) => _personRepository = personRepository;
     }
 
     public class ServiceDataRepository : IPersonRepository

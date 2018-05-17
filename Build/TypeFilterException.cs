@@ -3,6 +3,10 @@ using System.Runtime.Serialization;
 
 namespace Build
 {
+    /// <summary>
+    /// Exception for type filtering
+    /// </summary>
+    /// <seealso cref="System.Exception" />
     [Serializable]
     public class TypeFilterException : Exception
     {

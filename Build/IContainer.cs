@@ -16,10 +16,12 @@ namespace Build
         /// <returns>Returns instance of identified type</returns>
         T CreateInstance<T>(params object[] args);
 
-        /// <summary> Creates an object </summary>
+        /// <summary>
+        /// Creates an object
+        /// </summary>
         /// <param name="type">Type identifier</param>
-        /// <param name="args">Arguments to constuctor</param> <returns>Returns instance of
-        /// identified type</returns>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
         object CreateInstance(Type type, params object[] args);
 
         /// <summary>
@@ -49,7 +51,7 @@ namespace Build
         void RegisterType<T>();
 
         /// <summary>
-        /// Drops any information about type registration
+        /// Resets information about type registration
         /// </summary>
         void Reset();
     }
