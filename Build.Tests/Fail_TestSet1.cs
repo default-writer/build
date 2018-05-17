@@ -31,7 +31,7 @@ namespace Build.Tests.Fail_TestSet1
     public abstract class Other5 : IPersonRepository
     {
         [Dependency(RuntimeInstance.None)]
-        public Other5(Type type)
+        protected Other5(Type type)
         {
         }
 
@@ -106,7 +106,7 @@ namespace Build.Tests.Fail_TestSet1
 
     public abstract class ServiceDataRepository3 : IPersonRepository
     {
-        public ServiceDataRepository3([Injection("Build.Tests.Fail_TestSet1.Other2", typeof(PrivateConstructorServiceDataRepository))]IPersonRepository repository)
+        protected ServiceDataRepository3([Injection("Build.Tests.Fail_TestSet1.Other2", typeof(PrivateConstructorServiceDataRepository))]IPersonRepository repository)
         {
             Repository = repository;
         }

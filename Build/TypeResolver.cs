@@ -6,7 +6,7 @@ namespace Build
     /// <summary>
     /// Type resolver
     /// </summary>
-    /// <seealso cref="Build.ITypeResolver" />
+    /// <seealso cref="Build.ITypeResolver"/>
     class TypeResolver : ITypeResolver
     {
         /// <summary>

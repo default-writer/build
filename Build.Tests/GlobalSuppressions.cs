@@ -1,7 +1,6 @@
-﻿// This file is used by Code Analysis to maintain SuppressMessage
-// attributes that are applied to this project.
-// Project-level suppressions either have no target or are given
-// a specific target and scoped to a namespace, type, member, etc.
+﻿// This file is used by Code Analysis to maintain SuppressMessage attributes that are applied to this
+// project. Project-level suppressions either have no target or are given a specific target and
+// scoped to a namespace, type, member, etc.
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancies in Symbol Declarations", "RECS0154:Parameter is never used", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.Fail_TestSet1.Other2.#ctor(System.Type)")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancies in Symbol Declarations", "RECS0154:Parameter is never used", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.Fail_TestSet1.Other5.#ctor(System.Type)")]
@@ -181,3 +180,5 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0022:Use expression body for methods", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.TestSet8.SqlDataRepository.GetPerson(System.Int32)~Build.Tests.TestSet8.Person")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0022:Use expression body for methods", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.TestSet9.ServiceDataRepository.GetPerson(System.Int32)~Build.Tests.TestSet9.Person")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0022:Use expression body for methods", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.TestSet9.SqlDataRepository.GetPerson(System.Int32)~Build.Tests.TestSet9.Person")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Potential Code Quality Issues", "RECS0022:A catch clause that catches System.Exception and has an empty body", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.Fail_TestSet7.UnitTest.Fail_TestSet7_Method5")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.Fail_TestSet5.NoSqlDataRepository.GetPerson(System.Int32)~Build.Tests.Fail_TestSet5.Person")]

@@ -5,8 +5,8 @@ namespace Build.Tests.TestSet13
     public class UnitTest
     {
         readonly ServiceDataRepository srv1;
+        readonly ServiceDataRepository srv2;
         Container container;
-        ServiceDataRepository srv2;
 
         public UnitTest()
         {

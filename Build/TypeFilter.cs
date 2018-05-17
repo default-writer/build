@@ -5,16 +5,14 @@ namespace Build
     /// <summary>
     /// Type filter
     /// </summary>
-    /// <seealso cref="Build.ITypeFilter" />
+    /// <seealso cref="Build.ITypeFilter"/>
     class TypeFilter : ITypeFilter
     {
         /// <summary>
         /// Determines whether this instance can create the specified type.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns>
-        ///   <c>true</c> if this instance can create the specified type; otherwise, <c>false</c>.
-        /// </returns>
+        /// <returns><c>true</c> if this instance can create the specified type; otherwise, <c>false</c>.</returns>
         public bool CanCreate(Type type) => type != null;
 
         /// <summary>
@@ -22,7 +20,7 @@ namespace Build
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>
-        ///   <c>true</c> if this instance can register the specified type; otherwise, <c>false</c>.
+        /// <c>true</c> if this instance can register the specified type; otherwise, <c>false</c>.
         /// </returns>
         public bool CanRegister(Type type) => type != null && type.IsClass && !type.IsAbstract && !IsSpecialType(type);
 
@@ -30,9 +28,7 @@ namespace Build
         /// Determines whether [is special type] [the specified type].
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns>
-        ///   <c>true</c> if [is special type] [the specified type]; otherwise, <c>false</c>.
-        /// </returns>
+        /// <returns><c>true</c> if [is special type] [the specified type]; otherwise, <c>false</c>.</returns>
         static bool IsSpecialType(Type type) => typeof(Type).IsAssignableFrom(type) || typeof(Attribute).IsAssignableFrom(type) || typeof(MarshalByRefObject).IsAssignableFrom(type);
     }
 }

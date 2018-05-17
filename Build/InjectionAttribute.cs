@@ -15,14 +15,14 @@ namespace Build
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="args">The arguments.</param>
-        public InjectionAttribute(string id, params object[] args) : this(id) => Args = args;
+        public InjectionAttribute(string id, params object[] args) : this(id) => Arguments = args;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="args">The arguments.</param>
-        public InjectionAttribute(Type type, params object[] args) : this(type) => Args = args;
+        public InjectionAttribute(Type type, params object[] args) : this(type) => Arguments = args;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
@@ -51,7 +51,7 @@ namespace Build
         /// Gets the arguments.
         /// </summary>
         /// <value>The arguments.</value>
-        public object[] Args { get; } = Array.Empty<object>();
+        public object[] Arguments { get; } = Array.Empty<object>();
 
         /// <summary>
         /// Gets the runtime instance.

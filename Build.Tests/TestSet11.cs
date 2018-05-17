@@ -33,10 +33,6 @@
 
     public class SqlDataRepository : IPersonRepository
     {
-        public SqlDataRepository()
-        {
-        }
-
         public Person GetPerson(int personId)
         {
             // get the data from SQL DB and return Person instance.

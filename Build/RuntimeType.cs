@@ -7,7 +7,7 @@ namespace Build
     /// <summary>
     /// Runtime information for type
     /// </summary>
-    /// <seealso cref="Build.IRuntimeType" />
+    /// <seealso cref="Build.IRuntimeType"/>
     class RuntimeType : IRuntimeType
     {
         bool _guard;
@@ -35,105 +35,79 @@ namespace Build
         /// <summary>
         /// Gets the type of the assignable.
         /// </summary>
-        /// <value>
-        /// The type of the assignable.
-        /// </value>
+        /// <value>The type of the assignable.</value>
         public Type AssignableType => AssignableTypes.Count == 0 ? Type : AssignableTypes[0];
 
         /// <summary>
         /// Gets the attribute.
         /// </summary>
-        /// <value>
-        /// The attribute.
-        /// </value>
+        /// <value>The attribute.</value>
         public IRuntimeAttribute Attribute { get; }
 
         /// <summary>
         /// Gets the identifier.
         /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
+        /// <value>The identifier.</value>
         public string Id => Format.GetConstructorFullName(Type.FullName, RuntimeTypes.Select(p => p.AssignableType.FullName));
 
         /// <summary>
         /// Gets a value indicating whether this instance is initialized.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is initialized; otherwise, <c>false</c>.
-        /// </value>
+        /// <value><c>true</c> if this instance is initialized; otherwise, <c>false</c>.</value>
         public bool IsInitialized => RuntimeInstance != RuntimeInstance.Default;
 
         /// <summary>
         /// Gets the parameters count.
         /// </summary>
-        /// <value>
-        /// The parameters count.
-        /// </value>
+        /// <value>The parameters count.</value>
         public int ParametersCount => RuntimeTypes.Count;
 
         /// <summary>
         /// Gets the parent.
         /// </summary>
-        /// <value>
-        /// The parent.
-        /// </value>
+        /// <value>The parent.</value>
         public IRuntimeType Parent { get; }
 
         /// <summary>
         /// Gets the runtime instance.
         /// </summary>
-        /// <value>
-        /// The runtime instance.
-        /// </value>
+        /// <value>The runtime instance.</value>
         public RuntimeInstance RuntimeInstance => RuntimeInstanceInternal;
 
         /// <summary>
         /// Gets the runtime parameters.
         /// </summary>
-        /// <value>
-        /// The runtime parameters.
-        /// </value>
+        /// <value>The runtime parameters.</value>
         public IEnumerable<IRuntimeType> RuntimeParameters => RuntimeTypes;
 
         /// <summary>
         /// Gets the type.
         /// </summary>
-        /// <value>
-        /// The type.
-        /// </value>
+        /// <value>The type.</value>
         public Type Type { get; }
 
         /// <summary>
         /// Gets the assignable types.
         /// </summary>
-        /// <value>
-        /// The assignable types.
-        /// </value>
+        /// <value>The assignable types.</value>
         List<Type> AssignableTypes { get; } = new List<Type>();
 
         /// <summary>
         /// Gets or sets the runtime instance internal.
         /// </summary>
-        /// <value>
-        /// The runtime instance internal.
-        /// </value>
+        /// <value>The runtime instance internal.</value>
         RuntimeInstance RuntimeInstanceInternal { get; set; }
 
         /// <summary>
         /// Gets the runtime types.
         /// </summary>
-        /// <value>
-        /// The runtime types.
-        /// </value>
+        /// <value>The runtime types.</value>
         List<RuntimeType> RuntimeTypes { get; } = new List<RuntimeType>();
 
         /// <summary>
         /// Gets or sets the <see cref="System.Object"/> with the specified attribute.
         /// </summary>
-        /// <value>
-        /// The <see cref="System.Object"/>.
-        /// </value>
+        /// <value>The <see cref="System.Object"/>.</value>
         /// <param name="attribute">The attribute.</param>
         /// <param name="typeFullName">Full name of the type.</param>
         /// <param name="i">The i.</param>
@@ -165,8 +139,7 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        /// <exception cref="TypeInstantiationException">
-        /// </exception>
+        /// <exception cref="TypeInstantiationException"></exception>
         public object CreateInstance(params object[] args)
         {
             if (!IsInitialized)
@@ -202,7 +175,7 @@ namespace Build
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>
-        ///   <c>true</c> if [is assignable from] [the specified identifier]; otherwise, <c>false</c>.
+        /// <c>true</c> if [is assignable from] [the specified identifier]; otherwise, <c>false</c>.
         /// </returns>
         public bool IsAssignableFrom(string id) => FindAssignableType(id) != null;
 
@@ -273,8 +246,8 @@ namespace Build
         /// <returns></returns>
         object EvaluateInjection(IRuntimeAttribute attribute, int? i)
         {
-            if (attribute is InjectionAttribute injection && injection.Args.Length > 0 && i.HasValue)
-                return injection.Args[i.Value];
+            if (attribute is InjectionAttribute injection && injection.Arguments.Length > 0 && i.HasValue)
+                return injection.Arguments[i.Value];
             return this[attribute, Id, i];
         }
 

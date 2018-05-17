@@ -8,15 +8,13 @@ namespace Build
     /// <summary>
     /// Type parser
     /// </summary>
-    /// <seealso cref="Build.ITypeParser" />
+    /// <seealso cref="Build.ITypeParser"/>
     class TypeParser : ITypeParser
     {
         /// <summary>
         /// Cache for RuntimeTtype.
         /// </summary>
-        /// <value>
-        /// The cache.
-        /// </value>
+        /// <value>The cache.</value>
         IDictionary<string, IRuntimeType> Cache { get; } = new Dictionary<string, IRuntimeType>();
 
         /// <summary>

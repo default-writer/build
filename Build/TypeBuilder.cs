@@ -27,13 +27,7 @@ namespace Build
         /// <param name="typeFilter">The type filter.</param>
         /// <param name="typeResolver">The type resolver.</param>
         /// <param name="typeParser">The type parser.</param>
-        /// <exception cref="ArgumentNullException">
-        /// typeFilter
-        /// or
-        /// typeResolver
-        /// or
-        /// typeParser
-        /// </exception>
+        /// <exception cref="ArgumentNullException">typeFilter or typeResolver or typeParser</exception>
         public TypeBuilder(ITypeFilter typeFilter, ITypeResolver typeResolver, ITypeParser typeParser)
         {
             Filter = typeFilter ?? throw new ArgumentNullException(nameof(typeFilter));
@@ -44,49 +38,37 @@ namespace Build
         /// <summary>
         /// Gets the filter.
         /// </summary>
-        /// <value>
-        /// The filter.
-        /// </value>
+        /// <value>The filter.</value>
         ITypeFilter Filter { get; }
 
         /// <summary>
         /// Gets the parser.
         /// </summary>
-        /// <value>
-        /// The parser.
-        /// </value>
+        /// <value>The parser.</value>
         ITypeParser Parser { get; }
 
         /// <summary>
         /// Gets the resolver.
         /// </summary>
-        /// <value>
-        /// The resolver.
-        /// </value>
+        /// <value>The resolver.</value>
         ITypeResolver Resolver { get; }
 
         /// <summary>
         /// Gets the types.
         /// </summary>
-        /// <value>
-        /// The types.
-        /// </value>
+        /// <value>The types.</value>
         IDictionary<string, RuntimeType> Types { get; } = new Dictionary<string, RuntimeType>();
 
         /// <summary>
         /// Gets the visited.
         /// </summary>
-        /// <value>
-        /// The visited.
-        /// </value>
+        /// <value>The visited.</value>
         List<Type> Visited { get; } = new List<Type>();
 
         /// <summary>
         /// Gets the <see cref="RuntimeType"/> with the specified identifier.
         /// </summary>
-        /// <value>
-        /// The <see cref="RuntimeType"/>.
-        /// </value>
+        /// <value>The <see cref="RuntimeType"/>.</value>
         /// <param name="id">The identifier.</param>
         /// <param name="type">The type.</param>
         /// <returns></returns>
@@ -105,9 +87,7 @@ namespace Build
         /// Determines whether this instance can create the specified type.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns>
-        ///   <c>true</c> if this instance can create the specified type; otherwise, <c>false</c>.
-        /// </returns>
+        /// <returns><c>true</c> if this instance can create the specified type; otherwise, <c>false</c>.</returns>
         public bool CanCreate(Type type) => Filter.CanCreate(type);
 
         /// <summary>
@@ -115,7 +95,7 @@ namespace Build
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>
-        ///   <c>true</c> if this instance can register the specified type; otherwise, <c>false</c>.
+        /// <c>true</c> if this instance can register the specified type; otherwise, <c>false</c>.
         /// </returns>
         public bool CanRegister(Type type) => Filter.CanRegister(type);
 
@@ -202,7 +182,7 @@ namespace Build
             if (attributeType != null && !parameterType.IsAssignableFrom(attributeType))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", parameterType.FullName, attributeType.FullName));
             CheckParameterTypeFullName(type, parameterType, id);
-            return GetParametersFullName(injectionAttribute.Args);
+            return GetParametersFullName(injectionAttribute.Arguments);
         }
 
         /// <summary>

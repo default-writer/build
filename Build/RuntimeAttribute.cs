@@ -6,8 +6,8 @@ namespace Build
     /// <summary>
     /// Abstract class for runtime type attribute
     /// </summary>
-    /// <seealso cref="System.Attribute" />
-    /// <seealso cref="Build.IRuntimeAttribute" />
+    /// <seealso cref="System.Attribute"/>
+    /// <seealso cref="Build.IRuntimeAttribute"/>
     public abstract class RuntimeAttribute : Attribute, IRuntimeAttribute
     {
         /// <summary>
@@ -16,7 +16,7 @@ namespace Build
         protected RuntimeAttribute(string typeFullName = default) => TypeFullName = typeFullName;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RuntimeAttribute" /> class.
+        /// Initializes a new instance of the <see cref="RuntimeAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
         protected RuntimeAttribute(Type type) => TypeFullName = type.FullName;
@@ -24,33 +24,25 @@ namespace Build
         /// <summary>
         /// Gets the unique identifier.
         /// </summary>
-        /// <value>
-        /// The unique identifier.
-        /// </value>
+        /// <value>The unique identifier.</value>
         public Guid Guid { get; } = Guid.NewGuid();
 
         /// <summary>
         /// Gets the runtime instance.
         /// </summary>
-        /// <value>
-        /// The runtime instance.
-        /// </value>
+        /// <value>The runtime instance.</value>
         public abstract RuntimeInstance RuntimeInstance { get; }
 
         /// <summary>
         /// Gets the runtime types.
         /// </summary>
-        /// <value>
-        /// The runtime types.
-        /// </value>
+        /// <value>The runtime types.</value>
         public IDictionary<string, IRuntimeAttribute> RuntimeTypes { get; } = new Dictionary<string, IRuntimeAttribute>();
 
         /// <summary>
         /// Gets the full name of the type.
         /// </summary>
-        /// <value>
-        /// The full name of the type.
-        /// </value>
+        /// <value>The full name of the type.</value>
         public string TypeFullName { get; }
 
         /// <summary>

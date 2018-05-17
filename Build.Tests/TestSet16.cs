@@ -1,6 +1,6 @@
 ﻿namespace Build.Tests.TestSet16
 {
-    public enum Database : int
+    public enum Database
     {
         SQL,
         WebService
