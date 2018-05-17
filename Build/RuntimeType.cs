@@ -156,6 +156,6 @@ namespace Build
             return _value;
         }
 
-        bool Match(object[] args) => args.Length == 0 || RuntimeTypes == null || args.Length == RuntimeTypes.Count && RegisterParameters(Id, args);
+        bool Match(object[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == RuntimeTypes.Count) && RegisterParameters(Id, args);
     }
 }
