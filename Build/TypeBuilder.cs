@@ -212,13 +212,13 @@ namespace Build
         /// Gets the full name of the type.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <param name="parameters">The parameters.</param>
+        /// <param name="constructorParameters">The constructor parameters.</param>
         /// <param name="attribute">The attribute.</param>
         /// <returns></returns>
-        string GetTypeFullName(Type type, ParameterInfo[] parameters, IRuntimeAttribute attribute)
+        string GetTypeFullName(Type type, ParameterInfo[] constructorParameters, IRuntimeAttribute attribute)
         {
             string id = GetId(type, attribute);
-            var parameterArgs = parameters.Select(p => p.ParameterType.FullName).ToArray();
+            var parameterArgs = constructorParameters.Select(p => p.ParameterType.FullName).ToArray();
             var runtimeType = Parser.Find(id, parameterArgs, Types.Values);
             string constructorRuntimeFullName = runtimeType == null ? id : runtimeType.Type.FullName;
             string typeFullName = Format.GetConstructorFullName(constructorRuntimeFullName, parameterArgs);
@@ -237,15 +237,15 @@ namespace Build
                 throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", type.FullName));
             foreach (var constructorInfo in constructors)
             {
-                var parameters = constructorInfo.GetParameters();
+                var constructorParameters = constructorInfo.GetParameters();
                 var dependencyAttribute = GetDependencyAttribute(constructorInfo);
                 var constructor = new RuntimeType(dependencyAttribute, null, type);
-                for (int i = 0; i < parameters.Length; i++)
+                for (int i = 0; i < constructorParameters.Length; i++)
                 {
-                    RegisterConstructorParameter(i, type, constructor, parameters);
+                    RegisterConstructorParameter(i, type, constructor, constructorParameters);
                 }
                 var attribute = constructor.Attribute;
-                string typeFullName = GetTypeFullName(type, parameters, attribute);
+                string typeFullName = GetTypeFullName(type, constructorParameters, attribute);
                 RegisterConstructorType(typeFullName, constructor, attribute);
             }
         }
@@ -256,12 +256,12 @@ namespace Build
         /// <param name="i">The i.</param>
         /// <param name="type">The type.</param>
         /// <param name="constructor">The constructor.</param>
-        /// <param name="parameterArray">The parameter array.</param>
-        void RegisterConstructorParameter(int i, Type type, RuntimeType constructor, ParameterInfo[] parameterArray)
+        /// <param name="constructorParameters">The parameter array.</param>
+        void RegisterConstructorParameter(int i, Type type, RuntimeType constructor, ParameterInfo[] constructorParameters)
         {
-            var parameterType = parameterArray[i].ParameterType;
-            var injectionAttribute = GetInjectionAttribute(parameterArray[i]);
-            var parameter = new RuntimeType(injectionAttribute, constructor, parameterArray[i].ParameterType);
+            var parameterType = constructorParameters[i].ParameterType;
+            var injectionAttribute = GetInjectionAttribute(constructorParameters[i]);
+            var parameter = new RuntimeType(injectionAttribute, constructor, constructorParameters[i].ParameterType);
             string id = Resolver.GetTypeFullName(injectionAttribute, parameterType.FullName);
             var attributeType = Resolver.GetType(type.Assembly, id);
             var parameters = GetParametersFullName(type, parameterType, injectionAttribute, id, attributeType);
@@ -274,7 +274,7 @@ namespace Build
             var result = this[typeFullName, parameter];
             if (result != null)
             {
-                var constructorFullName = Format.GetConstructorFullName(type.FullName, parameterArray.Select(p => p.ParameterType.FullName));
+                var constructorFullName = Format.GetConstructorFullName(type.FullName, constructorParameters.Select(p => p.ParameterType.FullName));
                 var parameterId = Format.GetConstructorParameterFullName(constructorFullName, i);
                 result.Attribute.RegisterRuntimeType(parameterId, injectionAttribute);
                 constructor.AddParameter(result);
