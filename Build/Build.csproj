@@ -33,6 +33,9 @@
 
   <ItemGroup>
     <None Remove=".msbump" />
+    <None Remove="Settings.StyleCop" />
+    <None Remove="StyleCop.Cache" />
+    <None Remove="stylecop.json" />
   </ItemGroup>
 
 </Project>
