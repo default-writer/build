@@ -22,7 +22,6 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 [wiki](https://github.com/hack2root/build/wiki)
 
-
 ## v1.0.0.4
 
 Removed public type specificator reqirement
