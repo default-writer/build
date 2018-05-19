@@ -3,4 +3,4 @@ WORKDIR /
 COPY . .
 RUN dotnet restore
 RUN dotnet build
-RUN dotnet test --no-build Build.Test
+RUN dotnet test --no-build Build.Tests
