@@ -4,10 +4,14 @@ Welcome to the build wiki!
 
 ## Community
 
-[#slack](https://join.slack.com/t/build-core/signup)
-[#trello](https://trello.com/b/uv5QQOg7/build-slack)
+Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3NjQ2Nzc5MzAyLWE3MmFkOWFlNmY4NWJlMjU2YmVkNDNmNTI2YjUwMGIzNWY1MjAyNzU0NTUzNDU4MmViOGQxYTkwZDkwNTBjMTI)! (invitation link)
+
+## Channels
 
 [![Discord](https://img.shields.io/discord/446426366616010763.svg)](https://discord.gg/uqrmTY4)
+
+[#slack](https://join.slack.com/t/build-core/signup)
+[#trello](https://trello.com/b/uv5QQOg7/build-slack) 
 
 ## Repository
 
