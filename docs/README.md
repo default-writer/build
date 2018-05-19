@@ -10,12 +10,11 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 [![Discord](https://img.shields.io/discord/446426366616010763.svg)](https://discord.gg/uqrmTY4)
 
-[#slack](https://join.slack.com/t/build-core/signup)
-[#trello](https://trello.com/b/uv5QQOg7/build-slack) 
+[#slack](https://join.slack.com/t/build-core/shared_invite/enQtMzY3NjQ2Nzc5MzAyLWE3MmFkOWFlNmY4NWJlMjU2YmVkNDNmNTI2YjUwMGIzNWY1MjAyNzU0NTUzNDU4MmViOGQxYTkwZDkwNTBjMTI)
 
 ## Repository
 
-[build](https://github.com/hack2root/build) [gitlab](https://gitlab.com/hack2root/build)
+[build](https://github.com/hack2root/build)
 
 ## Docs 
 
