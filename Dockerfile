@@ -1,4 +1,4 @@
-﻿FROM microsoft/dotnet:2.1.300-preview2-sdk-alpine as builder
+FROM microsoft/dotnet:2.1.300-preview2-sdk-alpine as builder
 
 WORKDIR /app
 COPY . .
