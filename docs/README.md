@@ -1,6 +1,5 @@
 Welcome to the build wiki!
 
-
 # .NET Core 2.1 Dependency Injection framework
 
 [![VSTS](https://hack2root.visualstudio.com/_apis/public/build/definitions/6ec45376-8260-482c-906f-4bf4d4e8e451/4/badge)](https://hack2root.visualstudio.com/build) [![CircleCI](https://img.shields.io/circleci/project/github/hack2root/build.svg)](https://circleci.com/gh/hack2root/build) [![Travis](https://img.shields.io/travis/hack2root/build/master.svg)](https://travis-ci.org/hack2root/build) [![pipeline status](https://gitlab.com/hack2root/build/badges/master/pipeline.svg)](https://gitlab.com/hack2root/build/commits/master) [![Amazon AWS](https://codebuild.us-east-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiUEUwMVphOEhjQ24vTXh1RSs0akNkbkx3RDRhdzNDNFlPenc3YzF0cE1IeGZRQjRPWGhpV3VmKytUU0hDTXZGdnlMem14SnRjRm9pVHliTTNhVWRpZ3pzPSIsIml2UGFyYW1ldGVyU3BlYyI6Ijlpbmp3Snd1NUNMaDV2N1kiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)](https://us-east-2.console.aws.amazon.com/codebuild/home?region=us-east-2#/projects/build/view) 
