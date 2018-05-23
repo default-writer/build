@@ -106,7 +106,7 @@ namespace Build
         /// <param name="runtimeType">Type of the runtime.</param>
         /// <param name="name">The name.</param>
         /// <returns></returns>
-        static bool MatchType(IRuntimeType runtimeType, string name) => runtimeType.Type.FullName == name;
+        static bool MatchType(IRuntimeType runtimeType, string name) => runtimeType.FullName == name;
 
         /// <summary>
         /// Caches the type of the runtime.

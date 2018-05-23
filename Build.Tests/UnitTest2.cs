@@ -13,6 +13,9 @@ namespace Build.Tests.TestSet2
             container.RegisterType<ServiceDataRepository>();
         }
 
+        /// <summary>
+        /// Tests the set2 method1.
+        /// </summary>
         [Fact]
         public void TestSet2_Method1()
         {
@@ -61,6 +64,18 @@ namespace Build.Tests.TestSet2
             var srv1 = container.CreateInstance<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.Equal(srv1.Repository, srv2.Repository);
+        }
+
+        [Fact]
+        public void TestSet2_Method7()
+        {
+            Assert.Contains("Ho ho ho()", container.RuntimeTypeAliases);
+        }
+
+        [Fact]
+        public void TestSet2_Method8()
+        {
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Ho ho ho()"));
         }
     }
 }

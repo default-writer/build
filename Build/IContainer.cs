@@ -9,6 +9,26 @@ namespace Build
     public interface IContainer
     {
         /// <summary>
+        /// Aliased types.
+        /// </summary>
+        string[] RuntimeAliasedTypes { get; }
+
+        /// <summary>
+        /// Non-aliased types.
+        /// </summary>
+        string[] RuntimeNonAliasedTypes { get; }
+
+        /// <summary>
+        /// Type aliases
+        /// </summary>
+        string[] RuntimeTypeAliases { get; }
+
+        /// <summary>
+        /// Runtime types.
+        /// </summary>
+        string[] RuntimeTypes { get; }
+
+        /// <summary>
         /// Creates an object identified as instance of type T
         /// </summary>
         /// <typeparam name="T">Type identifier</typeparam>

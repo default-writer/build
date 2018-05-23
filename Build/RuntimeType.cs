@@ -11,12 +11,19 @@ namespace Build
     class RuntimeType : IRuntimeType
     {
         bool _guard;
+        RuntimeInstance _runtimeInstance;
         object _value;
 
         /// <summary>
         /// The values
         /// </summary>
         IDictionary<IRuntimeAttribute, object> _values = new Dictionary<IRuntimeAttribute, object>();
+
+        /// <summary>
+        /// Gets the type of the assignable.
+        /// </summary>
+        /// <value>The type of the assignable.</value>
+        Type AssignableType;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RuntimeType"/> class.
@@ -27,16 +34,11 @@ namespace Build
         /// <exception cref="ArgumentNullException">attribute</exception>
         public RuntimeType(IRuntimeAttribute attribute, RuntimeType parent, Type type)
         {
+            AssignableType = type;
             Type = type;
             Parent = parent ?? this;
             Attribute = attribute ?? throw new ArgumentNullException(nameof(attribute));
         }
-
-        /// <summary>
-        /// Gets the type of the assignable.
-        /// </summary>
-        /// <value>The type of the assignable.</value>
-        public Type AssignableType => AssignableTypes.Count == 0 ? Type : AssignableTypes[0];
 
         /// <summary>
         /// Gets the attribute.
@@ -72,7 +74,7 @@ namespace Build
         /// Gets the runtime instance.
         /// </summary>
         /// <value>The runtime instance.</value>
-        public RuntimeInstance RuntimeInstance => RuntimeInstanceInternal;
+        public RuntimeInstance RuntimeInstance => _runtimeInstance;
 
         /// <summary>
         /// Gets the runtime parameters.
@@ -87,16 +89,15 @@ namespace Build
         public Type Type { get; }
 
         /// <summary>
+        /// Gets the full name of hosted runtime type
+        /// </summary>
+        public string FullName => Type.FullName;
+
+        /// <summary>
         /// Gets the assignable types.
         /// </summary>
         /// <value>The assignable types.</value>
         List<Type> AssignableTypes { get; } = new List<Type>();
-
-        /// <summary>
-        /// Gets or sets the runtime instance internal.
-        /// </summary>
-        /// <value>The runtime instance internal.</value>
-        RuntimeInstance RuntimeInstanceInternal { get; set; }
 
         /// <summary>
         /// Gets the runtime types.
@@ -142,13 +143,12 @@ namespace Build
         /// <exception cref="TypeInstantiationException"></exception>
         public object CreateInstance(params object[] args)
         {
-            if (!IsInitialized)
-                throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructor available)", Type.FullName));
-            if (!Match(args))
-                throw new TypeInstantiationException(string.Format("{0} is not instantiated (parameter type mismatch)", Type.FullName));
-            if (args.Length == 0)
-                return EvaluateRuntimeInstance(this, Attribute, null);
-            return CreateInstance(Attribute);
+            if (Type.IsValueType)
+                return CreateInstance();
+            var parameters = ReadParameters();
+            var result = CreateReferenceType(args ?? Array.Empty<object>());
+            WriteParameters(parameters);
+            return result;
         }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace Build
         {
             if (IsInitialized)
                 throw new TypeRegistrationException(string.Format("{0} is not registered (more than one constructor available)", Type.FullName));
-            RuntimeInstanceInternal = runtimeInstance;
+            _runtimeInstance = runtimeInstance;
         }
 
         /// <summary>
@@ -180,23 +180,46 @@ namespace Build
         public bool IsAssignableFrom(string id) => FindAssignableType(id) != null;
 
         /// <summary>
+        /// Gets the parameters;
+        /// </summary>
+        /// <returns></returns>
+        public object[] ReadParameters()
+        {
+            object[] args = new object[RuntimeTypes.Count];
+            for (int i = 0; i < RuntimeTypes.Count; i++)
+            {
+                var parameterType = RuntimeTypes[i].Type;
+                args[i] = RuntimeTypes[i][Attribute, Id, i];
+            }
+            return args;
+        }
+
+        /// <summary>
         /// Registers the type of the assignable.
         /// </summary>
         /// <param name="type">The type.</param>
         public void RegisterAssignableType(Type type)
         {
             if (!AssignableTypes.Contains(type))
+            {
                 AssignableTypes.Add(type);
-            AssignableTypes.Sort(RuntimeTypeComparer.Instance);
+                AssignableType = type;
+            }
+            //AssignableTypes.Sort(RuntimeTypeComparer.Instance);
         }
+
+        /// <summary>
+        /// Returns a <see cref="System.String"/> that represents this instance.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString() => Id;
 
         /// <summary>
         /// Registers the parameters.
         /// </summary>
-        /// <param name="typeFullName">Full name of the type.</param>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public bool RegisterParameters(string typeFullName, params object[] args)
+        public bool WriteParameters(object[] args)
         {
             for (int i = 0; i < args.Length; i++)
             {
@@ -204,7 +227,7 @@ namespace Build
                 var runtimeType = (args[i] ?? typeof(object)).GetType();
                 if (args[i] != null && !parameterType.IsAssignableFrom(runtimeType))
                     return false;
-                RuntimeTypes[i][Attribute, typeFullName, i] = args[i];
+                RuntimeTypes[i][Attribute, Id, i] = args[i];
             }
             return true;
         }
@@ -215,6 +238,28 @@ namespace Build
         /// <param name="attribute">The attribute.</param>
         /// <returns></returns>
         object CreateInstance(IRuntimeAttribute attribute) => Activator.CreateInstance(Type, RuntimeTypes.Select((p, i) => p[attribute, Id, i]).ToArray());
+
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <returns></returns>
+        object CreateInstance() => Activator.CreateInstance(Type);
+
+        /// <summary>
+        /// Creates reference type
+        /// </summary>
+        /// <param name="args">Parameter passed in to type activator</param>
+        /// <returns>Returns instance of a reference type</returns>
+        object CreateReferenceType(object[] args)
+        {
+            if (!IsInitialized)
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructor available)", Type.FullName));
+            if (!RegisterParameters(args))
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated (parameter type mismatch)", Type.FullName));
+            if (args.Length == 0)
+                return EvaluateRuntimeInstance(this, Attribute, null);
+            return CreateInstance(Attribute);
+        }
 
         /// <summary>
         /// Evaluates the specified type.
@@ -309,10 +354,17 @@ namespace Build
         }
 
         /// <summary>
-        /// Matches the specified arguments.
+        /// Registers the specified arguments match search criteria.
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        bool Match(object[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == RuntimeTypes.Count) && RegisterParameters(Id, args);
+        bool RegisterParameters(object[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == RuntimeTypes.Count) && WriteParameters(args);
+
+        /// <summary>
+        /// Unregisters the specified arguments match search criteria.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        bool UnregisterParameters(object[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == RuntimeTypes.Count) && WriteParameters(args);
     }
 }

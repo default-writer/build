@@ -36,6 +36,30 @@ namespace Build
         }
 
         /// <summary>
+        /// Gets the runtime aliased types.
+        /// </summary>
+        /// <value>The type aliases.</value>
+        public string[] RuntimeAliasedTypes => Types.Where(p => p.Key != p.Value.Id).Select(p => p.Value.Id).ToArray();
+
+        /// <summary>
+        /// Gets the runtime non aliased types.
+        /// </summary>
+        /// <value>The runtime non aliased types.</value>
+        public string[] RuntimeNonAliasedTypes => Types.Where(p => p.Key == p.Value.Id).Select(p => p.Value.Id).ToArray();
+
+        /// <summary>
+        /// Gets the runtime aliases.
+        /// </summary>
+        /// <value>The runtime aliases.</value>
+        public string[] RuntimeTypeAliases => Types.Where(p => p.Key != p.Value.Id).Select(p => p.Key).ToArray();
+
+        /// <summary>
+        /// Gets the runtime types.
+        /// </summary>
+        /// <value>The runtime types.</value>
+        public string[] RuntimeTypes => Types.Select(p => p.Value.Id).ToArray();
+
+        /// <summary>
         /// Gets the filter.
         /// </summary>
         /// <value>The filter.</value>
@@ -219,7 +243,7 @@ namespace Build
         {
             string id = GetId(type, attribute);
             var parameterArgs = constructorParameters.Select(p => p.ParameterType.FullName).ToArray();
-            var runtimeType = Parser.Find(id, parameterArgs, Types.Values);
+            var runtimeType = (RuntimeType)Parser.Find(id, parameterArgs, Types.Values);
             string constructorRuntimeFullName = runtimeType == null ? id : runtimeType.Type.FullName;
             string typeFullName = Format.GetConstructorFullName(constructorRuntimeFullName, parameterArgs);
             return typeFullName;
@@ -265,7 +289,7 @@ namespace Build
             string id = Resolver.GetTypeFullName(injectionAttribute, parameterType.FullName);
             var attributeType = Resolver.GetType(type.Assembly, id);
             var parameters = GetParametersFullName(type, parameterType, injectionAttribute, id, attributeType);
-            var runtimeType = Parser.Find(id, parameters, Types.Values);
+            var runtimeType = (RuntimeType)Parser.Find(id, parameters, Types.Values);
             if (runtimeType == null)
                 RegisterConstructorType(attributeType);
             RegisterConstructorType(parameterType);

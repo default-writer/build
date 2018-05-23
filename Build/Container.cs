@@ -27,10 +27,24 @@ namespace Build
         public Container(ITypeFilter typeFilter, ITypeResolver typeResolver, ITypeParser typeParser) => _typeBuilder = new TypeBuilder(typeFilter, typeResolver, typeParser);
 
         /// <summary>
-        /// Gets the type filter.
+        /// Aliased types.
         /// </summary>
-        /// <value>The type filter.</value>
-        public ITypeFilter TypeFilter { get; }
+        public string[] RuntimeAliasedTypes => _typeBuilder.RuntimeAliasedTypes;
+
+        /// <summary>
+        /// Non-aliased types.
+        /// </summary>
+        public string[] RuntimeNonAliasedTypes => _typeBuilder.RuntimeNonAliasedTypes;
+
+        /// <summary>
+        /// Type aliases
+        /// </summary>
+        public string[] RuntimeTypeAliases => _typeBuilder.RuntimeTypeAliases;
+
+        /// <summary>
+        /// Runtime types.
+        /// </summary>
+        public string[] RuntimeTypes => _typeBuilder.RuntimeTypes;
 
         /// <summary>
         /// Creates an object identified as instance of type T
