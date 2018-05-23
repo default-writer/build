@@ -35,6 +35,6 @@ namespace Build
         /// Zero <paramref name="x">x</paramref> equals <paramref name="y">y</paramref>. Greater than
         /// zero <paramref name="x">x</paramref> is greater than <paramref name="y">y</paramref>.
         /// </returns>
-        public int Compare(Type x, Type y) => y.IsAssignableFrom(x) ? 1 : -1;
+        public int Compare(Type x, Type y) => x == y ? 0 : y.IsAssignableFrom(x) ? 1 : -1;
     }
 }
