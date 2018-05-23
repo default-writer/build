@@ -359,12 +359,5 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         bool RegisterParameters(object[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == RuntimeTypes.Count) && WriteParameters(args);
-
-        /// <summary>
-        /// Unregisters the specified arguments match search criteria.
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        /// <returns></returns>
-        bool UnregisterParameters(object[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == RuntimeTypes.Count) && WriteParameters(args);
     }
 }
