@@ -1,4 +1,4 @@
-image: microsoft/dotnet:2.1.300-preview2-sdk-alpine
+image: microsoft/dotnet-nightly:2.1-runtime-deps-alpine3.7
 
 stages:
   - dotnet
