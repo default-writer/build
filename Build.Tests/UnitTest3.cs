@@ -86,6 +86,13 @@ namespace Build.Tests.TestSet3
         }
 
         [Fact]
+        public void TestSet3_Method19()
+        {
+            var instances = container.RuntimeTypes.Select(p => container.CreateInstance(p));
+            Assert.True(instances.All(p => p != null));
+        }
+
+        [Fact]
         public void TestSet3_Method2()
         {
             //TestSet3

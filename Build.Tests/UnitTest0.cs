@@ -15,7 +15,7 @@ namespace Build.Tests.TestSet0
         [Fact]
         public void TestSet0_Method1()
         {
-            //TestSet1
+            //TestSet0
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             bool exception = false;

@@ -15,9 +15,10 @@
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Dependency Injection</PackageTags>
     <PackageReleaseNotes>Features:
-- Cleanup parameters ifter instantiation
-- Container reset function added
-- Added container API for retrieve addintional info</PackageReleaseNotes>
+- Automatic parameters cleanup
+- Registered ValueType instantiation
+- RuntimeAliasedTypes,RuntimeNonAliasedTypes,RuntimeTypes &amp; RuntimeTypeAliases properties
+- Reset() function</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageId>dependency_injection_build</PackageId>
     <Version>1.0.0.5</Version>

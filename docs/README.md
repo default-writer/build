@@ -24,9 +24,70 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 ## v1.0.0.5
 
-- Cleanup parameters after instantiation
-- Container reset function added
-- Added container API for retrieve addintional info
+- Automatic parameters cleanup
+- Registered ValueType instantiation
+- RuntimeAliasedTypes,RuntimeNonAliasedTypes,RuntimeTypes & RuntimeTypeAliases properties
+- Reset() function
+
+### Examples
+
+#### Automatic parameters cleanup
+
+Usage:
+
+```c#
+var instance1 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet3.SqlDataRepository(System.Int32)", 123);
+var instance2 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet3.SqlDataRepository(System.Int32)");
+Assert.Equal(0, instance2.PersinId);
+```
+
+#### Registered ValueType instantiation
+
+Usage:
+```c#
+var instance = (int)container.CreateInstance("System.Int32()");
+Assert.True(instance == 0);
+```
+
+#### RuntimeAliasedTypes,RuntimeNonAliasedTypes,RuntimeTypes & RuntimeTypeAliases properties
+
+Usage: 
+
+```c#
+var instances = container.RuntimeAliasedTypes.Select(p => container.CreateInstance(p));
+Assert.True(instances.All(p => p != null));
+```
+```c#
+var instances = container.RuntimeNonAliasedTypes.Select(p => container.CreateInstance(p));
+Assert.True(instances.All(p => p != null));
+```
+```c#
+var instances = container.RuntimeTypes.Select(p => container.CreateInstance(p));
+Assert.True(instances.All(p => p != null));
+```
+```c#
+var instances = container.RuntimeTypeAliases.Select(p => container.CreateInstance(p));
+Assert.True(instances.All(p => p != null));
+```
+
+#### Reset() function
+
+Usage: 
+
+```c#
+container.RegisterType<SqlDataRepository>();
+container.RegisterType<ServiceDataRepository>();
+bool exception = false;
+try
+{
+    container.Reset();
+}
+catch (Exception)
+{
+    exception = true;
+}
+Assert.False(exception);
+```
 
 ## v1.0.0.4
 
