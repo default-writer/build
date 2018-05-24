@@ -10,7 +10,7 @@ notifications:
 language: csharp
 dist: trusty
 mono: none
-dotnet: 2.1-sdk
+dotnet: 2.0.7
 script:
   - find .
   - dotnet restore
