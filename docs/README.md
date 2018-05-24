@@ -22,9 +22,15 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 [wiki](https://github.com/hack2root/build/wiki)
 
+## v1.0.0.5
+
+- Cleanup parameters after instantiation
+- Container reset function added
+- Added container API for retrieve addintional info
+
 ## v1.0.0.4
 
-Removed public type specificator reqirement
+- Removed public type specificator reqirement
 
 ### Examples
 
@@ -64,7 +70,7 @@ class PrivateSqlDataRepository : IPersonRepository
 
 ## v1.0.0.3
 
-Added support for automatic type resolution (type dependency resolution)
+- Added support for automatic type resolution (type dependency resolution)
 
 ### Examples
 
@@ -118,7 +124,7 @@ public class ServiceDataRepository : IPersonRepository
 
 ## v1.0.0.2
 
-Added support for multiple dependency injection attributes
+- Added support for multiple dependency injection attributes
 
 ### Examples
 
@@ -173,7 +179,7 @@ public class WebServiceDataRepository : IPersonRepository
 
 ### Major improvements
 
-Added support for default parameterless constructor with parameters injection using attributes
+- Added support for default parameterless constructor with parameters injection using attributes
 
 ### Examples
 
