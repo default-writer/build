@@ -1,12 +1,34 @@
-FROM microsoft/dotnet:2.1.300-preview2-sdk-alpine as builder
-
+FROM microsoft/dotnet:2.1-sdk-alpine AS build
 WORKDIR /app
-COPY . .
 
+# copy csproj and restore as distinct layers
+COPY *.sln .
+COPY Build/*.csproj ./Build/
+COPY Build.Tests/*.csproj ./Build.Tests/
 RUN dotnet restore
 
-# run tests on docker build
-RUN dotnet test --no-build Build.Tests
+# copy everything else and build app
+COPY . .
+WORKDIR /app/Build
+RUN dotnet build
 
-# run tests on docker run
-ENTRYPOINT ["dotnet", "test"]
+
+FROM build AS testrunner
+WORKDIR /app/Build.Tests
+ENTRYPOINT ["dotnet", "test", "--logger:trx"]
+
+
+FROM build AS test
+WORKDIR /app/Build.Tests
+RUN dotnet test
+
+
+#FROM build AS publish
+#WORKDIR /app/Build
+#RUN dotnet publish -c Release -o out
+#
+#
+#FROM microsoft/dotnet:2.1-runtime-alpine AS runtime
+#WORKDIR /app
+#COPY --from=publish /app/Build/out ./
+#ENTRYPOINT ["dotnet", "Build.dll"]
