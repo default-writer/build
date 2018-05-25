@@ -29,7 +29,7 @@ configuration: Release
 
 build_script:
 - dotnet --info
-- dotnet restore --no-cache --version-suffix %APPVEYOR_BUILD_NUMBER%
+- dotnet restore --no-cache
 - dotnet build --configuration Release 
 - dotnet pack Build/Build.csproj --configuration Release --no-build
 
