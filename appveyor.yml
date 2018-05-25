@@ -1,0 +1,61 @@
+﻿#---------------------------------#
+#      general configuration      #
+#---------------------------------#
+
+version: 1.0.0.{build}-{branch} 
+
+skip_tags: true
+
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+
+image: Visual Studio 2017 Preview
+
+clone_depth: 1
+
+nuget:  
+  disable_publish_on_pr: true
+
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: UHPiu1RmOI6sq3PfJopVdhjYoxyUvQxr1
+
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+
+configuration: Release
+
+build_script:
+- dotnet --info
+- dotnet restore --no-cache --version-suffix %APPVEYOR_BUILD_NUMBER%
+- dotnet build --configuration Release 
+- dotnet pack Build/Build.csproj --configuration Release --no-build
+
+#---------------------------------#
+#       tests configuration       #
+#---------------------------------#
+
+test_script:
+- dotnet test BuildTests/BuildTests.csproj --configuration Release -f netcoreapp2.0 --no-build
+- bash coverage.sh
+- bash coveralls.sh
+
+#---------------------------------#
+#      artifacts configuration    #
+#---------------------------------#
+
+#artifacts:
+#- path: src/**/*.nupkg
+
+#---------------------------------#
+#     deployment configuration    #
+#---------------------------------#
+
+#deploy:
+#  provider: NuGet
+#  api_key:
+#    secure: UrYYF7dW4tZvlgTcihdNHoURAdjBRAFUvbXO+Pt+772aQLVNtbjlDBY4BqvHBxcz
+#  skip_symbols: false
+#  artifact: /.*\.nupkg/
