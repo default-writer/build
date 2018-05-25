@@ -113,7 +113,7 @@
     <Module skippedDueTo="MissingPdb" hash="">
       <ModulePath>RefEmit_InMemoryManifestModule</ModulePath>
       <ModuleTime>0001-01-01T00:00:00</ModuleTime>
-      <ModuleName>MetadataViewProxies_e7e8fe68-2696-4659-934a-e9c0e7cc1ed7</ModuleName>
+      <ModuleName>MetadataViewProxies_61c473b2-6b51-43a2-8a57-d91e914c106a</ModuleName>
       <Classes />
     </Module>
     <Module skippedDueTo="MissingPdb" hash="27-4E-B0-CF-72-28-7F-82-30-D2-8E-0E-F0-12-7F-71-EF-F8-DD-F6">
@@ -857,7 +857,7 @@
     <Module hash="AA-89-39-9B-D3-46-82-67-FF-4D-4D-ED-41-CF-18-85-DE-00-16-29">
       <Summary numSequencePoints="1250" visitedSequencePoints="995" numBranchPoints="480" visitedBranchPoints="334" sequenceCoverage="79.6" branchCoverage="69.58" maxCyclomaticComplexity="2" minCyclomaticComplexity="1" visitedClasses="67" numClasses="116" visitedMethods="334" numMethods="480" />
       <ModulePath>C:\Users\artur\source\repos\build\Build.Tests\bin\Release\netcoreapp2.1\Build.Tests.dll</ModulePath>
-      <ModuleTime>2018-05-25T14:25:38.7150728Z</ModuleTime>
+      <ModuleTime>2018-05-25T19:46:49.8342567Z</ModuleTime>
       <ModuleName>Build.Tests</ModuleName>
       <Files>
         <File uid="1" fullPath="C:\Users\artur\source\repos\build\Build.Tests\obj\Release\netcoreapp2.1\Build.Tests.Program.cs" />
@@ -7905,7 +7905,7 @@
     <Module hash="B1-E2-70-A4-48-73-18-96-CB-8E-80-24-E3-F7-BF-07-30-E0-4E-A2">
       <Summary numSequencePoints="389" visitedSequencePoints="329" numBranchPoints="285" visitedBranchPoints="244" sequenceCoverage="84.58" branchCoverage="85.61" maxCyclomaticComplexity="5" minCyclomaticComplexity="1" visitedClasses="20" numClasses="21" visitedMethods="122" numMethods="145" />
       <ModulePath>C:\Users\artur\source\repos\build\Build.Tests\bin\Release\netcoreapp2.1\Build.dll</ModulePath>
-      <ModuleTime>2018-05-25T14:25:37.1110736Z</ModuleTime>
+      <ModuleTime>2018-05-25T19:46:48.1742587Z</ModuleTime>
       <ModuleName>Build</ModuleName>
       <Files>
         <File uid="233" fullPath="C:\Users\artur\source\repos\build\Build\Container.cs" />

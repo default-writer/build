@@ -1,4 +1,4 @@
-SonarScanner.MSBuild.exe begin^
+dotnet C:\msbuild\sonar-scanner\SonarScanner.MSBuild.dll begin^
  /k:"build-core"^
  /n:"build"^
  /v:"1.0"^
@@ -7,7 +7,6 @@ SonarScanner.MSBuild.exe begin^
  /d:sonar.organization="hack2root-github"^
  /d:sonar.host.url="https://sonarcloud.io"^
  /d:sonar.login="7eaa0a53a471f0280146430327e6a24d98a850af"
-rem MSBuild.exe 
 dotnet build --configuration Release
 OpenCover.Console.exe^
  -oldstyle^
@@ -15,5 +14,5 @@ OpenCover.Console.exe^
  -register:user^
  -target:"vstest.console.exe"^
  -targetargs:"Build.Tests\bin\Release\netcoreapp2.1\Build.Tests.dll"
-SonarScanner.MSBuild.exe end^
+dotnet C:\msbuild\sonar-scanner\SonarScanner.MSBuild.dll end^
  /d:sonar.login="7eaa0a53a471f0280146430327e6a24d98a850af"
