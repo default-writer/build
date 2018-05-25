@@ -38,7 +38,7 @@ build_script:
 #---------------------------------#
 
 test_script:
-- dotnet test BuildTests/BuildTests.csproj --configuration Release -f netcoreapp2.0 --no-build
+- dotnet test Build.Tests/Build.Tests.csproj --configuration Release -f netcoreapp2.0 --no-build
 - bash coverage.sh
 - bash coveralls.sh
 
