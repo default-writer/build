@@ -42,3 +42,4 @@ $OPENCOVER \
   -filter:"+[Build*]* -[Build.*Tests*]*" \
   -searchdirs:$testdir/bin/$CONFIG/netcoreapp2.1 \
   -register:user
+
