@@ -72,5 +72,8 @@ $OPENCOVER \
   -searchdirs:$testdir/bin/$CONFIG/netcoreapp2.1 \
   -register:user
 
+if [ -n "$SONARCLOUDTOKEN" ]
+then
 dotnet $SONARCLOUD end \
     /d:sonar.login=$SONARCLOUDTOKEN
+fi
