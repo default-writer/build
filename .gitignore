@@ -13,3 +13,4 @@
 /.sonarqube
 /Build/.sonarqube
 /Build.Tests/.sonarqube
+/Build.Tests/opencover.xml
