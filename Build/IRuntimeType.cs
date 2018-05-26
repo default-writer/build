@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Build
 {
@@ -7,12 +7,6 @@ namespace Build
     /// </summary>
     public interface IRuntimeType
     {
-        ///// <summary>
-        ///// Gets the type of the assignable.
-        ///// </summary>
-        ///// <value>The type of the assignable.</value>
-        //Type AssignableType { get; }
-
         /// <summary>
         /// Gets the attribute.
         /// </summary>
@@ -41,12 +35,6 @@ namespace Build
         /// </summary>
         /// <value>The runtime parameters.</value>
         IEnumerable<IRuntimeType> RuntimeParameters { get; }
-
-        ///// <summary>
-        ///// Gets the type.
-        ///// </summary>
-        ///// <value>The type.</value>
-        //Type Type { get; }
 
         /// <summary>
         /// Determines whether [is assignable from] [the specified identifier].

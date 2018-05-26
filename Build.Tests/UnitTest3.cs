@@ -82,7 +82,7 @@ namespace Build.Tests.TestSet3
         {
             var instance1 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet3.SqlDataRepository(System.Int32)", 123);
             var instance2 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet3.SqlDataRepository(System.Int32)");
-            Assert.Equal(0, instance2.PersinId);
+            Assert.True(instance1.PersinId == 123 && instance2.PersinId == 0);
         }
 
         [Fact]

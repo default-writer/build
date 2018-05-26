@@ -1,4 +1,4 @@
-﻿// This file is used by Code Analysis to maintain SuppressMessage attributes that are applied to this
+// This file is used by Code Analysis to maintain SuppressMessage attributes that are applied to this
 // project. Project-level suppressions either have no target or are given a specific target and
 // scoped to a namespace, type, member, etc.
 
@@ -188,3 +188,10 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0022:Use expression body for methods", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.TestSet2.UnitTest.TestSet2_Method8")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0022:Use expression body for methods", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.TestSet3.UnitTest.TestSet3_Method15")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0021:Use expression body for constructors", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.TestSet3.SqlDataRepository.#ctor(System.Int32)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S108:Nested blocks of code should not be left empty", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.Fail_TestSet7.UnitTest.Fail_TestSet7_Method5")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S1144:Unused private types or members should be removed", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.Fail_TestSet1.PrivateConstructorServiceDataRepository.#ctor(Build.Tests.Fail_TestSet1.IPersonRepository)")]
+
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Major Bug", "S3453:Classes should not have only \"private\" constructors", Justification = "<Ожидание>", Scope = "type", Target = "~T:Build.Tests.Fail_TestSet1.Other")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Major Bug", "S3453:Classes should not have only \"private\" constructors", Justification = "<Ожидание>", Scope = "type", Target = "~T:Build.Tests.Fail_TestSet1.PrivateConstructorServiceDataRepository")]
+
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0022:Use expression body for methods", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.Fail_TestSet1.UnitTest.Fail_TestSet1_Method11")]

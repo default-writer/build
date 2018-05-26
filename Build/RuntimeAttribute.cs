@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Build
@@ -61,7 +61,7 @@ namespace Build
         /// Registers the type of the runtime.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="runtimeType">Type of the runtime.</param>
-        public void RegisterRuntimeType(string id, IRuntimeAttribute runtimeType) => RuntimeTypes[id] = runtimeType;
+        /// <param name="attribute">The runtime attribute.</param>
+        public void RegisterRuntimeType(string id, IRuntimeAttribute attribute) => RuntimeTypes[id] = attribute;
     }
 }

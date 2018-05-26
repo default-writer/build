@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Build
@@ -29,22 +30,22 @@ namespace Build
         /// <summary>
         /// Aliased types.
         /// </summary>
-        public string[] RuntimeAliasedTypes => _typeBuilder.RuntimeAliasedTypes;
+        public IEnumerable<string> RuntimeAliasedTypes => new List<string>(_typeBuilder.RuntimeAliasedTypes);
 
         /// <summary>
         /// Non-aliased types.
         /// </summary>
-        public string[] RuntimeNonAliasedTypes => _typeBuilder.RuntimeNonAliasedTypes;
+        public IEnumerable<string> RuntimeNonAliasedTypes => new List<string>(_typeBuilder.RuntimeNonAliasedTypes);
 
         /// <summary>
         /// Type aliases
         /// </summary>
-        public string[] RuntimeTypeAliases => _typeBuilder.RuntimeTypeAliases;
+        public IEnumerable<string> RuntimeTypeAliases => new List<string>(_typeBuilder.RuntimeTypeAliases);
 
         /// <summary>
         /// Runtime types.
         /// </summary>
-        public string[] RuntimeTypes => _typeBuilder.RuntimeTypes;
+        public IEnumerable<string> RuntimeTypes => new List<string>(_typeBuilder.RuntimeTypes);
 
         /// <summary>
         /// Creates an object identified as instance of type T

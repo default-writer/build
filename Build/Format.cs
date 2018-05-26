@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Build
 {
     /// <summary>
     /// Format patterns for class constructors and constructor parameters
     /// </summary>
-    class Format
+    static class Format
     {
         /// <summary>
         /// Gets the full name of the constructor.

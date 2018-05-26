@@ -1,4 +1,4 @@
-﻿namespace Build.Tests.Fail_TestSet2
+namespace Build.Tests.Fail_TestSet2
 {
     public interface IPersonRepository
     {
@@ -17,12 +17,10 @@
 
     public class ServiceDataRepository : IPersonRepository
     {
-        public ServiceDataRepository([Injection("Build.Tests.Fail_TestSet2.IPersonRepository")]int repository)
-        {
-            //Repository = repository;
-        }
+        public ServiceDataRepository([Injection("Build.Tests.Fail_TestSet2.IPersonRepository")]int repositoryId) => RepositoryId = repositoryId;
 
         public IPersonRepository Repository { get; }
+        public int RepositoryId { get; }
 
         public Person GetPerson(int personId)
         {

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Build
 {
@@ -10,10 +10,10 @@ namespace Build
         /// <summary>
         /// Finds the specified type.
         /// </summary>
-        /// <param name="type">The type.</param>
+        /// <param name="id">The type.</param>
         /// <param name="args">The arguments.</param>
         /// <param name="types">The types.</param>
         /// <returns></returns>
-        IRuntimeType Find(string type, string[] args, IEnumerable<IRuntimeType> types);
+        IRuntimeType Find(string id, string[] args, IEnumerable<IRuntimeType> types);
     }
 }

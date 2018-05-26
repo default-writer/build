@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,14 +10,14 @@ namespace Build
     /// <seealso cref="Build.IRuntimeType"/>
     class RuntimeType : IRuntimeType
     {
-        bool _guard;
-        RuntimeInstance _runtimeInstance;
-        object _value;
-
         /// <summary>
         /// The values
         /// </summary>
-        IDictionary<IRuntimeAttribute, object> _values = new Dictionary<IRuntimeAttribute, object>();
+        readonly IDictionary<IRuntimeAttribute, object> _values = new Dictionary<IRuntimeAttribute, object>();
+
+        bool _guard;
+        RuntimeInstance _runtimeInstance;
+        object _value;
 
         /// <summary>
         /// Gets the type of the assignable.
@@ -188,7 +188,6 @@ namespace Build
             object[] args = new object[RuntimeTypes.Count];
             for (int i = 0; i < RuntimeTypes.Count; i++)
             {
-                var parameterType = RuntimeTypes[i].Type;
                 args[i] = RuntimeTypes[i][Attribute, Id, i];
             }
             return args;
@@ -205,7 +204,6 @@ namespace Build
                 AssignableTypes.Add(type);
                 AssignableType = type;
             }
-            //AssignableTypes.Sort(RuntimeTypeComparer.Instance);
         }
 
         /// <summary>

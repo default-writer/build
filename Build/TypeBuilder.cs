@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -39,25 +39,25 @@ namespace Build
         /// Gets the runtime aliased types.
         /// </summary>
         /// <value>The type aliases.</value>
-        public string[] RuntimeAliasedTypes => Types.Where(p => p.Key != p.Value.Id).Select(p => p.Value.Id).ToArray();
+        public IEnumerable<string> RuntimeAliasedTypes => Types.Where(p => p.Key != p.Value.Id).Select(p => p.Value.Id);
 
         /// <summary>
         /// Gets the runtime non aliased types.
         /// </summary>
         /// <value>The runtime non aliased types.</value>
-        public string[] RuntimeNonAliasedTypes => Types.Where(p => p.Key == p.Value.Id).Select(p => p.Value.Id).ToArray();
+        public IEnumerable<string> RuntimeNonAliasedTypes => Types.Where(p => p.Key == p.Value.Id).Select(p => p.Value.Id);
 
         /// <summary>
         /// Gets the runtime aliases.
         /// </summary>
         /// <value>The runtime aliases.</value>
-        public string[] RuntimeTypeAliases => Types.Where(p => p.Key != p.Value.Id).Select(p => p.Key).ToArray();
+        public IEnumerable<string> RuntimeTypeAliases => Types.Where(p => p.Key != p.Value.Id).Select(p => p.Key);
 
         /// <summary>
         /// Gets the runtime types.
         /// </summary>
         /// <value>The runtime types.</value>
-        public string[] RuntimeTypes => Types.Select(p => p.Value.Id).ToArray();
+        public IEnumerable<string> RuntimeTypes => Types.Select(p => p.Value.Id);
 
         /// <summary>
         /// Gets the filter.
@@ -316,14 +316,7 @@ namespace Build
             {
                 if (Visited.Contains(type))
                     throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type.FullName));
-                try
-                {
-                    RegisterType(type);
-                }
-                catch (TypeRegistrationException ex)
-                {
-                    throw ex;
-                }
+                RegisterType(type);
             }
         }
 
@@ -332,15 +325,15 @@ namespace Build
         /// </summary>
         /// <param name="typeFullName">Full name of the type.</param>
         /// <param name="constructor">The constructor.</param>
-        /// <param name="runtimeAttribute">The runtime attribute.</param>
-        void RegisterConstructorType(string typeFullName, RuntimeType constructor, IRuntimeAttribute runtimeAttribute)
+        /// <param name="attribute">The runtime attribute.</param>
+        void RegisterConstructorType(string typeFullName, RuntimeType constructor, IRuntimeAttribute attribute)
         {
             if (!Types.ContainsKey(typeFullName) || !this[typeFullName, Types[typeFullName]].IsInitialized)
             {
                 var result = this[typeFullName, constructor];
                 if (result != null)
                 {
-                    result.Initialize(runtimeAttribute.RuntimeInstance);
+                    result.Initialize(attribute.RuntimeInstance);
                 }
             }
         }

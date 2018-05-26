@@ -37,7 +37,6 @@ namespace Build.Tests.Fail_TestSet1
         public void Fail_TestSet1_Method11()
         {
             //Fail_TestSet1
-            var other = new Other2(typeof(int));
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository>());
         }
 
@@ -121,7 +120,7 @@ namespace Build.Tests.Fail_TestSet1
         {
             //Fail_TestSet1
             container.RegisterType<ServiceDataRepository2>();
-            var srv1 = container.CreateInstance<ServiceDataRepository2>();
+            var srv1 = container.CreateInstance<ServiceDataRepository2>(null);
             Assert.Null(srv1.Repository);
         }
 
@@ -130,7 +129,7 @@ namespace Build.Tests.Fail_TestSet1
         {
             //Fail_TestSet1
             container.RegisterType<ServiceDataRepository2>();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<IPersonRepository>());
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<IPersonRepository>(null));
         }
 
         [Fact]
@@ -138,7 +137,7 @@ namespace Build.Tests.Fail_TestSet1
         {
             //Fail_TestSet1
             container.RegisterType<ServiceDataRepository2>();
-            var srv1 = container.CreateInstance<ServiceDataRepository2>();
+            var srv1 = container.CreateInstance<ServiceDataRepository2>(Array.Empty<object>());
             Assert.Null(srv1.Repository);
         }
 
@@ -147,7 +146,7 @@ namespace Build.Tests.Fail_TestSet1
         {
             //Fail_TestSet1
             container.RegisterType<ServiceDataRepository2>();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<IPersonRepository>());
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<IPersonRepository>(Array.Empty<object>()));
         }
 
         [Fact]
