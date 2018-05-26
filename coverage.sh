@@ -33,19 +33,16 @@ mkdir $sonarcube
 if [ -n "$SONARCLOUDTOKEN" ]
 then
 $SONARCLOUD begin \
-    /d:sonar.login=${token}  \
-    /d:sonar.host.url=https://my-sonar-server.com \
-    /v:$version \
-    /k:$key \
-    /n:$project \
-    /d:sonar.analysis.mode=preview \
+    /v:"$(version)" \
+    /k:"$(key)" \
+    /n:"$(project)" \
     /d:sonar.cs.opencover.reportsPaths="$(find . -name coverage.xml | tr '\n' ',')" \
     /d:sonar.coverage.exclusions="Build.Tests/**" \
     /d:sonar.cs.vstest.reportsPaths="$(pwd)/.output/*.trx" \
     /d:sonar.verbose=true \
-    /d:sonar.organization=$author \
+    /d:sonar.organization="$(author)" \
     /d:sonar.host.url="https://sonarcloud.io" \
-    /d:sonar.login=$SONARCLOUDTOKEN
+    /d:sonar.login="$(SONARCLOUDTOKEN)"
 fi
 
 echo Building
@@ -75,5 +72,5 @@ $OPENCOVER \
 if [ -n "$SONARCLOUDTOKEN" ]
 then
 dotnet $SONARCLOUD end \
-    /d:sonar.login=$SONARCLOUDTOKEN
+    /d:sonar.login="$(SONARCLOUDTOKEN)"
 fi
