@@ -37,7 +37,7 @@ mkdir $coverage
 
 if [ -n "$SONARCLOUDTOKEN" ]
 then
-dotnet $SONARCLOUD begin /key:"$key" /d:sonar.cs.opencover.reportsPaths="$coverage/coverage.xml" /d:sonar.coverage.exclusions="Build.Tests/**" /d:sonar.cs.vstest.reportsPaths="$(pwd)/.output/*.trx" /d:sonar.verbose="true" /d:sonar.organization="$author" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$SONARCLOUDTOKEN"
+dotnet $SONARCLOUD begin /key:"$key" /d:sonar.cs.opencover.reportsPaths=".coverage/coverage.xml" /d:sonar.coverage.exclusions="Build.Tests/**" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$SONARCLOUDTOKEN"
 fi
 
 echo Building
