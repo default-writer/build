@@ -11,8 +11,6 @@ SONARCLOUD=$PWD/packages/MSBuild.SonarQube.Runner.Tool.4.2.0/tools/SonarScanner.
 
 author=hack2root-github
 key=build-core
-project=build
-version=1.0
 
 CONFIG=Release
 # Arguments to use for the build
@@ -33,9 +31,7 @@ mkdir $sonarcube
 if [ -n "$SONARCLOUDTOKEN" ]
 then
 $SONARCLOUD begin 
-    //v:$version \
-    //k:$key \
-    //n:$project \
+    //key:$key \
     //d:sonar.cs.opencover.reportsPaths="$(find . -name coverage.xml | tr '\n' ',')" \
     //d:sonar.coverage.exclusions="Build.Tests/**" \
     //d:sonar.cs.vstest.reportsPaths="$(pwd)/.output/*.trx" \
