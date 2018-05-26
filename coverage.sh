@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 set -e
 
@@ -6,8 +6,13 @@ set -e
 nuget install -Verbosity quiet -OutputDirectory packages -Version 4.6.519 OpenCover
 nuget install -Verbosity quiet -OutputDirectory packages -Version 4.2.0 MSBuild.SonarQube.Runner.Tool
 
+curl https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.2.0.1214/sonar-scanner-msbuild-4.2.0.1214-netcoreapp2.0.zip
+curl -o $PWD\.sonarcube\scanner.zip -L https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.2.0.1214/sonar-scanner-msbuild-4.2.0.1214-netcoreapp2.0.zip
+unzip $PWD\.sonarcube\scanner.zip
+chmod +x $PWD\.sonarcube\sonar-scanner-3.1.0.1141/bin/sonar-scanner
+
 OPENCOVER=$PWD/packages/OpenCover.4.6.519/MSBuild/OpenCover.Console.exe
-SONARCLOUD=$PWD/packages/MSBuild.SonarQube.Runner.Tool.4.2.0/tools/MSBuild.SonarQube.Runner.exe
+SONARCLOUD=SonarScanner.MSBuild.dll
 
 author=hack2root-github
 key=build-core
@@ -30,13 +35,13 @@ mkdir $sonarcube
 
 if [ -n "$SONARCLOUDTOKEN" ]
 then
-$SONARCLOUD begin \
+dotnet $SONARCLOUD begin \
     /key:$key \
     /d:sonar.cs.opencover.reportsPaths="$(find . -name coverage.xml | tr '\n' ',')" \
     /d:sonar.coverage.exclusions="Build.Tests/**" \
     /d:sonar.cs.vstest.reportsPaths="$(pwd)/.output/*.trx" \
     /d:sonar.verbose=true \
-    /d:sonar.organization="$author" \
+    /d:sonar.organization=$author \
     /d:sonar.host.url="https://sonarcloud.io" \
     /d:sonar.login=$SONARCLOUDTOKEN
 fi
@@ -67,6 +72,6 @@ $OPENCOVER \
 
 if [ -n "$SONARCLOUDTOKEN" ]
 then
-$SONARCLOUD end \
+dotnet $SONARCLOUD end \
     /d:sonar.login=$SONARCLOUDTOKEN
 fi
