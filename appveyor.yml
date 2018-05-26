@@ -33,14 +33,18 @@ build_script:
 - dotnet --info
 - dotnet restore --no-cache
 - dotnet build --configuration Release 
-- dotnet pack Build/Build.csproj --configuration Release --no-build
+#- dotnet pack Build/Build.csproj --configuration Release --no-build
+
 
 #---------------------------------#
 #       tests configuration       #
 #---------------------------------#
 
 test_script:
-- dotnet test Build.Tests/Build.Tests.csproj --configuration Release -f netcoreapp2.1 --no-build
+#- dotnet test Build.Tests/Build.Tests.csproj --configuration Release -f netcoreapp2.1 --no-build
+- curl -o scanner.zip -L https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.2.0.1214/sonar-scanner-msbuild-4.2.0.1214-netcoreapp2.0.zip
+- unzip scanner.zip
+- chmod +x sonar-scanner-3.1.0.1141/bin/sonar-scanner
 - bash coverage.sh
 - bash coveralls.sh
 

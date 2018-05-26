@@ -1,19 +1,13 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 set -e
 
 # Install OpenCover and ReportGenerator, and save the path to their executables.
 nuget install -Verbosity quiet -OutputDirectory packages -Version 4.6.519 OpenCover
 nuget install -Verbosity quiet -OutputDirectory packages -Version 4.2.0 MSBuild.SonarQube.Runner.Tool
-curl -o scanner.zip -L https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.2.0.1214/sonar-scanner-msbuild-4.2.0.1214-netcoreapp2.0.zip
-unzip scanner.zip
-chmod +x sonar-scanner-3.1.0.1141/bin/sonar-scanner
 
 OPENCOVER=$PWD/packages/OpenCover.4.6.519/MSBuild/OpenCover.Console.exe
 SONARCLOUD=SonarScanner.MSBuild.dll
-
-author=hack2root-github
-key=build-core
 
 CONFIG=Release
 # Arguments to use for the build
@@ -37,7 +31,11 @@ mkdir $coverage
 
 if [ -n "$SONARCLOUDTOKEN" ]
 then
-dotnet $SONARCLOUD begin /key:"$key" /d:sonar.cs.opencover.reportsPaths=".coverage/coverage.xml" /d:sonar.coverage.exclusions="Build.Tests/**" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$SONARCLOUDTOKEN"
+dotnet $SONARCLOUD begin \
+	/key:"build-core" \
+	/d:sonar.host.url="https://sonarcloud.io" \
+	/d:sonar.cs.opencover.reportsPaths="coverage.xml" \
+	/d:sonar.coverage.exclusions="Build.Tests/**" /d:sonar.login="$SONARCLOUDTOKEN"
 fi
 
 echo Building
@@ -54,7 +52,7 @@ $OPENCOVER \
   -targetargs:"test -f netcoreapp2.1 $DOTNET_TEST_ARGS Build.Tests/Build.Tests.csproj" \
   -mergeoutput \
   -hideskipped:File \
-  -output:$coverage/coverage.xml \
+  -output:coverage.xml \
   -oldStyle \
   -filter:"+[Build*]* -[Build.Tests*]*" \
   -searchdirs:$testdir/bin/$CONFIG/netcoreapp2.1 \
