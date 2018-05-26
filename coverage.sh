@@ -4,8 +4,7 @@ set -e
 
 # Install OpenCover and ReportGenerator, and save the path to their executables.
 nuget install -Verbosity quiet -OutputDirectory packages -Version 4.6.519 OpenCover
-nuget install -Verbosity quiet -OutputDirectory packages -Version 4.6.519 OpenCover
-
+nuget install -Verbosity quiet -OutputDirectory packages -Version 4.2.0 MSBuild.SonarQube.Runner.Tool
 
 OPENCOVER=$PWD/packages/OpenCover.4.6.519/tools/OpenCover.Console.exe
 

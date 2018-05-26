@@ -45,6 +45,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{03A423
 		opencover.cmd = opencover.cmd
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "appveyour", "appveyour", "{A7881BDE-27D8-435A-99C4-FDC9DFE1D970}"
+	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
+		coverage.sh = coverage.sh
+		coveralls.sh = coveralls.sh
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +74,7 @@ Global
 		{77701C22-8214-414B-9204-C38AEF64B6DE} = {56CD2471-65B0-4B05-8024-89C2121A102B}
 		{3C89ED61-97F9-42DC-BF0B-3D5C889B1593} = {56CD2471-65B0-4B05-8024-89C2121A102B}
 		{2240316E-8F79-436E-A3E3-1F89BA710DB0} = {56CD2471-65B0-4B05-8024-89C2121A102B}
+		{A7881BDE-27D8-435A-99C4-FDC9DFE1D970} = {56CD2471-65B0-4B05-8024-89C2121A102B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B8050DDE-235A-4B64-8B00-5F6C4FF85FCD}
