@@ -5,8 +5,6 @@ set -e
 # Install OpenCover and ReportGenerator, and save the path to their executables.
 nuget install -Verbosity quiet -OutputDirectory packages -Version 4.6.519 OpenCover
 nuget install -Verbosity quiet -OutputDirectory packages -Version 4.2.0 MSBuild.SonarQube.Runner.Tool
-
-curl https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.2.0.1214/sonar-scanner-msbuild-4.2.0.1214-netcoreapp2.0.zip
 curl -o $PWD\.sonarcube\scanner.zip -L https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.2.0.1214/sonar-scanner-msbuild-4.2.0.1214-netcoreapp2.0.zip
 unzip $PWD\.sonarcube\scanner.zip
 chmod +x $PWD\.sonarcube\sonar-scanner-3.1.0.1141/bin/sonar-scanner
