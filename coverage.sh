@@ -32,8 +32,8 @@ mkdir $coverage
 if [ -n "$SONARCLOUDTOKEN" ]
 then
 dotnet $SONARCLOUD begin \
-	/key:"build-core" \
-	/d:sonar.host.url="https://sonarcloud.io" \
+	/k:"build-core" \
+	/d:sonar.host.url=\"https://sonarcloud.io\" \
 	/d:sonar.cs.opencover.reportsPaths="coverage.xml" \
 	/d:sonar.coverage.exclusions="Build.Tests/**" /d:sonar.login="$SONARCLOUDTOKEN"
 fi
