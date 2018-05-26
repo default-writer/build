@@ -7,7 +7,7 @@ nuget install -Verbosity quiet -OutputDirectory packages -Version 4.6.519 OpenCo
 nuget install -Verbosity quiet -OutputDirectory packages -Version 4.2.0 MSBuild.SonarQube.Runner.Tool
 
 OPENCOVER=$PWD/packages/OpenCover.4.6.519/MSBuild/OpenCover.Console.exe
-SONARCLOUD=$PWD/packages/MSBuild.SonarQube.Runner.Tool.4.2.0/tools/SonarScanner.MSBuild.dll
+SONARCLOUD=$PWD/packages/MSBuild.SonarQube.Runner.Tool.4.2.0/tools/SonarScanner.MSBuild.exe
 
 author="hack2root-github"
 key="build-core"
@@ -32,7 +32,7 @@ mkdir $sonarcube
 
 if [ -n "$SONARCLOUDTOKEN" ]
 then
-dotnet $SONARCLOUD begin \
+$SONARCLOUD begin \
     /d:sonar.login=${token}  \
     /d:sonar.host.url=https://my-sonar-server.com \
     /v:$version \
