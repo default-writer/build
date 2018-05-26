@@ -18,6 +18,11 @@ nuget:
   disable_publish_on_pr: true
 
 environment:
+    SONARCLOUDTOKEN:
+        secure: J/Io2E9jT7TQh9FRDeUHNxn+je/4Jzdnxr1Nz/EYaXEr3n31u9eNA/HrLL87o1a8
+    COVERALLSREPOTOKEN:
+        secure: cwLai3P4zgzInidPmgHoWnjTRlWW6hOA75eUoorKMfTi8oR4/oJjDDgXqO2uM6lj
+
 
 #---------------------------------#
 #       build configuration       #
