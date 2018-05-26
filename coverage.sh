@@ -31,9 +31,13 @@ sonarcube=./sonarcube
 rm -rf $sonarcube
 mkdir $sonarcube
 
+coverage=./coverage
+rm -rf $coverage
+mkdir $coverage
+
 if [ -n "$SONARCLOUDTOKEN" ]
 then
-dotnet $SONARCLOUD begin /key:$key /d:sonar.cs.opencover.reportsPaths=$coverage/coverage.xml /d:sonar.coverage.exclusions="Build.Tests/**" /d:sonar.cs.vstest.reportsPaths="$(pwd)/.output/*.trx" /d:sonar.verbose=true /d:sonar.organization=$author /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=$SONARCLOUDTOKEN
+dotnet $SONARCLOUD begin /key:"$key" /d:sonar.cs.opencover.reportsPaths="$coverage/coverage.xml" /d:sonar.coverage.exclusions="Build.Tests/**" /d:sonar.cs.vstest.reportsPaths="$(pwd)/.output/*.trx" /d:sonar.verbose="true" /d:sonar.organization="$author" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$SONARCLOUDTOKEN"
 fi
 
 echo Building
@@ -41,10 +45,6 @@ echo Building
 dotnet build $DOTNET_BUILD_ARGS
 
 echo Testing
-
-coverage=./coverage
-rm -rf $coverage
-mkdir $coverage
 
 # dotnet test -f netcoreapp2.1 $DOTNET_TEST_ARGS Build.Tests/Build.Tests.csproj
 
@@ -62,6 +62,5 @@ $OPENCOVER \
 
 if [ -n "$SONARCLOUDTOKEN" ]
 then
-dotnet $SONARCLOUD end 
-    /d:sonar.login=$SONARCLOUDTOKEN
+dotnet $SONARCLOUD end /d:sonar.login="$SONARCLOUDTOKEN"
 fi
