@@ -35,7 +35,7 @@ $SONARCLOUD begin \
 	/k:"build-core" \
 	/d:"sonar.host.url=https://sonarcloud.io" \
 	/d:"sonar.coverage.exclusions=Build.Tests/**" \
-	/d:"sonar.login=$SONARCLOUDTOKEN" \
+	//d:"sonar.login=$SONARCLOUDTOKEN" \
 	/d:"sonar.verbose=true"
 fi
 
