@@ -32,11 +32,11 @@ mkdir $coverage
 if [ -n "$SONARCLOUDTOKEN" ]
 then
 $SONARCLOUD begin \
-	//key:"build-core" \
-	//d:"sonar.host.url=https://sonarcloud.io" \
-	//d:"sonar.coverage.exclusions=Build.Tests/**" \
-	//d:"sonar.login=$SONARCLOUDTOKEN" \
-	//d:"sonar.verbose=true"
+	/key:"build-core" \
+	/d:sonar.host.url="https://sonarcloud.io" \
+	/d:sonar.coverage.exclusions="Build.Tests/**" \
+	/d:sonar.login="$SONARCLOUDTOKEN" \
+	/d:sonar.verbose="true"
 fi
 
 echo Building
