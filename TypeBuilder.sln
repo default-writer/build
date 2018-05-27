@@ -48,6 +48,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "appveyour", "appveyour", "{
 		coverage.ps1 = coverage.ps1
 		coverage.sh = coverage.sh
 		coveralls.sh = coveralls.sh
+		install.sh = install.sh
 	EndProjectSection
 EndProject
 Global
