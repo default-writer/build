@@ -13,17 +13,6 @@ $CONFIG = "Release"
  /d:sonar.verbose="true" `
  /d:sonar.cs.opencover.reportsPaths="coverage/coverage.xml""
 
- $DOTNET build --configuration $CONFIG
-
-& $OPENCOVER `
- -target:"c:\Program Files\dotnet\dotnet.exe" `
- -targetargs:"test -f netcoreapp2.1 Build.Tests/Build.Tests.csproj" `
- -mergeoutput `
- -hideskipped:File `
- -output:coverage/coverage.xml `
- -oldStyle `
- -filter:"+[Build*]* -[Build.Tests*]*" `
- -searchdirs:Build.Tests/bin/$CONFIG/netcoreapp2.1 `
- -register:user
+ $DOTNET build --configuration $CONFIG 
 
 & $DOTNET $SONARCLOUD end /d:sonar.login=$SONARCLOUDTOKEN"
