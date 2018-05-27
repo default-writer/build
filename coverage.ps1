@@ -1,7 +1,7 @@
 $DOTNET = "dotnet"
 
-$OPENCOVER="./packages/sonar-scanner-msbuild-4.2.0.1214-netcoreapp2.0/SonarCloud.MSBuild.dll"
-$SONARCLOUD="./packages/OpenCover.4.6.519/tools/OpenCover.Console.exe"
+$OPENCOVER="packages/sonar-scanner-msbuild-4.2.0.1214-netcoreapp2.0/SonarCloud.MSBuild.dll"
+$SONARCLOUD="packages/OpenCover.4.6.519/tools/OpenCover.Console.exe"
 $SONARCLOUDTOKEN=$env:SONARCLOUDTOKEN
 $CONFIG = "Release"
 
