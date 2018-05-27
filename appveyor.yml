@@ -18,50 +18,14 @@ nuget:
   disable_publish_on_pr: true
 
 environment:
-    SONARCLOUDTOKEN:
-        secure: J/Io2E9jT7TQh9FRDeUHNxn+je/4Jzdnxr1Nz/EYaXEr3n31u9eNA/HrLL87o1a8
-    COVERALLSREPOTOKEN:
-        secure: cwLai3P4zgzInidPmgHoWnjTRlWW6hOA75eUoorKMfTi8oR4/oJjDDgXqO2uM6lj
+  SONARCLOUDTOKEN:
+    secure: J/Io2E9jT7TQh9FRDeUHNxn+je/4Jzdnxr1Nz/EYaXEr3n31u9eNA/HrLL87o1a8
+  COVERALLSREPOTOKEN:
+    secure: cwLai3P4zgzInidPmgHoWnjTRlWW6hOA75eUoorKMfTi8oR4/oJjDDgXqO2uM6lj
 
-#---------------------------------#
-#       build configuration       #
-#---------------------------------#
-
-configuration: Release
+install_script:
+  - bash install.sh
 
 build_script:
-- dotnet --info
-#- dotnet restore --no-cache
-#- dotnet build --configuration Release 
-#- dotnet pack Build/Build.csproj --configuration Release --no-build
-
-
-#---------------------------------#
-#       tests configuration       #
-#---------------------------------#
-
-test_script:
-#- dotnet test Build.Tests/Build.Tests.csproj --configuration Release -f netcoreapp2.1 --no-build
-- curl -o scanner.zip -L https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.2.0.1214/sonar-scanner-msbuild-4.2.0.1214-netcoreapp2.0.zip
-- unzip scanner.zip
-- chmod +x sonar-scanner-3.1.0.1141/bin/sonar-scanner
-- bash coverage.sh
-- bash coveralls.sh
-
-#---------------------------------#
-#      artifacts configuration    #
-#---------------------------------#
-
-#artifacts:
-#- path: src/**/*.nupkg
-
-#---------------------------------#
-#     deployment configuration    #
-#---------------------------------#
-
-#deploy:
-#  provider: NuGet
-#  api_key:
-#    secure: UrYYF7dW4tZvlgTcihdNHoURAdjBRAFUvbXO+Pt+772aQLVNtbjlDBY4BqvHBxcz
-#  skip_symbols: false
-#  artifact: /.*\.nupkg/
+  - ps: .\coverage.ps1
+  - bash coveralls.sh
