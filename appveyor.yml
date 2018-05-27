@@ -24,6 +24,6 @@ environment:
     secure: cwLai3P4zgzInidPmgHoWnjTRlWW6hOA75eUoorKMfTi8oR4/oJjDDgXqO2uM6lj
 
 build_script:
-  - bash install.sh
-  - ps: .\coverage.ps1
   - bash coveralls.sh
+  - dotnet packages/sonar-scanner-msbuild-4.2.0.1214-netcoreapp2.0/SonarScanner.MSBuild.dll begin /k:"build-core" /d:sonar.login="$COVERALLSREPOTOKEN"
+  - dotnet packages/sonar-scanner-msbuild-4.2.0.1214-netcoreapp2.0/SonarScanner.MSBuild.dll end /d:sonar.login="$COVERALLSREPOTOKEN"
