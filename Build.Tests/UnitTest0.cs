@@ -49,5 +49,14 @@ namespace Build.Tests.TestSet0
             var dependencyAttribute = (constructors[0]).GetCustomAttribute<DependencyAttribute>();
             Assert.Equal(RuntimeInstance.CreateInstance, dependencyAttribute.RuntimeInstance);
         }
+
+        [Fact]
+        public void TestSet0_Method4()
+        {
+            //TestSet0
+            var dependencyAttributeType = typeof(DependencyAttribute);
+            var dependencyAttribute = Activator.CreateInstance(dependencyAttributeType);
+            Assert.NotNull(dependencyAttribute);
+        }
     }
 }
