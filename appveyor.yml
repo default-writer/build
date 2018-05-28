@@ -20,7 +20,7 @@ nuget:
 environment:
   SONARCLOUDTOKEN:
     secure: M3l9SYJrD73aoBF99EQCzsiJDPdlaePK6lxYcnVLEhF2TL9OupY0ApriMfJK12s9
-  COVERALLSREPOTOKEN:
+  COVERALLS_REPO_TOKEN:
     secure: cwLai3P4zgzInidPmgHoWnjTRlWW6hOA75eUoorKMfTi8oR4/oJjDDgXqO2uM6lj
 
 cache:
