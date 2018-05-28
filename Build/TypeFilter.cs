@@ -13,7 +13,7 @@ namespace Build
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns><c>true</c> if this instance can create the specified type; otherwise, <c>false</c>.</returns>
-        public bool CanCreate(Type type) => type != null;
+        public bool CanCreate(Type type) => CanRegister(type);
 
         /// <summary>
         /// Determines whether this instance can register the specified type.

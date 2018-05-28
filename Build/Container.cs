@@ -56,7 +56,7 @@ namespace Build
         public T CreateInstance<T>(params object[] args)
         {
             if (!_typeBuilder.CanCreate(typeof(T)))
-                throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", typeof(T).FullName));
+                throw new TypeInstantiationException(string.Format("{0} is not instantiable (not an allowed type)", typeof(T).FullName));
             return (T)_typeBuilder.CreateInstance(typeof(T), args);
         }
 
@@ -69,7 +69,7 @@ namespace Build
         public object CreateInstance(Type type, params object[] args)
         {
             if (!_typeBuilder.CanCreate(type))
-                throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", type.FullName));
+                throw new TypeInstantiationException(string.Format("{0} is not instantiable (not an allowed type)", type.FullName));
             return _typeBuilder.CreateInstance(type, args);
         }
 

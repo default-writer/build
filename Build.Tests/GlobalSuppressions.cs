@@ -199,3 +199,6 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancies in Symbol Declarations", "RECS0154:Parameter is never used", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.TestSet0.DefaultSqlDataRepository.#ctor(System.Int32)")]
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.TestSet0.UnitTest.TestSet0_Method2")]
+
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.TestSet0.UnitTest.TestSet0_Method3")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.TestSet0.UnitTest.TestSet0_Method4")]

@@ -92,6 +92,14 @@ namespace Build.Tests.Fail_TestSet1
         }
 
         [Fact]
+        public void Fail_TestSet1_Method18()
+        {
+            //Fail_TestSet1
+            container.RegisterType<ServiceDataRepository2>();
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<IPersonRepository>(null));
+        }
+
+        [Fact]
         public void Fail_TestSet1_Method2()
         {
             //Fail_TestSet1
@@ -128,6 +136,7 @@ namespace Build.Tests.Fail_TestSet1
         public void Fail_TestSet1_Method6()
         {
             //Fail_TestSet1
+            container.RegisterType<Other2>();
             container.RegisterType<ServiceDataRepository2>();
             Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<IPersonRepository>(null));
         }
