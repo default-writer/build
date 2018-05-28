@@ -1,18 +1,5 @@
-$DOTNET = "dotnet"
-
-$OPENCOVER="packages/sonar-scanner-msbuild-4.2.0.1214-netcoreapp2.0/SonarCloud.MSBuild.dll"
-$SONARCLOUD="packages/OpenCover.4.6.519/tools/OpenCover.Console.exe"
 $SONARCLOUDTOKEN=$env:SONARCLOUDTOKEN
-$CONFIG = "Release"
 
-& $DOTNET $SONARCLOUD begin `
- /k:"build-core" `
- /d:sonar.host.url="https://sonarcloud.io" `
- /d:sonar.coverage.exclusions="Build.Tests/**" `
- /d:sonar.login="$SONARCLOUDTOKEN" `
- /d:sonar.verbose="true" `
- /d:sonar.cs.opencover.reportsPaths="coverage/coverage.xml""
-
- $DOTNET build --configuration $CONFIG 
-
-& $DOTNET $SONARCLOUD end /d:sonar.login=$SONARCLOUDTOKEN"
+& dotnet packages/sonar-scanner-msbuild-4.2.0.1214-netcoreapp2.0/SonarScanner.MSBuild.dll begin /d:sonar.login="$SONARCLOUDTOKEN" /k:"build-core" /d:sonar.host.url="https://sonarcloud.io" /n:"build" /v:"1.0" /d:sonar.cs.opencover.reportsPaths="Build.Tests/coverage.xml" /d:sonar.coverage.exclusions="**/*Test*.cs" /d:sonar.organization="hack2root-github" /d:sonar.verbose=true 
+& dotnet test --no-build Build.Tests /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --configuration Release 
+& dotnet packages/sonar-scanner-msbuild-4.2.0.1214-netcoreapp2.0/SonarScanner.MSBuild.dll end /d:sonar.login="$SONARCLOUDTOKEN" 
