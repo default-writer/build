@@ -1,6 +1,6 @@
-﻿{
+{
   "frameworks": {
-    "netcoreapp2.0": {}
+    "netcoreapp2.1": {}
   },
   "runtimes": {
     "win": {}

@@ -1,10 +1,10 @@
-﻿notifications:
+notifications:
   slack: build-core:9zFwG1mZVRxt2cNeW1HO3vv2
 
 language: csharp
 dist: trusty
 mono: none
-dotnet: 2.1.300-preview2-008533
+dotnet: 2.1.300-rc1-008673
 
 script:
   - find .
