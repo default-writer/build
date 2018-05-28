@@ -1,16 +1,11 @@
-﻿#deploy:
-#  provider: pages
-#  skip-cleanup: true
-#  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
-#  keep-history: true
-#  on:
-#    branch: master
-notifications:
+﻿notifications:
   slack: build-core:9zFwG1mZVRxt2cNeW1HO3vv2
+
 language: csharp
 dist: trusty
 mono: none
 dotnet: 2.1.300-preview2-008533
+
 script:
   - find .
   - dotnet restore

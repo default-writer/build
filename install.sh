@@ -2,7 +2,6 @@
 
 set -e
 
-nuget install -OutputDirectory packages -Version 4.6.519 OpenCover
 nuget install -OutputDirectory packages -Version 0.7.0 coveralls.net
 
 curl -o scanner.zip -L https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.2.0.1214/sonar-scanner-msbuild-4.2.0.1214-netcoreapp2.0.zip

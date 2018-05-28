@@ -7,10 +7,5 @@
 *obj*
 *TestResults*
 *.lock.json
-/coverage
-/sonar-scanner.cmd
-/opencover.cmd
-/.sonarqube
-/Build/.sonarqube
-/Build.Tests/.sonarqube
-/Build.Tests/opencover.xml
+*.sonarqube
+*.xml
