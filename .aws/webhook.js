@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 
 /**
  * Follow these steps to configure the webhook in Slack:
@@ -43,15 +43,15 @@
 
  */
 
-const AWS = require('aws-sdk');
 const url = require('url');
 const https = require('https');
 
 // The base-64 encoded, encrypted key (CiphertextBlob) stored in the kmsEncryptedHookUrl environment variable
-const kmsEncryptedHookUrl = process.env.kmsEncryptedHookUrl;
+//const kmsEncryptedHookUrl = process.env.kmsEncryptedHookUrl;
+const hookUrl = process.env.hookUrl;
 // The Slack channel to send a message to stored in the slackChannel environment variable
 const slackChannel = process.env.slackChannel;
-let hookUrl;
+//let hookUrl;
 
 
 function postMessage(message, callback) {
@@ -88,18 +88,18 @@ function processEvent(event, callback) {
     const slackMessage = {
         channel: slackChannel,
         user: "hack2root",
-        text:  message.detail['build-status']  + " " + message.detail["additional-information"].environment['image'] + ' (' + message.detail["additional-information"].source['type'] + ':' + "<https://github.com/hack2root/build/commit/" + message.detail["additional-information"]["source-version"] + "|" + message.detail["additional-information"]["source-version"] + ">)",
+        text: message.detail["additional-information"].environment['image'],
         "attachments": [
         {
             "title": message["source"],
             "title_link": message.detail["additional-information"].logs['deep-link'],
-            "pretext": message.detail["additional-information"].initiator + " at " + message.detail["additional-information"]["build-start-time"],
-            "text":  message.detail["additional-information"]["source"]["buildspec"],
+            "pretext": "<" + message.detail["additional-information"].source['location'] + "|" + message.detail["project-name"] + ">" + " at *" + message.detail["additional-information"]["build-start-time"] + "*" + " " + message.detail['build-status'].toLowerCase()  + " " + " for " + message.detail["additional-information"].source['type'] + ' ' + "<https://github.com/hack2root/build/commit/" + message.detail["additional-information"]["source-version"] + "|" + message.detail["additional-information"]["source-version"] + ">",
+            "text":  message['detail-type'],
             "mrkdwn_in": [
                 "text",
                 "pretext"
             ],
-            "footer": "<" + message.detail["additional-information"].source['location'] + "|" + message.detail["project-name"] + ">" + " <"+message['detail-type']+">" + " " + message["region"],
+            "footer": message.detail["additional-information"].initiator + " " + message.detail["additional-information"]["source"]["location"] + " " + message["region"],
             "footer_icon": "https://platform.slack-edge.com/img/default_application_icon.png",
             "ts": Date.now()/1000
         }]
@@ -111,9 +111,8 @@ function processEvent(event, callback) {
             callback(null);
         } else if (response.statusCode < 500) {
             console.error(`Error posting message to Slack API: ${response.statusCode} - ${response.statusMessage}`);
-            callback(null);  // Don't retry because the error is due to a problem with the request
+            callback(null);
         } else {
-            // Let Lambda retry
             callback(`Server error when processing message: ${response.statusCode} - ${response.statusMessage}`);
         }
     });
@@ -122,21 +121,7 @@ function processEvent(event, callback) {
 
 exports.handler = (event, context, callback) => {
     if (hookUrl) {
-        // Container reuse, simply process the event with the key in memory
         processEvent(event, callback);
-    } else if (kmsEncryptedHookUrl && kmsEncryptedHookUrl !== '<kmsEncryptedHookUrl>') {
-        const encryptedBuf = new Buffer(kmsEncryptedHookUrl, 'base64');
-        const cipherText = { CiphertextBlob: encryptedBuf };
-
-        const kms = new AWS.KMS();
-        kms.decrypt(cipherText, (err, data) => {
-            if (err) {
-                console.log('Decrypt error:', err);
-                return callback(err);
-            }
-            hookUrl = `https://${data.Plaintext.toString('ascii')}`;
-            processEvent(event, callback);
-        });
     } else {
         callback('Hook URL has not been set.');
     }
