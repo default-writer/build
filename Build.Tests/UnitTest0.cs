@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using Xunit;
 
 namespace Build.Tests.TestSet0
@@ -28,6 +29,16 @@ namespace Build.Tests.TestSet0
                 exception = true;
             }
             Assert.False(exception);
+        }
+
+        [Fact]
+        public void TestSet0_Method2()
+        {
+            //TestSet0
+            var constructors = typeof(DefaultSqlDataRepository).GetConstructors();
+            var constructorParameters = constructors[0].GetParameters();
+            var injectionAttribute = (constructorParameters[0]).GetCustomAttribute<InjectionAttribute>();
+            Assert.Equal(RuntimeInstance.None, injectionAttribute.RuntimeInstance);
         }
     }
 }

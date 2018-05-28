@@ -195,3 +195,7 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Major Bug", "S3453:Classes should not have only \"private\" constructors", Justification = "<Ожидание>", Scope = "type", Target = "~T:Build.Tests.Fail_TestSet1.PrivateConstructorServiceDataRepository")]
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0022:Use expression body for methods", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.Fail_TestSet1.UnitTest.Fail_TestSet1_Method11")]
+
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancies in Symbol Declarations", "RECS0154:Parameter is never used", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.TestSet0.DefaultSqlDataRepository.#ctor(System.Int32)")]
+
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.TestSet0.UnitTest.TestSet0_Method2")]

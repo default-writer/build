@@ -1,4 +1,4 @@
-﻿namespace Build.Tests.TestSet0
+namespace Build.Tests.TestSet0
 {
     public interface IPersonRepository
     {
@@ -49,6 +49,16 @@
             // get the data from SQL DB and return Person instance.
             return new Person(this);
         }
+    }
+
+    class DefaultSqlDataRepository : IPersonRepository
+    {
+        [Dependency]
+        public DefaultSqlDataRepository([Injection] int personId) => PersonId = personId;
+
+        public int PersonId { get; }
+
+        public Person GetPerson(int personId) => new Person(this);
     }
 
     class PrivateSqlDataRepository : IPersonRepository
