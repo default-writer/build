@@ -40,5 +40,14 @@ namespace Build.Tests.TestSet0
             var injectionAttribute = (constructorParameters[0]).GetCustomAttribute<InjectionAttribute>();
             Assert.Equal(RuntimeInstance.None, injectionAttribute.RuntimeInstance);
         }
+
+        [Fact]
+        public void TestSet0_Method3()
+        {
+            //TestSet0
+            var constructors = typeof(DefaultSqlDataRepository).GetConstructors();
+            var dependencyAttribute = (constructors[0]).GetCustomAttribute<DependencyAttribute>();
+            Assert.Equal(RuntimeInstance.CreateInstance, dependencyAttribute.RuntimeInstance);
+        }
     }
 }
