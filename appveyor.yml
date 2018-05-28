@@ -23,7 +23,12 @@ environment:
   COVERALLSREPOTOKEN:
     secure: cwLai3P4zgzInidPmgHoWnjTRlWW6hOA75eUoorKMfTi8oR4/oJjDDgXqO2uM6lj
 
-build_script:
+cache:
+  - packages -> **\packages.config
+
+install:
   - bash install.sh
-  - ps: coverage.ps1
+
+build_script:
+  - ps: ./coverage.ps1
   - bash coveralls.sh
