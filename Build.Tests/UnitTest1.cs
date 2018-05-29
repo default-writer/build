@@ -30,6 +30,53 @@ namespace Build.Tests.TestSet1
         }
 
         [Fact]
+        public void TestSet1_Method21()
+        {
+            //TestSet1
+            container.RegisterType<PrivateSqlDataRepository>();
+            string name = null;
+            Assert.Throws<TypeInstantiationException>(() => (PrivateSqlDataRepository)container.CreateInstance(name));
+        }
+
+        [Fact]
+        public void TestSet1_Method22()
+        {
+            //TestSet1
+            container.RegisterType<PrivateSqlDataRepository>();
+            string name = null;
+            Assert.Throws<TypeInstantiationException>(() => (PrivateSqlDataRepository)container.CreateInstance(name, System.Array.Empty<object>()));
+        }
+
+        [Fact]
+        public void TestSet1_Method23()
+        {
+            //TestSet1
+            container.RegisterAssembly(typeof(PrivateSqlDataRepository).Assembly, new string[] {
+                "Build.Tests.Fail_TestSet7.SqlDataRepository",
+                "Build.Tests.Fail_TestSet6.ServiceDataRepository",
+                "Build.Tests.Fail_TestSet6.SqlDataRepository",
+                "Build.Tests.Fail_TestSet5.ServiceDataRepository",
+                "Build.Tests.Fail_TestSet5.SqlDataRepository",
+                "Build.Tests.Fail_TestSet4.SqlDataRepository",
+                "Build.Tests.Fail_TestSet4.ServiceDataRepository",
+                "Build.Tests.Fail_TestSet3.SqlDataRepository",
+                "Build.Tests.Fail_TestSet2.ServiceDataRepository",
+                "Build.Tests.Fail_TestSet1.Other",
+                "Build.Tests.Fail_TestSet1.PrivateConstructorServiceDataRepository",
+                "Build.Tests.Fail_TestSet1.ServiceDataRepository"
+            });
+            var sql = (PrivateSqlDataRepository)container.CreateInstance(typeof(PrivateSqlDataRepository).FullName, System.Array.Empty<object>());
+            Assert.NotNull(sql);
+        }
+
+        [Fact]
+        public void TestSet1_Method24()
+        {
+            //TestSet1
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterAssembly(typeof(PrivateSqlDataRepository).Assembly, null));
+        }
+
+        [Fact]
         public void TestSet1_Method3()
         {
             //TestSet1

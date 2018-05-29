@@ -155,8 +155,18 @@ namespace Build
         public void RegisterType(Type type)
         {
             Visited.Add(type);
-            RegisterConstructor(type);
-            Visited.Remove(type);
+            try
+            {
+                RegisterConstructor(type);
+            }
+            catch (TypeRegistrationException ex)
+            {
+                throw new TypeRegistrationException(string.Format("{0} is not registered", type.FullName), ex);
+            }
+            finally
+            {
+                Visited.Remove(type);
+            }
         }
 
         /// <summary>
@@ -174,7 +184,7 @@ namespace Build
         static void CheckParameterTypeFullName(Type type, Type parameterType, string id)
         {
             if (id == type.FullName && id == parameterType.FullName)
-                throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type.FullName));
+                throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found) in {1}", type.FullName, id));
         }
 
         /// <summary>

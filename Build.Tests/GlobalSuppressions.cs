@@ -202,3 +202,5 @@
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.TestSet0.UnitTest.TestSet0_Method3")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.TestSet0.UnitTest.TestSet0_Method4")]
+
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0022:Use expression body for methods", Justification = "<Ожидание>", Scope = "member", Target = "~M:Build.Tests.TestSet1.UnitTest.TestSet1_Method24")]

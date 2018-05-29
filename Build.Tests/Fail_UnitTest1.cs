@@ -100,11 +100,37 @@ namespace Build.Tests.Fail_TestSet1
         }
 
         [Fact]
+        public void Fail_TestSet1_Method19()
+        {
+            //Fail_TestSet1
+            container.RegisterType<ServiceDataRepository2>();
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance(typeof(IPersonRepository), null));
+        }
+
+        [Fact]
         public void Fail_TestSet1_Method2()
         {
             //Fail_TestSet1
             container.RegisterType<SqlDataRepository>();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<PrivateConstructorServiceDataRepository>());
+        }
+
+        [Fact]
+        public void Fail_TestSet1_Method20()
+        {
+            //Fail_TestSet1
+            container.RegisterType<ServiceDataRepository5>();
+            var srv1 = (ServiceDataRepository5)container.CreateInstance(typeof(ServiceDataRepository5));
+            Assert.Null(srv1.Repository);
+        }
+
+        [Fact]
+        public void Fail_TestSet1_Method21()
+        {
+            //Fail_TestSet1
+            container.RegisterType<ServiceDataRepository5>();
+            var srv1 = (ServiceDataRepository5)container.CreateInstance(typeof(ServiceDataRepository5), null);
+            Assert.Null(srv1.Repository);
         }
 
         [Fact]

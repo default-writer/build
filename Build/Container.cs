@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
 
 namespace Build
 {
@@ -82,9 +83,7 @@ namespace Build
         public object CreateInstance(string id, params object[] args)
         {
             if (id == null)
-                throw new ArgumentNullException(nameof(id));
-            if (args == null)
-                throw new ArgumentNullException(nameof(args));
+                throw new TypeInstantiationException(string.Format("{0} is null (type name required)", nameof(id)));
             return _typeBuilder.CreateInstance(id, args);
         }
 
@@ -92,11 +91,22 @@ namespace Build
         /// Registers all supported types in assembly
         /// </summary>
         /// <param name="assembly">Assembly for add type identifiers</param>
-        public void RegisterAssembly(Assembly assembly)
+        /// <param name="exclusionTypes">List of assembly types to ignore</param>
+        public void RegisterAssembly(Assembly assembly, string[] exclusionTypes)
         {
+            var exclusionList = new List<string>
+            {
+                "<PrivateImplementationDetails>"
+            };
+            if (exclusionTypes != null)
+                exclusionList.AddRange(exclusionTypes);
             foreach (var type in assembly.GetTypes())
+            {
+                if (exclusionList.Contains(type.FullName))
+                    continue;
                 if (_typeBuilder.CanRegister(type))
                     _typeBuilder.RegisterType(type);
+            }
         }
 
         /// <summary>
