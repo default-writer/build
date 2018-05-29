@@ -58,7 +58,7 @@ namespace Build
         /// </summary>
         /// <param name="assembly">Assembly for add type identifiers</param>
         /// <param name="exclusionTypes">List of assembly types to ignore</param>
-        void RegisterAssembly(Assembly assembly, string[] exclusionTypes);
+        void RegisterAssembly(Assembly assembly, IEnumerable<string> exclusionTypes);
 
         /// <summary>
         /// Registers type

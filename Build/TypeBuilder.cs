@@ -211,7 +211,7 @@ namespace Build
         /// <param name="attributeType">Type of the attribute.</param>
         /// <returns></returns>
         /// <exception cref="TypeRegistrationException"></exception>
-        static string[] GetParametersFullName(Type type, Type parameterType, InjectionAttribute injectionAttribute, string id, Type attributeType)
+        static IEnumerable<string> GetParametersFullName(Type type, Type parameterType, InjectionAttribute injectionAttribute, string id, Type attributeType)
         {
             if (attributeType != null && !parameterType.IsAssignableFrom(attributeType))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", parameterType.FullName, attributeType.FullName));
@@ -224,7 +224,7 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        static string[] GetParametersFullName(object[] args) => args == null ? Array.Empty<string>() : args.Select(p => (p ?? typeof(object)).GetType().FullName).ToArray();
+        static IEnumerable<string> GetParametersFullName(object[] args) => args == null ? Array.Empty<string>() : args.Select(p => (p ?? typeof(object)).GetType().FullName).ToArray();
 
         /// <summary>
         /// Gets the identifier.
@@ -252,7 +252,7 @@ namespace Build
         string GetTypeFullName(Type type, ParameterInfo[] constructorParameters, IRuntimeAttribute attribute)
         {
             string id = GetId(type, attribute);
-            var parameterArgs = constructorParameters.Select(p => p.ParameterType.FullName).ToArray();
+            var parameterArgs = constructorParameters.Select(p => p.ParameterType.FullName);
             var runtimeType = (RuntimeType)Parser.Find(id, parameterArgs, Types.Values);
             string constructorRuntimeFullName = runtimeType == null ? id : runtimeType.Type.FullName;
             string typeFullName = Format.GetConstructorFullName(constructorRuntimeFullName, parameterArgs);

@@ -14,6 +14,6 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <param name="types">The types.</param>
         /// <returns></returns>
-        IRuntimeType Find(string id, string[] args, IEnumerable<IRuntimeType> types);
+        IRuntimeType Find(string id, IEnumerable<string> args, IEnumerable<IRuntimeType> types);
     }
 }

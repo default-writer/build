@@ -92,14 +92,9 @@ namespace Build
         /// </summary>
         /// <param name="assembly">Assembly for add type identifiers</param>
         /// <param name="exclusionTypes">List of assembly types to ignore</param>
-        public void RegisterAssembly(Assembly assembly, string[] exclusionTypes)
+        public void RegisterAssembly(Assembly assembly, IEnumerable<string> exclusionTypes)
         {
-            var exclusionList = new List<string>
-            {
-                "<PrivateImplementationDetails>"
-            };
-            if (exclusionTypes != null)
-                exclusionList.AddRange(exclusionTypes);
+            var exclusionList = new List<string>(exclusionTypes ?? Array.Empty<string>());
             foreach (var type in assembly.GetTypes())
             {
                 if (exclusionList.Contains(type.FullName))

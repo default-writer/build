@@ -24,7 +24,7 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <param name="types">The types.</param>
         /// <returns></returns>
-        public IRuntimeType Find(string id, string[] args, IEnumerable<IRuntimeType> types)
+        public IRuntimeType Find(string id, IEnumerable<string> args, IEnumerable<IRuntimeType> types)
         {
             if (Cache.ContainsKey(id))
                 return Cache[id];
@@ -61,9 +61,10 @@ namespace Build
         /// <param name="runtimeType">Type of the runtime.</param>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        static bool MatchParameterArguments(IRuntimeType runtimeType, string[] args)
+        static bool MatchParameterArguments(IRuntimeType runtimeType, IEnumerable<string> args)
         {
-            if (args.Length > 0 && runtimeType.ParametersCount != args.Length)
+            int count = args.Count();
+            if (count > 0 && runtimeType.ParametersCount != count)
                 return false;
             if (!MatchArguments(args, runtimeType.RuntimeParameters))
                 return false;
@@ -78,7 +79,7 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <param name="match">The match.</param>
         /// <returns></returns>
-        static bool MatchParameters(IRuntimeType runtimeType, string name, string[] args, MatchCollection match)
+        static bool MatchParameters(IRuntimeType runtimeType, string name, IEnumerable<string> args, MatchCollection match)
         {
             if (!MatchType(runtimeType, name))
                 return false;
@@ -133,7 +134,7 @@ namespace Build
         /// <param name="name">The name.</param>
         /// <param name="pars">The pars.</param>
         /// <returns></returns>
-        IRuntimeType GetRuntimeType(string[] args, IEnumerable<IRuntimeType> types, string name, MatchCollection pars)
+        IRuntimeType GetRuntimeType(IEnumerable<string> args, IEnumerable<IRuntimeType> types, string name, MatchCollection pars)
         {
             var runtimeType = types.FirstOrDefault((p) => MatchParameters(p, name, args, pars));
             if (runtimeType == null)
