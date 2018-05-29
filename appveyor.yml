@@ -28,10 +28,8 @@ cache:
 
 install:
     - bash install.sh
-    - choco install opencover.portable
-    - choco install xunit
 
-test_script:
+build_script:
     - dotnet restore
     - ps: ./coverage.ps1
     - bash coveralls.sh
