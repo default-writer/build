@@ -44,7 +44,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "appveyour", "appveyour", "{A7881BDE-27D8-435A-99C4-FDC9DFE1D970}"
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
-		codecov.sh = codecov.sh
 		coverage.ps1 = coverage.ps1
 		coveralls.sh = coveralls.sh
 		install.sh = install.sh
