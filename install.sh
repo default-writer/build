@@ -26,5 +26,3 @@ mkdir $sonarcube
 coverage=./coverage
 rm -rf $coverage
 mkdir $coverage
-
-dotnet restore
