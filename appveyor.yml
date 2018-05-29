@@ -46,6 +46,6 @@ build:
 test_script:
     - dotnet restore
     - dotnet build --configuration Release
-    - dotnet test --configuration Release
+    - dotnet test --configuration Release --no-build Build.Tests
     - OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\Build.Tests\bin\Debug\Build.Tests.dll -noshadow" -filter:"+[Build*]* -[*Test*]*" -output:".\coverage.xml"
     - codecov -f "coverage.xml"
