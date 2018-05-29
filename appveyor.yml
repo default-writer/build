@@ -34,12 +34,11 @@ install:
 
 before_build:
     - choco install opencover.portable
-    - choco install codecov
     - choco install xunit
 
-build_script:
-    - ps: ./coverage.ps1
-    - bash coveralls.sh
+#build_script:
+#    - ps: ./coverage.ps1
+#    - bash coveralls.sh
 
 build:
     project: Build.sln
