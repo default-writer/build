@@ -244,6 +244,14 @@ namespace Build
         object CreateInstance() => Activator.CreateInstance(Type);
 
         /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="attribute">The attribute.</param>
+        /// <returns></returns>
+        object CreateInstance(IRuntimeType type, IRuntimeAttribute attribute) => Activator.CreateInstance(Type, RuntimeTypes.Select((p, i) => p.EvaluateRuntimeInstance(type, attribute, i)).ToArray());
+
+        /// <summary>
         /// Creates reference type
         /// </summary>
         /// <param name="args">Parameter passed in to type activator</param>
@@ -258,14 +266,6 @@ namespace Build
                 return EvaluateRuntimeInstance(this, Attribute, null);
             return CreateInstance(Attribute);
         }
-
-        /// <summary>
-        /// Evaluates the specified type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="attribute">The attribute.</param>
-        /// <returns></returns>
-        object Evaluate(IRuntimeType type, IRuntimeAttribute attribute) => Activator.CreateInstance(Type, RuntimeTypes.Select((p, i) => p.EvaluateRuntimeInstance(type, attribute, i)).ToArray());
 
         /// <summary>
         /// Evaluates the argument.
@@ -308,7 +308,7 @@ namespace Build
             _guard = true;
             object result = null;
             var runtimeAttribute = i.HasValue ? Attribute.GetRuntimeType(Format.GetConstructorParameterFullName(type.Id, i)) : null;
-            result = Evaluate(type, runtimeAttribute ?? Attribute);
+            result = CreateInstance(type, runtimeAttribute ?? Attribute);
             _guard = false;
             return result;
         }
