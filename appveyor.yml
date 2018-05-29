@@ -35,6 +35,7 @@ install:
 before_build:
     - choco install opencover.portable
     - choco install codecov
+    - choco install xunit
 
 build_script:
     - ps: ./coverage.ps1
@@ -45,9 +46,9 @@ build:
     verbosity: minimal
 
 test_script:
-    - bash install.sh
+#    - bash install.sh
     - dotnet restore
-    - ps: ./coverage.ps1
     - OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\Build.Tests\bin\Release\Build.Tests.dll -noshadow" -filter:"+[Build*]* -[*Test*]*" -output:".\coverage.xml"
     - codecov -f "coverage.xml"
     - bash coveralls.sh
+#    - ps: ./coverage.ps1
