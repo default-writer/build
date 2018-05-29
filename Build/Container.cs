@@ -21,14 +21,6 @@ namespace Build
         public Container() => _typeBuilder = new TypeBuilder();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Container"/> class.
-        /// </summary>
-        /// <param name="typeFilter">The type filter.</param>
-        /// <param name="typeResolver">The type resolver.</param>
-        /// <param name="typeParser">The type parser.</param>
-        public Container(ITypeFilter typeFilter, ITypeResolver typeResolver, ITypeParser typeParser) => _typeBuilder = new TypeBuilder(typeFilter, typeResolver, typeParser);
-
-        /// <summary>
         /// Aliased types.
         /// </summary>
         public IEnumerable<string> RuntimeAliasedTypes => new List<string>(_typeBuilder.RuntimeAliasedTypes);

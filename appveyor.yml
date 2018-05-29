@@ -44,5 +44,8 @@ build:
     verbosity: minimal
 
 test_script:
-    - OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\MyUnitTests\bin\Debug\MyUnitTests.dll -noshadow" -filter:"+[Build*]* -[*Test*]*" -output:".\coverage.xml"
+    - dotnet restore
+    - dotnet build --configuration Release
+    - dotnet test --configuration Release
+    - OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\Build.Tests\bin\Debug\Build.Tests.dll -noshadow" -filter:"+[Build*]* -[*Test*]*" -output:".\coverage.xml"
     - codecov -f "coverage.xml"

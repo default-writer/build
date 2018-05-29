@@ -22,20 +22,6 @@ namespace Build
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TypeBuilder"/> class.
-        /// </summary>
-        /// <param name="typeFilter">The type filter.</param>
-        /// <param name="typeResolver">The type resolver.</param>
-        /// <param name="typeParser">The type parser.</param>
-        /// <exception cref="ArgumentNullException">typeFilter or typeResolver or typeParser</exception>
-        public TypeBuilder(ITypeFilter typeFilter, ITypeResolver typeResolver, ITypeParser typeParser)
-        {
-            Filter = typeFilter ?? throw new ArgumentNullException(nameof(typeFilter));
-            Resolver = typeResolver ?? throw new ArgumentNullException(nameof(typeResolver));
-            Parser = typeParser ?? throw new ArgumentNullException(nameof(typeParser));
-        }
-
-        /// <summary>
         /// Gets the runtime aliased types.
         /// </summary>
         /// <value>The type aliases.</value>
