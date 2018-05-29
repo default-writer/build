@@ -15,20 +15,34 @@ image: Visual Studio 2017 Preview
 clone_depth: 1
 
 nuget:
-  disable_publish_on_pr: true
+    disable_publish_on_pr: true
 
 environment:
-  SONARCLOUDTOKEN:
-    secure: M3l9SYJrD73aoBF99EQCzsiJDPdlaePK6lxYcnVLEhF2TL9OupY0ApriMfJK12s9
-  COVERALLS_REPO_TOKEN:
-    secure: cwLai3P4zgzInidPmgHoWnjTRlWW6hOA75eUoorKMfTi8oR4/oJjDDgXqO2uM6lj
+    CODECOVTOKEN:
+        secure: ctTXke94UzfiYDCYUOCpW9NfXxMz5fCUXIYMffk6U5+Ts9rfpOxYU/wfoLHnN20O
+    SONARCLOUDTOKEN:
+        secure: M3l9SYJrD73aoBF99EQCzsiJDPdlaePK6lxYcnVLEhF2TL9OupY0ApriMfJK12s9
+    COVERALLS_REPO_TOKEN:
+        secure: cwLai3P4zgzInidPmgHoWnjTRlWW6hOA75eUoorKMfTi8oR4/oJjDDgXqO2uM6lj
 
 cache:
-  - packages -> **\packages.config
+    - packages -> **\packages.config
 
 install:
-  - bash install.sh
+    - bash install.sh
+
+before_build:
+    - choco install opencover.portable
+    - choco install codecov
 
 build_script:
-  - ps: ./coverage.ps1
-  - bash coveralls.sh
+    - ps: ./coverage.ps1
+    - bash coveralls.sh
+
+build:
+    project: Build.sln
+    verbosity: minimal
+
+test_script:
+    - OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\MyUnitTests\bin\Debug\MyUnitTests.dll -noshadow" -filter:"+[Build*]* -[*Test*]*" -output:".\coverage.xml"
+    - codecov -f "coverage.xml"

@@ -95,6 +95,7 @@ namespace Build
         public void RegisterAssembly(Assembly assembly, IEnumerable<string> exclusionTypes)
         {
             var exclusionList = new List<string>(exclusionTypes ?? Array.Empty<string>());
+            exclusionList.Add("<PrivateImplementationDetails>");
             foreach (var type in assembly.GetTypes())
             {
                 if (exclusionList.Contains(type.FullName))
