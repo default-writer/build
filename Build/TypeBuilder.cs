@@ -184,7 +184,7 @@ namespace Build
         static void CheckParameterTypeFullName(Type type, Type parameterType, string id)
         {
             if (id == type.FullName && id == parameterType.FullName)
-                throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found) in {1}", type.FullName, id));
+                throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type.FullName));
         }
 
         /// <summary>
