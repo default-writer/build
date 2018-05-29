@@ -119,7 +119,7 @@ namespace Build
         public void RegisterType(Type type)
         {
             if (!_typeBuilder.CanRegister(type))
-                throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", type.FullName));
+                throw new TypeRegistrationException(string.Format("{0} is not instantiable (not an allowed type)", type.FullName));
             _typeBuilder.RegisterType(type);
         }
 
@@ -133,7 +133,7 @@ namespace Build
         public void RegisterType<T>()
         {
             if (!_typeBuilder.CanRegister(typeof(T)))
-                throw new TypeFilterException(string.Format("{0} is not instantiable (not an allowed type)", typeof(T).FullName));
+                throw new TypeRegistrationException(string.Format("{0} is not instantiable (not an allowed type)", typeof(T).FullName));
             _typeBuilder.RegisterType(typeof(T));
         }
 

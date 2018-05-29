@@ -70,7 +70,7 @@ namespace Build.Tests.Fail_TestSet1
         {
             //Fail_TestSet1
             container.RegisterType<ServiceDataRepository2>();
-            Assert.Throws<TypeFilterException>(() => container.RegisterType<ServiceDataRepository3>());
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository3>());
         }
 
         [Fact]
@@ -138,7 +138,7 @@ namespace Build.Tests.Fail_TestSet1
         {
             //Fail_TestSet1
             container.RegisterType<SqlDataRepository>();
-            Assert.Throws<TypeFilterException>(() => container.RegisterType<int>());
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<int>());
         }
 
         [Fact]
@@ -146,7 +146,7 @@ namespace Build.Tests.Fail_TestSet1
         {
             //Fail_TestSet1
             container.RegisterType<SqlDataRepository>();
-            Assert.Throws<TypeFilterException>(() => container.RegisterType<IPersonRepository>());
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<IPersonRepository>());
         }
 
         [Fact]
