@@ -18,7 +18,5 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "<Pending>", Scope = "member", Target = "~P:Build.IContainer.RuntimeTypeAliases")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0032:Use auto property", Justification = "<Pending>", Scope = "member", Target = "~F:Build.RuntimeType._runtimeInstance")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0032:Use auto property", Justification = "<Pending>", Scope = "member", Target = "~P:Build.RuntimeType.RuntimeInstance")]
-
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancies in Symbol Declarations", "RECS0154:Parameter is never used", Justification = "<Pending>", Scope = "member", Target = "~M:Build.Container.#ctor(System.Boolean)")]
-
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancies in Symbol Declarations", "RECS0154:Parameter is never used", Justification = "<Pending>", Scope = "member", Target = "~M:Build.Container.#ctor(System.Boolean,System.Boolean)")]
