@@ -366,12 +366,12 @@ namespace Build
         /// <exception cref="TypeInstantiationException"></exception>
         object EvaluateArgument(IRuntimeAttribute attribute, int? i)
         {
-            if (RuntimeInstance == RuntimeInstance.None || !IsDefaultTypeInstantiation())
+            if (RuntimeInstance == RuntimeInstance.None || (!DefaultTypeInstantiation && IsDefaultReferencedType()))
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (constructor not allowed)", Type.FullName));
             return EvaluateInjection(attribute, i);
         }
 
-        bool IsDefaultTypeInstantiation() => DefaultTypeInstantiation || Type.IsValueType || RuntimeInstance != RuntimeInstance.Default;
+        bool IsDefaultReferencedType() => !Type.IsValueType && RuntimeInstance == RuntimeInstance.Default;
 
         /// <summary>
         /// Evaluates the injection.
