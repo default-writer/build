@@ -32,3 +32,4 @@ install:
 build_script:
     - dotnet restore
     - ps: ./coverage.ps1
+    - bash coveralls.sh
