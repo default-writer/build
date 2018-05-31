@@ -15,7 +15,7 @@ namespace Build
         /// </summary>
         readonly IDictionary<IRuntimeAttribute, object> _values = new Dictionary<IRuntimeAttribute, object>();
 
-        bool _guard;
+        bool _instance;
         RuntimeInstance _runtimeInstance;
         object _value;
 
@@ -24,6 +24,8 @@ namespace Build
         /// </summary>
         /// <value>The type of the assignable.</value>
         Type AssignableType;
+
+#if PARENT_STRATEGY
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RuntimeType"/> class.
@@ -39,6 +41,23 @@ namespace Build
             Parent = parent ?? this;
             Attribute = attribute ?? throw new ArgumentNullException(nameof(attribute));
         }
+
+#else
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RuntimeType"/> class.
+        /// </summary>
+        /// <param name="attribute">The attribute.</param>
+        /// <param name="type">The type.</param>
+        /// <exception cref="ArgumentNullException">attribute</exception>
+        public RuntimeType(IRuntimeAttribute attribute, Type type)
+        {
+            AssignableType = type;
+            Type = type;
+            Attribute = attribute ?? throw new ArgumentNullException(nameof(attribute));
+        }
+
+#endif
 
         /// <summary>
         /// Gets the attribute.
@@ -64,11 +83,13 @@ namespace Build
         /// <value>The parameters count.</value>
         public int ParametersCount => RuntimeTypes.Count;
 
+#if PARENT_STRATEGY
         /// <summary>
         /// Gets the parent.
         /// </summary>
         /// <value>The parent.</value>
-        public IRuntimeType Parent { get; }
+        public RuntimeType Parent { get; }
+#endif
 
         /// <summary>
         /// Gets the runtime instance.
@@ -129,11 +150,27 @@ namespace Build
             }
         }
 
+#if PARENT_STRATEGY
+        /// <summary>
+        /// Adds the parameter.
+        /// </summary>
+        /// <param name="parameterRuntimeType">Type of the parameter runtime.</param>
+        public void AddParameter(RuntimeType parameterRuntimeType)
+        {
+            if (IsContainsParent(this, parameterRuntimeType))
+                throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", Type.FullName));
+
+            RuntimeTypes.Add(parameterRuntimeType);
+        }
+#else
+
         /// <summary>
         /// Adds the parameter.
         /// </summary>
         /// <param name="parameterRuntimeType">Type of the parameter runtime.</param>
         public void AddParameter(RuntimeType parameterRuntimeType) => RuntimeTypes.Add(parameterRuntimeType);
+
+#endif
 
         /// <summary>
         /// Creates the instance.
@@ -158,6 +195,7 @@ namespace Build
         /// <returns></returns>
         public Type FindAssignableType(string id) => AssignableTypes.FirstOrDefault(p => p.FullName == id && p.IsAssignableFrom(Type));
 
+#if PARENT_STRATEGY
         /// <summary>
         /// Initializes the specified runtime instance.
         /// </summary>
@@ -167,8 +205,18 @@ namespace Build
         {
             if (IsInitialized)
                 throw new TypeRegistrationException(string.Format("{0} is not registered (more than one constructor available)", Type.FullName));
-            _runtimeInstance = runtimeInstance;
+        _runtimeInstance = runtimeInstance;
         }
+#else
+
+        /// <summary>
+        /// Initializes the specified runtime instance.
+        /// </summary>
+        /// <param name="runtimeInstance">The runtime instance.</param>
+        /// <exception cref="TypeRegistrationException"></exception>
+        public void Initialize(RuntimeInstance runtimeInstance) => _runtimeInstance = runtimeInstance;
+
+#endif
 
         /// <summary>
         /// Determines whether [is assignable from] [the specified identifier].
@@ -206,11 +254,15 @@ namespace Build
             }
         }
 
+#if DEBUG
+
         /// <summary>
         /// Returns a <see cref="System.String"/> that represents this instance.
         /// </summary>
         /// <returns></returns>
         public override string ToString() => Id;
+
+#endif
 
         /// <summary>
         /// Registers the parameters.
@@ -229,6 +281,27 @@ namespace Build
             }
             return true;
         }
+
+#if PARENT_STRATEGY
+        /// <summary>
+        /// Searches for type in tree hierarchy
+        /// </summary>
+        /// <param name="constructor">Starting type to start search</param>
+        /// <param name="type">Type to find</param>
+        /// <returns></returns>
+        static bool IsContainsParent(RuntimeType constructor, RuntimeType type)
+        {
+            RuntimeType current = constructor;
+            do
+            {
+                if (current == type)
+                    return true;
+                current = current.Parent;
+            }
+            while (current != current.Parent);
+            return false;
+        }
+#endif
 
         /// <summary>
         /// Creates the instance.
@@ -301,17 +374,7 @@ namespace Build
         /// <param name="i">The i.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        object EvaluateInstance(IRuntimeType type, int? i)
-        {
-            if (_guard)
-                throw new TypeInstantiationException(string.Format("{0} is not instantiated (circular references found)", Type.FullName));
-            _guard = true;
-            object result = null;
-            var runtimeAttribute = i.HasValue ? Attribute.GetRuntimeType(Format.GetConstructorParameterFullName(type.Id, i)) : null;
-            result = CreateInstance(type, runtimeAttribute ?? Attribute);
-            _guard = false;
-            return result;
-        }
+        object EvaluateInstance(IRuntimeType type, int? i) => CreateInstance(type, i.HasValue ? Attribute.GetRuntimeType(Format.GetConstructorParameterFullName(type.Id, i)) : Attribute);
 
         /// <summary>
         /// Evaluates the runtime instance.
@@ -343,10 +406,10 @@ namespace Build
         /// <returns></returns>
         object EvaluateSingleton(IRuntimeType type, int? i)
         {
-            if (!_guard)
+            if (!_instance)
             {
                 _value = EvaluateInstance(type, i);
-                _guard = true;
+                _instance = true;
             }
             return _value;
         }

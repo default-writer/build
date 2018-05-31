@@ -2,42 +2,40 @@ using Xunit;
 
 namespace Build.Tests.Fail_TestSet4
 {
-    public class UnitTest
+    public static class UnitTest
     {
-        readonly IContainer container;
-
-        public UnitTest()
-        {
-            container = new Container();
-        }
-
         [Fact]
-        public void Fail_TestSet4_Method1()
+        public static void Fail_TestSet4_Method1()
         {
+            var container = new Container();
             Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<SqlDataRepository>());
         }
 
         [Fact]
-        public void Fail_TestSet4_Method2()
+        public static void Fail_TestSet4_Method2()
         {
+            var container = new Container();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<SqlDataRepository>());
         }
 
         [Fact]
-        public void Fail_TestSet4_Method3()
+        public static void Fail_TestSet4_Method3()
         {
+            var container = new Container();
             Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<OtherRepository>());
         }
 
         [Fact]
-        public void Fail_TestSet4_Method4()
+        public static void Fail_TestSet4_Method4()
         {
+            var container = new Container();
             Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository>());
         }
 
         [Fact]
-        public void Fail_TestSet4_Method5()
+        public static void Fail_TestSet4_Method5()
         {
+            var container = new Container();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository>());
         }
     }

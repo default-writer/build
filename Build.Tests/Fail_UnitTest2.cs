@@ -2,32 +2,31 @@ using Xunit;
 
 namespace Build.Tests.Fail_TestSet2
 {
-    public class UnitTest
+    public static class UnitTest
     {
-        readonly IContainer container;
-
-        public UnitTest() => container = new Container();
-
         [Fact]
-        public void Fail_TestSet2_Method1()
+        public static void Fail_TestSet2_Method1()
         {
             //Fail_TestSet2
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             Assert.NotNull(container.CreateInstance<SqlDataRepository>());
         }
 
         [Fact]
-        public void Fail_TestSet2_Method2()
+        public static void Fail_TestSet2_Method2()
         {
             //Fail_TestSet2
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<IPersonRepository>());
         }
 
         [Fact]
-        public void Fail_TestSet2_Method3()
+        public static void Fail_TestSet2_Method3()
         {
             //Fail_TestSet2
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository>());
         }

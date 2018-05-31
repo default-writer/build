@@ -140,11 +140,13 @@ namespace Build
             if (runtimeType == null)
             {
                 var enumerator = types.GetEnumerator();
-                while (runtimeType == null && enumerator.MoveNext())
+                do
                 {
+                    if (!enumerator.MoveNext())
+                        break;
                     var parameterType = enumerator.Current;
                     runtimeType = Find(parameterType.Id, args, parameterType.RuntimeParameters);
-                }
+                } while (runtimeType == null);
             }
 
             return runtimeType;

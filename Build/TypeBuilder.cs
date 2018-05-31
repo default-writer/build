@@ -14,12 +14,21 @@ namespace Build
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeBuilder"/> class.
         /// </summary>
-        public TypeBuilder()
+        /// <param name="automaticTypeResolution">
+        /// Parameter defaults to true for automatic type resolution enabled
+        /// </param>
+        public TypeBuilder(bool automaticTypeResolution)
         {
+            AutomaticTypeResolution = automaticTypeResolution;
             Filter = new TypeFilter();
             Resolver = new TypeResolver();
             Parser = new TypeParser();
         }
+
+        /// <summary>
+        /// Automatic type resouluion option
+        /// </summary>
+        public bool AutomaticTypeResolution { get; }
 
         /// <summary>
         /// Gets the runtime aliased types.
@@ -259,7 +268,11 @@ namespace Build
             {
                 var constructorParameters = constructorInfo.GetParameters();
                 var dependencyAttribute = GetDependencyAttribute(constructorInfo);
+#if PARENT_STRATEGY
                 var constructor = new RuntimeType(dependencyAttribute, null, type);
+#else
+                var constructor = new RuntimeType(dependencyAttribute, type);
+#endif
                 for (int i = 0; i < constructorParameters.Length; i++)
                 {
                     RegisterConstructorParameter(i, type, constructor, constructorParameters);
@@ -281,12 +294,16 @@ namespace Build
         {
             var parameterType = constructorParameters[i].ParameterType;
             var injectionAttribute = GetInjectionAttribute(constructorParameters[i]);
+#if PARENT_STRATEGY
             var parameter = new RuntimeType(injectionAttribute, constructor, constructorParameters[i].ParameterType);
+#else
+            var parameter = new RuntimeType(injectionAttribute, constructorParameters[i].ParameterType);
+#endif
             string id = Resolver.GetTypeFullName(injectionAttribute, parameterType.FullName);
             var attributeType = Resolver.GetType(type.Assembly, id);
             var parameters = GetParametersFullName(type, parameterType, injectionAttribute, id, attributeType);
             var runtimeType = (RuntimeType)Parser.Find(id, parameters, Types.Values);
-            if (runtimeType == null)
+            if (runtimeType == null && AutomaticTypeResolution)
                 RegisterConstructorType(attributeType);
             RegisterConstructorType(parameterType);
             string constructorRuntimeTypeFullName = runtimeType == null ? id : runtimeType.Type.FullName;
@@ -324,6 +341,10 @@ namespace Build
         /// <param name="attribute">The runtime attribute.</param>
         void RegisterConstructorType(string typeFullName, RuntimeType constructor, IRuntimeAttribute attribute)
         {
+#if PARENT_STRATEGY
+            if (Types.ContainsKey(typeFullName) || this[typeFullName, Types[typeFullName]].IsInitialized)
+                throw new TypeRegistrationException(string.Format("{0} is not registered (more than one constructor available)", this[typeFullName, Types[typeFullName]].Type.FullName));
+#endif
             if (!Types.ContainsKey(typeFullName) || !this[typeFullName, Types[typeFullName]].IsInitialized)
             {
                 var result = this[typeFullName, constructor];

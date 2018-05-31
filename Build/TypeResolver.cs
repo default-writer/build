@@ -23,11 +23,6 @@ namespace Build
         /// <param name="attribute">The attribute.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        public string GetTypeFullName(IRuntimeAttribute attribute, string defaultValue)
-        {
-            if (attribute != null && attribute.TypeFullName != null)
-                return attribute.TypeFullName;
-            return defaultValue;
-        }
+        public string GetTypeFullName(IRuntimeAttribute attribute, string defaultValue) => attribute.TypeFullName ?? defaultValue;
     }
 }

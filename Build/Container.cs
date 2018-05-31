@@ -18,7 +18,10 @@ namespace Build
         /// <summary>
         /// Initializes a new instance of the <see cref="Container"/> class.
         /// </summary>
-        public Container() => _typeBuilder = new TypeBuilder();
+        /// <param name="automaticTypeResolution">
+        /// Parameter defaults to true for automatic type resolution enabled
+        /// </param>
+        public Container(bool automaticTypeResolution = true) => _typeBuilder = new TypeBuilder(automaticTypeResolution);
 
         /// <summary>
         /// Aliased types.
@@ -86,8 +89,10 @@ namespace Build
         /// <param name="exclusionTypes">List of assembly types to ignore</param>
         public void RegisterAssembly(Assembly assembly, IEnumerable<string> exclusionTypes)
         {
-            var exclusionList = new List<string>(exclusionTypes ?? Array.Empty<string>());
-            exclusionList.Add("<PrivateImplementationDetails>");
+            var exclusionList = new List<string>(exclusionTypes ?? Array.Empty<string>())
+            {
+                "<PrivateImplementationDetails>"
+            };
             foreach (var type in assembly.GetTypes())
             {
                 if (exclusionList.Contains(type.FullName))

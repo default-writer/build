@@ -4,11 +4,15 @@ namespace Build
 {
     public interface IRuntimeAttribute
     {
+#if PARENT_STRATEGY
+
         /// <summary>
         /// Gets the unique identifier.
         /// </summary>
         /// <value>The unique identifier.</value>
         Guid Guid { get; }
+
+#endif
 
         /// <summary>
         /// Gets the runtime instance.

@@ -2,41 +2,38 @@ using Xunit;
 
 namespace Build.Tests.Fail_TestSet7
 {
-    public class UnitTest
+    public static class UnitTest
     {
-        readonly IContainer container;
-
-        public UnitTest()
-        {
-            container = new Container();
-        }
-
         [Fact]
-        public void Fail_TestSet7_Method1()
+        public static void Fail_TestSet7_Method1()
         {
             //Fail_TestSet7
+            var container = new Container();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<SqlDataRepository>());
         }
 
         [Fact]
-        public void Fail_TestSet7_Method2()
+        public static void Fail_TestSet7_Method2()
         {
+            var container = new Container();
             Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository>());
         }
 
         [Fact]
-        public void Fail_TestSet7_Method3()
+        public static void Fail_TestSet7_Method3()
         {
             //Fail_TestSet7
+            var container = new Container();
             container.RegisterType<ServiceDataRepository>();
             var serviceDataRepository = container.CreateInstance<ServiceDataRepository>();
             Assert.Null(serviceDataRepository.Repository);
         }
 
         [Fact]
-        public void Fail_TestSet7_Method4()
+        public static void Fail_TestSet7_Method4()
         {
             //Fail_TestSet7
+            var container = new Container();
             container.RegisterType<OtherRepository>();
             container.RegisterType<ServiceDataRepository>();
             var serviceDataRepository = container.CreateInstance<ServiceDataRepository>();
@@ -44,9 +41,10 @@ namespace Build.Tests.Fail_TestSet7
         }
 
         [Fact]
-        public void Fail_TestSet7_Method5()
+        public static void Fail_TestSet7_Method5()
         {
             //Fail_TestSet7
+            var container = new Container();
             container.RegisterType<ServiceDataRepository>();
             bool noException = false;
             try

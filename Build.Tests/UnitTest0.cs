@@ -4,19 +4,13 @@ using Xunit;
 
 namespace Build.Tests.TestSet0
 {
-    public class UnitTest
+    public static class UnitTest
     {
-        readonly IContainer container;
-
-        public UnitTest()
-        {
-            container = new Container();
-        }
-
         [Fact]
-        public void TestSet0_Method1()
+        public static void TestSet0_Method1()
         {
             //TestSet0
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             bool exception = false;
@@ -32,9 +26,10 @@ namespace Build.Tests.TestSet0
         }
 
         [Fact]
-        public void TestSet0_Method2()
+        public static void TestSet0_Method2()
         {
             //TestSet0
+            var container = new Container();
             var constructors = typeof(DefaultSqlDataRepository).GetConstructors();
             var constructorParameters = constructors[0].GetParameters();
             var injectionAttribute = (constructorParameters[0]).GetCustomAttribute<InjectionAttribute>();
@@ -42,18 +37,20 @@ namespace Build.Tests.TestSet0
         }
 
         [Fact]
-        public void TestSet0_Method3()
+        public static void TestSet0_Method3()
         {
             //TestSet0
+            var container = new Container();
             var constructors = typeof(DefaultSqlDataRepository).GetConstructors();
             var dependencyAttribute = (constructors[0]).GetCustomAttribute<DependencyAttribute>();
             Assert.Equal(RuntimeInstance.CreateInstance, dependencyAttribute.RuntimeInstance);
         }
 
         [Fact]
-        public void TestSet0_Method4()
+        public static void TestSet0_Method4()
         {
             //TestSet0
+            var container = new Container();
             var dependencyAttributeType = typeof(DependencyAttribute);
             var dependencyAttribute = Activator.CreateInstance(dependencyAttributeType);
             Assert.NotNull(dependencyAttribute);
