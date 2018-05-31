@@ -18,10 +18,20 @@ namespace Build
         /// <summary>
         /// Initializes a new instance of the <see cref="Container"/> class.
         /// </summary>
-        /// <param name="automaticTypeResolution">
-        /// Parameter defaults to true for automatic type resolution enabled
+        public Container() => _typeBuilder = new TypeBuilder(true, true);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Container"/> class.
+        /// </summary>
+        /// <param name="defaultTypeResolution">
+        /// Parameter defaults to true for automatic type resolution enabled. If value is false and
+        /// not all type dependencies are resolved, exception will be thrown
         /// </param>
-        public Container(bool automaticTypeResolution = true) => _typeBuilder = new TypeBuilder(automaticTypeResolution);
+        /// <param name="defaultTypeInstantiation">
+        /// Parameter defaults to true for automatic type instantiation enabled. If value is false
+        /// and type is resolved to default value for reference type, exception will be thrown
+        /// </param>
+        public Container(bool defaultTypeResolution, bool defaultTypeInstantiation) => _typeBuilder = new TypeBuilder(defaultTypeResolution, defaultTypeInstantiation);
 
         /// <summary>
         /// Aliased types.

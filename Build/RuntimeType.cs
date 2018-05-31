@@ -16,8 +16,20 @@ namespace Build
         readonly IDictionary<IRuntimeAttribute, object> _values = new Dictionary<IRuntimeAttribute, object>();
 
         bool _instance;
+
         RuntimeInstance _runtimeInstance;
+
         object _value;
+
+        /// <summary>
+        /// True if automatic type instantiation for reference types option enabled (does not throws
+        /// exceptions for reference types defaults to null)
+        /// </summary>
+        /// <remarks>
+        /// If automatic type instantiation for reference types is enabled, type will defaults to
+        /// null if not resolved and no exception will be thrown
+        /// </remarks>
+        bool DefaultTypeInstantiation { get; }
 
         /// <summary>
         /// Gets the type of the assignable.
@@ -49,11 +61,16 @@ namespace Build
         /// </summary>
         /// <param name="attribute">The attribute.</param>
         /// <param name="type">The type.</param>
+        /// <param name="defaultTypeInstantiation">
+        /// Parameter defaults to true for automatic type instantiation enabled. If value is false
+        /// and type is resolved to default value for reference type, exception will be thrown
+        /// </param>
         /// <exception cref="ArgumentNullException">attribute</exception>
-        public RuntimeType(IRuntimeAttribute attribute, Type type)
+        public RuntimeType(IRuntimeAttribute attribute, Type type, bool defaultTypeInstantiation)
         {
             AssignableType = type;
             Type = type;
+            DefaultTypeInstantiation = defaultTypeInstantiation;
             Attribute = attribute ?? throw new ArgumentNullException(nameof(attribute));
         }
 
@@ -349,10 +366,12 @@ namespace Build
         /// <exception cref="TypeInstantiationException"></exception>
         object EvaluateArgument(IRuntimeAttribute attribute, int? i)
         {
-            if (RuntimeInstance == RuntimeInstance.None)
+            if (RuntimeInstance == RuntimeInstance.None || !IsDefaultTypeInstantiation())
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (constructor not allowed)", Type.FullName));
             return EvaluateInjection(attribute, i);
         }
+
+        bool IsDefaultTypeInstantiation() => DefaultTypeInstantiation || Type.IsValueType || RuntimeInstance != RuntimeInstance.Default;
 
         /// <summary>
         /// Evaluates the injection.

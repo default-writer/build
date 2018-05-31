@@ -23,10 +23,9 @@ namespace Build.Tests.Fail_TestSet7
         public static void Fail_TestSet7_Method3()
         {
             //Fail_TestSet7
-            var container = new Container();
+            var container = new Container(true, false);
             container.RegisterType<ServiceDataRepository>();
-            var serviceDataRepository = container.CreateInstance<ServiceDataRepository>();
-            Assert.Null(serviceDataRepository.Repository);
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository>());
         }
 
         [Fact]
@@ -56,6 +55,16 @@ namespace Build.Tests.Fail_TestSet7
             {
             }
             Assert.True(noException);
+        }
+
+        [Fact]
+        public static void Fail_TestSet7_Method6()
+        {
+            //Fail_TestSet7
+            var container = new Container(true, true);
+            container.RegisterType<ServiceDataRepository>();
+            var serviceDataRepository = container.CreateInstance<ServiceDataRepository>();
+            Assert.Null(serviceDataRepository.Repository);
         }
     }
 }

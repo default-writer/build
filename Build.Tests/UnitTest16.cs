@@ -202,7 +202,7 @@ namespace Build.Tests.TestSet16
         public static void TestSet16_Method25()
         {
             //TestSet16
-            var container = new Container(false);
+            var container = new Container(false, true);
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var sql = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet16.ServiceDataRepository(Build.Tests.TestSet16.SqlDataRepository)");

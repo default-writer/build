@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 using System.Reflection;
@@ -14,21 +15,42 @@ namespace Build
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeBuilder"/> class.
         /// </summary>
-        /// <param name="automaticTypeResolution">
-        /// Parameter defaults to true for automatic type resolution enabled
+        /// <param name="defaultTypeResolution">
+        /// Parameter defaults to true for automatic type resolution enabled. If value is false and
+        /// not all type dependencies are resolved, exception will be thrown
         /// </param>
-        public TypeBuilder(bool automaticTypeResolution)
+        /// <param name="defaultTypeInstantiation">
+        /// Parameter defaults to true for automatic type instantiation enabled. If value is false
+        /// and type is resolved to default value for reference type, exception will be thrown
+        /// </param>
+        public TypeBuilder(bool defaultTypeResolution, bool defaultTypeInstantiation)
         {
-            AutomaticTypeResolution = automaticTypeResolution;
+            DefaultTypeResolution = defaultTypeResolution;
+            DefaultTypeInstantiation = defaultTypeInstantiation;
             Filter = new TypeFilter();
             Resolver = new TypeResolver();
             Parser = new TypeParser();
         }
 
         /// <summary>
-        /// Automatic type resouluion option
+        /// True if automatic type resolution for reference types option enabled (does not throws
+        /// exceptions for reference types contains type dependencies to non-registered types)
         /// </summary>
-        public bool AutomaticTypeResolution { get; }
+        /// <remarks>
+        /// If automatic type resolution for reference types is enabled, type will defaults to null
+        /// if not resolved and no exception will be thrown
+        /// </remarks>
+        public bool DefaultTypeResolution { get; }
+
+        /// <summary>
+        /// True if automatic type instantiation for reference types option enabled (does not throws
+        /// exceptions for reference types defaults to null)
+        /// </summary>
+        /// <remarks>
+        /// If automatic type instantiation for reference types is enabled, type will defaults to
+        /// null if not resolved and no exception will be thrown
+        /// </remarks>
+        public bool DefaultTypeInstantiation { get; }
 
         /// <summary>
         /// Gets the runtime aliased types.
@@ -271,7 +293,7 @@ namespace Build
 #if PARENT_STRATEGY
                 var constructor = new RuntimeType(dependencyAttribute, null, type);
 #else
-                var constructor = new RuntimeType(dependencyAttribute, type);
+                var constructor = new RuntimeType(dependencyAttribute, type, DefaultTypeInstantiation);
 #endif
                 for (int i = 0; i < constructorParameters.Length; i++)
                 {
@@ -297,13 +319,13 @@ namespace Build
 #if PARENT_STRATEGY
             var parameter = new RuntimeType(injectionAttribute, constructor, constructorParameters[i].ParameterType);
 #else
-            var parameter = new RuntimeType(injectionAttribute, constructorParameters[i].ParameterType);
+            var parameter = new RuntimeType(injectionAttribute, constructorParameters[i].ParameterType, DefaultTypeInstantiation);
 #endif
             string id = Resolver.GetTypeFullName(injectionAttribute, parameterType.FullName);
             var attributeType = Resolver.GetType(type.Assembly, id);
             var parameters = GetParametersFullName(type, parameterType, injectionAttribute, id, attributeType);
             var runtimeType = (RuntimeType)Parser.Find(id, parameters, Types.Values);
-            if (runtimeType == null && AutomaticTypeResolution)
+            if (DefaultTypeResolution && runtimeType == null)
                 RegisterConstructorType(attributeType);
             RegisterConstructorType(parameterType);
             string constructorRuntimeTypeFullName = runtimeType == null ? id : runtimeType.Type.FullName;
@@ -342,15 +364,20 @@ namespace Build
         void RegisterConstructorType(string typeFullName, RuntimeType constructor, IRuntimeAttribute attribute)
         {
 #if PARENT_STRATEGY
-            if (Types.ContainsKey(typeFullName) || this[typeFullName, Types[typeFullName]].IsInitialized)
-                throw new TypeRegistrationException(string.Format("{0} is not registered (more than one constructor available)", this[typeFullName, Types[typeFullName]].Type.FullName));
+            if (Types.ContainsKey(typeFullName) && this[typeFullName, Types[typeFullName]].IsInitialized)
+            {
+                return;
+            }
 #endif
-            if (!Types.ContainsKey(typeFullName) || !this[typeFullName, Types[typeFullName]].IsInitialized)
+            if (!Types.ContainsKey(typeFullName))
             {
                 var result = this[typeFullName, constructor];
                 if (result != null)
                 {
                     result.Initialize(attribute.RuntimeInstance);
+#if DEBUG
+                    Debug.WriteLine("{0} set to {1}", result, attribute.RuntimeInstance);
+#endif
                 }
             }
         }

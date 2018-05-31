@@ -33,7 +33,16 @@ namespace Build.Tests.Fail_TestSet3
         public static void Fail_TestSet3_Method4()
         {
             //Fail_TestSet3
-            var container = new Container();
+            var container = new Container(true, false);
+            container.RegisterType<ServiceDataRepository>();
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository>());
+        }
+
+        [Fact]
+        public static void Fail_TestSet3_Method5()
+        {
+            //Fail_TestSet3
+            var container = new Container(true, true);
             container.RegisterType<ServiceDataRepository>();
             Assert.NotNull(container.CreateInstance<ServiceDataRepository>());
         }

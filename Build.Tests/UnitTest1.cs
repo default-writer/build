@@ -9,7 +9,7 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method1()
         {
             //TestSet1
-            var container = new Container(true);
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
@@ -20,7 +20,7 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method10()
         {
             //TestSet1
-            var container = new Container(true);
+            var container = new Container();
             container.RegisterAssembly(typeof(PrivateSqlDataRepository).Assembly, new string[] {
                 "Build.Tests.Fail_TestSet7.SqlDataRepository",
                 "Build.Tests.Fail_TestSet6.ServiceDataRepository",
@@ -47,7 +47,7 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method11()
         {
             //TestSet1
-            var container = new Container(true);
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterAssembly(typeof(PrivateSqlDataRepository).Assembly, null));
@@ -57,7 +57,7 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method12()
         {
             //TestSet1
-            var container = new Container(false);
+            var container = new Container(false, true);
             container.RegisterAssembly(typeof(PrivateSqlDataRepository).Assembly, new string[] {
                 "Build.Tests.Fail_TestSet7.SqlDataRepository",
                 "Build.Tests.Fail_TestSet6.ServiceDataRepository",
@@ -82,7 +82,7 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method13()
         {
             //TestSet1
-            var container = new Container(false);
+            var container = new Container(false, true);
             container.RegisterAssembly(typeof(PrivateSqlDataRepository).Assembly, new string[] {
                 "Build.Tests.Fail_TestSet7.SqlDataRepository",
                 "Build.Tests.Fail_TestSet6.ServiceDataRepository",
@@ -104,7 +104,7 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method2()
         {
             //TestSet1
-            var container = new Container(true);
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
@@ -115,7 +115,7 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method3()
         {
             //TestSet1
-            var container = new Container(true);
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
@@ -126,7 +126,7 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method4()
         {
             //TestSet1
-            var container = new Container(true);
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
@@ -137,7 +137,7 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method5()
         {
             //TestSet1
-            var container = new Container(true);
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
@@ -149,7 +149,7 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method6()
         {
             //TestSet1
-            var container = new Container(true);
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
@@ -161,7 +161,7 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method7()
         {
             //TestSet1
-            var container = new Container(true);
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             container.RegisterType<PrivateSqlDataRepository>();
@@ -173,7 +173,7 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method8()
         {
             //TestSet1
-            var container = new Container(true);
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             container.RegisterType<PrivateSqlDataRepository>();
@@ -185,7 +185,7 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method9()
         {
             //TestSet1
-            var container = new Container(true);
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             container.RegisterType<PrivateSqlDataRepository>();
