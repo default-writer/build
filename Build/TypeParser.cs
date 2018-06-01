@@ -9,13 +9,13 @@ namespace Build
     /// Type parser
     /// </summary>
     /// <seealso cref="Build.ITypeParser"/>
-    class TypeParser : ITypeParser
+    internal class TypeParser : ITypeParser
     {
         /// <summary>
         /// Cache for RuntimeTtype.
         /// </summary>
         /// <value>The cache.</value>
-        IDictionary<string, IRuntimeType> Cache { get; } = new Dictionary<string, IRuntimeType>();
+        private IDictionary<string, IRuntimeType> Cache { get; } = new Dictionary<string, IRuntimeType>();
 
         /// <summary>
         /// Finds the specified identifier.
@@ -41,7 +41,7 @@ namespace Build
         /// <param name="arguments">The arguments.</param>
         /// <param name="parameters">The parameters.</param>
         /// <returns></returns>
-        static bool MatchArguments(IEnumerable<string> arguments, IEnumerable<IRuntimeType> parameters)
+        private static bool MatchArguments(IEnumerable<string> arguments, IEnumerable<IRuntimeType> parameters)
         {
             var args = arguments.GetEnumerator();
             var pars = parameters.GetEnumerator();
@@ -61,7 +61,7 @@ namespace Build
         /// <param name="runtimeType">Type of the runtime.</param>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        static bool MatchParameterArguments(IRuntimeType runtimeType, IEnumerable<string> args)
+        private static bool MatchParameterArguments(IRuntimeType runtimeType, IEnumerable<string> args)
         {
             int count = args.Count();
             if (count > 0 && runtimeType.ParametersCount != count)
@@ -79,7 +79,7 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <param name="match">The match.</param>
         /// <returns></returns>
-        static bool MatchParameters(IRuntimeType runtimeType, string name, IEnumerable<string> args, MatchCollection match)
+        private static bool MatchParameters(IRuntimeType runtimeType, string name, IEnumerable<string> args, MatchCollection match)
         {
             if (!MatchType(runtimeType, name))
                 return false;
@@ -92,7 +92,7 @@ namespace Build
         /// <param name="runtimeType">Type of the runtime.</param>
         /// <param name="match">The match.</param>
         /// <returns></returns>
-        static bool MatchParameters(IRuntimeType runtimeType, MatchCollection match)
+        private static bool MatchParameters(IRuntimeType runtimeType, MatchCollection match)
         {
             if (match.Count > 0 && runtimeType.ParametersCount != match.Count)
                 return false;
@@ -107,7 +107,7 @@ namespace Build
         /// <param name="runtimeType">Type of the runtime.</param>
         /// <param name="name">The name.</param>
         /// <returns></returns>
-        static bool MatchType(IRuntimeType runtimeType, string name) => runtimeType.FullName == name;
+        private static bool MatchType(IRuntimeType runtimeType, string name) => runtimeType.FullName == name;
 
         /// <summary>
         /// Caches the type of the runtime.
@@ -115,7 +115,7 @@ namespace Build
         /// <param name="id">The identifier.</param>
         /// <param name="runtimeType">Type of the runtime.</param>
         /// <returns></returns>
-        IRuntimeType CacheRuntimeType(string id, IRuntimeType runtimeType)
+        private IRuntimeType CacheRuntimeType(string id, IRuntimeType runtimeType)
         {
             if (runtimeType != null)
             {
@@ -134,7 +134,7 @@ namespace Build
         /// <param name="name">The name.</param>
         /// <param name="pars">The pars.</param>
         /// <returns></returns>
-        IRuntimeType GetRuntimeType(IEnumerable<string> args, IEnumerable<IRuntimeType> types, string name, MatchCollection pars)
+        private IRuntimeType GetRuntimeType(IEnumerable<string> args, IEnumerable<IRuntimeType> types, string name, MatchCollection pars)
         {
             var runtimeType = types.FirstOrDefault((p) => MatchParameters(p, name, args, pars));
             if (runtimeType == null)

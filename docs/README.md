@@ -37,7 +37,7 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 [wiki](https://github.com/hack2root/build/wiki)
 
-## v1.0.0.6
+## v1.0.0.7
 
 - Enable/disable automatic type resolution
 - Enable/disable automatic type instantiation

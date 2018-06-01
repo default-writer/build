@@ -9,7 +9,7 @@ namespace Build.Tests.Fail_TestSet1
 
     public class Other : IPersonRepository
     {
-        Other()
+        private Other()
         { }
 
         public Person GetPerson(int personId) => throw new System.NotImplementedException();
@@ -22,7 +22,7 @@ namespace Build.Tests.Fail_TestSet1
         {
         }
 
-        Other2()
+        private Other2()
         { }
 
         public Person GetPerson(int personId) => throw new System.NotImplementedException();
@@ -35,7 +35,7 @@ namespace Build.Tests.Fail_TestSet1
         {
         }
 
-        Other5()
+        private Other5()
         { }
 
         public Person GetPerson(int personId) => throw new System.NotImplementedException();
@@ -43,7 +43,7 @@ namespace Build.Tests.Fail_TestSet1
 
     public class Person
     {
-        readonly IPersonRepository _personRepository;
+        private readonly IPersonRepository _personRepository;
 
         public Person(IPersonRepository personRepository)
         {
@@ -53,7 +53,7 @@ namespace Build.Tests.Fail_TestSet1
 
     public class PrivateConstructorServiceDataRepository : IPersonRepository
     {
-        PrivateConstructorServiceDataRepository(IPersonRepository repository)
+        private PrivateConstructorServiceDataRepository(IPersonRepository repository)
         {
             Repository = repository;
         }

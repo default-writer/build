@@ -13,7 +13,7 @@ namespace Build
         /// <summary>
         /// The type builder
         /// </summary>
-        readonly TypeBuilder _typeBuilder;
+        private readonly TypeBuilder _typeBuilder;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Container"/> class.

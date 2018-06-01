@@ -10,7 +10,7 @@ namespace Build
     /// <summary>
     /// Type builder
     /// </summary>
-    class TypeBuilder
+    internal class TypeBuilder
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeBuilder"/> class.
@@ -80,31 +80,31 @@ namespace Build
         /// Gets the filter.
         /// </summary>
         /// <value>The filter.</value>
-        ITypeFilter Filter { get; }
+        private ITypeFilter Filter { get; }
 
         /// <summary>
         /// Gets the parser.
         /// </summary>
         /// <value>The parser.</value>
-        ITypeParser Parser { get; }
+        private ITypeParser Parser { get; }
 
         /// <summary>
         /// Gets the resolver.
         /// </summary>
         /// <value>The resolver.</value>
-        ITypeResolver Resolver { get; }
+        private ITypeResolver Resolver { get; }
 
         /// <summary>
         /// Gets the types.
         /// </summary>
         /// <value>The types.</value>
-        IDictionary<string, RuntimeType> Types { get; } = new Dictionary<string, RuntimeType>();
+        private IDictionary<string, RuntimeType> Types { get; } = new Dictionary<string, RuntimeType>();
 
         /// <summary>
         /// Gets the visited.
         /// </summary>
         /// <value>The visited.</value>
-        List<Type> Visited { get; } = new List<Type>();
+        private List<Type> Visited { get; } = new List<Type>();
 
         /// <summary>
         /// Gets the <see cref="RuntimeType"/> with the specified identifier.
@@ -113,7 +113,7 @@ namespace Build
         /// <param name="id">The identifier.</param>
         /// <param name="type">The type.</param>
         /// <returns></returns>
-        RuntimeType this[string id, RuntimeType type]
+        private RuntimeType this[string id, RuntimeType type]
         {
             get
             {
@@ -198,7 +198,7 @@ namespace Build
         /// <param name="parameterType">Type of the parameter.</param>
         /// <param name="id">The identifier.</param>
         /// <exception cref="TypeRegistrationException"></exception>
-        static void CheckParameterTypeFullName(Type type, Type parameterType, string id)
+        private static void CheckParameterTypeFullName(Type type, Type parameterType, string id)
         {
             if (id == type.FullName && id == parameterType.FullName)
                 throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type.FullName));
@@ -209,14 +209,14 @@ namespace Build
         /// </summary>
         /// <param name="constructor">The constructor.</param>
         /// <returns></returns>
-        static DependencyAttribute GetDependencyAttribute(ConstructorInfo constructor) => constructor.GetCustomAttribute<DependencyAttribute>() ?? new DependencyAttribute(constructor.DeclaringType, RuntimeInstance.CreateInstance);
+        private static DependencyAttribute GetDependencyAttribute(ConstructorInfo constructor) => constructor.GetCustomAttribute<DependencyAttribute>() ?? new DependencyAttribute(constructor.DeclaringType, RuntimeInstance.CreateInstance);
 
         /// <summary>
         /// Gets the injection attribute.
         /// </summary>
         /// <param name="parameter">The parameter.</param>
         /// <returns></returns>
-        static InjectionAttribute GetInjectionAttribute(ParameterInfo parameter) => parameter.GetCustomAttribute<InjectionAttribute>() ?? new InjectionAttribute(parameter.ParameterType);
+        private static InjectionAttribute GetInjectionAttribute(ParameterInfo parameter) => parameter.GetCustomAttribute<InjectionAttribute>() ?? new InjectionAttribute(parameter.ParameterType);
 
         /// <summary>
         /// Gets the full name of the parameters.
@@ -228,7 +228,7 @@ namespace Build
         /// <param name="attributeType">Type of the attribute.</param>
         /// <returns></returns>
         /// <exception cref="TypeRegistrationException"></exception>
-        static IEnumerable<string> GetParametersFullName(Type type, Type parameterType, InjectionAttribute injectionAttribute, string id, Type attributeType)
+        private static IEnumerable<string> GetParametersFullName(Type type, Type parameterType, InjectionAttribute injectionAttribute, string id, Type attributeType)
         {
             if (attributeType != null && !parameterType.IsAssignableFrom(attributeType))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", parameterType.FullName, attributeType.FullName));
@@ -241,7 +241,7 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        static IEnumerable<string> GetParametersFullName(object[] args) => args == null ? Array.Empty<string>() : args.Select(p => (p ?? typeof(object)).GetType().FullName).ToArray();
+        private static IEnumerable<string> GetParametersFullName(object[] args) => args == null ? Array.Empty<string>() : args.Select(p => (p ?? typeof(object)).GetType().FullName).ToArray();
 
         /// <summary>
         /// Gets the identifier.
@@ -250,7 +250,7 @@ namespace Build
         /// <param name="attribute">The attribute.</param>
         /// <returns></returns>
         /// <exception cref="TypeRegistrationException"></exception>
-        string GetId(Type type, IRuntimeAttribute attribute)
+        private string GetId(Type type, IRuntimeAttribute attribute)
         {
             string id = Resolver.GetTypeFullName(attribute, type.FullName);
             var attributeType = Resolver.GetType(type.Assembly, id);
@@ -266,7 +266,7 @@ namespace Build
         /// <param name="constructorParameters">The constructor parameters.</param>
         /// <param name="attribute">The attribute.</param>
         /// <returns></returns>
-        string GetTypeFullName(Type type, ParameterInfo[] constructorParameters, IRuntimeAttribute attribute)
+        private string GetTypeFullName(Type type, ParameterInfo[] constructorParameters, IRuntimeAttribute attribute)
         {
             string id = GetId(type, attribute);
             var parameterArgs = constructorParameters.Select(p => p.ParameterType.FullName);
@@ -281,7 +281,7 @@ namespace Build
         /// </summary>
         /// <param name="type">The type.</param>
         /// <exception cref="TypeRegistrationException"></exception>
-        void RegisterConstructor(Type type)
+        private void RegisterConstructor(Type type)
         {
             var constructors = type.GetConstructors();
             if (constructors.Length == 0)
@@ -312,7 +312,7 @@ namespace Build
         /// <param name="type">The type.</param>
         /// <param name="constructor">The constructor.</param>
         /// <param name="constructorParameters">The parameter array.</param>
-        void RegisterConstructorParameter(int i, Type type, RuntimeType constructor, ParameterInfo[] constructorParameters)
+        private void RegisterConstructorParameter(int i, Type type, RuntimeType constructor, ParameterInfo[] constructorParameters)
         {
             var parameterType = constructorParameters[i].ParameterType;
             var injectionAttribute = GetInjectionAttribute(constructorParameters[i]);
@@ -345,7 +345,7 @@ namespace Build
         /// </summary>
         /// <param name="type">The type.</param>
         /// <exception cref="TypeRegistrationException"></exception>
-        void RegisterConstructorType(Type type)
+        private void RegisterConstructorType(Type type)
         {
             if (Filter.CanRegister(type))
             {
@@ -361,7 +361,7 @@ namespace Build
         /// <param name="typeFullName">Full name of the type.</param>
         /// <param name="constructor">The constructor.</param>
         /// <param name="attribute">The runtime attribute.</param>
-        void RegisterConstructorType(string typeFullName, RuntimeType constructor, IRuntimeAttribute attribute)
+        private void RegisterConstructorType(string typeFullName, RuntimeType constructor, IRuntimeAttribute attribute)
         {
 #if PARENT_STRATEGY
             if (Types.ContainsKey(typeFullName) && this[typeFullName, Types[typeFullName]].IsInitialized)
