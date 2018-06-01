@@ -43,9 +43,10 @@ namespace Build.Tests.Fail_TestSet1
         public static void Fail_TestSet1_Method12()
         {
             //Fail_TestSet1
-            var container = new Container(true, false);
+            var container = new Container(true, true);
             container.RegisterType<ServiceDataRepository2>();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository2>());
+            var sql = container.CreateInstance<ServiceDataRepository2>();
+            Assert.Null(sql.Repository);
         }
 
         [Fact]

@@ -4,9 +4,9 @@ Welcome to the build wiki!
 
 [![VSTS](https://hack2root.visualstudio.com/_apis/public/build/definitions/6ec45376-8260-482c-906f-4bf4d4e8e451/4/badge)](https://hack2root.visualstudio.com/build)
 [![CircleCI](https://img.shields.io/circleci/project/github/hack2root/build.svg)](https://circleci.com/gh/hack2root/build)
-[![Travis](https://img.shields.io/travis/hack2root/build/master.svg)](https://travis-ci.org/hack2root/build)
 [![Build status](https://ci.appveyor.com/api/projects/status/k9d5256ualhy2skp/branch/master?svg=true)](https://ci.appveyor.com/project/hack2root/build/branch/master)
 [![Amazon AWS](https://codebuild.us-east-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiYU5ZMHd1WVdNdWZzdzlrTS96VEhJMnEvSFlQK2UxelZhWWMwa3hYclVmcjNGM05IaW5xcFdqY3JnNVJxUitnbkxCRWVPOGpYa1REU1czNmhNdUFmZzVjPSIsIml2UGFyYW1ldGVyU3BlYyI6IkUxaWd1YnRBUGpxTHBNY0MiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)](https://us-east-2.console.aws.amazon.com/codebuild/home?region=us-east-2#/projects/build/view) 
+<!--[![Travis](https://img.shields.io/travis/hack2root/build/master.svg)](https://travis-ci.org/hack2root/build)-->
 
 ## Maintainability
 
@@ -37,6 +37,114 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 ## Docs 
 
 [wiki](https://github.com/hack2root/build/wiki)
+
+## v1.0.0.6
+
+- Enable/disable automatic type resolution
+- Enable/disable automatic type instantiation
+
+### Examples
+
+#### Automatic type resolution disabled
+
+Parameter is set to true if automatic type resolution for reference types option enabled (does not throws exceptions for reference types contains type dependencies to non-registered types). If automatic type resolution for reference types is enabled, type will defaults to null if not resolved and no exception will be thrown.
+
+Usage:
+
+```c#
+// Automatic type resolution disabled
+// Instantiation reqires SqlDataRepository to be resolved
+var container = new Container(false, true);
+container.RegisterType<ServiceDataRepository>();
+container.RegisterType<WebServiceDataRepository>();
+Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)"));
+```
+
+```c#
+/// Automatic type resolution enabled
+var container = new Container(true, false);
+container.RegisterType<WebServiceDataRepository>();
+var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)");
+Assert.Equal(2019, ((SqlDataRepository)sql.Repository).PersonId);
+```
+
+Definition: 
+
+```c#
+public class ServiceDataRepository : IPersonRepository
+{
+    public ServiceDataRepository([Injection(typeof(SqlDataRepository), 2018)]IPersonRepository repository)
+    {
+        Repository = repository;
+    }
+
+    public IPersonRepository Repository { get; }
+
+    public Person GetPerson(int personId)
+    {
+        // get the data from Web service and return Person instance.
+        return new Person(this);
+    }
+}
+
+public class WebServiceDataRepository : IPersonRepository
+{
+    public WebServiceDataRepository([Injection(typeof(SqlDataRepository), 2019)]IPersonRepository repository)
+    {
+        Repository = repository;
+    }
+
+    public IPersonRepository Repository { get; }
+
+    public Person GetPerson(int personId)
+    {
+        // get the data from Web service and return Person instance.
+        return new Person(this);
+    }
+}
+```
+
+#### Automatic type instantiation disabled
+
+Parameter is set to true if automatic type instantiation for reference types option enabled (does not throws exceptions for reference types defaults to null). If automatic type instantiation for reference types is enabled, type will defaults to null if not resolved and no exception will be thrown.
+
+Usage:
+```c#
+// Automatic type instantiation disabled
+var container = new Container(true, false);
+container.RegisterType<ServiceDataRepository2>();
+Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository2>());
+```
+
+```c#
+// Automatic type instantiation enabled
+// ServiceDataRepository2 depends upon non existent Build.Tests.Fail_TestSet1.Other2
+// and resolved to null
+var container = new Container(true, true);
+container.RegisterType<ServiceDataRepository2>();
+var sql = container.CreateInstance<ServiceDataRepository2>();
+Assert.Null(sql.Repository);
+```
+
+Definition: 
+
+```c#
+public class ServiceDataRepository2 : IPersonRepository
+{
+    public ServiceDataRepository2([Injection("Build.Tests.Fail_TestSet1.Other2")]IPersonRepository repository)
+    {
+        Repository = repository;
+    }
+
+    public IPersonRepository Repository { get; }
+
+    public Person GetPerson(int personId)
+    {
+        // get the data from Web service and return Person instance.
+        return new Person(this);
+    }
+}
+```
 
 ## v1.0.0.5
 

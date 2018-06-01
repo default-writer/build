@@ -15,16 +15,17 @@
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Dependency Injection</PackageTags>
     <PackageReleaseNotes>Features:
-- Automatic parameters cleanup
-- Registered ValueType instantiation
-- RuntimeAliasedTypes,RuntimeNonAliasedTypes,RuntimeTypes &amp; RuntimeTypeAliases properties
-- Reset() function</PackageReleaseNotes>
+- Added option to enable/disable automatic type resolution
+- Added option to enable/disable automatic type instantiation</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageId>dependency_injection_build</PackageId>
-    <Version>1.0.0.5</Version>
-    <AssemblyVersion>1.0.0.5</AssemblyVersion>
-    <FileVersion>1.0.0.5</FileVersion>
+    <Version>1.0.0.6</Version>
+    <AssemblyVersion>1.0.0.6</AssemblyVersion>
+    <FileVersion>1.0.0.6</FileVersion>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>Build.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
