@@ -14,18 +14,6 @@ namespace Build
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeBuilder"/> class.
         /// </summary>
-        public TypeBuilder()
-        {
-            DefaultTypeResolution = true;
-            DefaultTypeInstantiation = true;
-            Filter = new TypeFilter();
-            Resolver = new TypeResolver();
-            Parser = new TypeParser();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TypeBuilder"/> class.
-        /// </summary>
         /// <param name="defaultTypeResolution">
         /// Parameter defaults to true for automatic type resolution enabled. If value is false and
         /// not all type dependencies are resolved, exception will be thrown
