@@ -22,7 +22,7 @@
     <AssemblyVersion>1.0.0.7</AssemblyVersion>
     <FileVersion>1.0.0.7</FileVersion>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>Build.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
