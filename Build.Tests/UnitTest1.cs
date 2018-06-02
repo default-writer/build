@@ -8,8 +8,24 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method14()
         {
             //TestSet1
-            var typeBuilder = new TypeBuilder();
-            var container = new Container();
+            var typeFilter = new TypeFilter();
+            var typeResolver = new TypeResolver();
+            var typeParser = new TypeParser();
+            var container = new Container(typeFilter, typeResolver, typeParser);
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            var srv1 = container.CreateInstance<ServiceDataRepository>();
+            Assert.NotNull(srv1);
+        }
+
+        [Fact]
+        public static void TestSet1_Method15()
+        {
+            //TestSet1
+            var typeFilter = new TypeFilter();
+            var typeResolver = new TypeResolver();
+            var typeParser = new TypeParser();
+            var container = new Container(typeFilter, typeResolver, typeParser, true, true);
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();

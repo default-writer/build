@@ -38,6 +38,14 @@ namespace Build
         /// <summary>
         /// Initializes a new instance of the <see cref="Container"/> class.
         /// </summary>
+        /// <param name="typeFilter">Type filter</param>
+        /// <param name="typeParser">Type parser</param>
+        /// <param name="typeResolver">Type resolver</param>
+        public Container(ITypeFilter typeFilter, ITypeResolver typeResolver, ITypeParser typeParser) => _typeBuilder = new TypeBuilder(typeFilter, typeResolver, typeParser, true, true);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Container"/> class.
+        /// </summary>
         /// <param name="defaultTypeResolution">
         /// Parameter defaults to true for automatic type resolution enabled. If value is false and
         /// not all type dependencies are resolved, exception will be thrown
