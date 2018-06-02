@@ -5,7 +5,7 @@ namespace Build
     /// <summary>
     /// Format patterns for class constructors and constructor parameters
     /// </summary>
-    internal static class Format
+    static class Format
     {
         /// <summary>
         /// Gets the full name of the constructor.

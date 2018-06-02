@@ -6,7 +6,7 @@ namespace Build
     /// Type filter
     /// </summary>
     /// <seealso cref="Build.ITypeFilter"/>
-    internal class TypeFilter : ITypeFilter
+    public class TypeFilter : ITypeFilter
     {
         /// <summary>
         /// Determines whether this instance can create the specified type.
@@ -29,6 +29,6 @@ namespace Build
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns><c>true</c> if [is special type] [the specified type]; otherwise, <c>false</c>.</returns>
-        private static bool IsSpecialType(Type type) => typeof(Type).IsAssignableFrom(type) || typeof(Attribute).IsAssignableFrom(type) || typeof(MarshalByRefObject).IsAssignableFrom(type);
+        static bool IsSpecialType(Type type) => typeof(Type).IsAssignableFrom(type) || typeof(Attribute).IsAssignableFrom(type) || typeof(MarshalByRefObject).IsAssignableFrom(type);
     }
 }

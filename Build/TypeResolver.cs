@@ -7,7 +7,7 @@ namespace Build
     /// Type resolver
     /// </summary>
     /// <seealso cref="Build.ITypeResolver"/>
-    internal class TypeResolver : ITypeResolver
+    public class TypeResolver : ITypeResolver
     {
         /// <summary>
         /// Gets the type.

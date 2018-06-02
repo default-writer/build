@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Linq;
 
 namespace Build
 {
@@ -13,12 +12,28 @@ namespace Build
         /// <summary>
         /// The type builder
         /// </summary>
-        private readonly TypeBuilder _typeBuilder;
+        readonly TypeBuilder _typeBuilder;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Container"/> class.
         /// </summary>
         public Container() => _typeBuilder = new TypeBuilder(true, true);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Container"/> class.
+        /// </summary>
+        /// <param name="typeFilter">Type filter</param>
+        /// <param name="typeParser">Type parser</param>
+        /// <param name="typeResolver">Type resolver</param>
+        /// <param name="defaultTypeResolution">
+        /// Parameter defaults to true for automatic type resolution enabled. If value is false and
+        /// not all type dependencies are resolved, exception will be thrown
+        /// </param>
+        /// <param name="defaultTypeInstantiation">
+        /// Parameter defaults to true for automatic type instantiation enabled. If value is false
+        /// and type is resolved to default value for reference type, exception will be thrown
+        /// </param>
+        public Container(ITypeFilter typeFilter, ITypeResolver typeResolver, ITypeParser typeParser, bool defaultTypeResolution, bool defaultTypeInstantiation) => _typeBuilder = new TypeBuilder(typeFilter, typeResolver, typeParser, defaultTypeResolution, defaultTypeInstantiation);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Container"/> class.

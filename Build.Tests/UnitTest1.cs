@@ -1,10 +1,21 @@
-using System.Diagnostics;
 using Xunit;
 
 namespace Build.Tests.TestSet1
 {
     public static class UnitTest
     {
+        [Fact]
+        public static void TestSet1_Method14()
+        {
+            //TestSet1
+            var typeBuilder = new TypeBuilder();
+            var container = new Container();
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            var srv1 = container.CreateInstance<ServiceDataRepository>();
+            Assert.NotNull(srv1);
+        }
+
         [Fact]
         public static void TestSet1_Method1()
         {

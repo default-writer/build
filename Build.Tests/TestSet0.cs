@@ -7,7 +7,7 @@ namespace Build.Tests.TestSet0
 
     public class Person
     {
-        private readonly IPersonRepository _personRepository;
+        readonly IPersonRepository _personRepository;
 
         public Person(IPersonRepository personRepository)
         {
@@ -51,7 +51,7 @@ namespace Build.Tests.TestSet0
         }
     }
 
-    internal class DefaultSqlDataRepository : IPersonRepository
+    class DefaultSqlDataRepository : IPersonRepository
     {
         [Dependency]
         public DefaultSqlDataRepository([Injection] int personId) => PersonId = personId;
@@ -61,7 +61,7 @@ namespace Build.Tests.TestSet0
         public Person GetPerson(int personId) => new Person(this);
     }
 
-    internal class PrivateSqlDataRepository : IPersonRepository
+    class PrivateSqlDataRepository : IPersonRepository
     {
         public PrivateSqlDataRepository()
         {

@@ -7,7 +7,7 @@ namespace Build.Tests.TestSet1
 
     public class Person
     {
-        private readonly IPersonRepository _personRepository;
+        readonly IPersonRepository _personRepository;
 
         public Person(IPersonRepository personRepository) => _personRepository = personRepository;
     }
@@ -48,7 +48,7 @@ namespace Build.Tests.TestSet1
         }
     }
 
-    internal class CircularReference1
+    class CircularReference1
     {
         [Dependency("#1")]
         public CircularReference1([Injection("#2")]object person)
@@ -59,7 +59,7 @@ namespace Build.Tests.TestSet1
         public int PersonId { get; }
     }
 
-    internal class CircularReference2
+    class CircularReference2
     {
         [Dependency("#2")]
         public CircularReference2([Injection("#3")]object person)
@@ -70,7 +70,7 @@ namespace Build.Tests.TestSet1
         public int PersonId { get; }
     }
 
-    internal class CircularReference3
+    class CircularReference3
     {
         [Dependency("#3")]
         public CircularReference3([Injection("#1")]object person)
@@ -81,7 +81,7 @@ namespace Build.Tests.TestSet1
         public int PersonId { get; }
     }
 
-    internal class PrivateSqlDataRepository : IPersonRepository
+    class PrivateSqlDataRepository : IPersonRepository
     {
         public PrivateSqlDataRepository()
         {
@@ -101,7 +101,7 @@ namespace Build.Tests.TestSet1
         }
     }
 
-    internal class PrivateSqlDataRepository2 : IPersonRepository
+    class PrivateSqlDataRepository2 : IPersonRepository
     {
         public PrivateSqlDataRepository2([Injection(typeof(CircularReference2))]object reference)
         {
