@@ -171,7 +171,7 @@ namespace Build.Tests.TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method20()
+        public static void TestSet15_Method21()
         {
             //TestSet15
             var container = new Container(false, true);
@@ -182,7 +182,18 @@ namespace Build.Tests.TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method21()
+        public static void TestSet15_Method22()
+        {
+            //TestSet15
+            var container = new Container(false, false);
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<WebServiceDataRepository>();
+            //Instantiation reqires SqlDataRepository to be resolved
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)"));
+        }
+
+        [Fact]
+        public static void TestSet15_Method20()
         {
             //TestSet15
             var container = new Container(true, false);

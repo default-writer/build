@@ -43,10 +43,30 @@ namespace Build.Tests.Fail_TestSet1
         public static void Fail_TestSet1_Method12()
         {
             //Fail_TestSet1
-            var container = new Container(true, true);
+            var container = new Container(false, true);
             container.RegisterType<ServiceDataRepository2>();
             var sql = container.CreateInstance<ServiceDataRepository2>();
             Assert.Null(sql.Repository);
+        }
+
+        [Fact]
+        public static void Fail_TestSet1_Method37()
+        {
+            //Fail_TestSet1
+            // Automatic type instantiation disabled
+            var container = new Container(true, false);
+            container.RegisterType<ServiceDataRepository2>();
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository2>());
+        }
+
+        [Fact]
+        public static void Fail_TestSet1_Method38()
+        {
+            //Fail_TestSet1
+            // Automatic type instantiation disabled
+            var container = new Container(false, false);
+            container.RegisterType<ServiceDataRepository2>();
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository2>());
         }
 
         [Fact]

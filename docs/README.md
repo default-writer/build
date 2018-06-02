@@ -120,7 +120,7 @@ Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<Service
 // Automatic type instantiation enabled
 // ServiceDataRepository2 depends upon non existent Build.Tests.Fail_TestSet1.Other2
 // and resolved to null
-var container = new Container(true, true);
+var container = new Container(false, true);
 container.RegisterType<ServiceDataRepository2>();
 var sql = container.CreateInstance<ServiceDataRepository2>();
 Assert.Null(sql.Repository);
