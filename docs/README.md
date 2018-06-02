@@ -215,7 +215,7 @@ Assert.False(exception);
 
 ## v1.0.0.4
 
-- Removed public type specificator reqirement
+- Removed public type specificator requirement
 
 ### Examples
 
