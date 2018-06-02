@@ -397,7 +397,7 @@ namespace Build
                 if (result != null)
                 {
                     result.Initialize(attribute.RuntimeInstance);
-#if DEBUG
+#if USE_DEBUG
                     Debug.WriteLine("{0} set to {1}", result, attribute.RuntimeInstance);
 #endif
                 }

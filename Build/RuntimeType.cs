@@ -271,7 +271,7 @@ namespace Build
             }
         }
 
-#if DEBUG
+#if USE_DEBUG
 
         /// <summary>
         /// Returns a <see cref="System.String"/> that represents this instance.
