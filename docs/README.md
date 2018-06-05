@@ -529,6 +529,16 @@ public class ServiceDataRepository : IPersonRepository
 [CircleCI](https://circleci.com/gh/hack2root/build)
 [TravisCI](https://travis-ci.org/hack2root/build)
 
+## Academic papers:
+
+[Dependency Injection for Programming by Optimization, Zoltan A. Kocsis and Jerry Swan](https://arxiv.org/pdf/1707.04016.pdf)
+
+1. School of Mathematics, University of Manchester,
+Oxford Road, Manchester M13 9PL, UK.
+zoltan.kocsis@postgrad.manchester.ac.uk
+2. Computer Science, University of York,
+Deramore Lane, York, YO10 5GH, UK.
+
 ## Links
 
 [Dependency injection in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.1)
