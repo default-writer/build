@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Build
 {
@@ -126,9 +127,20 @@ namespace Build
             {
                 "<PrivateImplementationDetails>"
             };
+            bool match;
             foreach (var type in assembly.GetTypes())
             {
-                if (exclusionList.Contains(type.FullName))
+                match = false;
+                for (int index = 0; index < exclusionList.Count; index++)
+                {
+                    var regex = string.Format("^{0}$", exclusionList[index]);
+                    if (Regex.IsMatch(type.FullName, regex))
+                    {
+                        match = true;
+                        break;
+                    }
+                }
+                if (match)
                     continue;
                 if (_typeBuilder.CanRegister(type))
                     _typeBuilder.RegisterType(type);

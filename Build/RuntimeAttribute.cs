@@ -21,14 +21,6 @@ namespace Build
         /// <param name="type">The type.</param>
         protected RuntimeAttribute(Type type) => TypeFullName = type.FullName;
 
-#if PARENT_STRATEGY
-        /// <summary>
-        /// Gets the unique identifier.
-        /// </summary>
-        /// <value>The unique identifier.</value>
-        public Guid Guid { get; } = Guid.NewGuid();
-#endif
-
         /// <summary>
         /// Gets the runtime instance.
         /// </summary>

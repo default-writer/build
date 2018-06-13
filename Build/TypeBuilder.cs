@@ -312,11 +312,7 @@ namespace Build
             {
                 var constructorParameters = constructorInfo.GetParameters();
                 var dependencyAttribute = GetDependencyAttribute(constructorInfo);
-#if PARENT_STRATEGY
-                var constructor = new RuntimeType(dependencyAttribute, null, type);
-#else
                 var constructor = new RuntimeType(dependencyAttribute, type, DefaultTypeInstantiation);
-#endif
                 for (int i = 0; i < constructorParameters.Length; i++)
                 {
                     RegisterConstructorParameter(i, type, constructor, constructorParameters);
@@ -338,11 +334,7 @@ namespace Build
         {
             var parameterType = constructorParameters[i].ParameterType;
             var injectionAttribute = GetInjectionAttribute(constructorParameters[i]);
-#if PARENT_STRATEGY
-            var parameter = new RuntimeType(injectionAttribute, constructor, constructorParameters[i].ParameterType);
-#else
             var parameter = new RuntimeType(injectionAttribute, constructorParameters[i].ParameterType, DefaultTypeInstantiation);
-#endif
             string id = Resolver.GetTypeFullName(injectionAttribute, parameterType.FullName);
             var attributeType = Resolver.GetType(type.Assembly, id);
             var parameters = GetParametersFullName(type, parameterType, injectionAttribute, id, attributeType);
@@ -385,21 +377,12 @@ namespace Build
         /// <param name="attribute">The runtime attribute.</param>
         void RegisterConstructorType(string typeFullName, RuntimeType constructor, IRuntimeAttribute attribute)
         {
-#if PARENT_STRATEGY
-            if (Types.ContainsKey(typeFullName) && this[typeFullName, Types[typeFullName]].IsInitialized)
-            {
-                return;
-            }
-#endif
             if (!Types.ContainsKey(typeFullName))
             {
                 var result = this[typeFullName, constructor];
                 if (result != null)
                 {
                     result.Initialize(attribute.RuntimeInstance);
-#if USE_DEBUG
-                    Debug.WriteLine("{0} set to {1}", result, attribute.RuntimeInstance);
-#endif
                 }
             }
         }

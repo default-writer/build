@@ -37,25 +37,6 @@ namespace Build
         /// <value>The type of the assignable.</value>
         Type AssignableType;
 
-#if PARENT_STRATEGY
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RuntimeType"/> class.
-        /// </summary>
-        /// <param name="attribute">The attribute.</param>
-        /// <param name="parent">The parent.</param>
-        /// <param name="type">The type.</param>
-        /// <exception cref="ArgumentNullException">attribute</exception>
-        public RuntimeType(IRuntimeAttribute attribute, RuntimeType parent, Type type)
-        {
-            AssignableType = type;
-            Type = type;
-            Parent = parent ?? this;
-            Attribute = attribute ?? throw new ArgumentNullException(nameof(attribute));
-        }
-
-#else
-
         /// <summary>
         /// Initializes a new instance of the <see cref="RuntimeType"/> class.
         /// </summary>
@@ -73,8 +54,6 @@ namespace Build
             DefaultTypeInstantiation = defaultTypeInstantiation;
             Attribute = attribute ?? throw new ArgumentNullException(nameof(attribute));
         }
-
-#endif
 
         /// <summary>
         /// Gets the attribute.
@@ -99,14 +78,6 @@ namespace Build
         /// </summary>
         /// <value>The parameters count.</value>
         public int ParametersCount => RuntimeTypes.Count;
-
-#if PARENT_STRATEGY
-        /// <summary>
-        /// Gets the parent.
-        /// </summary>
-        /// <value>The parent.</value>
-        public RuntimeType Parent { get; }
-#endif
 
         /// <summary>
         /// Gets the runtime instance.
@@ -167,27 +138,11 @@ namespace Build
             }
         }
 
-#if PARENT_STRATEGY
-        /// <summary>
-        /// Adds the parameter.
-        /// </summary>
-        /// <param name="parameterRuntimeType">Type of the parameter runtime.</param>
-        public void AddParameter(RuntimeType parameterRuntimeType)
-        {
-            if (IsContainsParent(this, parameterRuntimeType))
-                throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", Type.FullName));
-
-            RuntimeTypes.Add(parameterRuntimeType);
-        }
-#else
-
         /// <summary>
         /// Adds the parameter.
         /// </summary>
         /// <param name="parameterRuntimeType">Type of the parameter runtime.</param>
         public void AddParameter(RuntimeType parameterRuntimeType) => RuntimeTypes.Add(parameterRuntimeType);
-
-#endif
 
         /// <summary>
         /// Creates the instance.
@@ -212,28 +167,12 @@ namespace Build
         /// <returns></returns>
         public Type FindAssignableType(string id) => AssignableTypes.FirstOrDefault(p => p.FullName == id && p.IsAssignableFrom(Type));
 
-#if PARENT_STRATEGY
-        /// <summary>
-        /// Initializes the specified runtime instance.
-        /// </summary>
-        /// <param name="runtimeInstance">The runtime instance.</param>
-        /// <exception cref="TypeRegistrationException"></exception>
-        public void Initialize(RuntimeInstance runtimeInstance)
-        {
-            if (IsInitialized)
-                throw new TypeRegistrationException(string.Format("{0} is not registered (more than one constructor available)", Type.FullName));
-        _runtimeInstance = runtimeInstance;
-        }
-#else
-
         /// <summary>
         /// Initializes the specified runtime instance.
         /// </summary>
         /// <param name="runtimeInstance">The runtime instance.</param>
         /// <exception cref="TypeRegistrationException"></exception>
         public void Initialize(RuntimeInstance runtimeInstance) => _runtimeInstance = runtimeInstance;
-
-#endif
 
         /// <summary>
         /// Determines whether [is assignable from] [the specified identifier].
@@ -271,16 +210,6 @@ namespace Build
             }
         }
 
-#if USE_DEBUG
-
-        /// <summary>
-        /// Returns a <see cref="System.String"/> that represents this instance.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString() => Id;
-
-#endif
-
         /// <summary>
         /// Registers the parameters.
         /// </summary>
@@ -298,27 +227,6 @@ namespace Build
             }
             return true;
         }
-
-#if PARENT_STRATEGY
-        /// <summary>
-        /// Searches for type in tree hierarchy
-        /// </summary>
-        /// <param name="constructor">Starting type to start search</param>
-        /// <param name="type">Type to find</param>
-        /// <returns></returns>
-        static bool IsContainsParent(RuntimeType constructor, RuntimeType type)
-        {
-            RuntimeType current = constructor;
-            do
-            {
-                if (current == type)
-                    return true;
-                current = current.Parent;
-            }
-            while (current != current.Parent);
-            return false;
-        }
-#endif
 
         /// <summary>
         /// Creates the instance.
