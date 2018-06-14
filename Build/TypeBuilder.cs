@@ -302,7 +302,6 @@ namespace Build
         {
             var constructor = dependencyObject.RuntimeType;
             var type = constructor.Type;
-            var constructorParameters = dependencyObject.InjectionObjectsFullNames;
             var parameter = injectionObject.RuntimeType;
             string id = injectionObject.InjectionAttribute.TypeFullName ?? parameter.Type.FullName;
             var attributeType = Resolver.GetType(type.Assembly, id);
@@ -313,7 +312,14 @@ namespace Build
                 RegisterConstructorType(attributeType);
             RegisterConstructorType(parameter.Type);
             string constructorRuntimeTypeFullName = runtimeType == null ? id : runtimeType.Type.FullName;
-            string typeFullName = Format.GetConstructorFullName(constructorRuntimeTypeFullName, parameters);
+            RegisterRuntimeType(dependencyObject, injectionObject, constructor, parameter, parameters, constructorRuntimeTypeFullName);
+        }
+
+        void RegisterRuntimeType(ITypeDependencyObject dependencyObject, ITypeInjectionObject injectionObject, RuntimeType constructor, RuntimeType parameter, IEnumerable<string> parameters, string constructorRuntimeTypeFullName)
+        {
+            var type = constructor.Type;
+            var constructorParameters = dependencyObject.InjectionObjectsFullNames;
+            var typeFullName = Format.GetConstructorFullName(constructorRuntimeTypeFullName, parameters);
             var result = this[typeFullName, parameter];
             if (result != null)
             {
