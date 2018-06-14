@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Build
 {
@@ -8,7 +9,7 @@ namespace Build
     /// <seealso cref="Build.RuntimeAttribute"/>
     /// <seealso cref="Build.IRuntimeAttribute"/>
     [AttributeUsage(AttributeTargets.Parameter)]
-    public sealed class InjectionAttribute : RuntimeAttribute, IRuntimeAttribute
+    public sealed class InjectionAttribute : RuntimeAttribute, IInjectionAttribute
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
@@ -58,5 +59,25 @@ namespace Build
         /// </summary>
         /// <value>The runtime instance.</value>
         public override RuntimeInstance RuntimeInstance => RuntimeInstance.None;
+
+        /// <summary>
+        /// Gets injected object parameters
+        /// </summary>
+        /// <param name="index">Value index in parameters array</param>
+        /// <returns>Returns value in array at specified index</returns>
+        public object GetObject(int index) => Arguments[index];
+
+        /// <summary>
+        /// Checks that selected index is within parameters array bounds
+        /// </summary>
+        /// <param name="index">Value index in parameters array</param>
+        /// <returns>Returns true if selected index is within parameters array bounds</returns>
+        public bool CheckBounds(int index) => index >= 0 && index < Arguments.Length;
+
+        /// <summary>
+        /// Gets the full name of the parameters.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<string> GetParametersFullName() => Format.GetParametersFullName(Arguments);
     }
 }

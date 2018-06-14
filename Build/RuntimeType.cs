@@ -8,7 +8,7 @@ namespace Build
     /// Runtime information for type
     /// </summary>
     /// <seealso cref="Build.IRuntimeType"/>
-    class RuntimeType : IRuntimeType
+    public class RuntimeType : IRuntimeType
     {
         /// <summary>
         /// The values
@@ -289,8 +289,8 @@ namespace Build
         /// <returns></returns>
         object EvaluateInjection(IRuntimeAttribute attribute, int? i)
         {
-            if (attribute is InjectionAttribute injection && injection.Arguments.Length > 0 && i.HasValue)
-                return injection.Arguments[i.Value];
+            if (i.HasValue && attribute is IInjectionAttribute injection && injection.CheckBounds(i.Value))
+                return injection.GetObject(i.Value);
             return this[attribute, Id, i];
         }
 

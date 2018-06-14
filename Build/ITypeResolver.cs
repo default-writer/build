@@ -19,9 +19,9 @@ namespace Build
         /// <summary>
         /// Gets the full name of the type.
         /// </summary>
-        /// <param name="attribute">The attribute.</param>
+        /// <param name="typeFullName">The type full name.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        string GetTypeFullName(IRuntimeAttribute attribute, string defaultValue);
+        string GetTypeFullName(string typeFullName, string defaultValue);
     }
 }

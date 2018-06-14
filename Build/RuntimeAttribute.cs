@@ -19,7 +19,11 @@ namespace Build
         /// Initializes a new instance of the <see cref="RuntimeAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
-        protected RuntimeAttribute(Type type) => TypeFullName = type.FullName;
+        protected RuntimeAttribute(Type type)
+        {
+            Type = type;
+            TypeFullName = type.FullName;
+        }
 
         /// <summary>
         /// Gets the runtime instance.
@@ -38,6 +42,11 @@ namespace Build
         /// </summary>
         /// <value>The full name of the type.</value>
         public string TypeFullName { get; }
+
+        /// <summary>
+        /// Type
+        /// </summary>
+        public Type Type { get; }
 
         /// <summary>
         /// Gets the type of the runtime.

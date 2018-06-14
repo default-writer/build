@@ -8,7 +8,7 @@ namespace Build
     /// <seealso cref="Build.RuntimeAttribute"/>
     /// <seealso cref="Build.IRuntimeAttribute"/>
     [AttributeUsage(AttributeTargets.Constructor)]
-    public sealed class DependencyAttribute : RuntimeAttribute, IRuntimeAttribute
+    public sealed class DependencyAttribute : RuntimeAttribute, IDependencyAttribute
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
