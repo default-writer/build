@@ -23,6 +23,7 @@ namespace Build
         /// <summary>
         /// Initializes a new instance of the <see cref="Container"/> class.
         /// </summary>
+        /// <param name="typeConstructor">Type constructor</param>
         /// <param name="typeFilter">Type filter</param>
         /// <param name="typeParser">Type parser</param>
         /// <param name="typeResolver">Type resolver</param>
@@ -34,15 +35,16 @@ namespace Build
         /// Parameter defaults to true for automatic type instantiation enabled. If value is false
         /// and type is resolved to default value for reference type, exception will be thrown
         /// </param>
-        public Container(ITypeFilter typeFilter, ITypeResolver typeResolver, ITypeParser typeParser, bool defaultTypeResolution, bool defaultTypeInstantiation) => _typeBuilder = new TypeBuilder(typeFilter, typeResolver, typeParser, defaultTypeResolution, defaultTypeInstantiation);
+        public Container(ITypeConstructor typeConstructor, ITypeFilter typeFilter, ITypeParser typeParser, ITypeResolver typeResolver, bool defaultTypeResolution, bool defaultTypeInstantiation) => _typeBuilder = new TypeBuilder(typeConstructor, typeFilter, typeParser, typeResolver, defaultTypeResolution, defaultTypeInstantiation);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Container"/> class.
         /// </summary>
+        /// <param name="typeConstructor">Type constructor</param>
         /// <param name="typeFilter">Type filter</param>
         /// <param name="typeParser">Type parser</param>
         /// <param name="typeResolver">Type resolver</param>
-        public Container(ITypeFilter typeFilter, ITypeResolver typeResolver, ITypeParser typeParser) => _typeBuilder = new TypeBuilder(typeFilter, typeResolver, typeParser, true, true);
+        public Container(ITypeConstructor typeConstructor, ITypeFilter typeFilter, ITypeParser typeParser, ITypeResolver typeResolver) => _typeBuilder = new TypeBuilder(typeConstructor, typeFilter, typeParser, typeResolver, true, true);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Container"/> class.
@@ -76,6 +78,11 @@ namespace Build
         /// Runtime types.
         /// </summary>
         public IEnumerable<string> RuntimeTypes => new List<string>(_typeBuilder.RuntimeTypes);
+
+        /// <summary>
+        /// Type builder
+        /// </summary>
+        public ITypeBuilder Builder => _typeBuilder;
 
         /// <summary>
         /// Creates an object identified as instance of type T

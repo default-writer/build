@@ -7,7 +7,7 @@ namespace Build
     /// <summary>
     /// Type builder
     /// </summary>
-    class TypeBuilder
+    class TypeBuilder : ITypeBuilder
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeBuilder"/> class.
@@ -24,6 +24,7 @@ namespace Build
         {
             DefaultTypeResolution = defaultTypeResolution;
             DefaultTypeInstantiation = defaultTypeInstantiation;
+            Constructor = new TypeConstructor();
             Filter = new TypeFilter();
             Resolver = new TypeResolver();
             Parser = new TypeParser();
@@ -32,6 +33,7 @@ namespace Build
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeBuilder"/> class.
         /// </summary>
+        /// <param name="typeConstructor">Type constructor</param>
         /// <param name="typeFilter">Type filter</param>
         /// <param name="typeParser">Type parser</param>
         /// <param name="typeResolver">Type resolver</param>
@@ -43,10 +45,11 @@ namespace Build
         /// Parameter defaults to true for automatic type instantiation enabled. If value is false
         /// and type is resolved to default value for reference type, exception will be thrown
         /// </param>
-        public TypeBuilder(ITypeFilter typeFilter, ITypeResolver typeResolver, ITypeParser typeParser, bool defaultTypeResolution, bool defaultTypeInstantiation)
+        public TypeBuilder(ITypeConstructor typeConstructor, ITypeFilter typeFilter, ITypeParser typeParser, ITypeResolver typeResolver, bool defaultTypeResolution, bool defaultTypeInstantiation)
         {
             DefaultTypeResolution = defaultTypeResolution;
             DefaultTypeInstantiation = defaultTypeInstantiation;
+            Constructor = typeConstructor ?? throw new ArgumentNullException(nameof(typeConstructor));
             Filter = typeFilter ?? throw new ArgumentNullException(nameof(typeFilter));
             Resolver = typeResolver ?? throw new ArgumentNullException(nameof(typeResolver));
             Parser = typeParser ?? throw new ArgumentNullException(nameof(typeParser));
@@ -97,22 +100,27 @@ namespace Build
         public IEnumerable<string> RuntimeTypes => Types.Select(p => p.Value.Id);
 
         /// <summary>
+        /// Constructs type dependency
+        /// </summary>
+        public ITypeConstructor Constructor { get; }
+
+        /// <summary>
         /// Gets the filter.
         /// </summary>
         /// <value>The filter.</value>
-        ITypeFilter Filter { get; }
+        public ITypeFilter Filter { get; }
 
         /// <summary>
         /// Gets the parser.
         /// </summary>
         /// <value>The parser.</value>
-        ITypeParser Parser { get; }
+        public ITypeParser Parser { get; }
 
         /// <summary>
         /// Gets the resolver.
         /// </summary>
         /// <value>The resolver.</value>
-        ITypeResolver Resolver { get; }
+        public ITypeResolver Resolver { get; }
 
         /// <summary>
         /// Gets the types.
@@ -279,7 +287,7 @@ namespace Build
         /// <exception cref="TypeRegistrationException"></exception>
         void RegisterConstructor(Type type)
         {
-            var constructorEnumerator = TypeConstructor.GetDependencyObjects(type, DefaultTypeInstantiation).GetEnumerator();
+            var constructorEnumerator = Constructor.GetDependencyObjects(type, DefaultTypeInstantiation).GetEnumerator();
             if (!constructorEnumerator.MoveNext())
                 throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", type.FullName));
             do

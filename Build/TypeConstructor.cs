@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Build
 {
-    public static class TypeConstructor
+    public class TypeConstructor : ITypeConstructor
     {
-        public static IEnumerable<ITypeDependencyObject> GetDependencyObjects(Type type, bool defaultTypeInstantiation)
+        public IEnumerable<ITypeDependencyObject> GetDependencyObjects(Type type, bool defaultTypeInstantiation)
         {
             var dependencyObjects = new List<ITypeDependencyObject>();
             foreach (var constructorInfo in type.GetConstructors())

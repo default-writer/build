@@ -8,10 +8,11 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method14()
         {
             //TestSet1
+            var typeConstructor = new TypeConstructor();
             var typeFilter = new TypeFilter();
-            var typeResolver = new TypeResolver();
             var typeParser = new TypeParser();
-            var container = new Container(typeFilter, typeResolver, typeParser);
+            var typeResolver = new TypeResolver();
+            var container = new Container(typeConstructor, typeFilter, typeParser, typeResolver);
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
@@ -22,10 +23,11 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method15()
         {
             //TestSet1
+            var typeConstructor = new TypeConstructor();
             var typeFilter = new TypeFilter();
-            var typeResolver = new TypeResolver();
             var typeParser = new TypeParser();
-            var container = new Container(typeFilter, typeResolver, typeParser, true, true);
+            var typeResolver = new TypeResolver();
+            var container = new Container(typeConstructor, typeFilter, typeParser, typeResolver, true, true);
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();

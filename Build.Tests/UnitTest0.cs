@@ -7,6 +7,73 @@ namespace Build.Tests.TestSet0
     public static class UnitTest
     {
         [Fact]
+        public static void TestSet0_Method0_0()
+        {
+            //TestSet0
+            Assert.Throws<ArgumentNullException>(() => new RuntimeType(null, null, false));
+        }
+
+        [Fact]
+        public static void TestSet0_Method0_1()
+        {
+            //TestSet0
+            var container = new Container(new TypeConstructor(), new TypeFilter(), new TypeParser(), new TypeResolver());
+            Assert.NotNull(container.Builder.Constructor);
+        }
+
+        [Fact]
+        public static void TestSet0_Method0_2()
+        {
+            //TestSet0
+            var container = new Container(new TypeConstructor(), new TypeFilter(), new TypeParser(), new TypeResolver());
+            Assert.NotNull(container.Builder.Filter);
+        }
+
+        [Fact]
+        public static void TestSet0_Method0_3()
+        {
+            //TestSet0
+            var container = new Container(new TypeConstructor(), new TypeFilter(), new TypeParser(), new TypeResolver());
+            Assert.NotNull(container.Builder.Parser);
+        }
+
+        [Fact]
+        public static void TestSet0_Method0_4()
+        {
+            //TestSet0
+            var container = new Container(new TypeConstructor(), new TypeFilter(), new TypeParser(), new TypeResolver());
+            Assert.NotNull(container.Builder.Resolver);
+        }
+
+        [Fact]
+        public static void TestSet0_Method0_5()
+        {
+            //TestSet0
+            Assert.Throws<ArgumentNullException>(() => new Container(null, new TypeFilter(), new TypeParser(), new TypeResolver()));
+        }
+
+        [Fact]
+        public static void TestSet0_Method0_6()
+        {
+            //TestSet0
+            Assert.Throws<ArgumentNullException>(() => new Container(new TypeConstructor(), null, new TypeParser(), new TypeResolver()));
+        }
+
+        [Fact]
+        public static void TestSet0_Method0_7()
+        {
+            //TestSet0
+            Assert.Throws<ArgumentNullException>(() => new Container(new TypeConstructor(), new TypeFilter(), null, new TypeResolver()));
+        }
+
+        [Fact]
+        public static void TestSet0_Method0_8()
+        {
+            //TestSet0
+            Assert.Throws<ArgumentNullException>(() => new Container(new TypeConstructor(), new TypeFilter(), new TypeParser(), null));
+        }
+
+        [Fact]
         public static void TestSet0_Method1()
         {
             //TestSet0

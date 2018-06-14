@@ -10,6 +10,11 @@ namespace Build
     public interface IContainer
     {
         /// <summary>
+        /// Type builder
+        /// </summary>
+        ITypeBuilder Builder { get; }
+
+        /// <summary>
         /// Aliased types.
         /// </summary>
         IEnumerable<string> RuntimeAliasedTypes { get; }
