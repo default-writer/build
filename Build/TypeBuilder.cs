@@ -229,25 +229,16 @@ namespace Build
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="parameterType">Type of the parameter.</param>
-        /// <param name="injectionAttribute">The injection attribute.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="attributeType">Type of the attribute.</param>
         /// <returns></returns>
         /// <exception cref="TypeRegistrationException"></exception>
-        static IEnumerable<string> GetParametersFullName(Type type, Type parameterType, IInjectionAttribute injectionAttribute, string id, Type attributeType)
+        static void CheckParametersFullName(Type type, Type parameterType, string id, Type attributeType)
         {
             if (attributeType != null && !parameterType.IsAssignableFrom(attributeType))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", parameterType.FullName, attributeType.FullName));
             CheckParameterTypeFullName(type, parameterType, id);
-            return GetParametersFullName(injectionAttribute);
         }
-
-        /// <summary>
-        /// Gets the full name of the parameters.
-        /// </summary>
-        /// <param name="injectionAttribute">The injection attribute.</param>
-        /// <returns></returns>
-        static IEnumerable<string> GetParametersFullName(IInjectionAttribute injectionAttribute) => injectionAttribute.GetParametersFullName();
 
         /// <summary>
         /// Gets the identifier.
@@ -315,7 +306,8 @@ namespace Build
             var parameter = injectionObject.RuntimeType;
             string id = injectionObject.InjectionAttribute.TypeFullName ?? parameter.Type.FullName;
             var attributeType = Resolver.GetType(type.Assembly, id);
-            var parameters = GetParametersFullName(type, parameter.Type, injectionObject.InjectionAttribute, id, attributeType);
+            CheckParametersFullName(type, parameter.Type, id, attributeType);
+            var parameters = injectionObject.InjectionAttribute.GetParametersFullName();
             var runtimeType = (RuntimeType)Parser.Find(id, parameters, Types.Values);
             if (DefaultTypeResolution && runtimeType == null)
                 RegisterConstructorType(attributeType);
