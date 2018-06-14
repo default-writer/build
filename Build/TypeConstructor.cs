@@ -5,7 +5,7 @@ namespace Build
 {
     public static class TypeConstructor
     {
-        public static List<ITypeDependencyObject> CreateDependencyObjects(Type type, bool defaultTypeInstantiation)
+        public static IEnumerable<ITypeDependencyObject> GetDependencyObjects(Type type, bool defaultTypeInstantiation)
         {
             var dependencyObjects = new List<ITypeDependencyObject>();
             foreach (var constructorInfo in type.GetConstructors())

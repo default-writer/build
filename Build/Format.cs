@@ -18,14 +18,6 @@ namespace Build
         public static string GetConstructorFullName(string constructor, IEnumerable<string> parameters) => string.Format("{0}({1})", constructor, string.Join(",", parameters));
 
         /// <summary>
-        /// Gets the full name of the constructor parameter.
-        /// </summary>
-        /// <param name="typeFullName">Full name of the type.</param>
-        /// <param name="i">The i.</param>
-        /// <returns></returns>
-        public static string GetConstructorParameterFullName(string typeFullName, int? i) => string.Format("{0}:({1})", typeFullName, i);
-
-        /// <summary>
         /// Gets the full name of the parameters.
         /// </summary>
         /// <param name="args">The arguments.</param>

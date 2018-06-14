@@ -11,13 +11,16 @@ namespace Build
             DependencyAttribute = GetDependencyAttribute(constructorInfo);
             RuntimeType = new RuntimeType(DependencyAttribute, constructorInfo.DeclaringType, defaultTypeInstantiation);
             InjectionObjects = new List<ITypeInjectionObject>(constructorInfo.GetParameters().Select(p => new TypeInjectionObject(p, defaultTypeInstantiation)));
+            InjectionObjectsFullNames = InjectionObjects.Select(p => p.RuntimeType.FullName);
         }
 
-        public List<ITypeInjectionObject> InjectionObjects { get; }
+        public IEnumerable<ITypeInjectionObject> InjectionObjects { get; }
 
         public IDependencyAttribute DependencyAttribute { get; }
 
         public RuntimeType RuntimeType { get; }
+
+        public IEnumerable<string> InjectionObjectsFullNames { get; }
 
         /// <summary>
         /// Gets the dependency attribute.(ConstructorInfo's DeclaringType)

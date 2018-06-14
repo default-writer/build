@@ -15,13 +15,5 @@ namespace Build
         /// <param name="typeName">Name of the type.</param>
         /// <returns></returns>
         Type GetType(Assembly assembly, string typeName);
-
-        /// <summary>
-        /// Gets the full name of the type.
-        /// </summary>
-        /// <param name="typeFullName">The type full name.</param>
-        /// <param name="defaultValue">The default value.</param>
-        /// <returns></returns>
-        string GetTypeFullName(string typeFullName, string defaultValue);
     }
 }

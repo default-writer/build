@@ -120,22 +120,16 @@ namespace Build
         /// <value>The <see cref="System.Object"/>.</value>
         /// <param name="attribute">The attribute.</param>
         /// <param name="typeFullName">Full name of the type.</param>
-        /// <param name="i">The i.</param>
         /// <returns></returns>
-        object this[IRuntimeAttribute attribute, string typeFullName, int? i]
+        object this[IRuntimeAttribute attribute, string typeFullName]
         {
             get
             {
-                var id = Format.GetConstructorParameterFullName(typeFullName, i);
-                if (!_values.ContainsKey(attribute.GetRuntimeType(id)))
-                    _values.Add(attribute.GetRuntimeType(id), null);
-                return _values[attribute.GetRuntimeType(id)];
+                if (!_values.ContainsKey(attribute.GetRuntimeType(typeFullName)))
+                    _values.Add(attribute.GetRuntimeType(typeFullName), null);
+                return _values[attribute.GetRuntimeType(typeFullName)];
             }
-            set
-            {
-                var id = Format.GetConstructorParameterFullName(typeFullName, i);
-                _values[attribute.GetRuntimeType(id)] = value;
-            }
+            set => _values[attribute.GetRuntimeType(typeFullName)] = value;
         }
 
         /// <summary>
@@ -192,7 +186,7 @@ namespace Build
             object[] args = new object[RuntimeTypes.Count];
             for (int i = 0; i < RuntimeTypes.Count; i++)
             {
-                args[i] = RuntimeTypes[i][Attribute, Id, i];
+                args[i] = RuntimeTypes[i][Attribute, Id];
             }
             return args;
         }
@@ -223,7 +217,7 @@ namespace Build
                 var runtimeType = (args[i] ?? typeof(object)).GetType();
                 if (args[i] != null && !parameterType.IsAssignableFrom(runtimeType))
                     return false;
-                RuntimeTypes[i][Attribute, Id, i] = args[i];
+                RuntimeTypes[i][Attribute, Id] = args[i];
             }
             return true;
         }
@@ -233,7 +227,7 @@ namespace Build
         /// </summary>
         /// <param name="attribute">The attribute.</param>
         /// <returns></returns>
-        object CreateInstance(IRuntimeAttribute attribute) => Activator.CreateInstance(Type, RuntimeTypes.Select((p, i) => p[attribute, Id, i]).ToArray());
+        object CreateInstance(IRuntimeAttribute attribute) => Activator.CreateInstance(Type, RuntimeTypes.Select((p, i) => p[attribute, Id]).ToArray());
 
         /// <summary>
         /// Creates the instance.
@@ -291,7 +285,7 @@ namespace Build
         {
             if (i.HasValue && attribute is IInjectionAttribute injection && injection.CheckBounds(i.Value))
                 return injection.GetObject(i.Value);
-            return this[attribute, Id, i];
+            return this[attribute, Id];
         }
 
         /// <summary>
@@ -301,7 +295,7 @@ namespace Build
         /// <param name="i">The i.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        object EvaluateInstance(IRuntimeType type, int? i) => CreateInstance(type, i.HasValue ? Attribute.GetRuntimeType(Format.GetConstructorParameterFullName(type.Id, i)) : Attribute);
+        object EvaluateInstance(IRuntimeType type, int? i) => CreateInstance(type, i.HasValue ? Attribute.GetRuntimeType(type.Id) : Attribute);
 
         /// <summary>
         /// Evaluates the runtime instance.
