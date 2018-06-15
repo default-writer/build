@@ -1,18 +1,23 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
 
 namespace Build
 {
-    class TypeInjectionObject : ITypeInjectionObject
+    class TypeInjectionObject : TypeObject, ITypeInjectionObject
     {
-        public TypeInjectionObject(ParameterInfo parameterInfo, bool defaultTypeInstantiation)
+        public TypeInjectionObject(ParameterInfo parameterInfo, bool defaultTypeInstantiation) : base(GetInjectionAttribute(parameterInfo), parameterInfo.ParameterType, defaultTypeInstantiation)
         {
-            InjectionAttribute = GetInjectionAttribute(parameterInfo);
-            RuntimeType = new RuntimeType(InjectionAttribute, parameterInfo.ParameterType, defaultTypeInstantiation);
+            var injectionAttribute = (InjectionAttribute)RuntimeAttribute;
+            InjectionAttribute = injectionAttribute;
+            InjectedTypes = injectionAttribute.Arguments;
         }
 
-        public IInjectionAttribute InjectionAttribute { get; }
+        /// <summary>
+        /// Enumerates type parameters
+        /// </summary>
+        public IEnumerable<string> InjectedTypes { get; }
 
-        public IRuntimeType RuntimeType { get; }
+        public IInjectionAttribute InjectionAttribute { get; }
 
         /// <summary>
         /// Gets the injection attribute. (ParameterInfo's ParameterType)

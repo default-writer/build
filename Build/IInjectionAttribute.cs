@@ -17,11 +17,5 @@ namespace Build
         /// <param name="index">Value index in parameters array</param>
         /// <returns>Returns value in array at specified index</returns>
         object GetObject(int index);
-
-        /// <summary>
-        /// Gets the full name of the parameters.
-        /// </summary>
-        /// <returns></returns>
-        IEnumerable<string> GetParametersFullName();
     }
 }

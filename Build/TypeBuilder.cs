@@ -147,7 +147,7 @@ namespace Build
             {
                 if (!Types.ContainsKey(id))
                     Types.Add(id, type);
-                Types[id].RegisterAssignableType(type.Type);
+                Types[id].RegisterTypeDefinition(type.TypeFullName);
                 return Types[id];
             }
         }
@@ -188,7 +188,7 @@ namespace Build
             if (Types.ContainsKey(id))
                 return Types[id].CreateInstance(args);
             var parameterArgs = Format.GetParametersFullName(args);
-            var runtimeType = (RuntimeType)Parser.Find(id, parameterArgs, Types.Values);
+            var runtimeType = Parser.Find(id, parameterArgs, Types.Values);
             if (runtimeType != null) return runtimeType.CreateInstance(args);
             throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructors available)", id));
         }
@@ -232,18 +232,6 @@ namespace Build
         {
             if (attributeType != null && !parameterType.IsAssignableFrom(attributeType))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", parameterType.FullName, attributeType.FullName));
-            CheckParameterTypeFullName(type, parameterType, id);
-        }
-
-        /// <summary>
-        /// Checks the full name of the parameter type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="parameterType">Type of the parameter.</param>
-        /// <param name="id">The identifier.</param>
-        /// <exception cref="TypeRegistrationException"></exception>
-        static void CheckParameterTypeFullName(Type type, Type parameterType, string id)
-        {
             if (id == type.FullName && id == parameterType.FullName)
                 throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type.FullName));
         }
@@ -251,32 +239,29 @@ namespace Build
         /// <summary>
         /// Gets the identifier.
         /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="typeFullName">The type full name.</param>
+        /// <param name="dependencyObject">The type definition.</param>
         /// <returns></returns>
         /// <exception cref="TypeRegistrationException"></exception>
-        string GetAssemblyTypeFullName(Type type, string typeFullName)
+        string GetAssemblyTypeFullName(ITypeDependencyObject dependencyObject)
         {
-            string id = typeFullName ?? type.FullName;
-            var attributeType = Resolver.GetType(type.Assembly, id);
-            if (attributeType != null && !attributeType.IsAssignableFrom(type))
-                throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", attributeType.FullName, type.FullName));
-            return id;
+            string typeFullName = dependencyObject.TypeFullName;
+            var attributeType = Resolver.GetType(dependencyObject.RuntimeType.Type.Assembly, typeFullName);
+            if (attributeType != null && !attributeType.IsAssignableFrom(dependencyObject.RuntimeType.Type))
+                throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", attributeType.FullName, dependencyObject.RuntimeType.TypeFullName));
+            return typeFullName;
         }
 
         /// <summary>
         /// Gets the full name of the type.
         /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="constructorParametersFullNames">The constructor parameters full names.</param>
-        /// <param name="typeFullName">The type full name.</param>
+        /// <param name="dependencyObject">The type definition.</param>
         /// <returns></returns>
-        string GetTypeFullName(Type type, IEnumerable<string> constructorParametersFullNames, string typeFullName)
+        string GetTypeFullName(ITypeDependencyObject dependencyObject)
         {
-            string id = GetAssemblyTypeFullName(type, typeFullName);
-            var parameterArgs = constructorParametersFullNames;
-            var runtimeType = (RuntimeType)Parser.Find(id, parameterArgs, Types.Values);
-            string constructorRuntimeFullName = runtimeType == null ? id : runtimeType.FullName;
+            string id = GetAssemblyTypeFullName(dependencyObject);
+            var parameterArgs = dependencyObject.InjectedTypes;
+            var runtimeType = Parser.Find(id, parameterArgs, Types.Values);
+            string constructorRuntimeFullName = runtimeType == null ? id : runtimeType.TypeFullName;
             return Format.GetConstructorFullName(constructorRuntimeFullName, parameterArgs);
         }
 
@@ -308,16 +293,14 @@ namespace Build
         void RegisterConstructorDependencyObject(ITypeDependencyObject dependencyObject)
         {
             var constructor = dependencyObject.RuntimeType;
-            var attribute = dependencyObject.DependencyAttribute;
-            var constructorType = dependencyObject.RuntimeType.Type;
-            var constructorParametersFullNames = dependencyObject.InjectionObjectsFullNames;
-            string typeFullName = GetTypeFullName(constructorType, constructorParametersFullNames, attribute.TypeFullName);
+            var constructorAttribute = dependencyObject.DependencyAttribute;
+            string typeFullName = GetTypeFullName(dependencyObject);
             if (!Types.ContainsKey(typeFullName))
             {
                 var result = this[typeFullName, constructor];
                 if (result != null)
                 {
-                    result.SetRuntimeInstance(attribute.RuntimeInstance);
+                    result.SetRuntimeInstance(constructorAttribute.RuntimeInstance);
                 }
             }
         }
@@ -330,19 +313,19 @@ namespace Build
         void RegisterConstructorParameter(ITypeDependencyObject dependencyObject, ITypeInjectionObject injectionObject)
         {
             var constructor = dependencyObject.RuntimeType;
-            var type = constructor.Type;
+            var constructorType = constructor.Type;
             var parameter = injectionObject.RuntimeType;
             var parameterType = parameter.Type;
-            string id = injectionObject.InjectionAttribute.TypeFullName ?? parameterType.FullName;
-            var attributeType = Resolver.GetType(type.Assembly, id);
-            CheckParametersFullName(type, parameterType, id, attributeType);
-            var parameters = injectionObject.InjectionAttribute.GetParametersFullName();
-            var runtimeType = (RuntimeType)Parser.Find(id, parameters, Types.Values);
+            string typeFullName = injectionObject.TypeFullName;
+            var attributeType = Resolver.GetType(constructorType.Assembly, typeFullName);
+            CheckParametersFullName(constructorType, parameterType, typeFullName, attributeType);
+            var parameters = injectionObject.InjectedTypes;
+            var runtimeType = Parser.Find(typeFullName, parameters, Types.Values);
             if (UseDefaultTypeResolution && runtimeType == null)
                 RegisterConstructorType(attributeType);
             RegisterConstructorType(parameterType);
-            string constructorRuntimeTypeFullName = runtimeType == null ? id : runtimeType.Type.FullName;
-            RegisterRuntimeType(dependencyObject, injectionObject, constructor, parameter, parameters, constructorRuntimeTypeFullName);
+            string constructorRuntimeTypeFullName = runtimeType == null ? typeFullName : runtimeType.TypeFullName;
+            RegisterRuntimeType(dependencyObject, injectionObject, parameters, constructorRuntimeTypeFullName);
         }
 
         /// <summary>
@@ -360,15 +343,17 @@ namespace Build
             }
         }
 
-        void RegisterRuntimeType(ITypeDependencyObject dependencyObject, ITypeInjectionObject injectionObject, IRuntimeType constructor, IRuntimeType parameter, IEnumerable<string> parameters, string constructorRuntimeTypeFullName)
+        void RegisterRuntimeType(ITypeDependencyObject dependencyObject, ITypeInjectionObject injectionObject, IEnumerable<string> parameters, string constructorRuntimeTypeFullName)
         {
-            var type = constructor.Type;
-            var constructorParameters = dependencyObject.InjectionObjectsFullNames;
+            var constructor = dependencyObject.RuntimeType;
+            var parameter = injectionObject.RuntimeType;
+            var constructorTypeFullName = constructor.TypeFullName;
+            var constructorParameters = dependencyObject.InjectedTypes;
             var typeFullName = Format.GetConstructorFullName(constructorRuntimeTypeFullName, parameters);
             var result = this[typeFullName, parameter];
             if (result != null)
             {
-                var constructorFullName = Format.GetConstructorFullName(type.FullName, constructorParameters);
+                var constructorFullName = Format.GetConstructorFullName(constructorTypeFullName, constructorParameters);
                 result.Attribute.RegisterRuntimeType(constructorFullName, injectionObject.InjectionAttribute);
                 constructor.AddParameter(result);
             }

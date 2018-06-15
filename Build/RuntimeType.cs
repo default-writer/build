@@ -11,16 +11,16 @@ namespace Build
     public sealed class RuntimeType : IRuntimeType
     {
         /// <summary>
-        /// Gets the assignable types.
-        /// </summary>
-        /// <value>The assignable types.</value>
-        readonly List<Type> _assignableTypes = new List<Type>();
-
-        /// <summary>
         /// Gets the runtime types.
         /// </summary>
         /// <value>The runtime types.</value>
         readonly List<IRuntimeType> _runtimeTypes = new List<IRuntimeType>();
+
+        /// <summary>
+        /// Gets the assignable types.
+        /// </summary>
+        /// <value>The assignable types.</value>
+        readonly List<string> _typeDefinitions = new List<string>();
 
         /// <summary>
         /// The values
@@ -45,17 +45,11 @@ namespace Build
         /// <exception cref="ArgumentNullException">attribute</exception>
         public RuntimeType(IRuntimeAttribute attribute, Type type, bool defaultTypeInstantiation)
         {
-            AssignableType = type;
+            TypeDefinition = type.FullName;
             Type = type;
             UseDefaultTypeInstantiation = defaultTypeInstantiation;
             Attribute = attribute ?? throw new ArgumentNullException(nameof(attribute));
         }
-
-        /// <summary>
-        /// Gets the type of the assignable.
-        /// </summary>
-        /// <value>The type of the assignable.</value>
-        public Type AssignableType { get; private set; }
 
         /// <summary>
         /// Gets the attribute.
@@ -70,15 +64,10 @@ namespace Build
         public int Count => _runtimeTypes.Count;
 
         /// <summary>
-        /// Gets the full name of hosted runtime type
-        /// </summary>
-        public string FullName => Type.FullName;
-
-        /// <summary>
         /// Gets the identifier.
         /// </summary>
         /// <value>The identifier.</value>
-        public string Id => Format.GetConstructorFullName(Type.FullName, RuntimeTypes.Select(p => p.AssignableType.FullName));
+        public string Id => Format.GetConstructorFullName(TypeFullName, RuntimeTypes.Select(p => p.TypeDefinition));
 
         /// <summary>
         /// Gets the runtime parameters.
@@ -91,6 +80,17 @@ namespace Build
         /// </summary>
         /// <value>The type.</value>
         public Type Type { get; }
+
+        /// <summary>
+        /// Gets the first assignable type.
+        /// </summary>
+        /// <value>The type full name of the assignable.</value>
+        public string TypeDefinition { get; private set; }
+
+        /// <summary>
+        /// Gets the full name of hosted runtime type
+        /// </summary>
+        public string TypeFullName => Type.FullName;
 
         /// <summary>
         /// True if automatic type instantiation for reference types option enabled (does not throws
@@ -133,6 +133,15 @@ namespace Build
         public void AddParameter(IRuntimeType parameterRuntimeType) => _runtimeTypes.Add(parameterRuntimeType);
 
         /// <summary>
+        /// Determines whether the specified identifier is assignable from type.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>
+        /// <c>true</c> if the specified identifier is assignable from type, otherwise <c>false</c>.
+        /// </returns>
+        public bool ContainsTypeDefinition(string id) => _typeDefinitions.FirstOrDefault(p => p == id) != null;
+
+        /// <summary>
         /// Creates the instance.
         /// </summary>
         /// <param name="args">The arguments.</param>
@@ -171,22 +180,6 @@ namespace Build
         }
 
         /// <summary>
-        /// Finds the type of the assignable.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
-        public Type FindAssignableType(string id) => _assignableTypes.FirstOrDefault(p => p.FullName == id && p.IsAssignableFrom(Type));
-
-        /// <summary>
-        /// Determines whether [is assignable from] [the specified identifier].
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>
-        /// <c>true</c> if [is assignable from] [the specified identifier]; otherwise, <c>false</c>.
-        /// </returns>
-        public bool IsAssignableFrom(string id) => FindAssignableType(id) != null;
-
-        /// <summary>
         /// Gets the parameters;
         /// </summary>
         /// <returns></returns>
@@ -201,15 +194,15 @@ namespace Build
         }
 
         /// <summary>
-        /// Registers the type of the assignable.
+        /// Registers type full name as assignable type
         /// </summary>
-        /// <param name="type">The type.</param>
-        public void RegisterAssignableType(Type type)
+        /// <param name="typeFullName">The type full name.</param>
+        public void RegisterTypeDefinition(string typeFullName)
         {
-            if (!_assignableTypes.Contains(type))
+            if (!_typeDefinitions.Contains(typeFullName))
             {
-                _assignableTypes.Add(type);
-                AssignableType = type;
+                _typeDefinitions.Add(typeFullName);
+                TypeDefinition = typeFullName;
             }
         }
 
@@ -228,7 +221,7 @@ namespace Build
         {
             for (int i = 0; i < args.Length; i++)
             {
-                if (args[i] != null && !_runtimeTypes[i].IsAssignableFrom((args[i] ?? typeof(object)).GetType().FullName))
+                if (args[i] != null && !_runtimeTypes[i].ContainsTypeDefinition(Format.GetObjectFullName(args[i])))
                     return false;
                 _runtimeTypes[i][Attribute, Id] = args[i];
             }
@@ -264,9 +257,9 @@ namespace Build
         object CreateReferenceType(object[] args)
         {
             if (!IsInitialized)
-                throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructor available)", FullName));
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructor available)", TypeFullName));
             if (!RegisterParameters(args))
-                throw new TypeInstantiationException(string.Format("{0} is not instantiated (parameter type mismatch)", FullName));
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated (parameter type mismatch)", TypeFullName));
             if (args.Length == 0)
                 return EvaluateRuntimeInstance(this, Attribute, null);
             return CreateInstance(Attribute);
@@ -282,7 +275,7 @@ namespace Build
         object EvaluateArgument(IRuntimeAttribute attribute, int? i)
         {
             if (_runtimeInstance == RuntimeInstance.None || (!UseDefaultTypeInstantiation && IsDefaultReferencedType()))
-                throw new TypeInstantiationException(string.Format("{0} is not instantiated (constructor not allowed)", FullName));
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated (constructor not allowed)", TypeFullName));
             return EvaluateInjection(attribute, i);
         }
 
@@ -324,6 +317,10 @@ namespace Build
             return _value;
         }
 
+        /// <summary>
+        /// Checks whether type is not a value type and not yet initialized
+        /// </summary>
+        /// <returns></returns>
         bool IsDefaultReferencedType() => !Type.IsValueType && _runtimeInstance == RuntimeInstance.Default;
 
         /// <summary>

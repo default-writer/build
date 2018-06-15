@@ -9,12 +9,6 @@ namespace Build
     public interface IRuntimeType
     {
         /// <summary>
-        /// Gets the type of the assignable.
-        /// </summary>
-        /// <value>The type of the assignable.</value>
-        Type AssignableType { get; }
-
-        /// <summary>
         /// Gets the attribute.
         /// </summary>
         /// <value>The attribute.</value>
@@ -25,11 +19,6 @@ namespace Build
         /// </summary>
         /// <value>The parameters count.</value>
         int Count { get; }
-
-        /// <summary>
-        /// Gets the full name of hosted runtime type
-        /// </summary>
-        string FullName { get; }
 
         /// <summary>
         /// Gets the identifier.
@@ -48,6 +37,17 @@ namespace Build
         /// </summary>
         /// <value>The type.</value>
         Type Type { get; }
+
+        /// <summary>
+        /// Gets the type of the assignable.
+        /// </summary>
+        /// <value>The type of the assignable.</value>
+        string TypeDefinition { get; }
+
+        /// <summary>
+        /// Gets the full name of hosted runtime type
+        /// </summary>
+        string TypeFullName { get; }
 
         /// <summary>
         /// True if automatic type instantiation for reference types option enabled (does not throws
@@ -74,20 +74,37 @@ namespace Build
         /// <param name="parameterRuntimeType">Type of the parameter runtime.</param>
         void AddParameter(IRuntimeType parameterRuntimeType);
 
-        object CreateInstance(object[] args);
-
-        object EvaluateRuntimeInstance(IRuntimeType type, IRuntimeAttribute attribute, int? i);
-
         /// <summary>
-        /// Determines whether [is assignable from] [the specified identifier].
+        /// Determines whether the specified identifier is assignable from type.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>
-        /// <c>true</c> if [is assignable from] [the specified identifier]; otherwise, <c>false</c>.
+        /// <c>true</c> if the specified identifier is assignable from type, otherwise <c>false</c>.
         /// </returns>
-        bool IsAssignableFrom(string id);
+        bool ContainsTypeDefinition(string id);
 
-        void RegisterAssignableType(Type type);
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        object CreateInstance(object[] args);
+
+        /// <summary>
+        /// Evaluates the runtime instance.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="attribute">The attribute.</param>
+        /// <param name="i">The i.</param>
+        /// <returns></returns>
+        object EvaluateRuntimeInstance(IRuntimeType type, IRuntimeAttribute attribute, int? i);
+
+        /// <summary>
+        /// Registers type full name as assignable type
+        /// </summary>
+        /// <param name="typeFullName"></param>
+        void RegisterTypeDefinition(string typeFullName);
 
         /// <summary>
         /// Sets the runtime instance type

@@ -49,7 +49,7 @@ namespace Build
             {
                 var argumentType = args.Current;
                 var parameterType = pars.Current;
-                if (!parameterType.IsAssignableFrom(argumentType))
+                if (!parameterType.ContainsTypeDefinition(argumentType))
                     return false;
             }
             return true;
@@ -107,7 +107,7 @@ namespace Build
         /// <param name="runtimeType">Type of the runtime.</param>
         /// <param name="name">The name.</param>
         /// <returns></returns>
-        static bool MatchType(IRuntimeType runtimeType, string name) => runtimeType.FullName == name;
+        static bool MatchType(IRuntimeType runtimeType, string name) => runtimeType.TypeFullName == name;
 
         /// <summary>
         /// Caches the type of the runtime.
