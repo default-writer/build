@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Build
 {
-    class TypeObject : ITypeObject
+    public class TypeObject : ITypeObject
     {
         public TypeObject(IRuntimeAttribute runtimeAttribute, Type runtimeType, bool defaultTypeInstantiation)
         {

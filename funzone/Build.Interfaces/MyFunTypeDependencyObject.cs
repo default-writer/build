@@ -1,16 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
-namespace Build
+namespace Build.Interfaces
 {
-    public sealed class TypeDependencyObject : TypeObject, ITypeDependencyObject
+    class MyFunTypeDependencyObject : TypeObject, ITypeDependencyObject
     {
-        public TypeDependencyObject(ConstructorInfo constructorInfo, bool defaultTypeInstantiation) : base(GetDependencyAttribute(constructorInfo), constructorInfo.DeclaringType, defaultTypeInstantiation)
+        public MyFunTypeDependencyObject(ConstructorInfo constructorInfo, bool defaultTypeInstantiation) : base(GetDependencyAttribute(constructorInfo), constructorInfo.DeclaringType, defaultTypeInstantiation)
         {
             var dependencyAttribute = (DependencyAttribute)RuntimeAttribute;
             DependencyAttribute = dependencyAttribute;
-            InjectionObjects = new List<ITypeInjectionObject>(constructorInfo.GetParameters().Select(p => new TypeInjectionObject(p, defaultTypeInstantiation)));
+            InjectionObjects = new List<ITypeInjectionObject>(constructorInfo.GetParameters().Select(p => new MyFunTypeInjectionObject(p, defaultTypeInstantiation)));
             TypeParameters = InjectionObjects.Select(p => p.RuntimeType.TypeFullName);
             TypeFullNameWithParameters = Format.GetConstructorWithParameters(TypeFullName, TypeParameters);
         }
