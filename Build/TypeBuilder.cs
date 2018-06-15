@@ -258,7 +258,7 @@ namespace Build
         /// <returns></returns>
         string GetTypeFullName(ITypeDependencyObject dependencyObject)
         {
-            string id = GetAssemblyTypeFullName(dependencyObject);
+            var id = GetAssemblyTypeFullName(dependencyObject);
             var parameterArgs = dependencyObject.InjectedTypes;
             var runtimeType = Parser.Find(id, parameterArgs, Types.Values);
             string constructorRuntimeFullName = runtimeType == null ? id : runtimeType.TypeFullName;
@@ -294,7 +294,7 @@ namespace Build
         {
             var constructor = dependencyObject.RuntimeType;
             var constructorAttribute = dependencyObject.DependencyAttribute;
-            string typeFullName = GetTypeFullName(dependencyObject);
+            var typeFullName = GetTypeFullName(dependencyObject);
             if (!Types.ContainsKey(typeFullName))
             {
                 var result = this[typeFullName, constructor];

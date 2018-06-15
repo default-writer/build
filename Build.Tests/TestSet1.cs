@@ -12,6 +12,26 @@ namespace Build.Tests.TestSet1
         public Person(IPersonRepository personRepository) => _personRepository = personRepository;
     }
 
+    public class PrivateSqlDataRepository : IPersonRepository
+    {
+        public PrivateSqlDataRepository()
+        {
+        }
+
+        public PrivateSqlDataRepository(int personId)
+        {
+            PersonId = personId;
+        }
+
+        public int PersonId { get; }
+
+        public Person GetPerson(int personId)
+        {
+            // get the data from SQL DB and return Person instance.
+            return new Person(this);
+        }
+    }
+
     public class ServiceDataRepository : IPersonRepository
     {
         public ServiceDataRepository([Injection(typeof(SqlDataRepository), 2018)]IPersonRepository repository)
@@ -79,26 +99,6 @@ namespace Build.Tests.TestSet1
         }
 
         public int PersonId { get; }
-    }
-
-    class PrivateSqlDataRepository : IPersonRepository
-    {
-        public PrivateSqlDataRepository()
-        {
-        }
-
-        public PrivateSqlDataRepository(int personId)
-        {
-            PersonId = personId;
-        }
-
-        public int PersonId { get; }
-
-        public Person GetPerson(int personId)
-        {
-            // get the data from SQL DB and return Person instance.
-            return new Person(this);
-        }
     }
 
     class PrivateSqlDataRepository2 : IPersonRepository

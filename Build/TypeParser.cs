@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -63,7 +64,7 @@ namespace Build
         /// <returns></returns>
         static bool MatchParameterArguments(IRuntimeType runtimeType, IEnumerable<string> args)
         {
-            int count = args.Count();
+            var count = args.Count();
             if (count > 0 && runtimeType.Count != count)
                 return false;
             if (!MatchArguments(args, runtimeType.RuntimeTypes))
@@ -96,7 +97,7 @@ namespace Build
         {
             if (match.Count > 0 && runtimeType.Count != match.Count)
                 return false;
-            if (!MatchArguments(match.Select(capture => capture.Value.Trim()), runtimeType.RuntimeTypes))
+            if (!MatchArguments(match.Cast<Match>().Select(capture => capture.Value.Trim()), runtimeType.RuntimeTypes))
                 return false;
             return true;
         }

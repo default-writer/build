@@ -29,6 +29,6 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public static IEnumerable<string> GetParametersFullName(object[] args) => args == null ? Array.Empty<string>() : args.Select(p => GetObjectFullName(p)).ToArray();
+        public static IEnumerable<string> GetParametersFullName(object[] args) => args == null ? Array.Empty<string>() : args.Select(GetObjectFullName).ToArray();
     }
 }
