@@ -9,15 +9,24 @@ namespace Build
         {
             var injectionAttribute = (InjectionAttribute)RuntimeAttribute;
             InjectionAttribute = injectionAttribute;
-            InjectedTypes = injectionAttribute.Arguments;
+            TypeParameters = injectionAttribute.Arguments;
+            TypeFullNameWithParameters = Format.GetConstructorWithParameters(TypeFullName, TypeParameters);
         }
 
         /// <summary>
-        /// Enumerates type parameters
+        /// Injection attribute
         /// </summary>
-        public IEnumerable<string> InjectedTypes { get; }
-
         public IInjectionAttribute InjectionAttribute { get; }
+
+        /// <summary>
+        /// Type full name with parameters
+        /// </summary>
+        public string TypeFullNameWithParameters { get; }
+
+        /// <summary>
+        /// Type parameters full name
+        /// </summary>
+        public IEnumerable<string> TypeParameters { get; }
 
         /// <summary>
         /// Gets the injection attribute. (ParameterInfo's ParameterType)

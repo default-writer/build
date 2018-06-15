@@ -242,27 +242,11 @@ namespace Build
         /// <param name="dependencyObject">The type definition.</param>
         /// <returns></returns>
         /// <exception cref="TypeRegistrationException"></exception>
-        string GetAssemblyTypeFullName(ITypeDependencyObject dependencyObject)
+        void CheckTypeFullName(ITypeDependencyObject dependencyObject)
         {
-            string typeFullName = dependencyObject.TypeFullName;
-            var attributeType = Resolver.GetType(dependencyObject.RuntimeType.Type.Assembly, typeFullName);
+            var attributeType = Resolver.GetType(dependencyObject.RuntimeType.Type.Assembly, dependencyObject.TypeFullName);
             if (attributeType != null && !attributeType.IsAssignableFrom(dependencyObject.RuntimeType.Type))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", attributeType.FullName, dependencyObject.RuntimeType.TypeFullName));
-            return typeFullName;
-        }
-
-        /// <summary>
-        /// Gets the full name of the type.
-        /// </summary>
-        /// <param name="dependencyObject">The type definition.</param>
-        /// <returns></returns>
-        string GetTypeFullName(ITypeDependencyObject dependencyObject)
-        {
-            var id = GetAssemblyTypeFullName(dependencyObject);
-            var parameterArgs = dependencyObject.InjectedTypes;
-            var runtimeType = Parser.Find(id, parameterArgs, Types.Values);
-            string constructorRuntimeFullName = runtimeType == null ? id : runtimeType.TypeFullName;
-            return Format.GetConstructorFullName(constructorRuntimeFullName, parameterArgs);
         }
 
         /// <summary>
@@ -294,7 +278,8 @@ namespace Build
         {
             var constructor = dependencyObject.RuntimeType;
             var constructorAttribute = dependencyObject.DependencyAttribute;
-            var typeFullName = GetTypeFullName(dependencyObject);
+            CheckTypeFullName(dependencyObject);
+            var typeFullName = dependencyObject.TypeFullNameWithParameters;
             if (!Types.ContainsKey(typeFullName))
             {
                 var result = this[typeFullName, constructor];
@@ -319,13 +304,12 @@ namespace Build
             string typeFullName = injectionObject.TypeFullName;
             var attributeType = Resolver.GetType(constructorType.Assembly, typeFullName);
             CheckParametersFullName(constructorType, parameterType, typeFullName, attributeType);
-            var parameters = injectionObject.InjectedTypes;
+            var parameters = injectionObject.TypeParameters;
             var runtimeType = Parser.Find(typeFullName, parameters, Types.Values);
             if (UseDefaultTypeResolution && runtimeType == null)
                 RegisterConstructorType(attributeType);
             RegisterConstructorType(parameterType);
-            string constructorRuntimeTypeFullName = runtimeType == null ? typeFullName : runtimeType.TypeFullName;
-            RegisterRuntimeType(dependencyObject, injectionObject, parameters, constructorRuntimeTypeFullName);
+            RegisterRuntimeType(dependencyObject, injectionObject);
         }
 
         /// <summary>
@@ -343,17 +327,15 @@ namespace Build
             }
         }
 
-        void RegisterRuntimeType(ITypeDependencyObject dependencyObject, ITypeInjectionObject injectionObject, IEnumerable<string> parameters, string constructorRuntimeTypeFullName)
+        void RegisterRuntimeType(ITypeDependencyObject dependencyObject, ITypeInjectionObject injectionObject)
         {
             var constructor = dependencyObject.RuntimeType;
             var parameter = injectionObject.RuntimeType;
-            var constructorTypeFullName = constructor.TypeFullName;
-            var constructorParameters = dependencyObject.InjectedTypes;
-            var typeFullName = Format.GetConstructorFullName(constructorRuntimeTypeFullName, parameters);
+            var typeFullName = injectionObject.TypeFullNameWithParameters;
             var result = this[typeFullName, parameter];
             if (result != null)
             {
-                var constructorFullName = Format.GetConstructorFullName(constructorTypeFullName, constructorParameters);
+                var constructorFullName = dependencyObject.TypeFullNameWithParameters;
                 result.Attribute.RegisterRuntimeType(constructorFullName, injectionObject.InjectionAttribute);
                 constructor.AddParameter(result);
             }

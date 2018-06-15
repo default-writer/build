@@ -6,11 +6,13 @@ namespace Build
     {
         IDependencyAttribute DependencyAttribute { get; }
 
+        IEnumerable<ITypeInjectionObject> InjectionObjects { get; }
+
+        string TypeFullNameWithParameters { get; }
+
         /// <summary>
         /// Enumerates type parameters
         /// </summary>
-        IEnumerable<string> InjectedTypes { get; }
-
-        IEnumerable<ITypeInjectionObject> InjectionObjects { get; }
+        IEnumerable<string> TypeParameters { get; }
     }
 }

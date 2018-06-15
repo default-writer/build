@@ -4,11 +4,13 @@ namespace Build
 {
     public interface ITypeInjectionObject : ITypeObject
     {
+        IInjectionAttribute InjectionAttribute { get; }
+
+        string TypeFullNameWithParameters { get; }
+
         /// <summary>
         /// Enumerates type parameters
         /// </summary>
-        IEnumerable<string> InjectedTypes { get; }
-
-        IInjectionAttribute InjectionAttribute { get; }
+        IEnumerable<string> TypeParameters { get; }
     }
 }

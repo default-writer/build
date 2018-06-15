@@ -49,6 +49,7 @@ namespace Build
             Type = type;
             UseDefaultTypeInstantiation = defaultTypeInstantiation;
             Attribute = attribute ?? throw new ArgumentNullException(nameof(attribute));
+            Id = Format.GetConstructorWithParameters(TypeFullName, _runtimeTypes.Select(p => p.TypeDefinition));
         }
 
         /// <summary>
@@ -67,7 +68,7 @@ namespace Build
         /// Gets the identifier.
         /// </summary>
         /// <value>The identifier.</value>
-        public string Id => Format.GetConstructorFullName(TypeFullName, RuntimeTypes.Select(p => p.TypeDefinition));
+        public string Id { get; private set; }
 
         /// <summary>
         /// Gets the runtime parameters.
@@ -130,7 +131,11 @@ namespace Build
         /// Adds the parameter.
         /// </summary>
         /// <param name="parameterRuntimeType">Type of the parameter runtime.</param>
-        public void AddParameter(IRuntimeType parameterRuntimeType) => _runtimeTypes.Add(parameterRuntimeType);
+        public void AddParameter(IRuntimeType parameterRuntimeType)
+        {
+            _runtimeTypes.Add(parameterRuntimeType);
+            Id = Format.GetConstructorWithParameters(TypeFullName, _runtimeTypes.Select(p => p.TypeDefinition));
+        }
 
         /// <summary>
         /// Determines whether the specified identifier is assignable from type.
@@ -221,7 +226,7 @@ namespace Build
         {
             for (int i = 0; i < args.Length; i++)
             {
-                if (args[i] != null && !_runtimeTypes[i].ContainsTypeDefinition(Format.GetObjectFullName(args[i])))
+                if (args[i] != null && !_runtimeTypes[i].ContainsTypeDefinition(Format.GetParameterFullName(args[i])))
                     return false;
                 _runtimeTypes[i][Attribute, Id] = args[i];
             }
