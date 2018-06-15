@@ -222,18 +222,27 @@ namespace Build
         /// <summary>
         /// Gets the full name of the parameters.
         /// </summary>
-        /// <param name="type">The type.</param>
+        /// <param name="typeFullName">The type.</param>
+        /// <param name="parameterTypeFullName">Type of the parameter.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeRegistrationException"></exception>
+        static void CheckParametersFullName(string typeFullName, string parameterTypeFullName)
+        {
+            if (typeFullName == parameterTypeFullName)
+                throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", typeFullName));
+        }
+
+        /// <summary>
+        /// Gets the full name of the parameters.
+        /// </summary>
         /// <param name="parameterType">Type of the parameter.</param>
-        /// <param name="id">The identifier.</param>
         /// <param name="attributeType">Type of the attribute.</param>
         /// <returns></returns>
         /// <exception cref="TypeRegistrationException"></exception>
-        static void CheckParametersFullName(Type type, Type parameterType, string id, Type attributeType)
+        static void CheckTypeFullName(Type parameterType, Type attributeType)
         {
             if (attributeType != null && !parameterType.IsAssignableFrom(attributeType))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", parameterType.FullName, attributeType.FullName));
-            if (id == type.FullName && id == parameterType.FullName)
-                throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type.FullName));
         }
 
         /// <summary>
@@ -303,7 +312,8 @@ namespace Build
             var parameterType = parameter.Type;
             string typeFullName = injectionObject.TypeFullName;
             var attributeType = Resolver.GetType(constructorType.Assembly, typeFullName);
-            CheckParametersFullName(constructorType, parameterType, typeFullName, attributeType);
+            CheckTypeFullName(parameterType, attributeType);
+            CheckParametersFullName(constructorType.FullName, parameterType.FullName);
             var parameters = injectionObject.TypeParameters;
             var runtimeType = Parser.Find(typeFullName, parameters, Types.Values);
             if (UseDefaultTypeResolution && runtimeType == null)
