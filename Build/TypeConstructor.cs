@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Build
 {
-    public class TypeConstructor : ITypeConstructor
+    public sealed class TypeConstructor : ITypeConstructor
     {
         public IEnumerable<ITypeDependencyObject> GetDependencyObjects(Type type, bool defaultTypeInstantiation)
         {

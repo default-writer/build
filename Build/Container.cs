@@ -8,7 +8,7 @@ namespace Build
     /// <summary>
     /// Public class for type container
     /// </summary>
-    public class Container : IContainer
+    public sealed class Container : IContainer
     {
         /// <summary>
         /// The type builder

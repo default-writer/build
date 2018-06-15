@@ -8,7 +8,7 @@ namespace Build
     /// Runtime information for type
     /// </summary>
     /// <seealso cref="Build.IRuntimeType"/>
-    sealed class RuntimeType : IRuntimeType
+    public sealed class RuntimeType : IRuntimeType
     {
         /// <summary>
         /// Gets the assignable types.

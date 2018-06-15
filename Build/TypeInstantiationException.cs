@@ -8,7 +8,7 @@ namespace Build
     /// </summary>
     /// <seealso cref="System.Exception"/>
     [Serializable]
-    public class TypeInstantiationException : Exception
+    public sealed class TypeInstantiationException : Exception
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeInstantiationException"/> class.
@@ -48,7 +48,7 @@ namespace Build
         /// The <see cref="T:System.Runtime.Serialization.StreamingContext"></see> that contains
         /// contextual information about the source or destination.
         /// </param>
-        protected TypeInstantiationException(SerializationInfo info, StreamingContext context) : base(info, context)
+        TypeInstantiationException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }
