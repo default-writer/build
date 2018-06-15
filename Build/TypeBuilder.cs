@@ -7,7 +7,7 @@ namespace Build
     /// <summary>
     /// Type builder
     /// </summary>
-    class TypeBuilder : ITypeBuilder
+    sealed class TypeBuilder : ITypeBuilder
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeBuilder"/> class.
@@ -22,8 +22,8 @@ namespace Build
         /// </param>
         public TypeBuilder(bool defaultTypeResolution, bool defaultTypeInstantiation)
         {
-            DefaultTypeResolution = defaultTypeResolution;
-            DefaultTypeInstantiation = defaultTypeInstantiation;
+            UseDefaultTypeResolution = defaultTypeResolution;
+            UseDefaultTypeInstantiation = defaultTypeInstantiation;
             Constructor = new TypeConstructor();
             Filter = new TypeFilter();
             Resolver = new TypeResolver();
@@ -47,8 +47,8 @@ namespace Build
         /// </param>
         public TypeBuilder(ITypeConstructor typeConstructor, ITypeFilter typeFilter, ITypeParser typeParser, ITypeResolver typeResolver, bool defaultTypeResolution, bool defaultTypeInstantiation)
         {
-            DefaultTypeResolution = defaultTypeResolution;
-            DefaultTypeInstantiation = defaultTypeInstantiation;
+            UseDefaultTypeResolution = defaultTypeResolution;
+            UseDefaultTypeInstantiation = defaultTypeInstantiation;
             Constructor = typeConstructor ?? throw new ArgumentNullException(nameof(typeConstructor));
             Filter = typeFilter ?? throw new ArgumentNullException(nameof(typeFilter));
             Resolver = typeResolver ?? throw new ArgumentNullException(nameof(typeResolver));
@@ -56,24 +56,27 @@ namespace Build
         }
 
         /// <summary>
-        /// True if automatic type resolution for reference types option enabled (does not throws
-        /// exceptions for reference types contains type dependencies to non-registered types)
+        /// Constructs type dependency
         /// </summary>
-        /// <remarks>
-        /// If automatic type resolution for reference types is enabled, type will defaults to null
-        /// if not resolved and no exception will be thrown
-        /// </remarks>
-        public bool DefaultTypeResolution { get; }
+        public ITypeConstructor Constructor { get; }
 
         /// <summary>
-        /// True if automatic type instantiation for reference types option enabled (does not throws
-        /// exceptions for reference types defaults to null)
+        /// Gets the filter.
         /// </summary>
-        /// <remarks>
-        /// If automatic type instantiation for reference types is enabled, type will defaults to
-        /// null if not resolved and no exception will be thrown
-        /// </remarks>
-        public bool DefaultTypeInstantiation { get; }
+        /// <value>The filter.</value>
+        public ITypeFilter Filter { get; }
+
+        /// <summary>
+        /// Gets the parser.
+        /// </summary>
+        /// <value>The parser.</value>
+        public ITypeParser Parser { get; }
+
+        /// <summary>
+        /// Gets the resolver.
+        /// </summary>
+        /// <value>The resolver.</value>
+        public ITypeResolver Resolver { get; }
 
         /// <summary>
         /// Gets the runtime aliased types.
@@ -100,33 +103,30 @@ namespace Build
         public IEnumerable<string> RuntimeTypes => Types.Select(p => p.Value.Id);
 
         /// <summary>
-        /// Constructs type dependency
+        /// True if automatic type instantiation for reference types option enabled (does not throws
+        /// exceptions for reference types defaults to null)
         /// </summary>
-        public ITypeConstructor Constructor { get; }
+        /// <remarks>
+        /// If automatic type instantiation for reference types is enabled, type will defaults to
+        /// null if not resolved and no exception will be thrown
+        /// </remarks>
+        public bool UseDefaultTypeInstantiation { get; }
 
         /// <summary>
-        /// Gets the filter.
+        /// True if automatic type resolution for reference types option enabled (does not throws
+        /// exceptions for reference types contains type dependencies to non-registered types)
         /// </summary>
-        /// <value>The filter.</value>
-        public ITypeFilter Filter { get; }
-
-        /// <summary>
-        /// Gets the parser.
-        /// </summary>
-        /// <value>The parser.</value>
-        public ITypeParser Parser { get; }
-
-        /// <summary>
-        /// Gets the resolver.
-        /// </summary>
-        /// <value>The resolver.</value>
-        public ITypeResolver Resolver { get; }
+        /// <remarks>
+        /// If automatic type resolution for reference types is enabled, type will defaults to null
+        /// if not resolved and no exception will be thrown
+        /// </remarks>
+        public bool UseDefaultTypeResolution { get; }
 
         /// <summary>
         /// Gets the types.
         /// </summary>
         /// <value>The types.</value>
-        IDictionary<string, RuntimeType> Types { get; } = new Dictionary<string, RuntimeType>();
+        IDictionary<string, IRuntimeType> Types { get; } = new Dictionary<string, IRuntimeType>();
 
         /// <summary>
         /// Gets the visited.
@@ -141,7 +141,7 @@ namespace Build
         /// <param name="id">The identifier.</param>
         /// <param name="type">The type.</param>
         /// <returns></returns>
-        RuntimeType this[string id, RuntimeType type]
+        IRuntimeType this[string id, IRuntimeType type]
         {
             get
             {
@@ -220,19 +220,6 @@ namespace Build
         internal void Reset() => Types.Clear();
 
         /// <summary>
-        /// Checks the full name of the parameter type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="parameterType">Type of the parameter.</param>
-        /// <param name="id">The identifier.</param>
-        /// <exception cref="TypeRegistrationException"></exception>
-        static void CheckParameterTypeFullName(Type type, Type parameterType, string id)
-        {
-            if (id == type.FullName && id == parameterType.FullName)
-                throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type.FullName));
-        }
-
-        /// <summary>
         /// Gets the full name of the parameters.
         /// </summary>
         /// <param name="type">The type.</param>
@@ -246,6 +233,19 @@ namespace Build
             if (attributeType != null && !parameterType.IsAssignableFrom(attributeType))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", parameterType.FullName, attributeType.FullName));
             CheckParameterTypeFullName(type, parameterType, id);
+        }
+
+        /// <summary>
+        /// Checks the full name of the parameter type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="parameterType">Type of the parameter.</param>
+        /// <param name="id">The identifier.</param>
+        /// <exception cref="TypeRegistrationException"></exception>
+        static void CheckParameterTypeFullName(Type type, Type parameterType, string id)
+        {
+            if (id == type.FullName && id == parameterType.FullName)
+                throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type.FullName));
         }
 
         /// <summary>
@@ -276,7 +276,7 @@ namespace Build
             string id = GetAssemblyTypeFullName(type, typeFullName);
             var parameterArgs = constructorParametersFullNames;
             var runtimeType = (RuntimeType)Parser.Find(id, parameterArgs, Types.Values);
-            string constructorRuntimeFullName = runtimeType == null ? id : runtimeType.Type.FullName;
+            string constructorRuntimeFullName = runtimeType == null ? id : runtimeType.FullName;
             return Format.GetConstructorFullName(constructorRuntimeFullName, parameterArgs);
         }
 
@@ -287,7 +287,7 @@ namespace Build
         /// <exception cref="TypeRegistrationException"></exception>
         void RegisterConstructor(Type type)
         {
-            var constructorEnumerator = Constructor.GetDependencyObjects(type, DefaultTypeInstantiation).GetEnumerator();
+            var constructorEnumerator = Constructor.GetDependencyObjects(type, UseDefaultTypeInstantiation).GetEnumerator();
             if (!constructorEnumerator.MoveNext())
                 throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", type.FullName));
             do
@@ -299,57 +299,6 @@ namespace Build
                 }
                 RegisterConstructorDependencyObject(dependencyObject);
             } while (constructorEnumerator.MoveNext());
-        }
-
-        /// <summary>
-        /// Registers the constructor parameter.
-        /// </summary>
-        /// <param name="dependencyObject">The constructor.</param>
-        /// <param name="injectionObject">The constructor parameter.</param>
-        void RegisterConstructorParameter(ITypeDependencyObject dependencyObject, ITypeInjectionObject injectionObject)
-        {
-            var constructor = dependencyObject.RuntimeType;
-            var type = constructor.Type;
-            var parameter = injectionObject.RuntimeType;
-            string id = injectionObject.InjectionAttribute.TypeFullName ?? parameter.Type.FullName;
-            var attributeType = Resolver.GetType(type.Assembly, id);
-            CheckParametersFullName(type, parameter.Type, id, attributeType);
-            var parameters = injectionObject.InjectionAttribute.GetParametersFullName();
-            var runtimeType = (RuntimeType)Parser.Find(id, parameters, Types.Values);
-            if (DefaultTypeResolution && runtimeType == null)
-                RegisterConstructorType(attributeType);
-            RegisterConstructorType(parameter.Type);
-            string constructorRuntimeTypeFullName = runtimeType == null ? id : runtimeType.Type.FullName;
-            RegisterRuntimeType(dependencyObject, injectionObject, constructor, parameter, parameters, constructorRuntimeTypeFullName);
-        }
-
-        void RegisterRuntimeType(ITypeDependencyObject dependencyObject, ITypeInjectionObject injectionObject, RuntimeType constructor, RuntimeType parameter, IEnumerable<string> parameters, string constructorRuntimeTypeFullName)
-        {
-            var type = constructor.Type;
-            var constructorParameters = dependencyObject.InjectionObjectsFullNames;
-            var typeFullName = Format.GetConstructorFullName(constructorRuntimeTypeFullName, parameters);
-            var result = this[typeFullName, parameter];
-            if (result != null)
-            {
-                var constructorFullName = Format.GetConstructorFullName(type.FullName, constructorParameters);
-                result.Attribute.RegisterRuntimeType(constructorFullName, injectionObject.InjectionAttribute);
-                constructor.AddParameter(result);
-            }
-        }
-
-        /// <summary>
-        /// Registers the type of the constructor.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <exception cref="TypeRegistrationException"></exception>
-        void RegisterConstructorType(Type type)
-        {
-            if (Filter.CanRegister(type))
-            {
-                if (Visited.Contains(type))
-                    throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type.FullName));
-                RegisterType(type);
-            }
         }
 
         /// <summary>
@@ -368,8 +317,60 @@ namespace Build
                 var result = this[typeFullName, constructor];
                 if (result != null)
                 {
-                    result.Initialize(attribute.RuntimeInstance);
+                    result.SetRuntimeInstance(attribute.RuntimeInstance);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Registers the constructor parameter.
+        /// </summary>
+        /// <param name="dependencyObject">The constructor.</param>
+        /// <param name="injectionObject">The constructor parameter.</param>
+        void RegisterConstructorParameter(ITypeDependencyObject dependencyObject, ITypeInjectionObject injectionObject)
+        {
+            var constructor = dependencyObject.RuntimeType;
+            var type = constructor.Type;
+            var parameter = injectionObject.RuntimeType;
+            var parameterType = parameter.Type;
+            string id = injectionObject.InjectionAttribute.TypeFullName ?? parameterType.FullName;
+            var attributeType = Resolver.GetType(type.Assembly, id);
+            CheckParametersFullName(type, parameterType, id, attributeType);
+            var parameters = injectionObject.InjectionAttribute.GetParametersFullName();
+            var runtimeType = (RuntimeType)Parser.Find(id, parameters, Types.Values);
+            if (UseDefaultTypeResolution && runtimeType == null)
+                RegisterConstructorType(attributeType);
+            RegisterConstructorType(parameterType);
+            string constructorRuntimeTypeFullName = runtimeType == null ? id : runtimeType.Type.FullName;
+            RegisterRuntimeType(dependencyObject, injectionObject, constructor, parameter, parameters, constructorRuntimeTypeFullName);
+        }
+
+        /// <summary>
+        /// Registers the type of the constructor.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <exception cref="TypeRegistrationException"></exception>
+        void RegisterConstructorType(Type type)
+        {
+            if (Filter.CanRegister(type))
+            {
+                if (Visited.Contains(type))
+                    throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type.FullName));
+                RegisterType(type);
+            }
+        }
+
+        void RegisterRuntimeType(ITypeDependencyObject dependencyObject, ITypeInjectionObject injectionObject, IRuntimeType constructor, IRuntimeType parameter, IEnumerable<string> parameters, string constructorRuntimeTypeFullName)
+        {
+            var type = constructor.Type;
+            var constructorParameters = dependencyObject.InjectionObjectsFullNames;
+            var typeFullName = Format.GetConstructorFullName(constructorRuntimeTypeFullName, parameters);
+            var result = this[typeFullName, parameter];
+            if (result != null)
+            {
+                var constructorFullName = Format.GetConstructorFullName(type.FullName, constructorParameters);
+                result.Attribute.RegisterRuntimeType(constructorFullName, injectionObject.InjectionAttribute);
+                constructor.AddParameter(result);
             }
         }
     }

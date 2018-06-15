@@ -19,6 +19,27 @@ namespace Build.Tests.Fail_TestSet4
         }
 
         [Fact]
+        public static void Fail_TestSet4_Method3()
+        {
+            var container = new Container();
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<OtherRepository>());
+        }
+
+        [Fact]
+        public static void Fail_TestSet4_Method4()
+        {
+            var container = new Container();
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository>());
+        }
+
+        [Fact]
+        public static void Fail_TestSet4_Method5()
+        {
+            var container = new Container();
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository>());
+        }
+
+        [Fact]
         public static void Fail_TestSet4_Method6()
         {
             var container = new Container();
@@ -47,24 +68,19 @@ namespace Build.Tests.Fail_TestSet4
         }
 
         [Fact]
-        public static void Fail_TestSet4_Method3()
+        public static void TestSet4_Method10()
         {
+            //TestSet1
             var container = new Container();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<OtherRepository>());
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<SqlDataRepository6>());
         }
 
         [Fact]
-        public static void Fail_TestSet4_Method4()
+        public static void TestSet4_Method11()
         {
+            //TestSet1
             var container = new Container();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository>());
-        }
-
-        [Fact]
-        public static void Fail_TestSet4_Method5()
-        {
-            var container = new Container();
-            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository>());
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<SqlDataRepository7>());
         }
 
         [Fact]
@@ -97,22 +113,6 @@ namespace Build.Tests.Fail_TestSet4
             //TestSet1
             var container = new Container();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository5>());
-        }
-
-        [Fact]
-        public static void TestSet4_Method10()
-        {
-            //TestSet1
-            var container = new Container();
-            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<SqlDataRepository6>());
-        }
-
-        [Fact]
-        public static void TestSet4_Method11()
-        {
-            //TestSet1
-            var container = new Container();
-            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<SqlDataRepository7>());
         }
     }
 }

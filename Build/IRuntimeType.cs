@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Build
@@ -8,10 +9,22 @@ namespace Build
     public interface IRuntimeType
     {
         /// <summary>
+        /// Gets the type of the assignable.
+        /// </summary>
+        /// <value>The type of the assignable.</value>
+        Type AssignableType { get; }
+
+        /// <summary>
         /// Gets the attribute.
         /// </summary>
         /// <value>The attribute.</value>
         IRuntimeAttribute Attribute { get; }
+
+        /// <summary>
+        /// Gets the parameters count.
+        /// </summary>
+        /// <value>The parameters count.</value>
+        int Count { get; }
 
         /// <summary>
         /// Gets the full name of hosted runtime type
@@ -25,16 +38,45 @@ namespace Build
         string Id { get; }
 
         /// <summary>
-        /// Gets the parameters count.
-        /// </summary>
-        /// <value>The parameters count.</value>
-        int ParametersCount { get; }
-
-        /// <summary>
         /// Gets the runtime parameters.
         /// </summary>
         /// <value>The runtime parameters.</value>
-        IEnumerable<IRuntimeType> RuntimeParameters { get; }
+        IEnumerable<IRuntimeType> RuntimeTypes { get; }
+
+        /// <summary>
+        /// Gets the type.
+        /// </summary>
+        /// <value>The type.</value>
+        Type Type { get; }
+
+        /// <summary>
+        /// True if automatic type instantiation for reference types option enabled (does not throws
+        /// exceptions for reference types defaults to null)
+        /// </summary>
+        /// <remarks>
+        /// If automatic type instantiation for reference types is enabled, type will defaults to
+        /// null if not resolved and no exception will be thrown
+        /// </remarks>
+        bool UseDefaultTypeInstantiation { get; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="System.Object"/> with the specified attribute.
+        /// </summary>
+        /// <value>The <see cref="System.Object"/>.</value>
+        /// <param name="attribute">The attribute.</param>
+        /// <param name="typeFullName">Full name of the type.</param>
+        /// <returns></returns>
+        object this[IRuntimeAttribute attribute, string typeFullName] { get; set; }
+
+        /// <summary>
+        /// Adds the parameter.
+        /// </summary>
+        /// <param name="parameterRuntimeType">Type of the parameter runtime.</param>
+        void AddParameter(IRuntimeType parameterRuntimeType);
+
+        object CreateInstance(object[] args);
+
+        object EvaluateRuntimeInstance(IRuntimeType type, IRuntimeAttribute attribute, int? i);
 
         /// <summary>
         /// Determines whether [is assignable from] [the specified identifier].
@@ -44,5 +86,13 @@ namespace Build
         /// <c>true</c> if [is assignable from] [the specified identifier]; otherwise, <c>false</c>.
         /// </returns>
         bool IsAssignableFrom(string id);
+
+        void RegisterAssignableType(Type type);
+
+        /// <summary>
+        /// Sets the runtime instance type
+        /// </summary>
+        /// <param name="runtimeInstance"></param>
+        void SetRuntimeInstance(RuntimeInstance runtimeInstance);
     }
 }

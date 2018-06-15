@@ -61,18 +61,18 @@ namespace Build
         public override RuntimeInstance RuntimeInstance => RuntimeInstance.None;
 
         /// <summary>
-        /// Gets injected object parameters
-        /// </summary>
-        /// <param name="index">Value index in parameters array</param>
-        /// <returns>Returns value in array at specified index</returns>
-        public object GetObject(int index) => Arguments[index];
-
-        /// <summary>
         /// Checks that selected index is within parameters array bounds
         /// </summary>
         /// <param name="index">Value index in parameters array</param>
         /// <returns>Returns true if selected index is within parameters array bounds</returns>
         public bool CheckBounds(int index) => index >= 0 && index < Arguments.Length;
+
+        /// <summary>
+        /// Gets injected object parameters
+        /// </summary>
+        /// <param name="index">Value index in parameters array</param>
+        /// <returns>Returns value in array at specified index</returns>
+        public object GetObject(int index) => Arguments[index];
 
         /// <summary>
         /// Gets the full name of the parameters.

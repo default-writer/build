@@ -38,15 +38,15 @@ namespace Build
         public IDictionary<string, IRuntimeAttribute> RuntimeTypes { get; } = new Dictionary<string, IRuntimeAttribute>();
 
         /// <summary>
+        /// Type
+        /// </summary>
+        public Type Type { get; }
+
+        /// <summary>
         /// Gets the full name of the type.
         /// </summary>
         /// <value>The full name of the type.</value>
         public string TypeFullName { get; }
-
-        /// <summary>
-        /// Type
-        /// </summary>
-        public Type Type { get; }
 
         /// <summary>
         /// Gets the type of the runtime.

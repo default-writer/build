@@ -5,36 +5,6 @@ namespace Build.Tests.TestSet1
     public static class UnitTest
     {
         [Fact]
-        public static void TestSet1_Method14()
-        {
-            //TestSet1
-            var typeConstructor = new TypeConstructor();
-            var typeFilter = new TypeFilter();
-            var typeParser = new TypeParser();
-            var typeResolver = new TypeResolver();
-            var container = new Container(typeConstructor, typeFilter, typeParser, typeResolver);
-            container.RegisterType<SqlDataRepository>();
-            container.RegisterType<ServiceDataRepository>();
-            var srv1 = container.CreateInstance<ServiceDataRepository>();
-            Assert.NotNull(srv1);
-        }
-
-        [Fact]
-        public static void TestSet1_Method15()
-        {
-            //TestSet1
-            var typeConstructor = new TypeConstructor();
-            var typeFilter = new TypeFilter();
-            var typeParser = new TypeParser();
-            var typeResolver = new TypeResolver();
-            var container = new Container(typeConstructor, typeFilter, typeParser, typeResolver, true, true);
-            container.RegisterType<SqlDataRepository>();
-            container.RegisterType<ServiceDataRepository>();
-            var srv1 = container.CreateInstance<ServiceDataRepository>();
-            Assert.NotNull(srv1);
-        }
-
-        [Fact]
         public static void TestSet1_Method1()
         {
             //TestSet1
@@ -127,6 +97,36 @@ namespace Build.Tests.TestSet1
                 "Build.Tests.Fail_TestSet1.ServiceDataRepository"
             });
             Assert.Throws<TypeInstantiationException>(() => (CircularReference2)container.CreateInstance("#1()"));
+        }
+
+        [Fact]
+        public static void TestSet1_Method14()
+        {
+            //TestSet1
+            var typeConstructor = new TypeConstructor();
+            var typeFilter = new TypeFilter();
+            var typeParser = new TypeParser();
+            var typeResolver = new TypeResolver();
+            var container = new Container(typeConstructor, typeFilter, typeParser, typeResolver);
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            var srv1 = container.CreateInstance<ServiceDataRepository>();
+            Assert.NotNull(srv1);
+        }
+
+        [Fact]
+        public static void TestSet1_Method15()
+        {
+            //TestSet1
+            var typeConstructor = new TypeConstructor();
+            var typeFilter = new TypeFilter();
+            var typeParser = new TypeParser();
+            var typeResolver = new TypeResolver();
+            var container = new Container(typeConstructor, typeFilter, typeParser, typeResolver, true, true);
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            var srv1 = container.CreateInstance<ServiceDataRepository>();
+            Assert.NotNull(srv1);
         }
 
         [Fact]

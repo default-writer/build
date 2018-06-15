@@ -12,7 +12,7 @@ namespace Build
 
         public IInjectionAttribute InjectionAttribute { get; }
 
-        public RuntimeType RuntimeType { get; }
+        public IRuntimeType RuntimeType { get; }
 
         /// <summary>
         /// Gets the injection attribute. (ParameterInfo's ParameterType)

@@ -4,7 +4,7 @@
     {
         ITypeConstructor Constructor { get; }
         ITypeFilter Filter { get; }
-        ITypeResolver Resolver { get; }
         ITypeParser Parser { get; }
+        ITypeResolver Resolver { get; }
     }
 }

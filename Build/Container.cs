@@ -60,6 +60,11 @@ namespace Build
         public Container(bool defaultTypeResolution, bool defaultTypeInstantiation) => _typeBuilder = new TypeBuilder(defaultTypeResolution, defaultTypeInstantiation);
 
         /// <summary>
+        /// Type builder
+        /// </summary>
+        public ITypeBuilder Builder => _typeBuilder;
+
+        /// <summary>
         /// Aliased types.
         /// </summary>
         public IEnumerable<string> RuntimeAliasedTypes => new List<string>(_typeBuilder.RuntimeAliasedTypes);
@@ -78,11 +83,6 @@ namespace Build
         /// Runtime types.
         /// </summary>
         public IEnumerable<string> RuntimeTypes => new List<string>(_typeBuilder.RuntimeTypes);
-
-        /// <summary>
-        /// Type builder
-        /// </summary>
-        public ITypeBuilder Builder => _typeBuilder;
 
         /// <summary>
         /// Creates an object identified as instance of type T

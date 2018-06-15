@@ -6,7 +6,7 @@ namespace Build
     /// Type filter
     /// </summary>
     /// <seealso cref="Build.ITypeFilter"/>
-    public class TypeFilter : ITypeFilter
+    public sealed class TypeFilter : ITypeFilter
     {
         /// <summary>
         /// Determines whether this instance can create the specified type.

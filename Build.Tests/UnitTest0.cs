@@ -7,13 +7,6 @@ namespace Build.Tests.TestSet0
     public static class UnitTest
     {
         [Fact]
-        public static void TestSet0_Method0_0()
-        {
-            //TestSet0
-            Assert.Throws<ArgumentNullException>(() => new RuntimeType(null, null, false));
-        }
-
-        [Fact]
         public static void TestSet0_Method0_1()
         {
             //TestSet0

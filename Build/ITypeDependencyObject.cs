@@ -6,7 +6,7 @@ namespace Build
     {
         IDependencyAttribute DependencyAttribute { get; }
         IEnumerable<ITypeInjectionObject> InjectionObjects { get; }
-        RuntimeType RuntimeType { get; }
         IEnumerable<string> InjectionObjectsFullNames { get; }
+        IRuntimeType RuntimeType { get; }
     }
 }

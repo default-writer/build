@@ -14,13 +14,10 @@ namespace Build
             InjectionObjectsFullNames = InjectionObjects.Select(p => p.RuntimeType.FullName);
         }
 
-        public IEnumerable<ITypeInjectionObject> InjectionObjects { get; }
-
         public IDependencyAttribute DependencyAttribute { get; }
-
-        public RuntimeType RuntimeType { get; }
-
+        public IEnumerable<ITypeInjectionObject> InjectionObjects { get; }
         public IEnumerable<string> InjectionObjectsFullNames { get; }
+        public IRuntimeType RuntimeType { get; }
 
         /// <summary>
         /// Gets the dependency attribute.(ConstructorInfo's DeclaringType)

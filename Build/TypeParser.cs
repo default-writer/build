@@ -9,7 +9,7 @@ namespace Build
     /// Type parser
     /// </summary>
     /// <seealso cref="Build.ITypeParser"/>
-    public class TypeParser : ITypeParser
+    public sealed class TypeParser : ITypeParser
     {
         /// <summary>
         /// Cache for RuntimeTtype.
@@ -64,9 +64,9 @@ namespace Build
         static bool MatchParameterArguments(IRuntimeType runtimeType, IEnumerable<string> args)
         {
             int count = args.Count();
-            if (count > 0 && runtimeType.ParametersCount != count)
+            if (count > 0 && runtimeType.Count != count)
                 return false;
-            if (!MatchArguments(args, runtimeType.RuntimeParameters))
+            if (!MatchArguments(args, runtimeType.RuntimeTypes))
                 return false;
             return true;
         }
@@ -94,9 +94,9 @@ namespace Build
         /// <returns></returns>
         static bool MatchParameters(IRuntimeType runtimeType, MatchCollection match)
         {
-            if (match.Count > 0 && runtimeType.ParametersCount != match.Count)
+            if (match.Count > 0 && runtimeType.Count != match.Count)
                 return false;
-            if (!MatchArguments(match.Select(capture => capture.Value.Trim()), runtimeType.RuntimeParameters))
+            if (!MatchArguments(match.Select(capture => capture.Value.Trim()), runtimeType.RuntimeTypes))
                 return false;
             return true;
         }
@@ -145,7 +145,7 @@ namespace Build
                     if (!enumerator.MoveNext())
                         break;
                     var parameterType = enumerator.Current;
-                    runtimeType = Find(parameterType.Id, args, parameterType.RuntimeParameters);
+                    runtimeType = Find(parameterType.Id, args, parameterType.RuntimeTypes);
                 } while (runtimeType == null);
             }
 
