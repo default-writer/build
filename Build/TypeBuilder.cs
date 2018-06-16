@@ -20,10 +20,15 @@ namespace Build
         /// Parameter defaults to true for automatic type instantiation enabled. If value is false
         /// and type is resolved to default value for reference type, exception will be thrown
         /// </param>
-        public TypeBuilder(bool defaultTypeResolution, bool defaultTypeInstantiation)
+        /// <param name="defaultTypeAttributeOverwrite">
+        /// Parameter defaults to true for automatic type attribute overwrite. If value is false
+        /// exception will be thrown for type attribute overwrites
+        /// </param>
+        public TypeBuilder(bool defaultTypeResolution, bool defaultTypeInstantiation, bool defaultTypeAttributeOverwrite)
         {
             UseDefaultTypeResolution = defaultTypeResolution;
             UseDefaultTypeInstantiation = defaultTypeInstantiation;
+            UseDefaultTypeAttributeOverwrite = defaultTypeAttributeOverwrite;
             Constructor = new TypeConstructor();
             Filter = new TypeFilter();
             Resolver = new TypeResolver();
@@ -45,10 +50,15 @@ namespace Build
         /// Parameter defaults to true for automatic type instantiation enabled. If value is false
         /// and type is resolved to default value for reference type, exception will be thrown
         /// </param>
-        public TypeBuilder(ITypeConstructor typeConstructor, ITypeFilter typeFilter, ITypeParser typeParser, ITypeResolver typeResolver, bool defaultTypeResolution, bool defaultTypeInstantiation)
+        /// <param name="defaultTypeAttributeOverwrite">
+        /// Parameter defaults to true for automatic type attribute overwrite. If value is false
+        /// exception will be thrown for type attribute overwrites
+        /// </param>
+        public TypeBuilder(ITypeConstructor typeConstructor, ITypeFilter typeFilter, ITypeParser typeParser, ITypeResolver typeResolver, bool defaultTypeResolution, bool defaultTypeInstantiation, bool defaultTypeAttributeOverwrite)
         {
             UseDefaultTypeResolution = defaultTypeResolution;
             UseDefaultTypeInstantiation = defaultTypeInstantiation;
+            UseDefaultTypeAttributeOverwrite = defaultTypeAttributeOverwrite;
             Constructor = typeConstructor ?? throw new ArgumentNullException(nameof(typeConstructor));
             Filter = typeFilter ?? throw new ArgumentNullException(nameof(typeFilter));
             Resolver = typeResolver ?? throw new ArgumentNullException(nameof(typeResolver));
@@ -101,6 +111,16 @@ namespace Build
         /// </summary>
         /// <value>The runtime types.</value>
         public IEnumerable<string> RuntimeTypes => Types.Select(p => p.Value.Id);
+
+        /// <summary>
+        /// True if automatic type instantiation for reference types option enabled (does not throws
+        /// exceptions for reference types defaults to null)
+        /// </summary>
+        /// <remarks>
+        /// If automatic type instantiation for reference types is enabled, type will defaults to
+        /// null if not resolved and no exception will be thrown
+        /// </remarks>
+        public bool UseDefaultTypeAttributeOverwrite { get; }
 
         /// <summary>
         /// True if automatic type instantiation for reference types option enabled (does not throws
@@ -361,7 +381,7 @@ namespace Build
             if (result != null)
             {
                 var constructorFullName = dependencyObject.TypeFullNameWithParameters;
-                result.Attribute.RegisterRuntimeType(constructorFullName, injectionObject.InjectionAttribute);
+                result.Attribute.RegisterRuntimeType(constructorFullName, injectionObject.InjectionAttribute, UseDefaultTypeAttributeOverwrite);
                 constructor.AddParameter(result);
             }
         }

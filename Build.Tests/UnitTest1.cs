@@ -19,7 +19,7 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method10()
         {
             //TestSet1
-            var container = new Container();
+            var container = new Container(true, true, true);
             container.RegisterAssembly(typeof(PrivateSqlDataRepository).Assembly, new string[] {
                 "Build.Tests.Fail_TestSet7.SqlDataRepository",
                 "Build.Tests.Fail_TestSet6.ServiceDataRepository",
@@ -56,7 +56,7 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method12()
         {
             //TestSet1
-            var container = new Container(false, true);
+            var container = new Container(false, true, true);
             container.RegisterAssembly(typeof(PrivateSqlDataRepository).Assembly, new string[] {
                 "Build.Tests.Fail_TestSet7.SqlDataRepository",
                 "Build.Tests.Fail_TestSet6.ServiceDataRepository",
@@ -81,7 +81,7 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method13()
         {
             //TestSet1
-            var container = new Container(false, true);
+            var container = new Container(false, true, true);
             container.RegisterAssembly(typeof(PrivateSqlDataRepository).Assembly, new string[] {
                 "Build.Tests.Fail_TestSet7.SqlDataRepository",
                 "Build.Tests.Fail_TestSet6.ServiceDataRepository",
@@ -122,11 +122,81 @@ namespace Build.Tests.TestSet1
             var typeFilter = new TypeFilter();
             var typeParser = new TypeParser();
             var typeResolver = new TypeResolver();
-            var container = new Container(typeConstructor, typeFilter, typeParser, typeResolver, true, true);
+            var container = new Container(typeConstructor, typeFilter, typeParser, typeResolver, true, true, true);
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv1);
+        }
+
+        [Fact]
+        public static void TestSet1_Method16()
+        {
+            //TestSet1
+            var container = new Container(true, true, false);
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterAssembly(typeof(PrivateSqlDataRepository).Assembly, new string[] {
+                "Build.Tests.Fail_TestSet7.SqlDataRepository",
+                "Build.Tests.Fail_TestSet6.ServiceDataRepository",
+                "Build.Tests.Fail_TestSet6.SqlDataRepository",
+                "Build.Tests.Fail_TestSet5.ServiceDataRepository",
+                "Build.Tests.Fail_TestSet5.SqlDataRepository",
+                "Build.Tests.Fail_TestSet4.SqlDataRepository(.*)",
+                "Build.Tests.Fail_TestSet4.ServiceDataRepository(.*)",
+                "Build.Tests.Fail_TestSet3.SqlDataRepository",
+                "Build.Tests.Fail_TestSet2.ServiceDataRepository",
+                "Build.Tests.Fail_TestSet1.Other",
+                "Build.Tests.Fail_TestSet1.PrivateConstructorServiceDataRepository",
+                "Build.Tests.Fail_TestSet1.ServiceDataRepository",
+                "Build.Tests.TestSet1.PrivateSqlDataRepository2",
+                "Build.Tests.TestSet1.CircularReference3",
+                "Build.Tests.TestSet1.CircularReference2",
+                "Build.Tests.TestSet1.CircularReference1"
+            }));
+        }
+
+        [Fact]
+        public static void TestSet1_Method17()
+        {
+            //TestSet1
+            var container = new Container(false, true, false);
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterAssembly(typeof(PrivateSqlDataRepository).Assembly, new string[] {
+                "Build.Tests.Fail_TestSet7.SqlDataRepository",
+                "Build.Tests.Fail_TestSet6.ServiceDataRepository",
+                "Build.Tests.Fail_TestSet6.SqlDataRepository",
+                "Build.Tests.Fail_TestSet5.ServiceDataRepository",
+                "Build.Tests.Fail_TestSet5.SqlDataRepository",
+                "Build.Tests.Fail_TestSet4.SqlDataRepository(.*)",
+                "Build.Tests.Fail_TestSet4.ServiceDataRepository(.*)",
+                "Build.Tests.Fail_TestSet3.SqlDataRepository",
+                "Build.Tests.Fail_TestSet2.ServiceDataRepository",
+                "Build.Tests.Fail_TestSet1.Other",
+                "Build.Tests.Fail_TestSet1.PrivateConstructorServiceDataRepository",
+                "Build.Tests.Fail_TestSet1.ServiceDataRepository",
+                "Build.Tests.TestSet1.PrivateSqlDataRepository2",
+                "Build.Tests.TestSet1.CircularReference3",
+                "Build.Tests.TestSet1.CircularReference1"
+            }));
+        }
+
+        [Fact]
+        public static void TestSet1_Method18()
+        {
+            //TestSet1
+            var container = new Container(false, true, false);
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterAssembly(typeof(PrivateSqlDataRepository).Assembly, new string[] {
+                "Build.Tests.Fail_TestSet7.SqlDataRepository",
+                "Build.Tests.Fail_TestSet6.ServiceDataRepository",
+                "Build.Tests.Fail_TestSet6.SqlDataRepository",
+                "Build.Tests.Fail_TestSet5.ServiceDataRepository",
+                "Build.Tests.Fail_TestSet5.SqlDataRepository",
+                "Build.Tests.Fail_TestSet4.SqlDataRepository(.*)",
+                "Build.Tests.Fail_TestSet4.ServiceDataRepository(.*)",
+                "Build.Tests.Fail_TestSet3.SqlDataRepository",
+                "Build.Tests.Fail_TestSet2.ServiceDataRepository",
+                "Build.Tests.Fail_TestSet1.Other",
+                "Build.Tests.Fail_TestSet1.PrivateConstructorServiceDataRepository",
+                "Build.Tests.Fail_TestSet1.ServiceDataRepository"
+            }));
         }
 
         [Fact]

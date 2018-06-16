@@ -32,12 +32,6 @@ namespace Build
         public abstract RuntimeInstance RuntimeInstance { get; }
 
         /// <summary>
-        /// Gets the runtime types.
-        /// </summary>
-        /// <value>The runtime types.</value>
-        public IDictionary<string, IRuntimeAttribute> RuntimeTypes { get; } = new Dictionary<string, IRuntimeAttribute>();
-
-        /// <summary>
         /// Type
         /// </summary>
         public Type Type { get; }
@@ -47,6 +41,12 @@ namespace Build
         /// </summary>
         /// <value>The full name of the type.</value>
         public string TypeFullName { get; }
+
+        /// <summary>
+        /// Gets the runtime types.
+        /// </summary>
+        /// <value>The runtime types.</value>
+        IDictionary<string, IRuntimeAttribute> RuntimeTypes { get; } = new Dictionary<string, IRuntimeAttribute>();
 
         /// <summary>
         /// Gets the type of the runtime.
@@ -65,6 +65,15 @@ namespace Build
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="attribute">The runtime attribute.</param>
-        public void RegisterRuntimeType(string id, IRuntimeAttribute attribute) => RuntimeTypes[id] = attribute;
+        /// <param name="defaultTypeAttributeOverwrite">
+        /// Parameter defaults to true for automatic type attribute overwrite. If value is false
+        /// exception will be thrown for type attribute overwrites
+        /// </param>
+        public void RegisterRuntimeType(string id, IRuntimeAttribute attribute, bool defaultTypeAttributeOverwrite)
+        {
+            if (!defaultTypeAttributeOverwrite && RuntimeTypes.ContainsKey(id))
+                throw new TypeRegistrationException(string.Format("{0} is not registered (duplicate constructors available)", id));
+            RuntimeTypes[id] = attribute;
+        }
     }
 }

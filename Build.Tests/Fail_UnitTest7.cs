@@ -1,3 +1,4 @@
+using System.Linq;
 using Xunit;
 
 namespace Build.Tests.Fail_TestSet7
@@ -23,7 +24,7 @@ namespace Build.Tests.Fail_TestSet7
         public static void Fail_TestSet7_Method3()
         {
             //Fail_TestSet7
-            var container = new Container(true, false);
+            var container = new Container(true, false, true);
             container.RegisterType<ServiceDataRepository>();
             Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository>());
         }
@@ -43,28 +44,29 @@ namespace Build.Tests.Fail_TestSet7
         public static void Fail_TestSet7_Method5()
         {
             //Fail_TestSet7
-            var container = new Container();
+            var container = new Container(true, true, false);
             container.RegisterType<ServiceDataRepository>();
-            bool noException = false;
-            try
-            {
-                container.RegisterType<ServiceDataRepository>();
-                noException = true;
-            }
-            catch
-            {
-            }
-            Assert.True(noException);
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository>());
         }
 
         [Fact]
         public static void Fail_TestSet7_Method6()
         {
             //Fail_TestSet7
-            var container = new Container(true, true);
+            var container = new Container(true, true, true);
             container.RegisterType<ServiceDataRepository>();
             var serviceDataRepository = container.CreateInstance<ServiceDataRepository>();
             Assert.Null(serviceDataRepository.Repository);
+        }
+
+        [Fact]
+        public static void Fail_TestSet7_Method7()
+        {
+            //Fail_TestSet7
+            var container = new Container(true, true, true);
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            Assert.True(container.RuntimeTypes.Any());
         }
     }
 }

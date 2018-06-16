@@ -26,6 +26,10 @@ namespace Build
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="attribute">The attribute.</param>
-        void RegisterRuntimeType(string id, IRuntimeAttribute attribute);
+        /// <param name="defaultTypeAttributeOverwrite">
+        /// Parameter defaults to true for automatic type attribute overwrite. If value is false
+        /// exception will be thrown for type attribute overwrites
+        /// </param>
+        void RegisterRuntimeType(string id, IRuntimeAttribute attribute, bool defaultTypeAttributeOverwrite);
     }
 }

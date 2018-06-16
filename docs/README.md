@@ -38,6 +38,28 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 [wiki](https://github.com/hack2root/build/wiki)
 
+## v1.0.0.11
+
+- Added automatic type attribute overwrite optional parameter to the build system
+- By default, type runtime attributes overrides each other and optionally can be turned off. Exception will be trown.
+
+Example:
+```
+[MyFun]
+interface IMyFunRuleSet2
+{
+    [MyFunDependency(RuntimeInstance.Singleton)]
+    SqlDataRepository Rule(int repositoryId);
+}
+
+[MyFun]
+interface IMyFunRuleSet2_Overwrite
+{
+    [MyFunDependency(RuntimeInstance.Singleton)]
+    SqlDataRepository Rule(int repositoryId);
+}
+```
+
 ## v1.0.0.10
 
 - Added method CanRegisterParameter to ITypeFilter to control parameter registration

@@ -15,13 +15,12 @@
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Dependency Injection</PackageTags>
     <PackageReleaseNotes>Features:
-- Added method CanRegisterParameter to ITypeFilter to control parameter registration
-</PackageReleaseNotes>
+- Added automatic type attribute overwrite optional parameter to the build system</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageId>dependency_injection_build</PackageId>
-    <Version>1.0.0.10</Version>
-    <AssemblyVersion>1.0.0.10</AssemblyVersion>
-    <FileVersion>1.0.0.10</FileVersion>
+    <Version>1.0.0.11</Version>
+    <AssemblyVersion>1.0.0.11</AssemblyVersion>
+    <FileVersion>1.0.0.11</FileVersion>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     <SignAssembly>false</SignAssembly>
     <DelaySign>false</DelaySign>

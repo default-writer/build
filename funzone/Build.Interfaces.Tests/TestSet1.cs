@@ -33,6 +33,13 @@
     }
 
     [MyFun]
+    interface IMyFunRuleSet2_Overwrite
+    {
+        [MyFunDependency(RuntimeInstance.Singleton)]
+        SqlDataRepository Rule(int repositoryId);
+    }
+
+    [MyFun]
     interface IMyFunRuleSet3
     {
         WebServiceDataRepository Rule(int repositoryId);

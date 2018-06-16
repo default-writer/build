@@ -138,7 +138,7 @@ namespace Build.Interfaces.Tests
         public static void Test20()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver(), false, true);
+            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver(), false, true, true);
             container.RegisterType<IMyFunRuleSet2>();
             container.RegisterType<IMyFunRuleSet1>();
             var sql = (ServiceDataRepository)container.CreateInstance("Build.Interfaces.Tests.ServiceDataRepository(Build.Interfaces.Tests.SqlDataRepository)");
@@ -227,6 +227,17 @@ namespace Build.Interfaces.Tests
         }
 
         [Fact]
+        public static void Test28()
+        {
+            //TestSet16
+            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver(), true, true, false);
+            container.RegisterType<IMyFunRuleSet2>();
+            container.RegisterType<IMyFunRuleSet1>();
+            container.RegisterType<IMyFunRuleSet3>();
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<IMyFunRuleSet2_Overwrite>());
+        }
+
+        [Fact]
         public static void Test3()
         {
             //TestSet16
@@ -300,6 +311,7 @@ namespace Build.Interfaces.Tests
             //TestSet16
             var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
             container.RegisterType<IMyFunRuleSet2>();
+            container.RegisterType<IMyFunRuleSet2_Overwrite>();
             container.RegisterType<IMyFunRuleSet1>();
             container.RegisterType<IMyFunRuleSet3>();
             var sql = (WebServiceDataRepository)container.CreateInstance("Build.Interfaces.Tests.WebServiceDataRepository(Build.Interfaces.Tests.IPersonRepository,Build.Interfaces.Tests.IPersonRepository)");
