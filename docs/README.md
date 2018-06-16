@@ -38,6 +38,10 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 [wiki](https://github.com/hack2root/build/wiki)
 
+## v.1.0.0.9
+
+- Added public sealed classes TypeDependencyObject, TypeInjectionObject
+
 ## v1.0.0.8
 
 - Added totally customizable type system
