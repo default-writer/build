@@ -38,13 +38,59 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 [wiki](https://github.com/hack2root/build/wiki)
 
+## v1.0.0.8
+
+- Added totally customizable type system
+- Added ability to use interfaces as first-class objects
+
+### Examples
+#### Customizable type system
+
+- You can use interfaces as first-class objects instead of classes fot typeholders attributes
+- Using interfaces as first-class objects, you will be able to eliminate the need to inject attributes into existing code
+- By implemeting type system interfaces, you will get a fully customzable type system, easily
+- Registration is bound to interfaces only, which can have a several metods named "Rule" (it is evil, i knew it)
+- Type is being instantiatied is actually a return parameter of "Rule" method
+- Arguments passed to the constructor is simply arguments of that particular rule
+- You definetly can break some more rules, just do not try to build inconsistent type system.
+
+Definition:
+```
+interface IMyFunRuleSet
+{
+    Type1 Rule(Arg1 arg1, Arg2 arg2);
+}
+
+class Type1
+{
+    public Type1(Arg1 arg1, Arg2 arg2)
+    {
+        Arg1 = arg1;
+        Arg2 = arg2;
+    }
+
+    public Arg1 Arg1 { get; }
+
+    public Arg2 Arg2 { get; }
+}
+```
+
+Usage:
+```
+var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
+container.RegisterType<IMyFunRuleSet>();
+var type1 = container.CreateInstance("Build.Interfaces.Tests.Type1(Build.Interfaces.Tests.Arg1,Build.Interfaces.Tests.Arg2)");
+Assert.NotNull(type1);
+```
+
+
+
 ## v1.0.0.7
 
 - Enable/disable automatic type resolution
 - Enable/disable automatic type instantiation
 
 ### Examples
-
 #### Automatic type resolution disabled
 
 Parameter is set to true if automatic type resolution for reference types option enabled (does not throws exceptions for reference types contains type dependencies to non-registered types). If automatic type resolution for reference types is enabled, type will defaults to null if not resolved and no exception will be thrown.
