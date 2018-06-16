@@ -15,15 +15,13 @@
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Dependency Injection</PackageTags>
     <PackageReleaseNotes>Features:
-- Added totally customizable type system
-- Added ability to use interfaces as first-class objects
-- Added public sealed classes TypeDependencyObject, TypeInjectionObject
+- Added method CanRegisterParameter to ITypeFilter to control parameter registration
 </PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageId>dependency_injection_build</PackageId>
-    <Version>1.0.0.9</Version>
-    <AssemblyVersion>1.0.0.9</AssemblyVersion>
-    <FileVersion>1.0.0.9</FileVersion>
+    <Version>1.0.0.10</Version>
+    <AssemblyVersion>1.0.0.10</AssemblyVersion>
+    <FileVersion>1.0.0.10</FileVersion>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     <SignAssembly>false</SignAssembly>
     <DelaySign>false</DelaySign>

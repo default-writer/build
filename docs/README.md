@@ -38,10 +38,12 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 [wiki](https://github.com/hack2root/build/wiki)
 
+## v1.0.0.10
+
+- Added method CanRegisterParameter to ITypeFilter to control parameter registration
+
 ## v.1.0.0.9
 
-- Added totally customizable type system
-- Added ability to use interfaces as first-class objects
 - Added public sealed classes TypeDependencyObject, TypeInjectionObject
 
 ## v1.0.0.8
