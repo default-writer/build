@@ -44,7 +44,7 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 - By default, type runtime attributes overrides each other and optionally can be turned off. Exception will be trown.
 
 Example:
-```
+```c#
 [MyFun]
 interface IMyFunRuleSet2
 {
