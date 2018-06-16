@@ -42,7 +42,7 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 - Added method CanRegisterParameter to ITypeFilter to control parameter registration
 
-## v.1.0.0.9
+## v1.0.0.9
 
 - Added public sealed classes TypeDependencyObject, TypeInjectionObject
 
