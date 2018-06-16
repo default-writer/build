@@ -85,7 +85,7 @@ interface IMyFunRuleSet2_Overwrite
 - You definetly can break some more rules, just do not try to build inconsistent type system.
 
 Definition:
-```
+```c#
 interface IMyFunRuleSet
 {
     Type1 Rule(Arg1 arg1, Arg2 arg2);
@@ -106,7 +106,7 @@ class Type1
 ```
 
 Usage:
-```
+```c#
 var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
 container.RegisterType<IMyFunRuleSet>();
 var type1 = container.CreateInstance("Build.Interfaces.Tests.Type1(Build.Interfaces.Tests.Arg1,Build.Interfaces.Tests.Arg2)");
