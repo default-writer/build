@@ -11,6 +11,7 @@
     <AssemblyName>Build.Framework</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>latest</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -31,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
     <LangVersion>latest</LangVersion>
     <DebugSymbols>false</DebugSymbols>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -40,101 +43,103 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
+    <Reference Include="System.Core">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Build\Container.cs">
+    <Compile Include="..\..\Build\Container.cs">
       <Link>Container.cs</Link>
     </Compile>
-    <Compile Include="..\Build\DependencyAttribute.cs">
+    <Compile Include="..\..\Build\DependencyAttribute.cs">
       <Link>DependencyAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\Build\Format.cs">
+    <Compile Include="..\..\Build\Format.cs">
       <Link>Format.cs</Link>
     </Compile>
-    <Compile Include="..\Build\GlobalSuppressions.cs">
+    <Compile Include="..\..\Build\GlobalSuppressions.cs">
       <Link>GlobalSuppressions.cs</Link>
     </Compile>
-    <Compile Include="..\Build\IContainer.cs">
+    <Compile Include="..\..\Build\IContainer.cs">
       <Link>IContainer.cs</Link>
     </Compile>
-    <Compile Include="..\Build\IDependencyAttribute.cs">
+    <Compile Include="..\..\Build\IDependencyAttribute.cs">
       <Link>IDependencyAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\Build\IInjectionAttribute.cs">
+    <Compile Include="..\..\Build\IInjectionAttribute.cs">
       <Link>IInjectionAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\Build\InjectionAttribute.cs">
+    <Compile Include="..\..\Build\InjectionAttribute.cs">
       <Link>InjectionAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\Build\IRuntimeAttribute.cs">
+    <Compile Include="..\..\Build\IRuntimeAttribute.cs">
       <Link>IRuntimeAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\Build\IRuntimeType.cs">
+    <Compile Include="..\..\Build\IRuntimeType.cs">
       <Link>IRuntimeType.cs</Link>
     </Compile>
-    <Compile Include="..\Build\ITypeBuilder.cs">
+    <Compile Include="..\..\Build\ITypeBuilder.cs">
       <Link>ITypeBuilder.cs</Link>
     </Compile>
-    <Compile Include="..\Build\ITypeConstructor.cs">
+    <Compile Include="..\..\Build\ITypeConstructor.cs">
       <Link>ITypeConstructor.cs</Link>
     </Compile>
-    <Compile Include="..\Build\ITypeDependencyObject.cs">
+    <Compile Include="..\..\Build\ITypeDependencyObject.cs">
       <Link>ITypeDependencyObject.cs</Link>
     </Compile>
-    <Compile Include="..\Build\ITypeFilter.cs">
+    <Compile Include="..\..\Build\ITypeFilter.cs">
       <Link>ITypeFilter.cs</Link>
     </Compile>
-    <Compile Include="..\Build\ITypeInjectionObject.cs">
+    <Compile Include="..\..\Build\ITypeInjectionObject.cs">
       <Link>ITypeInjectionObject.cs</Link>
     </Compile>
-    <Compile Include="..\Build\ITypeObject.cs">
+    <Compile Include="..\..\Build\ITypeObject.cs">
       <Link>ITypeObject.cs</Link>
     </Compile>
-    <Compile Include="..\Build\ITypeParser.cs">
+    <Compile Include="..\..\Build\ITypeParser.cs">
       <Link>ITypeParser.cs</Link>
     </Compile>
-    <Compile Include="..\Build\ITypeResolver.cs">
+    <Compile Include="..\..\Build\ITypeResolver.cs">
       <Link>ITypeResolver.cs</Link>
     </Compile>
-    <Compile Include="..\Build\RuntimeAttribute.cs">
+    <Compile Include="..\..\Build\RuntimeAttribute.cs">
       <Link>RuntimeAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\Build\RuntimeInstance.cs">
+    <Compile Include="..\..\Build\RuntimeInstance.cs">
       <Link>RuntimeInstance.cs</Link>
     </Compile>
-    <Compile Include="..\Build\RuntimeType.cs">
+    <Compile Include="..\..\Build\RuntimeType.cs">
       <Link>RuntimeType.cs</Link>
     </Compile>
-    <Compile Include="..\Build\TypeBuilder.cs">
+    <Compile Include="..\..\Build\TypeBuilder.cs">
       <Link>TypeBuilder.cs</Link>
     </Compile>
-    <Compile Include="..\Build\TypeConstructor.cs">
+    <Compile Include="..\..\Build\TypeConstructor.cs">
       <Link>TypeConstructor.cs</Link>
     </Compile>
-    <Compile Include="..\Build\TypeDependencyObject.cs">
+    <Compile Include="..\..\Build\TypeDependencyObject.cs">
       <Link>TypeDependencyObject.cs</Link>
     </Compile>
-    <Compile Include="..\Build\TypeFilter.cs">
+    <Compile Include="..\..\Build\TypeFilter.cs">
       <Link>TypeFilter.cs</Link>
     </Compile>
-    <Compile Include="..\Build\TypeInjectionObject.cs">
+    <Compile Include="..\..\Build\TypeInjectionObject.cs">
       <Link>TypeInjectionObject.cs</Link>
     </Compile>
-    <Compile Include="..\Build\TypeInstantiationException.cs">
+    <Compile Include="..\..\Build\TypeInstantiationException.cs">
       <Link>TypeInstantiationException.cs</Link>
     </Compile>
-    <Compile Include="..\Build\TypeObject.cs">
+    <Compile Include="..\..\Build\TypeObject.cs">
       <Link>TypeObject.cs</Link>
     </Compile>
-    <Compile Include="..\Build\TypeParser.cs">
+    <Compile Include="..\..\Build\TypeParser.cs">
       <Link>TypeParser.cs</Link>
     </Compile>
-    <Compile Include="..\Build\TypeRegistrationException.cs">
+    <Compile Include="..\..\Build\TypeRegistrationException.cs">
       <Link>TypeRegistrationException.cs</Link>
     </Compile>
-    <Compile Include="..\Build\TypeResolver.cs">
+    <Compile Include="..\..\Build\TypeResolver.cs">
       <Link>TypeResolver.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
