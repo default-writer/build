@@ -7,9 +7,9 @@ namespace Build
 {
     public sealed class TypeDependencyObject : TypeObject, ITypeDependencyObject
     {
-        public TypeDependencyObject(IRuntimeAttribute runtimeAttribute, IEnumerable<ITypeInjectionObject> injectionObjects, Type runtimeType, bool defaultTypeInstantiation) : base(GetDependencyAttribute(runtimeAttribute, runtimeType), runtimeType, defaultTypeInstantiation)
+        public TypeDependencyObject(IDependencyAttribute runtimeAttribute, IEnumerable<ITypeInjectionObject> injectionObjects, Type runtimeType, bool defaultTypeInstantiation) : base(GetDependencyAttribute(runtimeAttribute, runtimeType), runtimeType, defaultTypeInstantiation)
         {
-            var dependencyAttribute = (DependencyAttribute)RuntimeAttribute;
+            var dependencyAttribute = (IDependencyAttribute)RuntimeAttribute;
             DependencyAttribute = dependencyAttribute;
             InjectionObjects = injectionObjects;
             TypeParameters = InjectionObjects.Select(p => p.RuntimeType.TypeFullName);

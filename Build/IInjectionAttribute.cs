@@ -1,7 +1,15 @@
-﻿namespace Build
+﻿using System.Collections.Generic;
+
+namespace Build
 {
     public interface IInjectionAttribute : IRuntimeAttribute
     {
+        /// <summary>
+        /// Gets the full name of the parameters.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<string> Arguments { get; }
+
         /// <summary>
         /// Checks that selected index is within parameters array bounds
         /// </summary>

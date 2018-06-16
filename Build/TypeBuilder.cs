@@ -317,9 +317,24 @@ namespace Build
             var parameters = injectionObject.TypeParameters;
             var runtimeType = Parser.Find(typeFullName, parameters, Types.Values);
             if (UseDefaultTypeResolution && runtimeType == null)
-                RegisterConstructorType(attributeType);
+                RegisterConstructorParameter(attributeType);
             RegisterConstructorType(parameterType);
             RegisterRuntimeType(dependencyObject, injectionObject);
+        }
+
+        /// <summary>
+        /// Registers the parameter type of the constructor.
+        /// </summary>
+        /// <param name="type">The parameter type.</param>
+        /// <exception cref="TypeRegistrationException"></exception>
+        void RegisterConstructorParameter(Type type)
+        {
+            if (Filter.CanRegisterParameter(type))
+            {
+                if (Visited.Contains(type))
+                    throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type.FullName));
+                RegisterType(type);
+            }
         }
 
         /// <summary>

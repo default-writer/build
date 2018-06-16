@@ -25,6 +25,15 @@ namespace Build
         public bool CanRegister(Type type) => type != null && type.IsClass && !type.IsAbstract && !IsSpecialType(type);
 
         /// <summary>
+        /// Determines whether this instance can register the specified type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>
+        /// <c>true</c> if this instance can register the specified type; otherwise, <c>false</c>.
+        /// </returns>
+        public bool CanRegisterParameter(Type type) => type != null && type.IsClass && !type.IsAbstract && !IsSpecialType(type);
+
+        /// <summary>
         /// Checks type compatibility
         /// </summary>
         /// <param name="parameterType"></param>

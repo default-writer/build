@@ -6,9 +6,9 @@ namespace Build
 {
     public sealed class TypeInjectionObject : TypeObject, ITypeInjectionObject
     {
-        public TypeInjectionObject(IRuntimeAttribute runtimeAttribute, Type runtimeType, bool defaultTypeInstantiation) : base(GetInjectionAttribute(runtimeAttribute, runtimeType), runtimeType, defaultTypeInstantiation)
+        public TypeInjectionObject(IInjectionAttribute runtimeAttribute, Type runtimeType, bool defaultTypeInstantiation) : base(GetInjectionAttribute(runtimeAttribute, runtimeType), runtimeType, defaultTypeInstantiation)
         {
-            var injectionAttribute = (InjectionAttribute)RuntimeAttribute;
+            var injectionAttribute = (IInjectionAttribute)RuntimeAttribute;
             InjectionAttribute = injectionAttribute;
             TypeParameters = injectionAttribute.Arguments;
             TypeFullNameWithParameters = Format.GetConstructorWithParameters(TypeFullName, TypeParameters);
