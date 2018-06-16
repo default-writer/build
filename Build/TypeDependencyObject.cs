@@ -7,11 +7,11 @@ namespace Build
 {
     public sealed class TypeDependencyObject : TypeObject, ITypeDependencyObject
     {
-        public TypeDependencyObject(ConstructorInfo constructorInfo, Type runtimeType, bool defaultTypeInstantiation) : base(GetDependencyAttribute(constructorInfo, runtimeType), runtimeType, defaultTypeInstantiation)
+        public TypeDependencyObject(IRuntimeAttribute runtimeAttribute, IEnumerable<ITypeInjectionObject> injectionObjects, Type runtimeType, bool defaultTypeInstantiation) : base(GetDependencyAttribute(runtimeAttribute, runtimeType), runtimeType, defaultTypeInstantiation)
         {
             var dependencyAttribute = (DependencyAttribute)RuntimeAttribute;
             DependencyAttribute = dependencyAttribute;
-            InjectionObjects = new List<ITypeInjectionObject>(constructorInfo.GetParameters().Select(p => new TypeInjectionObject(p, defaultTypeInstantiation)));
+            InjectionObjects = injectionObjects;
             TypeParameters = InjectionObjects.Select(p => p.RuntimeType.TypeFullName);
             TypeFullNameWithParameters = Format.GetConstructorWithParameters(TypeFullName, TypeParameters);
         }
@@ -39,9 +39,9 @@ namespace Build
         /// <summary>
         /// Gets the dependency attribute.(ConstructorInfo's DeclaringType)
         /// </summary>
-        /// <param name="constructorInfo">The constructor.</param>
+        /// <param name="runtimeAttribute">The runtime attribute.</param>
         /// <param name="runtimeType">Type to be instantiated</param>
         /// <returns>Returns custom dependency attrubute</returns>
-        static DependencyAttribute GetDependencyAttribute(ConstructorInfo constructorInfo, Type runtimeType) => constructorInfo.GetCustomAttribute<DependencyAttribute>() ?? new DependencyAttribute(runtimeType, RuntimeInstance.CreateInstance);
+        static IRuntimeAttribute GetDependencyAttribute(IRuntimeAttribute runtimeAttribute, Type runtimeType) => runtimeAttribute ?? new DependencyAttribute(runtimeType, RuntimeInstance.CreateInstance);
     }
 }

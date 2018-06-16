@@ -7,11 +7,11 @@ namespace Build.Interfaces
 {
     class MyFunTypeDependencyObject : TypeObject, ITypeDependencyObject
     {
-        public MyFunTypeDependencyObject(MethodInfo constructorInfo, Type runtimeType, bool defaultTypeInstantiation) : base(GetDependencyAttribute(constructorInfo, runtimeType), runtimeType, defaultTypeInstantiation)
+        public MyFunTypeDependencyObject(IRuntimeAttribute runtimeAttribute, IEnumerable<ITypeInjectionObject> injectionObjects, Type runtimeType, bool defaultTypeInstantiation) : base(GetDependencyAttribute(runtimeAttribute, runtimeType), runtimeType, defaultTypeInstantiation)
         {
-            var dependencyAttribute = (MyFunDependencyAttribute)RuntimeAttribute;
+            var dependencyAttribute = (DependencyAttribute)RuntimeAttribute;
             DependencyAttribute = dependencyAttribute;
-            InjectionObjects = new List<ITypeInjectionObject>(constructorInfo.GetParameters().Select(p => new MyFunTypeInjectionObject(p, defaultTypeInstantiation)));
+            InjectionObjects = injectionObjects;
             TypeParameters = InjectionObjects.Select(p => p.RuntimeType.TypeFullName);
             TypeFullNameWithParameters = Format.GetConstructorWithParameters(TypeFullName, TypeParameters);
         }
@@ -39,9 +39,9 @@ namespace Build.Interfaces
         /// <summary>
         /// Gets the dependency attribute.(ConstructorInfo's DeclaringType)
         /// </summary>
-        /// <param name="constructorInfo">The constructor.</param>
+        /// <param name="runtimeAttribute">The runtime attribute.</param>
         /// <param name="runtimeType">Type to be instantiated</param>
         /// <returns>Returns custom dependency attrubute</returns>
-        static MyFunDependencyAttribute GetDependencyAttribute(MethodInfo constructorInfo, Type runtimeType) => constructorInfo.GetCustomAttribute<MyFunDependencyAttribute>() ?? new MyFunDependencyAttribute(runtimeType, RuntimeInstance.CreateInstance);
+        static IRuntimeAttribute GetDependencyAttribute(IRuntimeAttribute runtimeAttribute, Type runtimeType) => runtimeAttribute ?? new DependencyAttribute(runtimeType, RuntimeInstance.CreateInstance);
     }
 }

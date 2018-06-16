@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace Build
 {
@@ -10,7 +12,9 @@ namespace Build
             var dependencyObjects = new List<ITypeDependencyObject>();
             foreach (var constructorInfo in type.GetConstructors())
             {
-                dependencyObjects.Add(new TypeDependencyObject(constructorInfo, constructorInfo.DeclaringType, defaultTypeInstantiation));
+                var runtimeAttribute = constructorInfo.GetCustomAttribute<DependencyAttribute>();
+                var injectionObjects = constructorInfo.GetParameters().Select(p => new TypeInjectionObject(p, defaultTypeInstantiation));
+                dependencyObjects.Add(new TypeDependencyObject(runtimeAttribute, injectionObjects, constructorInfo.DeclaringType, defaultTypeInstantiation));
             }
             return dependencyObjects;
         }

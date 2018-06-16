@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace Build.Interfaces
 {
@@ -14,7 +16,11 @@ namespace Build.Interfaces
             foreach (var constructorInfo in type.GetMethods())
             {
                 if (constructorInfo.Name == "Rule")
-                    dependencyObjects.Add(new MyFunTypeDependencyObject(constructorInfo, constructorInfo.ReturnType, defaultTypeInstantiation));
+                {
+                    var runtimeAttribute = constructorInfo.GetCustomAttribute<MyFunDependencyAttribute>();
+                    var injectionObjects = constructorInfo.GetParameters().Select(p => new MyFunTypeInjectionObject(p, defaultTypeInstantiation));
+                    dependencyObjects.Add(new MyFunTypeDependencyObject(runtimeAttribute, injectionObjects, constructorInfo.ReturnType, defaultTypeInstantiation));
+                }
             }
             return dependencyObjects;
         }
