@@ -13,7 +13,7 @@ namespace Build
             foreach (var constructorInfo in type.GetConstructors())
             {
                 var runtimeAttribute = constructorInfo.GetCustomAttribute<DependencyAttribute>();
-                var injectionObjects = constructorInfo.GetParameters().Select(p => new TypeInjectionObject(p, defaultTypeInstantiation));
+                var injectionObjects = constructorInfo.GetParameters().Select(p => new TypeInjectionObject(p.GetCustomAttribute<InjectionAttribute>(), p.ParameterType, defaultTypeInstantiation));
                 dependencyObjects.Add(new TypeDependencyObject(runtimeAttribute, injectionObjects, constructorInfo.DeclaringType, defaultTypeInstantiation));
             }
             return dependencyObjects;

@@ -18,8 +18,8 @@ namespace Build.Interfaces
                 if (constructorInfo.Name == "Rule")
                 {
                     var runtimeAttribute = constructorInfo.GetCustomAttribute<MyFunDependencyAttribute>();
-                    var injectionObjects = constructorInfo.GetParameters().Select(p => new MyFunTypeInjectionObject(p, defaultTypeInstantiation));
-                    dependencyObjects.Add(new MyFunTypeDependencyObject(runtimeAttribute, injectionObjects, constructorInfo.ReturnType, defaultTypeInstantiation));
+                    var injectionObjects = constructorInfo.GetParameters().Select(p => new TypeInjectionObject(p.GetCustomAttribute<MyFunInjectionAttribute>(), p.ParameterType, defaultTypeInstantiation));
+                    dependencyObjects.Add(new TypeDependencyObject(runtimeAttribute, injectionObjects, constructorInfo.ReturnType, defaultTypeInstantiation));
                 }
             }
             return dependencyObjects;
