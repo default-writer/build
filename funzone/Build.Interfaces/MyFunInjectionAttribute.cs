@@ -9,16 +9,6 @@ namespace Build.Interfaces
     /// </summary>
     /// <seealso cref="Build.RuntimeAttribute"/>
     /// <seealso cref="Build.IRuntimeAttribute"/>
-    [AttributeUsage(AttributeTargets.Interface)]
-    public sealed class MyFunAttribute : Attribute
-    {
-    }
-
-    /// <summary>
-    /// Injection attribute
-    /// </summary>
-    /// <seealso cref="Build.RuntimeAttribute"/>
-    /// <seealso cref="Build.IRuntimeAttribute"/>
     [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class MyFunInjectionAttribute : RuntimeAttribute, IInjectionAttribute
     {
