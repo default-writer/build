@@ -10,7 +10,7 @@ namespace Build
             var dependencyObjects = new List<ITypeDependencyObject>();
             foreach (var constructorInfo in type.GetConstructors())
             {
-                dependencyObjects.Add(new TypeDependencyObject(constructorInfo, defaultTypeInstantiation));
+                dependencyObjects.Add(new TypeDependencyObject(constructorInfo, constructorInfo.DeclaringType, defaultTypeInstantiation));
             }
             return dependencyObjects;
         }

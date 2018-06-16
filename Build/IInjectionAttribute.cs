@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Build
+﻿namespace Build
 {
     public interface IInjectionAttribute : IRuntimeAttribute
     {

@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Build.Interfaces
 {
-    public class MyFunTypeFilter : ITypeFilter
+    public sealed class MyFunTypeFilter : ITypeFilter
     {
         /// <summary>
         /// Determines whether this instance can create the specified type.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns><c>true</c> if this instance can create the specified type; otherwise, <c>false</c>.</returns>
-        public bool CanCreate(Type type) => CanRegister(type);
+        public bool CanCreate(Type type) => type != null && type.IsClass && !type.IsAbstract && !IsSpecialType(type);
 
         /// <summary>
         /// Determines whether this instance can register the specified type.
@@ -20,7 +18,15 @@ namespace Build.Interfaces
         /// <returns>
         /// <c>true</c> if this instance can register the specified type; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanRegister(Type type) => type != null && type.IsClass && !type.IsAbstract && !IsSpecialType(type);
+        public bool CanRegister(Type type) => type != null && type.IsInterface;
+
+        /// <summary>
+        /// Checks type compatibility
+        /// </summary>
+        /// <param name="parameterType"></param>
+        /// <param name="attributeType"></param>
+        /// <returns>True if parameter matches the criteria</returns>
+        public bool CheckTypeFullName(Type parameterType, Type attributeType) => parameterType.IsAssignableFrom(attributeType);
 
         /// <summary>
         /// Determines whether [is special type] [the specified type].

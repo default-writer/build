@@ -25,6 +25,14 @@ namespace Build
         public bool CanRegister(Type type) => type != null && type.IsClass && !type.IsAbstract && !IsSpecialType(type);
 
         /// <summary>
+        /// Checks type compatibility
+        /// </summary>
+        /// <param name="parameterType"></param>
+        /// <param name="attributeType"></param>
+        /// <returns>True if parameter matches the criteria</returns>
+        public bool CheckTypeFullName(Type parameterType, Type attributeType) => parameterType.IsAssignableFrom(attributeType);
+
+        /// <summary>
         /// Determines whether [is special type] [the specified type].
         /// </summary>
         /// <param name="type">The type.</param>

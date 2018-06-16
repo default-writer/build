@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -6,7 +7,7 @@ namespace Build
 {
     public sealed class TypeDependencyObject : TypeObject, ITypeDependencyObject
     {
-        public TypeDependencyObject(ConstructorInfo constructorInfo, bool defaultTypeInstantiation) : base(GetDependencyAttribute(constructorInfo), constructorInfo.DeclaringType, defaultTypeInstantiation)
+        public TypeDependencyObject(ConstructorInfo constructorInfo, Type runtimeType, bool defaultTypeInstantiation) : base(GetDependencyAttribute(constructorInfo, runtimeType), runtimeType, defaultTypeInstantiation)
         {
             var dependencyAttribute = (DependencyAttribute)RuntimeAttribute;
             DependencyAttribute = dependencyAttribute;
@@ -39,7 +40,8 @@ namespace Build
         /// Gets the dependency attribute.(ConstructorInfo's DeclaringType)
         /// </summary>
         /// <param name="constructorInfo">The constructor.</param>
-        /// <returns></returns>
-        static DependencyAttribute GetDependencyAttribute(ConstructorInfo constructorInfo) => constructorInfo.GetCustomAttribute<DependencyAttribute>() ?? new DependencyAttribute(constructorInfo.DeclaringType, RuntimeInstance.CreateInstance);
+        /// <param name="runtimeType">Type to be instantiated</param>
+        /// <returns>Returns custom dependency attrubute</returns>
+        static DependencyAttribute GetDependencyAttribute(ConstructorInfo constructorInfo, Type runtimeType) => constructorInfo.GetCustomAttribute<DependencyAttribute>() ?? new DependencyAttribute(runtimeType, RuntimeInstance.CreateInstance);
     }
 }

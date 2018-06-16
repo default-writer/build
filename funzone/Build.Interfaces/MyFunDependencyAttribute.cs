@@ -1,40 +1,40 @@
-using System;
+﻿using System;
 
-namespace Build
+namespace Build.Interfaces
 {
     /// <summary>
     /// Dependency attribute
     /// </summary>
     /// <seealso cref="Build.RuntimeAttribute"/>
     /// <seealso cref="Build.IRuntimeAttribute"/>
-    [AttributeUsage(AttributeTargets.Constructor)]
-    public sealed class DependencyAttribute : RuntimeAttribute, IDependencyAttribute
+    [AttributeUsage(AttributeTargets.Method)]
+    public sealed class MyFunDependencyAttribute : RuntimeAttribute, IDependencyAttribute
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
         /// <param name="typeFullName">Full name of the type.</param>
         /// <param name="runtimeInstance">The runtime instance.</param>
-        public DependencyAttribute(string typeFullName, RuntimeInstance runtimeInstance) : base(typeFullName) => RuntimeInstance = runtimeInstance;
+        public MyFunDependencyAttribute(string typeFullName, RuntimeInstance runtimeInstance) : base(typeFullName) => RuntimeInstance = runtimeInstance;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="runtimeInstance">The runtime instance.</param>
-        public DependencyAttribute(Type type, RuntimeInstance runtimeInstance) : base(type) => RuntimeInstance = runtimeInstance;
+        public MyFunDependencyAttribute(Type type, RuntimeInstance runtimeInstance) : base(type) => RuntimeInstance = runtimeInstance;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
         /// <param name="runtimeInstance">The runtime instance.</param>
-        public DependencyAttribute(RuntimeInstance runtimeInstance) => RuntimeInstance = runtimeInstance;
+        public MyFunDependencyAttribute(RuntimeInstance runtimeInstance) => RuntimeInstance = runtimeInstance;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
         /// <param name="typeFullName"></param>
-        public DependencyAttribute(string typeFullName) : base(typeFullName)
+        public MyFunDependencyAttribute(string typeFullName) : base(typeFullName)
         {
         }
 
@@ -42,14 +42,14 @@ namespace Build
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
-        public DependencyAttribute(Type type) : base(type)
+        public MyFunDependencyAttribute(Type type) : base(type)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
-        public DependencyAttribute()
+        public MyFunDependencyAttribute()
         {
         }
 

@@ -7,7 +7,7 @@ namespace Build
     /// <summary>
     /// Type builder
     /// </summary>
-    sealed class TypeBuilder : ITypeBuilder
+    public sealed class TypeBuilder : ITypeBuilder
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeBuilder"/> class.
@@ -239,9 +239,9 @@ namespace Build
         /// <param name="attributeType">Type of the attribute.</param>
         /// <returns></returns>
         /// <exception cref="TypeRegistrationException"></exception>
-        static void CheckTypeFullName(Type parameterType, Type attributeType)
+        void CheckTypeFullName(Type parameterType, Type attributeType)
         {
-            if (attributeType != null && !parameterType.IsAssignableFrom(attributeType))
+            if (attributeType != null && !Filter.CheckTypeFullName(parameterType, attributeType))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", parameterType.FullName, attributeType.FullName));
         }
 
@@ -254,7 +254,7 @@ namespace Build
         void CheckTypeFullName(ITypeDependencyObject dependencyObject)
         {
             var attributeType = Resolver.GetType(dependencyObject.RuntimeType.Type.Assembly, dependencyObject.TypeFullName);
-            if (attributeType != null && !attributeType.IsAssignableFrom(dependencyObject.RuntimeType.Type))
+            if (attributeType != null && !Filter.CheckTypeFullName(attributeType, dependencyObject.RuntimeType.Type))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", attributeType.FullName, dependencyObject.RuntimeType.TypeFullName));
         }
 

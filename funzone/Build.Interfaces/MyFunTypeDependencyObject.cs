@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Build.Interfaces
 {
     class MyFunTypeDependencyObject : TypeObject, ITypeDependencyObject
     {
-        public MyFunTypeDependencyObject(ConstructorInfo constructorInfo, bool defaultTypeInstantiation) : base(GetDependencyAttribute(constructorInfo), constructorInfo.DeclaringType, defaultTypeInstantiation)
+        public MyFunTypeDependencyObject(MethodInfo constructorInfo, Type runtimeType, bool defaultTypeInstantiation) : base(GetDependencyAttribute(constructorInfo, runtimeType), runtimeType, defaultTypeInstantiation)
         {
-            var dependencyAttribute = (DependencyAttribute)RuntimeAttribute;
+            var dependencyAttribute = (MyFunDependencyAttribute)RuntimeAttribute;
             DependencyAttribute = dependencyAttribute;
             InjectionObjects = new List<ITypeInjectionObject>(constructorInfo.GetParameters().Select(p => new MyFunTypeInjectionObject(p, defaultTypeInstantiation)));
             TypeParameters = InjectionObjects.Select(p => p.RuntimeType.TypeFullName);
@@ -41,7 +40,8 @@ namespace Build.Interfaces
         /// Gets the dependency attribute.(ConstructorInfo's DeclaringType)
         /// </summary>
         /// <param name="constructorInfo">The constructor.</param>
-        /// <returns></returns>
-        static DependencyAttribute GetDependencyAttribute(ConstructorInfo constructorInfo) => constructorInfo.GetCustomAttribute<DependencyAttribute>() ?? new DependencyAttribute(constructorInfo.DeclaringType, RuntimeInstance.CreateInstance);
+        /// <param name="runtimeType">Type to be instantiated</param>
+        /// <returns>Returns custom dependency attrubute</returns>
+        static MyFunDependencyAttribute GetDependencyAttribute(MethodInfo constructorInfo, Type runtimeType) => constructorInfo.GetCustomAttribute<MyFunDependencyAttribute>() ?? new MyFunDependencyAttribute(runtimeType, RuntimeInstance.CreateInstance);
     }
 }

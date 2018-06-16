@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Build.Interfaces
 {
-    public class MyFunTypeParser : ITypeParser
+    public sealed class MyFunTypeParser : ITypeParser
     {
         /// <summary>
         /// Cache for RuntimeTtype.

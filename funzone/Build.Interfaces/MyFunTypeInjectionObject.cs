@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
 namespace Build.Interfaces
 {
@@ -9,7 +7,7 @@ namespace Build.Interfaces
     {
         public MyFunTypeInjectionObject(ParameterInfo parameterInfo, bool defaultTypeInstantiation) : base(GetInjectionAttribute(parameterInfo), parameterInfo.ParameterType, defaultTypeInstantiation)
         {
-            var injectionAttribute = (InjectionAttribute)RuntimeAttribute;
+            var injectionAttribute = (MyFunInjectionAttribute)RuntimeAttribute;
             InjectionAttribute = injectionAttribute;
             TypeParameters = injectionAttribute.Arguments;
             TypeFullNameWithParameters = Format.GetConstructorWithParameters(TypeFullName, TypeParameters);
@@ -35,6 +33,6 @@ namespace Build.Interfaces
         /// </summary>
         /// <param name="parameterInfo">The parameter.</param>
         /// <returns></returns>
-        static InjectionAttribute GetInjectionAttribute(ParameterInfo parameterInfo) => parameterInfo.GetCustomAttribute<InjectionAttribute>() ?? new InjectionAttribute(parameterInfo.ParameterType);
+        static MyFunInjectionAttribute GetInjectionAttribute(ParameterInfo parameterInfo) => parameterInfo.GetCustomAttribute<MyFunInjectionAttribute>() ?? new MyFunInjectionAttribute(parameterInfo.ParameterType);
     }
 }
