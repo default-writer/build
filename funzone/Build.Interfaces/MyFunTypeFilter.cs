@@ -18,7 +18,7 @@ namespace Build.Interfaces
         /// <returns>
         /// <c>true</c> if this instance can register the specified type; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanRegister(Type type) => type != null && type.IsInterface && type.GetCustomAttributes(typeof(MyFunAttribute), false).Length == 0;
+        public bool CanRegister(Type type) => type != null && type.IsInterface && type.GetCustomAttributes(typeof(MyFunAttribute), false).Length != 0;
 
         /// <summary>
         /// Determines whether this instance can register the specified type.
@@ -27,7 +27,7 @@ namespace Build.Interfaces
         /// <returns>
         /// <c>true</c> if this instance can register the specified type; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanRegisterParameter(Type type) => type != null && type.IsInterface && type.GetCustomAttributes(typeof(MyFunAttribute), false).Length == 0;
+        public bool CanRegisterParameter(Type type) => type != null && type.IsInterface && type.GetCustomAttributes(typeof(MyFunAttribute), false).Length != 0;
 
         /// <summary>
         /// Checks type compatibility

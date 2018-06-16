@@ -6,17 +6,18 @@
         WebService
     }
 
-    [MyFun]
     public interface IPersonRepository
     {
         Person GetPerson(int personId);
     }
 
+    [MyFun]
     interface IMyFunRuleSet
     {
         Type1 Rule(Arg1 arg1, Arg2 arg2);
     }
 
+    [MyFun]
     interface IMyFunRuleSet1
     {
         ServiceDataRepository Rule(int repositoryId);
@@ -24,12 +25,14 @@
         ServiceDataRepository Rule([MyFunInjection(typeof(SqlDataRepository), 2018)]IPersonRepository repository);
     }
 
+    [MyFun]
     interface IMyFunRuleSet2
     {
         [MyFunDependency(RuntimeInstance.Singleton)]
         SqlDataRepository Rule(int repositoryId);
     }
 
+    [MyFun]
     interface IMyFunRuleSet3
     {
         WebServiceDataRepository Rule(int repositoryId);
@@ -41,6 +44,7 @@
             [MyFunInjection("Build.Interfaces.Tests.SqlDataRepository", 2021)]IPersonRepository repositoryB);
     }
 
+    [MyFun]
     interface IMyFunRuleSet4
     {
         WebServiceDataRepository2 Rule(int repositoryId);
