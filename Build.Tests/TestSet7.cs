@@ -5,6 +5,14 @@
         Person GetPerson(int personId);
     }
 
+    public interface IPersonRepository2
+    {
+    }
+
+    public class OtherRepository : IPersonRepository2
+    {
+    }
+
     public class Person
     {
         readonly IPersonRepository _personRepository;
@@ -29,6 +37,11 @@
             // get the data from Web service and return Person instance.
             return new Person(this);
         }
+    }
+
+    public class ServiceDataRepository2 : IPersonRepository
+    {
+        public Person GetPerson(int personId) => new Person(this);
     }
 
     public class SqlDataRepository : IPersonRepository
