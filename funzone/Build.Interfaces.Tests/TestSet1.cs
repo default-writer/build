@@ -19,6 +19,14 @@
     [MyFun]
     interface IMyFunRuleSet
     {
+        [MyFunDependency(RuntimeInstance.Singleton)]
+        Type1 Rule(Arg1 arg1, Arg2 arg2);
+    }
+
+    [MyFun]
+    interface IMyFunRuleSet_CreateInstance
+    {
+        [MyFunDependency(RuntimeInstance.CreateInstance)]
         Type1 Rule(Arg1 arg1, Arg2 arg2);
     }
 

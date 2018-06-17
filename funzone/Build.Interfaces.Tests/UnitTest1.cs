@@ -319,6 +319,26 @@ namespace Build.Interfaces.Tests
         }
 
         [Fact]
+        public static void Test35()
+        {
+            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
+            container.RegisterType<IMyFunRuleSet>();
+            var type1 = container.CreateInstance("Build.Interfaces.Tests.Type1(Build.Interfaces.Tests.Arg1,Build.Interfaces.Tests.Arg2)");
+            var type2 = container.CreateInstance("Build.Interfaces.Tests.Type1(Build.Interfaces.Tests.Arg1,Build.Interfaces.Tests.Arg2)");
+            Assert.Equal(type1, type2);
+        }
+
+        [Fact]
+        public static void Test36()
+        {
+            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
+            container.RegisterType<IMyFunRuleSet_CreateInstance>();
+            var type1 = container.CreateInstance("Build.Interfaces.Tests.Type1(Build.Interfaces.Tests.Arg1,Build.Interfaces.Tests.Arg2)");
+            var type2 = container.CreateInstance("Build.Interfaces.Tests.Type1(Build.Interfaces.Tests.Arg1,Build.Interfaces.Tests.Arg2)");
+            Assert.NotEqual(type1, type2);
+        }
+
+        [Fact]
         public static void Test4()
         {
             //TestSet16
