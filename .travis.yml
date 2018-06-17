@@ -7,7 +7,6 @@ mono: none
 dotnet: 2.1.300
 
 script:
-  - find .
   - dotnet restore
   - dotnet build
   - dotnet test --no-build Build.Tests

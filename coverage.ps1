@@ -1,6 +1,9 @@
-$SONARCLOUDTOKEN=$env:SONARCLOUDTOKEN
-
-& dotnet packages/sonar-scanner-msbuild-4.2.0.1214-netcoreapp2.0/SonarScanner.MSBuild.dll begin /d:sonar.login="$SONARCLOUDTOKEN" /k:"build-core" /d:sonar.host.url="https://sonarcloud.io" /n:"build" /v:"1.0" /d:sonar.cs.opencover.reportsPaths="Build.Tests/coverage.xml" /d:sonar.coverage.exclusions="**/MyFun*.cs,**/*Test*.cs,**/*Exception*.cs,**/*Attribute*.cs" /d:sonar.organization="hack2root-github" /d:sonar.sourceEncoding="UTF-8"
+& dotnet tool install --tool-path packages dotnet-sonarscanner
+& dotnet tool install --tool-path packages coveralls.net
+& dotnet add Build.Tests package --package-directory packages OpenCover
+& dotnet add Build.Tests package --package-directory packages coverlet.msbuild
+& packages/dotnet-sonarscanner begin /d:sonar.login="$env:SONARCLOUDTOKEN" /k:"build-core" /d:sonar.host.url="https://sonarcloud.io" /n:"build" /v:"1.0" /d:sonar.cs.opencover.reportsPaths="Build.Tests/coverage.xml" /d:sonar.coverage.exclusions="**/MyFun*.cs,**/*Test*.cs,**/*Exception*.cs,**/*Attribute*.cs" /d:sonar.organization="hack2root-github" /d:sonar.sourceEncoding="UTF-8"
 & dotnet build --configuration Release
-& dotnet test --configuration Release  --no-build Build.Tests /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:ExcludeByFile=\"**/MyFun*.cs,**/*Test*.cs,**/*Exception*.cs,**/*Attribute*.cs"
-& dotnet packages/sonar-scanner-msbuild-4.2.0.1214-netcoreapp2.0/SonarScanner.MSBuild.dll end /d:sonar.login="$SONARCLOUDTOKEN"
+& dotnet test --configuration Release --no-build Build.Tests /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutputDirectory=test-results
+& packages/dotnet-sonarscanner end /d:sonar.login="$env:SONARCLOUDTOKEN"
+& packages/csmacnz.Coveralls --opencover -i Build.Tests/coverage.xml
