@@ -29,6 +29,20 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public static IEnumerable<string> GetParametersFullName(object[] args) => args == null ? Array.Empty<string>() : args.Select(GetParameterFullName).ToArray();
+
+        public static IEnumerable<string> GetParametersFullName(object[] args)
+        {
+            #region Target Frameworks
+
+#if NET45 || NET451 || NET452
+            var emptyArray = new string[0];
+#else
+            var emptyArray = Array.Empty<string>();
+#endif
+
+            #endregion
+
+            return args == null ? emptyArray : args.Select(GetParameterFullName).ToArray();
+        }
     }
 }

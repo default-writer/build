@@ -61,10 +61,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Build.Interfaces", "funzone
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Build.Interfaces.Tests", "funzone\Build.Interfaces.Tests\Build.Interfaces.Tests.csproj", "{A83707F6-4B1A-4E61-AACA-4103C19B0CB6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "net472", "net472", "{BF8921FE-A9BB-4984-8663-D3EDFFEE933F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Build.Framework", "net472\Build.Framework\Build.Framework.csproj", "{198967A8-C891-4056-B61E-BFD80D057DC5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,8 +83,6 @@ Global
 		{A83707F6-4B1A-4E61-AACA-4103C19B0CB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A83707F6-4B1A-4E61-AACA-4103C19B0CB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A83707F6-4B1A-4E61-AACA-4103C19B0CB6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{198967A8-C891-4056-B61E-BFD80D057DC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{198967A8-C891-4056-B61E-BFD80D057DC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,7 +95,6 @@ Global
 		{E51C5E93-F354-4AF0-AAD0-E699D0C045AB} = {56CD2471-65B0-4B05-8024-89C2121A102B}
 		{85016EF4-98DA-4547-AE85-AD6252A63076} = {E96F2CD7-1AB0-4519-9C2E-FFF0E6F9FA2C}
 		{A83707F6-4B1A-4E61-AACA-4103C19B0CB6} = {E96F2CD7-1AB0-4519-9C2E-FFF0E6F9FA2C}
-		{198967A8-C891-4056-B61E-BFD80D057DC5} = {BF8921FE-A9BB-4984-8663-D3EDFFEE933F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B8050DDE-235A-4B64-8B00-5F6C4FF85FCD}

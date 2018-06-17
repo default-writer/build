@@ -138,7 +138,17 @@ namespace Build
         /// <param name="exclusionTypes">List of assembly types to ignore</param>
         public void RegisterAssembly(Assembly assembly, IEnumerable<string> exclusionTypes)
         {
-            var exclusionList = new List<string>(exclusionTypes ?? Array.Empty<string>())
+            #region Target Frameworks
+
+#if NET45 || NET451 || NET452
+            var emptyArray = new string[0];
+#else
+            var emptyArray = Array.Empty<string>();
+#endif
+
+            #endregion
+
+            var exclusionList = new List<string>(exclusionTypes ?? emptyArray)
             {
                 "<PrivateImplementationDetails>"
             };

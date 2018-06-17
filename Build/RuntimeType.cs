@@ -158,7 +158,18 @@ namespace Build
             if (Type.IsValueType)
                 return CreateInstance();
             var parameters = ReadParameters();
-            var result = CreateReferenceType(args ?? Array.Empty<object>());
+
+            #region Target Frameworks
+
+#if NET45 || NET451 || NET452
+            var emptyArray = new object[0];
+#else
+            var emptyArray = Array.Empty<object>();
+#endif
+
+            #endregion
+
+            var result = CreateReferenceType(args ?? emptyArray);
             WriteParameters(parameters);
             return result;
         }
