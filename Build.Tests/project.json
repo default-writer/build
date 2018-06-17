@@ -1,9 +1,0 @@
-{
-  "frameworks": {
-    "netcoreapp2.1": {}
-  },
-  "runtimes": {
-    "win": {}
-  },
-  "dependencies": {}
-}
