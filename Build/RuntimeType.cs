@@ -49,7 +49,7 @@ namespace Build
             Type = type;
             UseDefaultTypeInstantiation = defaultTypeInstantiation;
             Attribute = attribute ?? throw new ArgumentNullException(nameof(attribute));
-            Id = Format.GetConstructorWithParameters(TypeFullName, _runtimeTypes.Select(p => p.TypeDefinition));
+            UpdateTypeId();
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace Build
         public void AddParameter(IRuntimeType parameterRuntimeType)
         {
             _runtimeTypes.Add(parameterRuntimeType);
-            Id = Format.GetConstructorWithParameters(TypeFullName, _runtimeTypes.Select(p => p.TypeDefinition));
+            UpdateTypeId();
         }
 
         /// <summary>
@@ -335,5 +335,10 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         bool RegisterParameters(object[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && WriteParameters(args);
+
+        /// <summary>
+        /// Updates runtime type id
+        /// </summary>
+        void UpdateTypeId() => Id = Format.GetConstructorWithParameters(TypeFullName, _runtimeTypes.Select(p => p.TypeDefinition));
     }
 }
