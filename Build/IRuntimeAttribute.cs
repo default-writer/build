@@ -1,3 +1,5 @@
+using System;
+
 namespace Build
 {
     public interface IRuntimeAttribute
@@ -13,6 +15,13 @@ namespace Build
         /// </summary>
         /// <value>The full name of the type.</value>
         string TypeFullName { get; }
+
+        /// <summary>
+        /// Gets default value for type
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>Returns default value</returns>
+        object GetDefaultValue(Type type);
 
         /// <summary>
         /// Gets the type of the runtime.

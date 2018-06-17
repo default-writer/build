@@ -36,6 +36,21 @@ namespace Build
         }
 
         /// <summary>
+        /// Finds the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="args">The arguments.</param>
+        /// <param name="types">The types.</param>
+        /// <returns></returns>
+        public IEnumerable<IRuntimeType> FindAll(string id, IEnumerable<string> args, IEnumerable<IRuntimeType> types)
+        {
+            var func = Regex.Match(id, @"([^()]+)(?:\((.*)\)){0,1}$");
+            var name = func.Groups[1].Value.Trim();
+            var pars = Regex.Matches(func.Groups[2].Value.Trim(), @"([^,]+\(.+?\))|([^,]+)");
+            return GetRuntimeTypes(args, types, name, pars);
+        }
+
+        /// <summary>
         /// Matches the arguments.
         /// </summary>
         /// <param name="arguments">The arguments.</param>
@@ -150,6 +165,31 @@ namespace Build
             }
 
             return runtimeType;
+        }
+
+        /// <summary>
+        /// Gets the type list of the runtime.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <param name="types">The types.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="pars">The pars.</param>
+        /// <returns></returns>
+        IEnumerable<IRuntimeType> GetRuntimeTypes(IEnumerable<string> args, IEnumerable<IRuntimeType> types, string name, MatchCollection pars)
+        {
+            var runtimeTypes = new List<IRuntimeType>(types.Where((p) => MatchParameters(p, name, args, pars)));
+            if (runtimeTypes.Count == 0)
+            {
+                var enumerator = types.GetEnumerator();
+                while (enumerator.MoveNext())
+                {
+                    var parameterType = enumerator.Current;
+                    var runtimeType = Find(parameterType.Id, args, parameterType.RuntimeTypes);
+                    if (runtimeType != null)
+                        runtimeTypes.Add(runtimeType);
+                }
+            }
+            return runtimeTypes;
         }
     }
 }

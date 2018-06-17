@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 
 namespace Build.Interfaces.Tests
@@ -14,6 +15,7 @@ namespace Build.Interfaces.Tests
         [Fact]
         public static void Test10()
         {
+            Activator.CreateInstance(typeof(WebServiceDataRepository), new object[] { null });
             //TestSet16
             var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
             container.RegisterType<IMyFunRuleSet2>();
@@ -185,7 +187,7 @@ namespace Build.Interfaces.Tests
             var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
             container.RegisterType<IMyFunRuleSet2>();
             container.RegisterType<IMyFunRuleSet1>();
-            var sql = container.CreateInstance<SqlDataRepository>();
+            var sql = container.CreateInstance<SqlDataRepository>(0);
             var srv = container.CreateInstance<ServiceDataRepository>((IPersonRepository)sql);
             Assert.NotNull(srv.Repository);
         }
@@ -238,13 +240,83 @@ namespace Build.Interfaces.Tests
         }
 
         [Fact]
+        public static void Test29()
+        {
+            //TestSet16
+            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
+            container.RegisterType<IMyFunRuleSet2_ValueType>();
+            container.RegisterType<IMyFunRuleSet2>();
+            var sql1 = (SqlDataRepository)container.CreateInstance("Build.Interfaces.Tests.SqlDataRepository(System.Int32)", 2020);
+            container.RegisterType<IMyFunRuleSet2_Overwrite>();
+            var sql2 = (SqlDataRepository)container.CreateInstance("Build.Interfaces.Tests.SqlDataRepository(Build.Interfaces.Tests.IValueType)");
+            Assert.Equal(sql1.RepositoryId, sql2.RepositoryId);
+        }
+
+        [Fact]
         public static void Test3()
         {
             //TestSet16
             var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
+            container.RegisterType<IMyFunRuleSet2_ValueType>();
             container.RegisterType<IMyFunRuleSet2>();
-            var sql = (SqlDataRepository)container.CreateInstance("Build.Interfaces.Tests.SqlDataRepository");
+            var sql = (SqlDataRepository)container.CreateInstance("Build.Interfaces.Tests.SqlDataRepository(System.Int32)");
             Assert.NotNull(sql);
+        }
+
+        [Fact]
+        public static void Test30()
+        {
+            //TestSet16
+            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
+            container.RegisterType<IMyFunRuleSet2_ValueType>();
+            container.RegisterType<IMyFunRuleSet2>();
+            var sql1 = (SqlDataRepository)container.CreateInstance("Build.Interfaces.Tests.SqlDataRepository(Build.Interfaces.Tests.IValueType)");
+            container.RegisterType<IMyFunRuleSet2_Overwrite>();
+            var sql2 = (SqlDataRepository)container.CreateInstance("Build.Interfaces.Tests.SqlDataRepository(Build.Interfaces.Tests.IValueType)");
+            Assert.NotEqual(sql1.RepositoryId, sql2.RepositoryId);
+        }
+
+        [Fact]
+        public static void Test31()
+        {
+            //TestSet16
+            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
+            container.RegisterType<IMyFunRuleSet2>();
+            container.RegisterType<IMyFunRuleSet1>();
+            container.RegisterType<IMyFunRuleSet3>();
+            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Interfaces.Tests.WebServiceDataRepository(Build.Interfaces.Tests.IPersonRepository)");
+            Assert.Equal(2019, ((ServiceDataRepository)sql.RepositoryC).RepositoryId);
+        }
+
+        [Fact]
+        public static void Test32()
+        {
+            //TestSet16
+            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
+            container.RegisterType<IMyFunRuleSet2>();
+            var sql = container.CreateInstance<SqlDataRepository>(default(int));
+            Assert.Equal(0, sql.RepositoryId);
+        }
+
+        [Fact]
+        public static void Test33()
+        {
+            //TestSet16
+            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
+            container.RegisterType<IMyFunRuleSet2_ValueType>();
+            container.RegisterType<IMyFunRuleSet2>();
+            // If your type have multiple constructors available, you must specify type with parameters for the build
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Interfaces.Tests.SqlDataRepository"));
+        }
+
+        [Fact]
+        public static void Test34()
+        {
+            //TestSet16
+            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
+            container.RegisterType<IMyFunRuleSet2>();
+            // If your type have multiple constructors available, you must specify type with parameters for the build
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<SqlDataRepository>());
         }
 
         [Fact]
@@ -290,7 +362,7 @@ namespace Build.Interfaces.Tests
             container.RegisterType<IMyFunRuleSet1>();
             container.RegisterType<IMyFunRuleSet3>();
             var sql = (WebServiceDataRepository)container.CreateInstance("Build.Interfaces.Tests.WebServiceDataRepository(Build.Interfaces.Tests.ServiceDataRepository)");
-            Assert.Equal(2019, ((ServiceDataRepository)sql.RepositoryA).RepositoryId);
+            Assert.Equal(2019, ((ServiceDataRepository)sql.RepositoryC).RepositoryId);
         }
 
         [Fact]

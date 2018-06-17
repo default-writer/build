@@ -11,6 +11,11 @@
         Person GetPerson(int personId);
     }
 
+    public interface IValueType
+    {
+        int Value { get; }
+    }
+
     [MyFun]
     interface IMyFunRuleSet
     {
@@ -20,23 +25,33 @@
     [MyFun]
     interface IMyFunRuleSet1
     {
-        ServiceDataRepository Rule(int repositoryId);
-
         ServiceDataRepository Rule([MyFunInjection(typeof(SqlDataRepository), 2018)]IPersonRepository repository);
+
+        ServiceDataRepository Rule(int repositoryId);
     }
 
     [MyFun]
     interface IMyFunRuleSet2
     {
-        [MyFunDependency(RuntimeInstance.Singleton)]
-        SqlDataRepository Rule(int repositoryId);
+        SqlDataRepository Rule(
+            [MyFunInjection("Build.Interfaces.Tests.ValueType", 2019)]IValueType valueType);
+
+        SqlDataRepository Rule(int value);
     }
 
     [MyFun]
     interface IMyFunRuleSet2_Overwrite
     {
-        [MyFunDependency(RuntimeInstance.Singleton)]
-        SqlDataRepository Rule(int repositoryId);
+        SqlDataRepository Rule(
+            [MyFunInjection("Build.Interfaces.Tests.ValueType", 2020)]IValueType valueType);
+
+        SqlDataRepository Rule(int value);
+    }
+
+    [MyFun]
+    interface IMyFunRuleSet2_ValueType
+    {
+        ValueType Rule(int value);
     }
 
     [MyFun]
@@ -77,7 +92,7 @@
     {
         public ServiceDataRepository(int repositoryId) => RepositoryId = repositoryId;
 
-        public ServiceDataRepository([MyFunInjection(typeof(SqlDataRepository), 2018)]IPersonRepository repository)
+        public ServiceDataRepository(IPersonRepository repository)
         {
             Repository = repository;
         }
@@ -94,7 +109,8 @@
 
     public class SqlDataRepository : IPersonRepository
     {
-        [Dependency(RuntimeInstance.Singleton)]
+        public SqlDataRepository(IValueType valueType) => RepositoryId = valueType.Value;
+
         public SqlDataRepository(int repositoryId) => RepositoryId = repositoryId;
 
         public int RepositoryId { get; }
@@ -106,18 +122,23 @@
         }
     }
 
+    public class ValueType : IValueType
+    {
+        public ValueType(int value) => Value = value;
+
+        public int Value { get; }
+    }
+
     public class WebServiceDataRepository : IPersonRepository
     {
         public WebServiceDataRepository(int repositoryId) => RepositoryId = repositoryId;
 
-        public WebServiceDataRepository([MyFunInjection(typeof(ServiceDataRepository), 2019)]IPersonRepository repository)
+        public WebServiceDataRepository(IPersonRepository repository)
         {
-            RepositoryA = repository;
+            RepositoryC = repository;
         }
 
-        public WebServiceDataRepository(
-            [MyFunInjection("Build.Interfaces.Tests.ServiceDataRepository", 2020)]IPersonRepository repositoryA,
-            [MyFunInjection("Build.Interfaces.Tests.SqlDataRepository", 2021)]IPersonRepository repositoryB)
+        public WebServiceDataRepository(IPersonRepository repositoryA, IPersonRepository repositoryB)
         {
             RepositoryA = repositoryA;
             RepositoryB = repositoryB;
@@ -125,6 +146,7 @@
 
         public IPersonRepository RepositoryA { get; }
         public IPersonRepository RepositoryB { get; }
+        public IPersonRepository RepositoryC { get; }
         public int RepositoryId { get; }
 
         public Person GetPerson(int personId)
@@ -138,14 +160,12 @@
     {
         public WebServiceDataRepository2(int repositoryId) => RepositoryId = repositoryId;
 
-        public WebServiceDataRepository2([MyFunInjection(typeof(ServiceDataRepository), 2019)]IPersonRepository repository)
+        public WebServiceDataRepository2(IPersonRepository repository)
         {
             RepositoryA = repository;
         }
 
-        public WebServiceDataRepository2(
-            [MyFunInjection("Build.Interfaces.Tests.SqlDataRepository", 2020)]IPersonRepository repositoryA,
-            [MyFunInjection("Build.Interfaces.Tests.ServiceDataRepository", 2021)]IPersonRepository repositoryB)
+        public WebServiceDataRepository2(IPersonRepository repositoryA, IPersonRepository repositoryB)
         {
             RepositoryA = repositoryA;
             RepositoryB = repositoryB;

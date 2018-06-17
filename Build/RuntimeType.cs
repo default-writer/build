@@ -120,9 +120,10 @@ namespace Build
         {
             get
             {
-                if (!_values.ContainsKey(attribute.GetRuntimeType(typeFullName)))
-                    _values.Add(attribute.GetRuntimeType(typeFullName), null);
-                return _values[attribute.GetRuntimeType(typeFullName)];
+                var runtimeAttribute = attribute.GetRuntimeType(typeFullName);
+                if (!_values.ContainsKey(runtimeAttribute))
+                    _values.Add(runtimeAttribute, attribute.GetDefaultValue(Type));
+                return _values[runtimeAttribute];
             }
             set => _values[attribute.GetRuntimeType(typeFullName)] = value;
         }

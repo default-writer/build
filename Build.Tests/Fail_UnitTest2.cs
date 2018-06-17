@@ -10,7 +10,7 @@ namespace Build.Tests.Fail_TestSet2
             //Fail_TestSet2
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
-            Assert.NotNull(container.CreateInstance<SqlDataRepository>());
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<SqlDataRepository>(null));
         }
 
         [Fact]
@@ -29,6 +29,15 @@ namespace Build.Tests.Fail_TestSet2
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository>());
+        }
+
+        [Fact]
+        public static void Fail_TestSet2_Method4()
+        {
+            //Fail_TestSet2
+            var container = new Container();
+            container.RegisterType<SqlDataRepository>();
+            Assert.NotNull(container.CreateInstance<SqlDataRepository>(default(int)));
         }
     }
 }

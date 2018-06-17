@@ -200,6 +200,33 @@ namespace Build.Tests.TestSet1
         }
 
         [Fact]
+        public static void TestSet1_Method19()
+        {
+            //TestSet1
+            var container = new Container(true, true, true);
+            container.RegisterAssembly(typeof(PrivateSqlDataRepository).Assembly, new string[] {
+                "Build.Tests.Fail_TestSet7.SqlDataRepository",
+                "Build.Tests.Fail_TestSet6.ServiceDataRepository",
+                "Build.Tests.Fail_TestSet6.SqlDataRepository",
+                "Build.Tests.Fail_TestSet5.ServiceDataRepository",
+                "Build.Tests.Fail_TestSet5.SqlDataRepository",
+                "Build.Tests.Fail_TestSet4.SqlDataRepository(.*)",
+                "Build.Tests.Fail_TestSet4.ServiceDataRepository(.*)",
+                "Build.Tests.Fail_TestSet3.SqlDataRepository",
+                "Build.Tests.Fail_TestSet2.ServiceDataRepository",
+                "Build.Tests.Fail_TestSet1.Other",
+                "Build.Tests.Fail_TestSet1.PrivateConstructorServiceDataRepository",
+                "Build.Tests.Fail_TestSet1.ServiceDataRepository",
+                "Build.Tests.TestSet1.PrivateSqlDataRepository2",
+                "Build.Tests.TestSet1.CircularReference3",
+                "Build.Tests.TestSet1.CircularReference2",
+                "Build.Tests.TestSet1.CircularReference1"
+            });
+            var sql = (PrivateSqlDataRepository)container.CreateInstance(typeof(PrivateSqlDataRepository).FullName);
+            Assert.Equal(0, sql.PersonId);
+        }
+
+        [Fact]
         public static void TestSet1_Method2()
         {
             //TestSet1
@@ -208,6 +235,17 @@ namespace Build.Tests.TestSet1
             container.RegisterType<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv2);
+        }
+
+        [Fact]
+        public static void TestSet1_Method20()
+        {
+            //TestSet1
+            var container = new Container();
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<PrivateSqlDataRepository>();
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet1.PrivateSqlDataRepository", null));
         }
 
         [Fact]

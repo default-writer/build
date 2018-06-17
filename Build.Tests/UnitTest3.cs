@@ -23,7 +23,7 @@ namespace Build.Tests.TestSet3
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var instances = container.RuntimeAliasedTypes.Select(p => container.CreateInstance(p));
+            var instances = container.RuntimeAliasedTypes.Select(p => container.CreateInstance(p, default(int)));
             Assert.True(instances.All(p => p != null));
         }
 
@@ -122,7 +122,8 @@ namespace Build.Tests.TestSet3
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var instances = container.RuntimeTypes.Select(p => container.CreateInstance(p));
+            // Build.Tests.TestSet3.ServiceDataRepository parameters do not match
+            var instances = container.RuntimeTypes.Where(p => p != "Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)").Select(p => container.CreateInstance(p, default(int)));
             Assert.True(instances.All(p => p != null));
         }
 
@@ -135,6 +136,28 @@ namespace Build.Tests.TestSet3
             container.RegisterType<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv2);
+        }
+
+        [Fact]
+        public static void TestSet3_Method20()
+        {
+            //TestSet3
+            var container = new Container();
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            var instances = container.RuntimeAliasedTypes.Select(p => container.CreateInstance(p, null));
+            Assert.Throws<TypeInstantiationException>(() => instances.All(p => p != null));
+        }
+
+        [Fact]
+        public static void TestSet3_Method21()
+        {
+            //TestSet3
+            var container = new Container();
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            var instances = container.RuntimeTypes.Select(p => container.CreateInstance(p, null));
+            Assert.Throws<TypeInstantiationException>(() => instances.All(p => p != null));
         }
 
         [Fact]

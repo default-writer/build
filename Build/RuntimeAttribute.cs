@@ -25,6 +25,8 @@ namespace Build
             TypeFullName = type.FullName;
         }
 
+        public enum E { };
+
         /// <summary>
         /// Gets the runtime instance.
         /// </summary>
@@ -47,6 +49,24 @@ namespace Build
         /// </summary>
         /// <value>The runtime types.</value>
         IDictionary<string, IRuntimeAttribute> RuntimeTypes { get; } = new Dictionary<string, IRuntimeAttribute>();
+
+        /// <summary>
+        /// Gets default value for type
+        /// </summary>
+        public object GetDefaultValue(Type type)
+        {
+            if (type.IsValueType)
+            {
+                if (type.IsEnum)
+                {
+                    var enums = Enum.GetValues(type);
+                    if (enums.Length > 0)
+                        return enums.GetValue(0);
+                }
+                return Activator.CreateInstance(type);
+            }
+            return default;
+        }
 
         /// <summary>
         /// Gets the type of the runtime.
@@ -72,7 +92,7 @@ namespace Build
         public void RegisterRuntimeType(string id, IRuntimeAttribute attribute, bool defaultTypeAttributeOverwrite)
         {
             if (!defaultTypeAttributeOverwrite && RuntimeTypes.ContainsKey(id))
-                throw new TypeRegistrationException(string.Format("{0} is not registered (duplicate constructors available)", id));
+                throw new TypeRegistrationException(string.Format("{0} is not registered (more than one constructor available)", id));
             RuntimeTypes[id] = attribute;
         }
     }

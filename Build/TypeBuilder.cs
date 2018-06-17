@@ -208,8 +208,19 @@ namespace Build
             if (Types.ContainsKey(id))
                 return Types[id].CreateInstance(args);
             var parameterArgs = Format.GetParametersFullName(args);
-            var runtimeType = Parser.Find(id, parameterArgs, Types.Values);
-            if (runtimeType != null) return runtimeType.CreateInstance(args);
+            var runtimeTypes = new List<IRuntimeType>(Parser.FindAll(id, parameterArgs, Types.Values));
+            if (runtimeTypes.Count == 1)
+                return runtimeTypes[0].CreateInstance(args);
+            if (runtimeTypes.Count > 1)
+            {
+                if (args != null && args.Length == 0)
+                {
+                    var runtimeType = runtimeTypes.FirstOrDefault((p) => p.Count == 0);
+                    if (runtimeType != null)
+                        return runtimeType.CreateInstance(args);
+                }
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated (more than one constructor available)", id));
+            }
             throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructors available)", id));
         }
 
@@ -285,18 +296,21 @@ namespace Build
         /// <exception cref="TypeRegistrationException"></exception>
         void RegisterConstructor(Type type)
         {
-            var constructorEnumerator = Constructor.GetDependencyObjects(type, UseDefaultTypeInstantiation).GetEnumerator();
-            if (!constructorEnumerator.MoveNext())
-                throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", type.FullName));
-            do
+            if (!type.IsValueType)
             {
-                var dependencyObject = constructorEnumerator.Current;
-                foreach (var injectionObject in dependencyObject.InjectionObjects)
+                var constructorEnumerator = Constructor.GetDependencyObjects(type, UseDefaultTypeInstantiation).GetEnumerator();
+                if (!constructorEnumerator.MoveNext())
+                    throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", type.FullName));
+                do
                 {
-                    RegisterConstructorParameter(dependencyObject, injectionObject);
-                }
-                RegisterConstructorDependencyObject(dependencyObject);
-            } while (constructorEnumerator.MoveNext());
+                    var dependencyObject = constructorEnumerator.Current;
+                    foreach (var injectionObject in dependencyObject.InjectionObjects)
+                    {
+                        RegisterConstructorParameter(dependencyObject, injectionObject);
+                    }
+                    RegisterConstructorDependencyObject(dependencyObject);
+                } while (constructorEnumerator.MoveNext());
+            }
         }
 
         /// <summary>
