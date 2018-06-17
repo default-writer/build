@@ -29,5 +29,15 @@ namespace Build.Tests.TestSet17
             runtimeType.AddParameter(new RuntimeType(new InjectionAttribute(typeof(Type)), typeof(Type), true));
             Assert.Throws<TypeInstantiationException>(() => runtimeType.CreateInstance("Build.Tests.TestSet17.Type"));
         }
+
+        [Fact]
+        public static void TestSet17_Method3()
+        {
+            //TestSet7
+            var container = new Container();
+            container.RegisterType<Type>();
+            var type = (Type)container.CreateInstance("Build.Tests.TestSet17.Type(Build.Tests.TestSet17.SubType)");
+            Assert.NotNull(type.SubType);
+        }
     }
 }

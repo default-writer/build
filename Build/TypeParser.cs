@@ -31,7 +31,7 @@ namespace Build
             var func = Regex.Match(id, @"([^()]+)(?:\((.*)\)){0,1}$");
             var name = func.Groups[1].Value.Trim();
             var pars = Regex.Matches(func.Groups[2].Value.Trim(), @"([^,]+\(.+?\))|([^,]+)");
-            var runtimeType = GetRuntimeType(args, types, name, pars);
+            var runtimeType = types.FirstOrDefault((p) => MatchParameters(p, name, args, pars));
             return CacheRuntimeType(id, runtimeType);
         }
 
@@ -47,7 +47,7 @@ namespace Build
             var func = Regex.Match(id, @"([^()]+)(?:\((.*)\)){0,1}$");
             var name = func.Groups[1].Value.Trim();
             var pars = Regex.Matches(func.Groups[2].Value.Trim(), @"([^,]+\(.+?\))|([^,]+)");
-            return GetRuntimeTypes(args, types, name, pars);
+            return types.Where((p) => MatchParameters(p, name, args, pars));
         }
 
         /// <summary>
@@ -139,57 +139,6 @@ namespace Build
                 return Cache[id];
             }
             return runtimeType;
-        }
-
-        /// <summary>
-        /// Gets the type of the runtime.
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        /// <param name="types">The types.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="pars">The pars.</param>
-        /// <returns></returns>
-        IRuntimeType GetRuntimeType(IEnumerable<string> args, IEnumerable<IRuntimeType> types, string name, MatchCollection pars)
-        {
-            var runtimeType = types.FirstOrDefault((p) => MatchParameters(p, name, args, pars));
-            if (runtimeType == null)
-            {
-                var enumerator = types.GetEnumerator();
-                do
-                {
-                    if (!enumerator.MoveNext())
-                        break;
-                    var parameterType = enumerator.Current;
-                    runtimeType = Find(parameterType.Id, args, parameterType.RuntimeTypes);
-                } while (runtimeType == null);
-            }
-
-            return runtimeType;
-        }
-
-        /// <summary>
-        /// Gets the type list of the runtime.
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        /// <param name="types">The types.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="pars">The pars.</param>
-        /// <returns></returns>
-        IEnumerable<IRuntimeType> GetRuntimeTypes(IEnumerable<string> args, IEnumerable<IRuntimeType> types, string name, MatchCollection pars)
-        {
-            var runtimeTypes = new List<IRuntimeType>(types.Where((p) => MatchParameters(p, name, args, pars)));
-            if (runtimeTypes.Count == 0)
-            {
-                var enumerator = types.GetEnumerator();
-                while (enumerator.MoveNext())
-                {
-                    var parameterType = enumerator.Current;
-                    var runtimeType = Find(parameterType.Id, args, parameterType.RuntimeTypes);
-                    if (runtimeType != null)
-                        runtimeTypes.Add(runtimeType);
-                }
-            }
-            return runtimeTypes;
         }
     }
 }
