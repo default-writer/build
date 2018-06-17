@@ -15,12 +15,12 @@
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Dependency Injection</PackageTags>
     <PackageReleaseNotes>Features:
-- Added automatic type attribute overwrite optional parameter to the build system</PackageReleaseNotes>
+- Added runtime default checks to avoid System.MissingMethodException and System.Reflection.AmbiguousMatchException</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageId>dependency_injection_build</PackageId>
-    <Version>1.0.0.11</Version>
-    <AssemblyVersion>1.0.0.11</AssemblyVersion>
-    <FileVersion>1.0.0.11</FileVersion>
+    <Version>1.0.0.12</Version>
+    <AssemblyVersion>1.0.0.12</AssemblyVersion>
+    <FileVersion>1.0.0.12</FileVersion>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     <SignAssembly>false</SignAssembly>
     <DelaySign>false</DelaySign>

@@ -38,6 +38,10 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 [wiki](https://github.com/hack2root/build/wiki)
 
+## v1.0.0.12
+
+- Added runtime default checks, to avoid System.MissingMethodException and System.Reflection.AmbiguousMatchException.
+
 ## v1.0.0.11
 
 - Added automatic type attribute overwrite optional parameter to the build system
