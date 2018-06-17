@@ -25,8 +25,6 @@ namespace Build
             TypeFullName = type.FullName;
         }
 
-        public enum E { };
-
         /// <summary>
         /// Gets the runtime instance.
         /// </summary>
