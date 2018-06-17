@@ -15,7 +15,6 @@ namespace Build.Interfaces.Tests
         [Fact]
         public static void Test10()
         {
-            Activator.CreateInstance(typeof(WebServiceDataRepository), new object[] { null });
             //TestSet16
             var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
             container.RegisterType<IMyFunRuleSet2>();
