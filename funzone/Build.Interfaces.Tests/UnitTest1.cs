@@ -339,6 +339,33 @@ namespace Build.Interfaces.Tests
         }
 
         [Fact]
+        public static void Test37()
+        {
+            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
+            container.RegisterType<IMyFunRuleSet_Enum>();
+            var type = container.CreateInstance("Build.Interfaces.Tests.Type2(Build.Interfaces.Tests.MyFun)");
+            Assert.NotNull(type);
+        }
+
+        [Fact]
+        public static void Test38()
+        {
+            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
+            container.RegisterType<IMyFunRuleSet_Enum2>();
+            var type = container.CreateInstance("Build.Interfaces.Tests.Type3(Build.Interfaces.Tests.MyFun2)");
+            Assert.NotNull(type);
+        }
+
+        [Fact]
+        public static void Test39()
+        {
+            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
+            container.RegisterType<IMyFunRuleSet_Enum>();
+            var type = container.CreateInstance("Build.Interfaces.Tests.Type2(Build.Interfaces.Tests.MyFun2)");
+            Assert.NotNull(type);
+        }
+
+        [Fact]
         public static void Test4()
         {
             //TestSet16
@@ -348,6 +375,15 @@ namespace Build.Interfaces.Tests
             var srv = (ServiceDataRepository)container.CreateInstance("Build.Interfaces.Tests.ServiceDataRepository(Build.Interfaces.Tests.IPersonRepository)");
             var sqlRepository = srv.Repository as SqlDataRepository;
             Assert.Equal(2018, sqlRepository.RepositoryId);
+        }
+
+        [Fact]
+        public static void Test40()
+        {
+            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
+            container.RegisterType<IMyFunRuleSet_Enum>();
+            var type = (Type2)container.CreateInstance("Build.Interfaces.Tests.Type2(Build.Interfaces.Tests.MyFun2)");
+            Assert.Equal(-1, (int)type.MyFun2);
         }
 
         [Fact]

@@ -6,6 +6,15 @@
         WebService
     }
 
+    public enum MyFun
+    {
+    }
+
+    public enum MyFun2
+    {
+        Default = -1
+    }
+
     public interface IPersonRepository
     {
         Person GetPerson(int personId);
@@ -28,6 +37,20 @@
     {
         [MyFunDependency(RuntimeInstance.CreateInstance)]
         Type1 Rule(Arg1 arg1, Arg2 arg2);
+    }
+
+    [MyFun]
+    interface IMyFunRuleSet_Enum
+    {
+        Type2 Rule(MyFun myFun);
+
+        Type2 Rule(MyFun2 myFun);
+    }
+
+    [MyFun]
+    interface IMyFunRuleSet_Enum2
+    {
+        Type3 Rule(MyFun2 myFun);
     }
 
     [MyFun]
@@ -128,6 +151,24 @@
             // get the data from SQL DB and return Person instance.
             return new Person(this);
         }
+    }
+
+    public class Type2
+    {
+        public Type2(MyFun myFun) => MyFun = myFun;
+
+        public Type2(MyFun2 myFun) => MyFun2 = myFun;
+
+        public MyFun MyFun { get; }
+
+        public MyFun2 MyFun2 { get; }
+    }
+
+    public class Type3
+    {
+        public Type3(MyFun2 myFun) => MyFun2 = myFun;
+
+        public MyFun2 MyFun2 { get; }
     }
 
     public class ValueType : IValueType
