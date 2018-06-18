@@ -38,6 +38,10 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 [wiki](https://github.com/hack2root/build/wiki)
 
+## v1.0.0.13
+
+- Added runtimes for .NET Standart 2.0, .NET Framework 4.5/4.5.1/4.5.2/4.6/4.6.1/4.6.2/4.7/4.7.1/4.7.2
+
 ## v1.0.0.12
 
 - Added runtime default checks, to avoid System.MissingMethodException and System.Reflection.AmbiguousMatchException.
