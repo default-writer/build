@@ -37,8 +37,6 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 ## Docs 
 
 - [Build](https://github.com/hack2root/build/wiki)
-- [Explicit Dependencies Principle](https://deviq.com/explicit-dependencies-principle/)
-- [ASP.NET Middleware development](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/index?view=aspnetcore-2.1&tabs=aspnetcore2x) (Middleware is constructed once per application lifetime.)
 
 ## v1.0.0.13
 
@@ -627,9 +625,12 @@ Deramore Lane, York, YO10 5GH, UK.
 
 ## Links
 
-[Dependency injection in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.1)
-
-[Inversion of Control Containers and the Dependency Injection pattern](https://www.martinfowler.com/articles/injection.html)
+- [Explicit Dependencies Principle](https://deviq.com/explicit-dependencies-principle/)
+- [Inversion of Control Containers and the Dependency Injection pattern](https://www.martinfowler.com/articles/injection.html)
+- [Dependency injection in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.1)
+- [ASP.NET Core Middleware](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/index?view=aspnetcore-2.1&tabs=aspnetcore2x)
+- [Middleware activation with a third-party container in ASP.NET Core.](https://docs.microsoft.com/aspnet/core/fundamentals/middleware/extensibility-third-party-container)
+- [Simple Injector sample for ASP.NET](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/middleware/extensibility-third-party-container/sample)
 
 ## Donate
 
