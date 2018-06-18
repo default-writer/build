@@ -29,7 +29,6 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-
         public static IEnumerable<string> GetParametersFullName(object[] args)
         {
             #region Target Frameworks
