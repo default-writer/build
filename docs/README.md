@@ -36,7 +36,9 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 ## Docs 
 
-[wiki](https://github.com/hack2root/build/wiki)
+- [Build](https://github.com/hack2root/build/wiki)
+- [Explicit Dependencies Principle](https://deviq.com/explicit-dependencies-principle/)
+- [ASP.NET Middleware development](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/index?view=aspnetcore-2.1&tabs=aspnetcore2x) (Middleware is constructed once per application lifetime.)
 
 ## v1.0.0.13
 
