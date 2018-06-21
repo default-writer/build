@@ -255,6 +255,18 @@ namespace Build.Tests.UnitTests18
         }
 
         [Fact]
+        public static void TestSet18_Method30()
+        {
+            //TestSet18
+            var container = new Container();
+            var type = new Type();
+            System.Func<Type> func = () => type;
+            container.RegisterType<Factory<Type>>(func);
+            var factory = (IFactory<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory`1[Build.Tests.TestSet18.Type]");
+            Assert.Equal(type, factory.GetInstance());
+        }
+
+        [Fact]
         public static void TestSet18_Method4()
         {
             //TestSet18

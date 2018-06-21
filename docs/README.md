@@ -38,6 +38,28 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 - [Build](https://github.com/hack2root/build/wiki)
 
+## v1.0.0.14
+
+- Added type registration parameters
+- Added support for generic parameter types
+- Use standart type definiton (Type.ToString())
+
+Example:
+```c#
+//TestSet18
+var container = new Container();
+var type = new Type();
+System.Func<Type> func = () => type;
+container.RegisterType<Factory<Type>>(func);
+var factory = (IFactory<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory`1[Build.Tests.TestSet18.Type]");
+Assert.Equal(type, factory.GetInstance());
+```
+
+Definition:
+```c#
+
+```
+
 ## v1.0.0.13
 
 - Added runtimes for .NET Standart 2.0, .NET Framework 4.5/4.5.1/4.5.2/4.6/4.6.1/4.6.2/4.7/4.7.1/4.7.2
