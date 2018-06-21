@@ -252,13 +252,6 @@ namespace Build
         }
 
         /// <summary>
-        /// Determines whether this instance can create the specified type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns><c>true</c> if this instance can create the specified type; otherwise, <c>false</c>.</returns>
-        bool CanCreate(Type type) => Filter.CanCreate(type);
-
-        /// <summary>
         /// Gets the full name of the parameters.
         /// </summary>
         /// <param name="parameterType">Type of the parameter.</param>
