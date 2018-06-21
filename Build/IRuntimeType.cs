@@ -50,16 +50,6 @@ namespace Build
         string TypeFullName { get; }
 
         /// <summary>
-        /// True if automatic type instantiation for reference types option enabled (does not throws
-        /// exceptions for reference types defaults to null)
-        /// </summary>
-        /// <remarks>
-        /// If automatic type instantiation for reference types is enabled, type will defaults to
-        /// null if not resolved and no exception will be thrown
-        /// </remarks>
-        bool UseDefaultTypeInstantiation { get; }
-
-        /// <summary>
         /// Gets or sets the <see cref="System.Object"/> with the specified attribute.
         /// </summary>
         /// <value>The <see cref="System.Object"/>.</value>

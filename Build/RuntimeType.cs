@@ -94,6 +94,12 @@ namespace Build
         public string TypeFullName => Type.ToString();
 
         /// <summary>
+        /// Gets a value indicating whether this instance is initialized.
+        /// </summary>
+        /// <value><c>true</c> if this instance is initialized; otherwise, <c>false</c>.</value>
+        bool IsInitialized => _runtimeInstance != RuntimeInstance.Default;
+
+        /// <summary>
         /// True if automatic type instantiation for reference types option enabled (does not throws
         /// exceptions for reference types defaults to null)
         /// </summary>
@@ -101,13 +107,7 @@ namespace Build
         /// If automatic type instantiation for reference types is enabled, type will defaults to
         /// null if not resolved and no exception will be thrown
         /// </remarks>
-        public bool UseDefaultTypeInstantiation { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether this instance is initialized.
-        /// </summary>
-        /// <value><c>true</c> if this instance is initialized; otherwise, <c>false</c>.</value>
-        bool IsInitialized => _runtimeInstance != RuntimeInstance.Default;
+        bool UseDefaultTypeInstantiation { get; }
 
         /// <summary>
         /// Gets or sets the <see cref="System.Object"/> with the specified attribute.
