@@ -9,13 +9,6 @@ namespace Build
     public sealed class TypeFilter : ITypeFilter
     {
         /// <summary>
-        /// Determines whether this instance can create the specified type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns><c>true</c> if this instance can create the specified type; otherwise, <c>false</c>.</returns>
-        public bool CanCreate(Type type) => CanRegister(type);
-
-        /// <summary>
         /// Determines whether this instance can register the specified type.
         /// </summary>
         /// <param name="type">The type.</param>
