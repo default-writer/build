@@ -366,13 +366,13 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        bool RegisterConstructorParameters(string id, params object[] args)
+        void RegisterConstructorParameters(string id, params object[] args)
         {
             var parameterArgs = Format.GetParametersFullName(args);
             var runtimeTypes = new List<IRuntimeType>(Parser.FindAll(id, parameterArgs, Types.Values));
-            if (runtimeTypes.Count == 1)
-                return runtimeTypes[0].RegisterConstructorParameters(args);
-            throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", id));
+            if (runtimeTypes.Count == 0)
+                throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", id));
+            runtimeTypes[0].RegisterConstructorParameters(args);
         }
 
         /// <summary>
