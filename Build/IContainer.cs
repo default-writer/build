@@ -69,13 +69,15 @@ namespace Build
         /// Registers type
         /// </summary>
         /// <param name="type">Type identifier</param>
-        void RegisterType(Type type);
+        /// <param name="args">Arguments to constuctor</param>
+        void RegisterType(Type type, params object[] args);
 
         /// <summary>
         /// Registers identified type T
         /// </summary>
         /// <typeparam name="T">Type identifier</typeparam>
-        void RegisterType<T>();
+        /// <param name="args">Arguments to constuctor</param>
+        void RegisterType<T>(params object[] args);
 
         /// <summary>
         /// Resets information about type registration

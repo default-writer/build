@@ -38,7 +38,7 @@ namespace Build.Tests.TestSet1
                 "Build.Tests.TestSet1.CircularReference2",
                 "Build.Tests.TestSet1.CircularReference1"
             });
-            var sql = (PrivateSqlDataRepository)container.CreateInstance(typeof(PrivateSqlDataRepository).FullName, System.Array.Empty<object>());
+            var sql = (PrivateSqlDataRepository)container.CreateInstance(typeof(PrivateSqlDataRepository).ToString(), System.Array.Empty<object>());
             Assert.NotNull(sql);
         }
 
@@ -74,7 +74,7 @@ namespace Build.Tests.TestSet1
                 "Build.Tests.TestSet1.CircularReference3",
                 "Build.Tests.TestSet1.CircularReference1"
             });
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance(typeof(PrivateSqlDataRepository2).FullName, System.Array.Empty<object>()));
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance(typeof(PrivateSqlDataRepository2).ToString(), System.Array.Empty<object>()));
         }
 
         [Fact]
@@ -222,7 +222,7 @@ namespace Build.Tests.TestSet1
                 "Build.Tests.TestSet1.CircularReference2",
                 "Build.Tests.TestSet1.CircularReference1"
             });
-            var sql = (PrivateSqlDataRepository)container.CreateInstance(typeof(PrivateSqlDataRepository).FullName);
+            var sql = (PrivateSqlDataRepository)container.CreateInstance(typeof(PrivateSqlDataRepository).ToString());
             Assert.Equal(0, sql.PersonId);
         }
 

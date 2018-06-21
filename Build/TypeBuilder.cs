@@ -194,7 +194,7 @@ namespace Build
         /// <param name="type">The type.</param>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public object CreateInstance(Type type, params object[] args) => CreateInstance(type.FullName, args);
+        public object CreateInstance(Type type, params object[] args) => CreateInstance(type.ToString(), args);
 
         /// <summary>
         /// Creates the instance.
@@ -225,19 +225,38 @@ namespace Build
         }
 
         /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        public bool RegisterConstructorParameters(string id, params object[] args)
+        {
+            var parameterArgs = Format.GetParametersFullName(args);
+            var runtimeTypes = new List<IRuntimeType>(Parser.FindAll(id, parameterArgs, Types.Values));
+            if (runtimeTypes.Count == 1)
+                return runtimeTypes[0].RegisterConstructorParameters(args);
+            throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", id));
+        }
+
+        /// <summary>
         /// Registers the type.
         /// </summary>
         /// <param name="type">The type.</param>
-        public void RegisterType(Type type)
+        public void RegisterType(Type type, params object[] args)
         {
             Visited.Add(type);
             try
             {
                 RegisterConstructor(type);
+                if (args == null || args.Length == 0)
+                    return;
+                RegisterConstructorParameters(type.ToString(), args);
             }
             catch (TypeRegistrationException ex)
             {
-                throw new TypeRegistrationException(string.Format("{0} is not registered", type.FullName), ex);
+                throw new TypeRegistrationException(string.Format("{0} is not registered", type), ex);
             }
             finally
             {
@@ -248,7 +267,7 @@ namespace Build
         /// <summary>
         /// Resets this instance.
         /// </summary>
-        internal void Reset() => Types.Clear();
+        public void Reset() => Types.Clear();
 
         /// <summary>
         /// Gets the full name of the parameters.
@@ -273,7 +292,7 @@ namespace Build
         void CheckTypeFullName(Type parameterType, Type attributeType)
         {
             if (attributeType != null && !Filter.CheckTypeFullName(parameterType, attributeType))
-                throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", parameterType.FullName, attributeType.FullName));
+                throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", parameterType.Name, attributeType.Name));
         }
 
         /// <summary>
@@ -286,7 +305,7 @@ namespace Build
         {
             var attributeType = Resolver.GetType(dependencyObject.RuntimeType.Type.Assembly, dependencyObject.TypeFullName);
             if (attributeType != null && !Filter.CheckTypeFullName(attributeType, dependencyObject.RuntimeType.Type))
-                throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", attributeType.FullName, dependencyObject.RuntimeType.TypeFullName));
+                throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", attributeType.Name, dependencyObject.RuntimeType.TypeFullName));
         }
 
         /// <summary>
@@ -300,7 +319,7 @@ namespace Build
             {
                 var constructorEnumerator = Constructor.GetDependencyObjects(type, UseDefaultTypeInstantiation).GetEnumerator();
                 if (!constructorEnumerator.MoveNext())
-                    throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", type.FullName));
+                    throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", type));
                 do
                 {
                     var dependencyObject = constructorEnumerator.Current;
@@ -347,7 +366,7 @@ namespace Build
             string typeFullName = injectionObject.TypeFullName;
             var attributeType = Resolver.GetType(constructorType.Assembly, typeFullName);
             CheckTypeFullName(parameterType, attributeType);
-            CheckParametersFullName(constructorType.FullName, parameterType.FullName);
+            CheckParametersFullName(constructorType.Name, parameterType.Name);
             var parameters = injectionObject.TypeParameters;
             var runtimeType = Parser.Find(typeFullName, parameters, Types.Values);
             if (UseDefaultTypeResolution && runtimeType == null)
@@ -366,7 +385,7 @@ namespace Build
             if (Filter.CanRegisterParameter(type))
             {
                 if (Visited.Contains(type))
-                    throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type.FullName));
+                    throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type));
                 RegisterType(type);
             }
         }
@@ -381,7 +400,7 @@ namespace Build
             if (Filter.CanRegister(type))
             {
                 if (Visited.Contains(type))
-                    throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type.FullName));
+                    throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type));
                 RegisterType(type);
             }
         }
@@ -396,7 +415,7 @@ namespace Build
             {
                 var constructorFullName = dependencyObject.TypeFullNameWithParameters;
                 result.Attribute.RegisterRuntimeType(constructorFullName, injectionObject.InjectionAttribute, UseDefaultTypeAttributeOverwrite);
-                constructor.AddParameter(result);
+                constructor.AddConstructorParameter(result);
             }
         }
     }

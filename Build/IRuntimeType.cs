@@ -72,7 +72,7 @@ namespace Build
         /// Adds the parameter.
         /// </summary>
         /// <param name="parameterRuntimeType">Type of the parameter runtime.</param>
-        void AddParameter(IRuntimeType parameterRuntimeType);
+        void AddConstructorParameter(IRuntimeType parameterRuntimeType);
 
         /// <summary>
         /// Determines whether the specified identifier is assignable from type.
@@ -99,6 +99,13 @@ namespace Build
         /// <param name="i">The i.</param>
         /// <returns></returns>
         object EvaluateRuntimeInstance(IRuntimeType type, IRuntimeAttribute attribute, int? i);
+
+        /// <summary>
+        /// Registers the parameters.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
+        bool RegisterConstructorParameters(object[] args);
 
         /// <summary>
         /// Registers type full name as assignable type

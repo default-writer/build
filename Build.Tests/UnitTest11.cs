@@ -202,6 +202,14 @@ namespace Build.Tests.TestSet11
         }
 
         [Fact]
+        public static void TestSet11_Method26()
+        {
+            //TestSet11
+            var container = new Container();
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType(typeof(IPersonRepository), null));
+        }
+
+        [Fact]
         public static void TestSet11_Method3()
         {
             //TestSet11

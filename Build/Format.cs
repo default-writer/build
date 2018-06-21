@@ -22,7 +22,7 @@ namespace Build
         /// </summary>
         /// <param name="o"></param>
         /// <returns></returns>
-        public static string GetParameterFullName(object o) => (o ?? typeof(object)).GetType().FullName;
+        public static string GetParameterFullName(object o) => (o ?? typeof(object)).GetType().ToString();
 
         /// <summary>
         /// Gets the full name of the parameters.

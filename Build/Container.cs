@@ -101,7 +101,7 @@ namespace Build
         public T CreateInstance<T>(params object[] args)
         {
             if (!_typeBuilder.CanCreate(typeof(T)))
-                throw new TypeInstantiationException(string.Format("{0} is not instantiable (not an allowed type)", typeof(T).FullName));
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated (not an allowed type)", typeof(T)));
             return (T)_typeBuilder.CreateInstance(typeof(T), args);
         }
 
@@ -114,7 +114,7 @@ namespace Build
         public object CreateInstance(Type type, params object[] args)
         {
             if (!_typeBuilder.CanCreate(type))
-                throw new TypeInstantiationException(string.Format("{0} is not instantiable (not an allowed type)", type.FullName));
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated (not an allowed type)", type));
             return _typeBuilder.CreateInstance(type, args);
         }
 
@@ -159,7 +159,7 @@ namespace Build
                 for (int index = 0; index < exclusionList.Count; index++)
                 {
                     var regex = string.Format("^{0}$", exclusionList[index]);
-                    if (Regex.IsMatch(type.FullName, regex))
+                    if (Regex.IsMatch(type.ToString(), regex))
                     {
                         match = true;
                         break;
@@ -173,31 +173,21 @@ namespace Build
         }
 
         /// <summary>
-        /// Registers type
-        /// </summary>
-        /// <param name="type">Type identifier</param>
-        /// <returns>
-        /// Returns true if type is supported and acually added to collection of identified types
-        /// </returns>
-        public void RegisterType(Type type)
-        {
-            if (!_typeBuilder.CanRegister(type))
-                throw new TypeRegistrationException(string.Format("{0} is not instantiable (not an allowed type)", type.FullName));
-            _typeBuilder.RegisterType(type);
-        }
-
-        /// <summary>
         /// Registers identified type T
         /// </summary>
         /// <typeparam name="T">Type identifier</typeparam>
-        /// <returns>
-        /// Returns true if type is supported and acually added to collection of identified types
-        /// </returns>
-        public void RegisterType<T>()
+        /// <param name="args">Constructor arguments</param>
+        public void RegisterType<T>(params object[] args) => RegisterType(typeof(T), args);
+
+        /// <summary>
+        /// Registers type
+        /// </summary>
+        /// <param name="type">Type identifier</param>
+        public void RegisterType(Type type, params object[] args)
         {
-            if (!_typeBuilder.CanRegister(typeof(T)))
-                throw new TypeRegistrationException(string.Format("{0} is not instantiable (not an allowed type)", typeof(T).FullName));
-            _typeBuilder.RegisterType(typeof(T));
+            if (!_typeBuilder.CanRegister(type))
+                throw new TypeRegistrationException(string.Format("{0} is not registered (not an allowed type)", type));
+            _typeBuilder.RegisterType(type, args);
         }
 
         /// <summary>

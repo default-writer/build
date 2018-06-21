@@ -45,7 +45,7 @@ namespace Build
         /// <exception cref="ArgumentNullException">attribute</exception>
         public RuntimeType(IRuntimeAttribute attribute, Type type, bool defaultTypeInstantiation)
         {
-            TypeDefinition = type.FullName;
+            TypeDefinition = type.ToString();
             Type = type;
             UseDefaultTypeInstantiation = defaultTypeInstantiation;
             Attribute = attribute ?? throw new ArgumentNullException(nameof(attribute));
@@ -91,7 +91,7 @@ namespace Build
         /// <summary>
         /// Gets the full name of hosted runtime type
         /// </summary>
-        public string TypeFullName => Type.FullName;
+        public string TypeFullName => Type.ToString();
 
         /// <summary>
         /// True if automatic type instantiation for reference types option enabled (does not throws
@@ -132,7 +132,7 @@ namespace Build
         /// Adds the parameter.
         /// </summary>
         /// <param name="parameterRuntimeType">Type of the parameter runtime.</param>
-        public void AddParameter(IRuntimeType parameterRuntimeType)
+        public void AddConstructorParameter(IRuntimeType parameterRuntimeType)
         {
             _runtimeTypes.Add(parameterRuntimeType);
             UpdateTypeId();
@@ -211,6 +211,13 @@ namespace Build
         }
 
         /// <summary>
+        /// Registers the specified arguments match search criteria.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        public bool RegisterConstructorParameters(object[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && WriteParameters(args);
+
+        /// <summary>
         /// Registers type full name as assignable type
         /// </summary>
         /// <param name="typeFullName">The type full name.</param>
@@ -233,7 +240,7 @@ namespace Build
         /// Registers the parameters.
         /// </summary>
         /// <param name="args">The arguments.</param>
-        /// <returns></returns>
+        /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
         public bool WriteParameters(object[] args)
         {
             for (int i = 0; i < args.Length; i++)
@@ -275,7 +282,7 @@ namespace Build
         {
             if (!IsInitialized)
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructor available)", TypeFullName));
-            if (!RegisterParameters(args))
+            if (!RegisterConstructorParameters(args))
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (parameter type mismatch)", TypeFullName));
             if (args.Length == 0)
                 return EvaluateRuntimeInstance(this, Attribute, null);
@@ -339,13 +346,6 @@ namespace Build
         /// </summary>
         /// <returns></returns>
         bool IsDefaultReferencedType() => !Type.IsValueType && _runtimeInstance == RuntimeInstance.Default;
-
-        /// <summary>
-        /// Registers the specified arguments match search criteria.
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        /// <returns></returns>
-        bool RegisterParameters(object[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && WriteParameters(args);
 
         /// <summary>
         /// Updates runtime type id
