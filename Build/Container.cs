@@ -98,12 +98,7 @@ namespace Build
         /// <typeparam name="T">Type identifier</typeparam>
         /// <param name="args">Arguments to constuctor</param>
         /// <returns>Returns instance of identified type</returns>
-        public T CreateInstance<T>(params object[] args)
-        {
-            if (!_typeBuilder.CanCreate(typeof(T)))
-                throw new TypeInstantiationException(string.Format("{0} is not instantiated (not an allowed type)", typeof(T)));
-            return (T)_typeBuilder.CreateInstance(typeof(T), args);
-        }
+        public T CreateInstance<T>(params object[] args) => (T)CreateInstance(typeof(T), args);
 
         /// <summary>
         /// Creates an object
@@ -111,12 +106,7 @@ namespace Build
         /// <param name="type">Type identifier</param>
         /// <param name="args">Arguments to constuctor</param>
         /// <returns>Returns instance of identified type</returns>
-        public object CreateInstance(Type type, params object[] args)
-        {
-            if (!_typeBuilder.CanCreate(type))
-                throw new TypeInstantiationException(string.Format("{0} is not instantiated (not an allowed type)", type));
-            return _typeBuilder.CreateInstance(type, args);
-        }
+        public object CreateInstance(Type type, params object[] args) => CreateInstance(type.ToString(), args);
 
         /// <summary>
         /// Creates an object from identifed type with parameters

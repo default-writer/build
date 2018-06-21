@@ -113,14 +113,10 @@ namespace Build
         public IEnumerable<string> RuntimeTypes => Types.Select(p => p.Value.Id);
 
         /// <summary>
-        /// True if automatic type instantiation for reference types option enabled (does not throws
-        /// exceptions for reference types defaults to null)
+        /// Gets the types.
         /// </summary>
-        /// <remarks>
-        /// If automatic type instantiation for reference types is enabled, type will defaults to
-        /// null if not resolved and no exception will be thrown
-        /// </remarks>
-        public bool UseDefaultTypeAttributeOverwrite { get; }
+        /// <value>The types.</value>
+        IDictionary<string, IRuntimeType> Types { get; } = new Dictionary<string, IRuntimeType>();
 
         /// <summary>
         /// True if automatic type instantiation for reference types option enabled (does not throws
@@ -130,7 +126,17 @@ namespace Build
         /// If automatic type instantiation for reference types is enabled, type will defaults to
         /// null if not resolved and no exception will be thrown
         /// </remarks>
-        public bool UseDefaultTypeInstantiation { get; }
+        bool UseDefaultTypeAttributeOverwrite { get; }
+
+        /// <summary>
+        /// True if automatic type instantiation for reference types option enabled (does not throws
+        /// exceptions for reference types defaults to null)
+        /// </summary>
+        /// <remarks>
+        /// If automatic type instantiation for reference types is enabled, type will defaults to
+        /// null if not resolved and no exception will be thrown
+        /// </remarks>
+        bool UseDefaultTypeInstantiation { get; }
 
         /// <summary>
         /// True if automatic type resolution for reference types option enabled (does not throws
@@ -140,13 +146,7 @@ namespace Build
         /// If automatic type resolution for reference types is enabled, type will defaults to null
         /// if not resolved and no exception will be thrown
         /// </remarks>
-        public bool UseDefaultTypeResolution { get; }
-
-        /// <summary>
-        /// Gets the types.
-        /// </summary>
-        /// <value>The types.</value>
-        IDictionary<string, IRuntimeType> Types { get; } = new Dictionary<string, IRuntimeType>();
+        bool UseDefaultTypeResolution { get; }
 
         /// <summary>
         /// Gets the visited.
@@ -173,13 +173,6 @@ namespace Build
         }
 
         /// <summary>
-        /// Determines whether this instance can create the specified type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns><c>true</c> if this instance can create the specified type; otherwise, <c>false</c>.</returns>
-        public bool CanCreate(Type type) => Filter.CanCreate(type);
-
-        /// <summary>
         /// Determines whether this instance can register the specified type.
         /// </summary>
         /// <param name="type">The type.</param>
@@ -187,14 +180,6 @@ namespace Build
         /// <c>true</c> if this instance can register the specified type; otherwise, <c>false</c>.
         /// </returns>
         public bool CanRegister(Type type) => Filter.CanRegister(type);
-
-        /// <summary>
-        /// Creates the instance.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="args">The arguments.</param>
-        /// <returns></returns>
-        public object CreateInstance(Type type, params object[] args) => CreateInstance(type.ToString(), args);
 
         /// <summary>
         /// Creates the instance.
@@ -222,22 +207,6 @@ namespace Build
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (more than one constructor available)", id));
             }
             throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructors available)", id));
-        }
-
-        /// <summary>
-        /// Creates the instance.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="args">The arguments.</param>
-        /// <returns></returns>
-        /// <exception cref="TypeInstantiationException"></exception>
-        public bool RegisterConstructorParameters(string id, params object[] args)
-        {
-            var parameterArgs = Format.GetParametersFullName(args);
-            var runtimeTypes = new List<IRuntimeType>(Parser.FindAll(id, parameterArgs, Types.Values));
-            if (runtimeTypes.Count == 1)
-                return runtimeTypes[0].RegisterConstructorParameters(args);
-            throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", id));
         }
 
         /// <summary>
@@ -281,6 +250,13 @@ namespace Build
             if (typeFullName == parameterTypeFullName)
                 throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", typeFullName));
         }
+
+        /// <summary>
+        /// Determines whether this instance can create the specified type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if this instance can create the specified type; otherwise, <c>false</c>.</returns>
+        bool CanCreate(Type type) => Filter.CanCreate(type);
 
         /// <summary>
         /// Gets the full name of the parameters.
@@ -388,6 +364,22 @@ namespace Build
                     throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type));
                 RegisterType(type);
             }
+        }
+
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        bool RegisterConstructorParameters(string id, params object[] args)
+        {
+            var parameterArgs = Format.GetParametersFullName(args);
+            var runtimeTypes = new List<IRuntimeType>(Parser.FindAll(id, parameterArgs, Types.Values));
+            if (runtimeTypes.Count == 1)
+                return runtimeTypes[0].RegisterConstructorParameters(args);
+            throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", id));
         }
 
         /// <summary>
