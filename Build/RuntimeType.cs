@@ -122,7 +122,7 @@ namespace Build
             {
                 var runtimeAttribute = attribute.GetRuntimeType(typeFullName);
                 if (!_values.ContainsKey(runtimeAttribute))
-                    _values.Add(runtimeAttribute, attribute.GetDefaultValue(Type));
+                    _values.Add(runtimeAttribute, GetDefaultValue());
                 return _values[runtimeAttribute];
             }
             set => _values[attribute.GetRuntimeType(typeFullName)] = value;
@@ -339,6 +339,24 @@ namespace Build
                 _instance = true;
             }
             return _value;
+        }
+
+        /// <summary>
+        /// Gets default value for type
+        /// </summary>
+        object GetDefaultValue()
+        {
+            if (Type.IsValueType)
+            {
+                if (Type.IsEnum)
+                {
+                    var enums = Enum.GetValues(Type);
+                    if (enums.Length > 0)
+                        return enums.GetValue(0);
+                }
+                return CreateInstance();
+            }
+            return default;
         }
 
         /// <summary>

@@ -17,13 +17,6 @@ namespace Build
         string TypeFullName { get; }
 
         /// <summary>
-        /// Gets default value for type
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>Returns default value</returns>
-        object GetDefaultValue(Type type);
-
-        /// <summary>
         /// Gets the type of the runtime.
         /// </summary>
         /// <param name="id">The identifier.</param>

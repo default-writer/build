@@ -40,24 +40,6 @@ namespace Build
         IDictionary<string, IRuntimeAttribute> RuntimeTypes { get; } = new Dictionary<string, IRuntimeAttribute>();
 
         /// <summary>
-        /// Gets default value for type
-        /// </summary>
-        public object GetDefaultValue(Type type)
-        {
-            if (type.IsValueType)
-            {
-                if (type.IsEnum)
-                {
-                    var enums = Enum.GetValues(type);
-                    if (enums.Length > 0)
-                        return enums.GetValue(0);
-                }
-                return Activator.CreateInstance(type);
-            }
-            return default;
-        }
-
-        /// <summary>
         /// Gets the type of the runtime.
         /// </summary>
         /// <param name="id">The identifier.</param>
