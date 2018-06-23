@@ -48,7 +48,7 @@
 - Added System.Func&lt;T&gt; type initialization
 - Added TypeBuilder.GetInstance(...) methods
 </PackageReleaseNotes>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>Build.DependencyInjection</PackageId>
     <Version>1.0.0.15</Version>
     <AssemblyVersion>1.0.0.15</AssemblyVersion>
