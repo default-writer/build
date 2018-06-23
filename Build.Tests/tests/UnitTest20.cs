@@ -320,6 +320,24 @@ namespace Build.Tests.TestSet20
         }
 
         [Fact]
+        public static void TestSet2_Method32()
+        {
+            var container = new Container();
+            var builder = (TypeBuilder)container.Builder;
+            container.RegisterType<Class2>();
+            Assert.Throws<ArgumentNullException>(() => (Class2)builder.GetInstance(null));
+        }
+
+        [Fact]
+        public static void TestSet2_Method33()
+        {
+            var container = new Container();
+            container.RegisterType<Class2>();
+            string t = null;
+            Assert.Throws<TypeInstantiationException>(() => container.GetInstance(t));
+        }
+
+        [Fact]
         public static void TestSet2_Method4()
         {
             //TestSet2
