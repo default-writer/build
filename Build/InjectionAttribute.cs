@@ -28,9 +28,9 @@ namespace Build
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
-        /// <param name="id">The identifier.</param>
+        /// <param name="typeFullName">The identifier.</param>
         /// <param name="args">The arguments.</param>
-        public InjectionAttribute(string id, params object[] args) : this(id) => _arguments = args;
+        public InjectionAttribute(string typeFullName, params object[] args) : this(typeFullName) => _arguments = args;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
@@ -72,7 +72,7 @@ namespace Build
         /// Gets the runtime instance.
         /// </summary>
         /// <value>The runtime instance.</value>
-        public override RuntimeInstance RuntimeInstance => RuntimeInstance.None;
+        public override RuntimeInstance RuntimeInstance => RuntimeInstance.Exclude;
 
         /// <summary>
         /// Checks that selected index is within parameters array bounds

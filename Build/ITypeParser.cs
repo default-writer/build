@@ -10,7 +10,7 @@ namespace Build
         /// <summary>
         /// Finds the specified type.
         /// </summary>
-        /// <param name="id">The type.</param>
+        /// <param name="id">The id.</param>
         /// <param name="args">The arguments.</param>
         /// <param name="types">The types.</param>
         /// <returns>Returns runtime type instance</returns>
@@ -19,7 +19,7 @@ namespace Build
         /// <summary>
         /// Finds all matches for the specified type.
         /// </summary>
-        /// <param name="id">The type.</param>
+        /// <param name="id">The id.</param>
         /// <param name="args">The arguments.</param>
         /// <param name="types">The types.</param>
         /// <returns>Returns runtime type instances</returns>

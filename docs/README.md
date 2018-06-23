@@ -26,6 +26,12 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 - [Build](https://github.com/hack2root/build/wiki)
 
+## v1.0.0.15
+
+- Added [ASP.NET Core 2.1 middleware extensibility](https://github.com/hack2root/build/aspnetcore/fundamentals/middleware/extensibility-third-party-container-build/sample/)
+- Added ```System.Func<T>``` type initialization
+- Added ```TypeBuilder.GetInstance(...)``` methods
+
 ## v1.0.0.14
 
 - Added type registration parameters
@@ -38,8 +44,8 @@ Example:
 var container = new Container();
 var type = new Type();
 System.Func<Type> func = () => type;
-container.RegisterType<Factory<Type>>(func);
-var factory = (IFactory<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory`1[Build.Tests.TestSet18.Type]");
+container.RegisterType<Lazy<Type>>(func);
+var factory = (IFactory<Type>)container.CreateInstance("Build.Tests.TestSet18.Lazy`1[Build.Tests.TestSet18.Type]");
 Assert.Equal(type, factory.GetInstance());
 ```
 
@@ -50,9 +56,9 @@ public interface IFactory<T>
     T GetInstance();
 }
 
-public class Factory<T> : IFactory<T>
+public class Lazy<T> : IFactory<T>
 {
-    public Factory(Func<T> func) => Func = func;
+    public Lazy(Func<T> func) => Func = func;
 
     public Func<T> Func { get; }
 

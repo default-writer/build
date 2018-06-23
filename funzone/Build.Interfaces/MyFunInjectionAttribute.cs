@@ -65,7 +65,7 @@ namespace Build.Interfaces
         /// Gets the runtime instance.
         /// </summary>
         /// <value>The runtime instance.</value>
-        public override RuntimeInstance RuntimeInstance => RuntimeInstance.None;
+        public override RuntimeInstance RuntimeInstance => RuntimeInstance.Exclude;
 
         /// <summary>
         /// Checks that selected index is within parameters array bounds

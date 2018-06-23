@@ -111,14 +111,43 @@ namespace Build
         /// <summary>
         /// Creates an object from identifed type with parameters
         /// </summary>
-        /// <param name="id">Type identifier with/without parameters 'id(args)' or 'id'</param>
+        /// <param name="typeFullName">Type identifier with/without parameters 'id(args)' or 'id'</param>
         /// <param name="args">Arguments to constuctor</param>
         /// <returns>Returns instance of identified type</returns>
-        public object CreateInstance(string id, params object[] args)
+        public object CreateInstance(string typeFullName, params object[] args)
         {
-            if (id == null)
-                throw new TypeInstantiationException(string.Format("{0} is null (type name required)", nameof(id)));
-            return _typeBuilder.CreateInstance(id, args);
+            if (typeFullName == null)
+                throw new TypeInstantiationException(string.Format("{0} is null (type name required)", nameof(typeFullName)));
+            return _typeBuilder.CreateInstance(typeFullName, args);
+        }
+
+        /// <summary>
+        /// Creates an object identified as instance of type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public T GetInstance<T>(params object[] args) => (T)GetInstance(typeof(T), args);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">Type identifier</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object GetInstance(Type type, params object[] args) => GetInstance(type.ToString(), args);
+
+        /// <summary>
+        /// Creates an object from identifed type with parameters
+        /// </summary>
+        /// <param name="typeFullName">Type identifier with/without parameters 'id(args)' or 'id'</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object GetInstance(string typeFullName, params object[] args)
+        {
+            if (typeFullName == null)
+                throw new TypeInstantiationException(string.Format("{0} is null (type name required)", nameof(typeFullName)));
+            return _typeBuilder.GetInstance(typeFullName, args);
         }
 
         /// <summary>

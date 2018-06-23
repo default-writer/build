@@ -7,15 +7,6 @@ namespace Build.Tests.TestSet18
         T GetInstance();
     }
 
-    public class Factory<T> : IFactory<T>
-    {
-        public Factory(Func<T> func) => Func = func;
-
-        public Func<T> Func { get; }
-
-        public T GetInstance() => Func();
-    }
-
     public class Factory2<T> : IFactory<T>
     {
         public Factory2()
@@ -34,6 +25,15 @@ namespace Build.Tests.TestSet18
         public Factory3(Func<T> func) => Func = func;
 
         public object Func { get; }
+    }
+
+    public class Lazy<T> : IFactory<T>
+    {
+        public Lazy(Func<T> func) => Func = func;
+
+        public Func<T> Func { get; }
+
+        public T GetInstance() => Func();
     }
 
     public class Type

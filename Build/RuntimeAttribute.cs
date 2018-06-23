@@ -34,21 +34,21 @@ namespace Build
         public string TypeFullName { get; }
 
         /// <summary>
-        /// Gets the runtime types.
+        /// Gets the runtime type attributes.
         /// </summary>
         /// <value>The runtime types.</value>
-        IDictionary<string, IRuntimeAttribute> RuntimeTypes { get; } = new Dictionary<string, IRuntimeAttribute>();
+        IDictionary<string, IRuntimeAttribute> IdAttributeDictionary { get; } = new Dictionary<string, IRuntimeAttribute>();
 
         /// <summary>
-        /// Gets the type of the runtime.
+        /// Gets the runtime type attribute.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        public IRuntimeAttribute GetRuntimeType(string id)
+        public IRuntimeAttribute GetAttribute(string id)
         {
-            if (!RuntimeTypes.ContainsKey(id))
+            if (!IdAttributeDictionary.ContainsKey(id))
                 return this;
-            return RuntimeTypes[id];
+            return IdAttributeDictionary[id];
         }
 
         /// <summary>
@@ -62,9 +62,9 @@ namespace Build
         /// </param>
         public void RegisterRuntimeType(string id, IRuntimeAttribute attribute, bool defaultTypeAttributeOverwrite)
         {
-            if (!defaultTypeAttributeOverwrite && RuntimeTypes.ContainsKey(id))
+            if (!defaultTypeAttributeOverwrite && IdAttributeDictionary.ContainsKey(id))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (more than one constructor available)", id));
-            RuntimeTypes[id] = attribute;
+            IdAttributeDictionary[id] = attribute;
         }
     }
 }

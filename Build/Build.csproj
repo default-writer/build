@@ -44,15 +44,15 @@
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Dependency Injection</PackageTags>
     <PackageReleaseNotes>Features:
-- Added type registration parameters
-- Added support for generic parameter types
-- Use standart type definiton (Type.ToString())
+- Added ASP.NET Core 2.1 middleware extensibility
+- Added System.Func&lt;T&gt; type initialization
+- Added TypeBuilder.GetInstance(...) methods
 </PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageId>dependency_injection_build</PackageId>
-    <Version>1.0.0.14</Version>
-    <AssemblyVersion>1.0.0.14</AssemblyVersion>
-    <FileVersion>1.0.0.14</FileVersion>
+    <PackageId>Build.DependencyInjection</PackageId>
+    <Version>1.0.0.15</Version>
+    <AssemblyVersion>1.0.0.15</AssemblyVersion>
+    <FileVersion>1.0.0.15</FileVersion>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     <SignAssembly>false</SignAssembly>
     <DelaySign>false</DelaySign>

@@ -24,7 +24,7 @@
 
     public class OtherRepository : NoSqlDataRepository, IOtherRepository
     {
-        [Dependency(RuntimeInstance.None)]
+        [Dependency(RuntimeInstance.Exclude)]
         public OtherRepository(int param) : base(null)
         {
         }
@@ -42,7 +42,7 @@
 
     public class ServiceDataRepository : IPersonRepository
     {
-        [Dependency("Ho ho ho", RuntimeInstance.None)]
+        [Dependency("Ho ho ho", RuntimeInstance.Exclude)]
         public ServiceDataRepository([Injection("Ho ho ho")]ServiceDataRepository repository)
         {
             Repository = repository;

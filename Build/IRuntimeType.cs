@@ -21,10 +21,17 @@ namespace Build
         int Count { get; }
 
         /// <summary>
+        /// True if parameters are set due registration
+        /// </summary>
+        bool GetInstance { get; }
+
+        /// <summary>
         /// Gets the identifier.
         /// </summary>
         /// <value>The identifier.</value>
         string Id { get; }
+
+        bool IsInitialized { get; }
 
         /// <summary>
         /// Gets the runtime parameters.
@@ -49,29 +56,22 @@ namespace Build
         /// </summary>
         string TypeFullName { get; }
 
-        /// <summary>
-        /// Gets or sets the <see cref="System.Object"/> with the specified attribute.
-        /// </summary>
-        /// <value>The <see cref="System.Object"/>.</value>
-        /// <param name="attribute">The attribute.</param>
-        /// <param name="typeFullName">Full name of the type.</param>
-        /// <returns></returns>
-        object this[IRuntimeAttribute attribute, string typeFullName] { get; set; }
+        object Value { get; }
 
         /// <summary>
         /// Adds the parameter.
         /// </summary>
         /// <param name="parameterRuntimeType">Type of the parameter runtime.</param>
-        void AddConstructorParameter(IRuntimeType parameterRuntimeType);
+        void AddConstructorParameter(bool canRegister, IRuntimeType parameterRuntimeType);
 
         /// <summary>
         /// Determines whether the specified identifier is assignable from type.
         /// </summary>
-        /// <param name="id">The identifier.</param>
+        /// <param name="typeFullName">The identifier.</param>
         /// <returns>
         /// <c>true</c> if the specified identifier is assignable from type, otherwise <c>false</c>.
         /// </returns>
-        bool ContainsTypeDefinition(string id);
+        bool ContainsTypeDefinition(string typeFullName);
 
         /// <summary>
         /// Creates the instance.
@@ -79,7 +79,7 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        object CreateInstance(object[] args);
+        object CreateInstance(params object[] args);
 
         /// <summary>
         /// Evaluates the runtime instance.
@@ -91,17 +91,33 @@ namespace Build
         object EvaluateRuntimeInstance(IRuntimeType type, IRuntimeAttribute attribute, int? i);
 
         /// <summary>
+        /// Gets the specified value from the specified attribute.
+        /// </summary>
+        /// <param name="attribute">Attribute</param>
+        /// <param name="id">Id</param>
+        /// <value>Value</value>
+        object GetAttributeValue(IRuntimeAttribute attribute, string id);
+
+        /// <summary>
         /// Registers the parameters.
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
-        bool RegisterConstructorParameters(object[] args);
+        bool RegisterConstructorParameters(params object[] args);
 
         /// <summary>
         /// Registers type full name as assignable type
         /// </summary>
         /// <param name="typeFullName"></param>
         void RegisterTypeDefinition(string typeFullName);
+
+        ///// <summary>
+        ///// Sets the specified value to the specified attribute.
+        ///// </summary>
+        ///// <param name="attribute">Attribute</param>
+        ///// <param name="id">Id</param>
+        ///// <param name="value">Value</param>
+        void SetAttributeValue(IRuntimeAttribute attribute, string id, object value);
 
         /// <summary>
         /// Sets the runtime instance type

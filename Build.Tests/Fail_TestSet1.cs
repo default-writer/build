@@ -17,7 +17,7 @@ namespace Build.Tests.Fail_TestSet1
 
     public class Other2 : IPersonRepository
     {
-        [Dependency(RuntimeInstance.None)]
+        [Dependency(RuntimeInstance.Exclude)]
         public Other2(Type type)
         {
         }
@@ -30,7 +30,7 @@ namespace Build.Tests.Fail_TestSet1
 
     public abstract class Other5 : IPersonRepository
     {
-        [Dependency(RuntimeInstance.None)]
+        [Dependency(RuntimeInstance.Exclude)]
         protected Other5(Type type)
         {
         }

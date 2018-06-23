@@ -21,7 +21,7 @@ namespace Build
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        IRuntimeAttribute GetRuntimeType(string id);
+        IRuntimeAttribute GetAttribute(string id);
 
         /// <summary>
         /// Registers the type of the runtime.

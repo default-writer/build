@@ -26,7 +26,7 @@ namespace Build.Tests.TestSet17
             container.RegisterType<Type>();
             var runtimeType = new RuntimeType(new InjectionAttribute("Build.Tests.TestSet17.Type"), typeof(Type), true);
             runtimeType.SetRuntimeInstance(RuntimeInstance.CreateInstance);
-            runtimeType.AddConstructorParameter(new RuntimeType(new InjectionAttribute(typeof(Type)), typeof(Type), true));
+            runtimeType.AddConstructorParameter(((TypeBuilder)container.Builder).CanRegister(runtimeType.Type), new RuntimeType(new InjectionAttribute(typeof(Type)), typeof(Type), true));
             Assert.Throws<TypeInstantiationException>(() => runtimeType.CreateInstance("Build.Tests.TestSet17.Type"));
         }
 

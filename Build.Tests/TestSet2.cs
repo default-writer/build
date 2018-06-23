@@ -34,7 +34,7 @@
 
     public class SqlDataRepository : IPersonRepository
     {
-        [Dependency("Ho ho ho", RuntimeInstance.None)]
+        [Dependency("Ho ho ho", RuntimeInstance.Exclude)]
         public SqlDataRepository()
         {
         }

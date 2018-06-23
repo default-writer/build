@@ -93,7 +93,7 @@ namespace Build.Tests.TestSet0
             var constructors = typeof(DefaultSqlDataRepository).GetConstructors();
             var constructorParameters = constructors[0].GetParameters();
             var injectionAttribute = (constructorParameters[0]).GetCustomAttribute<InjectionAttribute>();
-            Assert.Equal(RuntimeInstance.None, injectionAttribute.RuntimeInstance);
+            Assert.Equal(RuntimeInstance.Exclude, injectionAttribute.RuntimeInstance);
         }
 
         [Fact]
