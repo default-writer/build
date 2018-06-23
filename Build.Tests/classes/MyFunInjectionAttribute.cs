@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Build.Interfaces
+namespace Build.Tests
 {
     /// <summary>
     /// Injection attribute

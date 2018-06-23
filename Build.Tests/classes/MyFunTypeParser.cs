@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Build.Interfaces
+namespace Build.Tests
 {
     public sealed class MyFunTypeParser : ITypeParser
     {

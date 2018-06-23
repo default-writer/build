@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Build.Interfaces
+namespace Build.Tests
 {
     /// <summary>
     /// The fun part: use a "magic" method to describe type dependencies

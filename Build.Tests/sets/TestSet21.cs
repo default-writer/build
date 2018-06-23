@@ -1,4 +1,4 @@
-﻿namespace Build.Interfaces.Tests
+﻿namespace Build.Tests.TestSet21
 {
     public enum Database
     {
@@ -65,7 +65,7 @@
     interface IMyFunRuleSet2
     {
         SqlDataRepository Rule(
-            [MyFunInjection("Build.Interfaces.Tests.ValueType", 2019)]IValueType valueType);
+            [MyFunInjection("Build.Tests.TestSet21.ValueType", 2019)]IValueType valueType);
 
         SqlDataRepository Rule(int value);
     }
@@ -74,7 +74,7 @@
     interface IMyFunRuleSet2_Overwrite
     {
         SqlDataRepository Rule(
-            [MyFunInjection("Build.Interfaces.Tests.ValueType", 2020)]IValueType valueType);
+            [MyFunInjection("Build.Tests.TestSet21.ValueType", 2020)]IValueType valueType);
 
         SqlDataRepository Rule(int value);
     }
@@ -93,8 +93,8 @@
         WebServiceDataRepository Rule([MyFunInjection(typeof(ServiceDataRepository), 2019)]IPersonRepository repository);
 
         WebServiceDataRepository Rule(
-            [MyFunInjection("Build.Interfaces.Tests.ServiceDataRepository", 2020)]IPersonRepository repositoryA,
-            [MyFunInjection("Build.Interfaces.Tests.SqlDataRepository", 2021)]IPersonRepository repositoryB);
+            [MyFunInjection("Build.Tests.TestSet21.ServiceDataRepository", 2020)]IPersonRepository repositoryA,
+            [MyFunInjection("Build.Tests.TestSet21.SqlDataRepository", 2021)]IPersonRepository repositoryB);
     }
 
     [MyFun]
@@ -105,37 +105,27 @@
         WebServiceDataRepository2 Rule([MyFunInjection(typeof(ServiceDataRepository), 2019)]IPersonRepository repository);
 
         WebServiceDataRepository2 Rule(
-            [MyFunInjection("Build.Interfaces.Tests.SqlDataRepository", 2020)]IPersonRepository repositoryA,
-            [MyFunInjection("Build.Interfaces.Tests.ServiceDataRepository", 2021)]IPersonRepository repositoryB);
+            [MyFunInjection("Build.Tests.TestSet21.SqlDataRepository", 2020)]IPersonRepository repositoryA,
+            [MyFunInjection("Build.Tests.TestSet21.ServiceDataRepository", 2021)]IPersonRepository repositoryB);
     }
 
     public class Person
     {
         readonly IPersonRepository _personRepository;
 
-        public Person(IPersonRepository personRepository)
-        {
-            _personRepository = personRepository;
-        }
+        public Person(IPersonRepository personRepository) => _personRepository = personRepository;
     }
 
     public class ServiceDataRepository : IPersonRepository
     {
         public ServiceDataRepository(int repositoryId) => RepositoryId = repositoryId;
 
-        public ServiceDataRepository(IPersonRepository repository)
-        {
-            Repository = repository;
-        }
+        public ServiceDataRepository(IPersonRepository repository) => Repository = repository;
 
         public IPersonRepository Repository { get; }
         public int RepositoryId { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new Person(this);
     }
 
     public class SqlDataRepository : IPersonRepository
@@ -146,11 +136,9 @@
 
         public int RepositoryId { get; }
 
-        public Person GetPerson(int personId)
-        {
+        public Person GetPerson(int personId) =>
             // get the data from SQL DB and return Person instance.
-            return new Person(this);
-        }
+            new Person(this);
     }
 
     public class Type2
@@ -182,10 +170,7 @@
     {
         public WebServiceDataRepository(int repositoryId) => RepositoryId = repositoryId;
 
-        public WebServiceDataRepository(IPersonRepository repository)
-        {
-            RepositoryC = repository;
-        }
+        public WebServiceDataRepository(IPersonRepository repository) => RepositoryC = repository;
 
         public WebServiceDataRepository(IPersonRepository repositoryA, IPersonRepository repositoryB)
         {
@@ -198,21 +183,16 @@
         public IPersonRepository RepositoryC { get; }
         public int RepositoryId { get; }
 
-        public Person GetPerson(int personId)
-        {
+        public Person GetPerson(int personId) =>
             // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+            new Person(this);
     }
 
     public class WebServiceDataRepository2 : IPersonRepository
     {
         public WebServiceDataRepository2(int repositoryId) => RepositoryId = repositoryId;
 
-        public WebServiceDataRepository2(IPersonRepository repository)
-        {
-            RepositoryA = repository;
-        }
+        public WebServiceDataRepository2(IPersonRepository repository) => RepositoryA = repository;
 
         public WebServiceDataRepository2(IPersonRepository repositoryA, IPersonRepository repositoryB)
         {
@@ -224,11 +204,9 @@
         public IPersonRepository RepositoryB { get; }
         public int RepositoryId { get; }
 
-        public Person GetPerson(int personId)
-        {
+        public Person GetPerson(int personId) =>
             // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+            new Person(this);
     }
 
     class Arg1

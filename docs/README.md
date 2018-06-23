@@ -145,7 +145,7 @@ Usage:
 ```c#
 var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
 container.RegisterType<IMyFunRuleSet>();
-var type1 = container.CreateInstance("Build.Interfaces.Tests.Type1(Build.Interfaces.Tests.Arg1,Build.Interfaces.Tests.Arg2)");
+var type1 = container.CreateInstance("Build.Tests.TestSet21.Type1(Build.Tests.TestSet21.Arg1,Build.Tests.TestSet21.Arg2)");
 Assert.NotNull(type1);
 ```
 

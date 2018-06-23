@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Build.Interfaces
+namespace Build.Tests
 {
     /// <summary>
     /// Type resolver
