@@ -28,7 +28,7 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 ## v1.0.0.15
 
-- Added [ASP.NET Core 2.1 middleware extensibility](https://github.com/hack2root/build/aspnetcore/fundamentals/middleware/extensibility-third-party-container-build/sample/)
+- Added [ASP.NET Core 2.1 middleware extensibility](https://github.com/hack2root/build/blob/master/aspnetcore/fundamentals/middleware/extensibility-third-party-container-build/sample/)
 - Added ```System.Func<T>``` type initialization
 - Added ```TypeBuilder.GetInstance(...)``` methods
 
