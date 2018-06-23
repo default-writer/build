@@ -224,27 +224,8 @@ namespace Build
             {
                 var runtimeType = runtimeTypes[0];
                 if (runtimeType.GetInstance)
-                {
                     return runtimeType.CreateInstance();
-                }
-                var parameters = new List<object>();
-                foreach (var parameter in runtimeType.RuntimeTypes)
-                {
-                    var parameterRuntimeTypes = GetRuntimeTypes(parameter.TypeFullName, args).Where((p) => p.Type == parameter.Type).ToArray();
-                    if (parameterRuntimeTypes.Length == 1)
-                    {
-                        var parameterRuntimeType = parameterRuntimeTypes[0];
-                        if (parameterRuntimeType.GetInstance)
-                            parameters.Add(parameterRuntimeType.CreateInstance());
-                        else
-                            parameters.Add(parameterRuntimeType.Value);
-                    }
-                    else
-                    {
-                        parameters.Add(null);
-                    }
-                }
-                return runtimeType.CreateInstance(parameters.ToArray());
+                return runtimeType.CreateInstance(GetRuntimeTypeParameters(runtimeType, args));
             }
             if (runtimeTypes.Length > 1)
             {
@@ -319,6 +300,29 @@ namespace Build
             var attributeType = Resolver.GetType(dependencyObject.RuntimeType.Type.Assembly, dependencyObject.TypeFullName);
             if (attributeType != null && !Filter.CheckTypeFullName(attributeType, dependencyObject.RuntimeType.Type))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", attributeType.Name, dependencyObject.RuntimeType.TypeFullName));
+        }
+
+        object[] GetRuntimeTypeParameters(IRuntimeType runtimeType, object[] args)
+        {
+            var parameters = new List<object>();
+            foreach (var parameter in runtimeType.RuntimeTypes)
+            {
+                var parameterRuntimeTypes = GetRuntimeTypes(parameter.TypeFullName, args).Where((p) => p.Type == parameter.Type).ToArray();
+                if (parameterRuntimeTypes.Length == 1)
+                {
+                    var parameterRuntimeType = parameterRuntimeTypes[0];
+                    if (parameterRuntimeType.GetInstance)
+                        parameters.Add(parameterRuntimeType.CreateInstance());
+                    else
+                        parameters.Add(parameterRuntimeType.Value);
+                }
+                else
+                {
+                    parameters.Add(null);
+                }
+            }
+
+            return parameters.ToArray();
         }
 
         /// <summary>
