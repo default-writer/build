@@ -28,21 +28,6 @@ namespace Build.Tests.UnitTests19
             container.RegisterType<TestSet19.Lazy<A>>(func2);
             container.RegisterType<C3>();
             var class1 = container.GetInstance<C3>();
-            Assert.NotNull(class1.A);
-        }
-
-        [Fact]
-        public static void TestSet19_Method11()
-        {
-            //TestSet19
-            var container = new Container();
-            var a = new A();
-            Func<A> func1 = () => a;
-            Func<A> func2 = () => a;
-            container.RegisterType<B>(func1);
-            container.RegisterType<TestSet19.Lazy<A>>(func2);
-            container.RegisterType<C3>();
-            var class1 = container.GetInstance<C3>();
             Assert.NotNull(class1.B);
         }
 
@@ -122,6 +107,21 @@ namespace Build.Tests.UnitTests19
             container.RegisterType<C2>();
             var class1 = container.GetInstance<C2>();
             Assert.Null(class1.A);
+        }
+
+        [Fact]
+        public static void TestSet19_Method9()
+        {
+            //TestSet19
+            var container = new Container();
+            var a = new A();
+            Func<A> func1 = () => a;
+            Func<A> func2 = () => a;
+            container.RegisterType<B>(func1);
+            container.RegisterType<TestSet19.Lazy<A>>(func2);
+            container.RegisterType<C3>();
+            var class1 = container.GetInstance<C3>();
+            Assert.NotNull(class1.A);
         }
     }
 }
