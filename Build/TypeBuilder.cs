@@ -297,7 +297,9 @@ namespace Build
         /// <exception cref="TypeRegistrationException"></exception>
         void CheckTypeFullName(ITypeDependencyObject dependencyObject)
         {
-            var attributeType = Resolver.GetType(dependencyObject.RuntimeType.Type.Assembly, dependencyObject.TypeFullName);
+            var constructor = dependencyObject.RuntimeType;
+            string typeFullName = dependencyObject.TypeFullName;
+            var attributeType = Resolver.GetType(constructor.Type.Assembly, typeFullName);
             if (attributeType != null && !Filter.CheckTypeFullName(attributeType, dependencyObject.RuntimeType.Type))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", attributeType.Name, dependencyObject.RuntimeType.TypeFullName));
         }
