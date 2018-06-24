@@ -6,11 +6,11 @@
         WebService
     }
 
-    public enum MyFun
+    public enum Interface
     {
     }
 
-    public enum MyFun2
+    public enum Interface2
     {
         Default = -1
     }
@@ -25,88 +25,87 @@
         int Value { get; }
     }
 
-    [MyFun]
-    interface IMyFunRuleSet
+    [Interface]
+    interface IInterfaceRuleSet
     {
-        [MyFunDependency(RuntimeInstance.Singleton)]
+        [InterfaceDependency(RuntimeInstance.Singleton)]
         Type1 Rule(Arg1 arg1, Arg2 arg2);
     }
 
-    [MyFun]
-    interface IMyFunRuleSet_CreateInstance
+    [Interface]
+    interface IInterfaceRuleSet_CreateInstance
     {
-        [MyFunDependency(RuntimeInstance.CreateInstance)]
+        [InterfaceDependency(RuntimeInstance.CreateInstance)]
         Type1 Rule(Arg1 arg1, Arg2 arg2);
     }
 
-    [MyFun]
-    interface IMyFunRuleSet_Enum
+    [Interface]
+    interface IInterfaceRuleSet_Enum
     {
-        Type2 Rule(MyFun myFun);
+        Type2 Rule(Interface myFun);
 
-        Type2 Rule(MyFun2 myFun);
+        Type2 Rule(Interface2 myFun);
     }
 
-    [MyFun]
-    interface IMyFunRuleSet_Enum2
+    [Interface]
+    interface IInterfaceRuleSet_Enum2
     {
-        Type3 Rule(MyFun2 myFun);
+        Type3 Rule(Interface2 myFun);
     }
 
-    [MyFun]
-    interface IMyFunRuleSet1
+    [Interface]
+    interface IInterfaceRuleSet1
     {
-        ServiceDataRepository Rule([MyFunInjection(typeof(SqlDataRepository), 2018)]IPersonRepository repository);
-
         ServiceDataRepository Rule(int repositoryId);
+
+        ServiceDataRepository Rule([InterfaceInjection(typeof(SqlDataRepository), 2018)]IPersonRepository repository);
     }
 
-    [MyFun]
-    interface IMyFunRuleSet2
+    [Interface]
+    interface IInterfaceRuleSet2
     {
-        SqlDataRepository Rule(
-            [MyFunInjection("Build.Tests.TestSet21.ValueType", 2019)]IValueType valueType);
+        SqlDataRepository Rule([InterfaceInjection("Build.Tests.TestSet21.ValueType", 2019)]IValueType valueType);
 
         SqlDataRepository Rule(int value);
     }
 
-    [MyFun]
-    interface IMyFunRuleSet2_Overwrite
+    [Interface]
+    interface IInterfaceRuleSet2_Overwrite
     {
         SqlDataRepository Rule(
-            [MyFunInjection("Build.Tests.TestSet21.ValueType", 2020)]IValueType valueType);
+            [InterfaceInjection("Build.Tests.TestSet21.ValueType", 2020)]IValueType valueType);
 
         SqlDataRepository Rule(int value);
     }
 
-    [MyFun]
-    interface IMyFunRuleSet2_ValueType
+    [Interface]
+    interface IInterfaceRuleSet2_ValueType
     {
         ValueType Rule(int value);
     }
 
-    [MyFun]
-    interface IMyFunRuleSet3
+    [Interface]
+    interface IInterfaceRuleSet3
     {
         WebServiceDataRepository Rule(int repositoryId);
 
-        WebServiceDataRepository Rule([MyFunInjection(typeof(ServiceDataRepository), 2019)]IPersonRepository repository);
+        WebServiceDataRepository Rule([InterfaceInjection(typeof(ServiceDataRepository), 2019)]IPersonRepository repository);
 
         WebServiceDataRepository Rule(
-            [MyFunInjection("Build.Tests.TestSet21.ServiceDataRepository", 2020)]IPersonRepository repositoryA,
-            [MyFunInjection("Build.Tests.TestSet21.SqlDataRepository", 2021)]IPersonRepository repositoryB);
+            [InterfaceInjection("Build.Tests.TestSet21.ServiceDataRepository", 2020)]IPersonRepository repositoryA,
+            [InterfaceInjection("Build.Tests.TestSet21.SqlDataRepository", 2021)]IPersonRepository repositoryB);
     }
 
-    [MyFun]
-    interface IMyFunRuleSet4
+    [Interface]
+    interface IInterfaceRuleSet4
     {
         WebServiceDataRepository2 Rule(int repositoryId);
 
-        WebServiceDataRepository2 Rule([MyFunInjection(typeof(ServiceDataRepository), 2019)]IPersonRepository repository);
+        WebServiceDataRepository2 Rule([InterfaceInjection(typeof(ServiceDataRepository), 2019)]IPersonRepository repository);
 
         WebServiceDataRepository2 Rule(
-            [MyFunInjection("Build.Tests.TestSet21.SqlDataRepository", 2020)]IPersonRepository repositoryA,
-            [MyFunInjection("Build.Tests.TestSet21.ServiceDataRepository", 2021)]IPersonRepository repositoryB);
+            [InterfaceInjection("Build.Tests.TestSet21.SqlDataRepository", 2020)]IPersonRepository repositoryA,
+            [InterfaceInjection("Build.Tests.TestSet21.ServiceDataRepository", 2021)]IPersonRepository repositoryB);
     }
 
     public class Person
@@ -143,20 +142,20 @@
 
     public class Type2
     {
-        public Type2(MyFun myFun) => MyFun = myFun;
+        public Type2(Interface myFun) => Interface = myFun;
 
-        public Type2(MyFun2 myFun) => MyFun2 = myFun;
+        public Type2(Interface2 myFun) => Interface2 = myFun;
 
-        public MyFun MyFun { get; }
+        public Interface Interface { get; }
 
-        public MyFun2 MyFun2 { get; }
+        public Interface2 Interface2 { get; }
     }
 
     public class Type3
     {
-        public Type3(MyFun2 myFun) => MyFun2 = myFun;
+        public Type3(Interface2 myFun) => Interface2 = myFun;
 
-        public MyFun2 MyFun2 { get; }
+        public Interface2 Interface2 { get; }
     }
 
     public class ValueType : IValueType

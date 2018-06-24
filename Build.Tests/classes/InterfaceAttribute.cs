@@ -8,7 +8,7 @@ namespace Build.Tests
     /// <seealso cref="Build.RuntimeAttribute"/>
     /// <seealso cref="Build.IRuntimeAttribute"/>
     [AttributeUsage(AttributeTargets.Interface)]
-    public sealed class MyFunAttribute : Attribute
+    public sealed class InterfaceAttribute : Attribute
     {
     }
 }

@@ -8,33 +8,33 @@ namespace Build.Tests
     /// <seealso cref="Build.RuntimeAttribute"/>
     /// <seealso cref="Build.IRuntimeAttribute"/>
     [AttributeUsage(AttributeTargets.Method)]
-    public sealed class MyFunDependencyAttribute : RuntimeAttribute, IDependencyAttribute
+    public sealed class InterfaceDependencyAttribute : RuntimeAttribute, IDependencyAttribute
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
         /// <param name="typeFullName">Full name of the type.</param>
         /// <param name="runtimeInstance">The runtime instance.</param>
-        public MyFunDependencyAttribute(string typeFullName, RuntimeInstance runtimeInstance) : base(typeFullName) => RuntimeInstance = runtimeInstance;
+        public InterfaceDependencyAttribute(string typeFullName, RuntimeInstance runtimeInstance) : base(typeFullName) => RuntimeInstance = runtimeInstance;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="runtimeInstance">The runtime instance.</param>
-        public MyFunDependencyAttribute(Type type, RuntimeInstance runtimeInstance) : base(type) => RuntimeInstance = runtimeInstance;
+        public InterfaceDependencyAttribute(Type type, RuntimeInstance runtimeInstance) : base(type) => RuntimeInstance = runtimeInstance;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
         /// <param name="runtimeInstance">The runtime instance.</param>
-        public MyFunDependencyAttribute(RuntimeInstance runtimeInstance) => RuntimeInstance = runtimeInstance;
+        public InterfaceDependencyAttribute(RuntimeInstance runtimeInstance) => RuntimeInstance = runtimeInstance;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
         /// <param name="typeFullName"></param>
-        public MyFunDependencyAttribute(string typeFullName) : base(typeFullName)
+        public InterfaceDependencyAttribute(string typeFullName) : base(typeFullName)
         {
         }
 
@@ -42,14 +42,14 @@ namespace Build.Tests
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
-        public MyFunDependencyAttribute(Type type) : base(type)
+        public InterfaceDependencyAttribute(Type type) : base(type)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
-        public MyFunDependencyAttribute()
+        public InterfaceDependencyAttribute()
         {
         }
 

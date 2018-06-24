@@ -81,17 +81,17 @@ public class Lazy<T> : IFactory<T>
 
 Example:
 ```c#
-[MyFun]
-interface IMyFunRuleSet2
+[Interface]
+interface IInterfaceRuleSet2
 {
-    [MyFunDependency(RuntimeInstance.Singleton)]
+    [InterfaceDependency(RuntimeInstance.Singleton)]
     SqlDataRepository Rule(int repositoryId);
 }
 
-[MyFun]
-interface IMyFunRuleSet2_Overwrite
+[Interface]
+interface IInterfaceRuleSet2_Overwrite
 {
-    [MyFunDependency(RuntimeInstance.Singleton)]
+    [InterfaceDependency(RuntimeInstance.Singleton)]
     SqlDataRepository Rule(int repositoryId);
 }
 ```
@@ -122,7 +122,7 @@ interface IMyFunRuleSet2_Overwrite
 
 Definition:
 ```c#
-interface IMyFunRuleSet
+interface IInterfaceRuleSet
 {
     Type1 Rule(Arg1 arg1, Arg2 arg2);
 }
@@ -143,8 +143,8 @@ class Type1
 
 Usage:
 ```c#
-var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-container.RegisterType<IMyFunRuleSet>();
+var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+container.RegisterType<IInterfaceRuleSet>();
 var type1 = container.CreateInstance("Build.Tests.TestSet21.Type1(Build.Tests.TestSet21.Arg1,Build.Tests.TestSet21.Arg2)");
 Assert.NotNull(type1);
 ```

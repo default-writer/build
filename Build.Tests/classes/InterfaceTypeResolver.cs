@@ -7,7 +7,7 @@ namespace Build.Tests
     /// Type resolver
     /// </summary>
     /// <seealso cref="Build.ITypeResolver"/>
-    public sealed class MyFunTypeResolver : ITypeResolver
+    public sealed class InterfaceTypeResolver : ITypeResolver
     {
         /// <summary>
         /// Gets the type.

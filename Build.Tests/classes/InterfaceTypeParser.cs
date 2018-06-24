@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Build.Tests
 {
-    public sealed class MyFunTypeParser : ITypeParser
+    public sealed class InterfaceTypeParser : ITypeParser
     {
         /// <summary>
         /// Cache for RuntimeTtype.

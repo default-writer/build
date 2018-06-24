@@ -9,7 +9,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test1()
         {
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             Assert.NotNull(container);
         }
 
@@ -17,10 +17,10 @@ namespace Build.Tests.TestSet21
         public static void Test10()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
-            container.RegisterType<IMyFunRuleSet3>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
+            container.RegisterType<IInterfaceRuleSet3>();
             var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository(Build.Tests.TestSet21.ServiceDataRepository)");
             Assert.Equal(0, sql.RepositoryId);
         }
@@ -29,10 +29,10 @@ namespace Build.Tests.TestSet21
         public static void Test11()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
-            container.RegisterType<IMyFunRuleSet4>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
+            container.RegisterType<IInterfaceRuleSet4>();
             var sql = (WebServiceDataRepository2)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository2(Build.Tests.TestSet21.IPersonRepository,Build.Tests.TestSet21.IPersonRepository)");
             Assert.Equal(2021, ((ServiceDataRepository)sql.RepositoryB).RepositoryId);
         }
@@ -41,10 +41,10 @@ namespace Build.Tests.TestSet21
         public static void Test12()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
-            container.RegisterType<IMyFunRuleSet4>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
+            container.RegisterType<IInterfaceRuleSet4>();
             var sql = (WebServiceDataRepository2)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository2(Build.Tests.TestSet21.IPersonRepository,Build.Tests.TestSet21.ServiceDataRepository)");
             Assert.Equal(2021, ((ServiceDataRepository)sql.RepositoryB).RepositoryId);
         }
@@ -53,10 +53,10 @@ namespace Build.Tests.TestSet21
         public static void Test13()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
-            container.RegisterType<IMyFunRuleSet4>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
+            container.RegisterType<IInterfaceRuleSet4>();
             Assert.Throws<TypeInstantiationException>(() => (WebServiceDataRepository2)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository2(Build.Tests.TestSet21.IPersonRepository,Build.Tests.TestSet21.SqlDataRepository)"));
         }
 
@@ -64,8 +64,8 @@ namespace Build.Tests.TestSet21
         public static void Test14()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
             var sql = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(System.Int32)", 2018);
             Assert.NotNull(sql);
         }
@@ -74,10 +74,10 @@ namespace Build.Tests.TestSet21
         public static void Test15()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
-            container.RegisterType<IMyFunRuleSet4>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
+            container.RegisterType<IInterfaceRuleSet4>();
             Assert.Throws<TypeInstantiationException>(() => (WebServiceDataRepository2)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository2(Build.Tests.TestSet21.ServiceDataRepository,Build.Tests.TestSet21.ServiceDataRepository)"));
         }
 
@@ -85,10 +85,10 @@ namespace Build.Tests.TestSet21
         public static void Test16()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
-            container.RegisterType<IMyFunRuleSet4>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
+            container.RegisterType<IInterfaceRuleSet4>();
             Assert.Throws<TypeInstantiationException>(() => (WebServiceDataRepository2)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository2(Build.Tests.TestSet21.SqlDataRepository,Build.Tests.TestSet21.SqlDataRepository)"));
         }
 
@@ -96,10 +96,10 @@ namespace Build.Tests.TestSet21
         public static void Test17()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
-            container.RegisterType<IMyFunRuleSet4>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
+            container.RegisterType<IInterfaceRuleSet4>();
             Assert.Throws<TypeInstantiationException>(() => (WebServiceDataRepository2)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository2(Build.Tests.TestSet21.ServiceDataRepository,Build.Tests.TestSet21.SqlDataRepository)"));
         }
 
@@ -107,10 +107,10 @@ namespace Build.Tests.TestSet21
         public static void Test18()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
-            container.RegisterType<IMyFunRuleSet4>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
+            container.RegisterType<IInterfaceRuleSet4>();
             var sql = (WebServiceDataRepository2)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository2(Build.Tests.TestSet21.SqlDataRepository,Build.Tests.TestSet21.ServiceDataRepository)");
             Assert.Equal(2020, ((SqlDataRepository)sql.RepositoryA).RepositoryId);
         }
@@ -119,10 +119,10 @@ namespace Build.Tests.TestSet21
         public static void Test19()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
-            container.RegisterType<IMyFunRuleSet4>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
+            container.RegisterType<IInterfaceRuleSet4>();
             var sql = (WebServiceDataRepository2)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository2(Build.Tests.TestSet21.SqlDataRepository,Build.Tests.TestSet21.ServiceDataRepository)");
             Assert.Equal(2021, ((ServiceDataRepository)sql.RepositoryB).RepositoryId);
         }
@@ -130,8 +130,8 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test2()
         {
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet>();
             var type1 = container.CreateInstance("Build.Tests.TestSet21.Type1(Build.Tests.TestSet21.Arg1,Build.Tests.TestSet21.Arg2)");
             Assert.NotNull(type1);
         }
@@ -140,9 +140,9 @@ namespace Build.Tests.TestSet21
         public static void Test20()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver(), false, true, true);
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver(), false, true, true);
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
             var sql = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.ServiceDataRepository(Build.Tests.TestSet21.SqlDataRepository)");
             Assert.NotNull(sql.Repository);
         }
@@ -151,9 +151,9 @@ namespace Build.Tests.TestSet21
         public static void Test21()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
             var sql = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.ServiceDataRepository(Build.Tests.TestSet21.SqlDataRepository)");
             Assert.NotNull(sql.Repository);
         }
@@ -162,9 +162,9 @@ namespace Build.Tests.TestSet21
         public static void Test22()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
             var srv = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.ServiceDataRepository(Build.Tests.TestSet21.IPersonRepository)");
             Assert.NotNull(srv);
         }
@@ -173,9 +173,9 @@ namespace Build.Tests.TestSet21
         public static void Test23()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
             var srv = container.CreateInstance<ServiceDataRepository>(0);
             Assert.NotNull(srv);
         }
@@ -184,9 +184,9 @@ namespace Build.Tests.TestSet21
         public static void Test24()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
             var sql = container.CreateInstance<SqlDataRepository>(0);
             var srv = container.CreateInstance<ServiceDataRepository>((IPersonRepository)sql);
             Assert.NotNull(srv.Repository);
@@ -196,9 +196,9 @@ namespace Build.Tests.TestSet21
         public static void Test25()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
             var sql = container.CreateInstance<SqlDataRepository>(0);
             var srv = container.CreateInstance<ServiceDataRepository>(sql);
             var sqlRepository = srv.Repository as SqlDataRepository;
@@ -209,9 +209,9 @@ namespace Build.Tests.TestSet21
         public static void Test26()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
             var sql = container.CreateInstance<SqlDataRepository>((int)Database.WebService);
             var srv = container.CreateInstance<ServiceDataRepository>((IPersonRepository)sql);
             var sqlRepository = srv.Repository as SqlDataRepository;
@@ -222,9 +222,9 @@ namespace Build.Tests.TestSet21
         public static void Test27()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
             Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<SqlDataRepository>(Database.SQL));
         }
 
@@ -232,22 +232,22 @@ namespace Build.Tests.TestSet21
         public static void Test28()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver(), true, true, false);
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
-            container.RegisterType<IMyFunRuleSet3>();
-            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<IMyFunRuleSet2_Overwrite>());
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver(), true, true, false);
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
+            container.RegisterType<IInterfaceRuleSet3>();
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<IInterfaceRuleSet2_Overwrite>());
         }
 
         [Fact]
         public static void Test29()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2_ValueType>();
-            container.RegisterType<IMyFunRuleSet2>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2_ValueType>();
+            container.RegisterType<IInterfaceRuleSet2>();
             var sql1 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(System.Int32)", 2020);
-            container.RegisterType<IMyFunRuleSet2_Overwrite>();
+            container.RegisterType<IInterfaceRuleSet2_Overwrite>();
             var sql2 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(Build.Tests.TestSet21.IValueType)");
             Assert.Equal(sql1.RepositoryId, sql2.RepositoryId);
         }
@@ -256,9 +256,9 @@ namespace Build.Tests.TestSet21
         public static void Test3()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2_ValueType>();
-            container.RegisterType<IMyFunRuleSet2>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2_ValueType>();
+            container.RegisterType<IInterfaceRuleSet2>();
             var sql = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(System.Int32)");
             Assert.NotNull(sql);
         }
@@ -267,11 +267,11 @@ namespace Build.Tests.TestSet21
         public static void Test30()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2_ValueType>();
-            container.RegisterType<IMyFunRuleSet2>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2_ValueType>();
+            container.RegisterType<IInterfaceRuleSet2>();
             var sql1 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(Build.Tests.TestSet21.IValueType)");
-            container.RegisterType<IMyFunRuleSet2_Overwrite>();
+            container.RegisterType<IInterfaceRuleSet2_Overwrite>();
             var sql2 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(Build.Tests.TestSet21.IValueType)");
             Assert.NotEqual(sql1.RepositoryId, sql2.RepositoryId);
         }
@@ -280,10 +280,10 @@ namespace Build.Tests.TestSet21
         public static void Test31()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
-            container.RegisterType<IMyFunRuleSet3>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
+            container.RegisterType<IInterfaceRuleSet3>();
             var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository(Build.Tests.TestSet21.IPersonRepository)");
             Assert.Equal(2019, ((ServiceDataRepository)sql.RepositoryC).RepositoryId);
         }
@@ -292,8 +292,8 @@ namespace Build.Tests.TestSet21
         public static void Test32()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
             var sql = container.CreateInstance<SqlDataRepository>(default(int));
             Assert.Equal(0, sql.RepositoryId);
         }
@@ -302,9 +302,9 @@ namespace Build.Tests.TestSet21
         public static void Test33()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2_ValueType>();
-            container.RegisterType<IMyFunRuleSet2>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2_ValueType>();
+            container.RegisterType<IInterfaceRuleSet2>();
             // If your type have multiple constructors available, you must specify type with parameters for the build
             Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository"));
         }
@@ -313,8 +313,8 @@ namespace Build.Tests.TestSet21
         public static void Test34()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
             // If your type have multiple constructors available, you must specify type with parameters for the build
             Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<SqlDataRepository>());
         }
@@ -322,8 +322,8 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test35()
         {
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet>();
             var type1 = container.CreateInstance("Build.Tests.TestSet21.Type1(Build.Tests.TestSet21.Arg1,Build.Tests.TestSet21.Arg2)");
             var type2 = container.CreateInstance("Build.Tests.TestSet21.Type1(Build.Tests.TestSet21.Arg1,Build.Tests.TestSet21.Arg2)");
             Assert.Equal(type1, type2);
@@ -332,8 +332,8 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test36()
         {
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet_CreateInstance>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet_CreateInstance>();
             var type1 = container.CreateInstance("Build.Tests.TestSet21.Type1(Build.Tests.TestSet21.Arg1,Build.Tests.TestSet21.Arg2)");
             var type2 = container.CreateInstance("Build.Tests.TestSet21.Type1(Build.Tests.TestSet21.Arg1,Build.Tests.TestSet21.Arg2)");
             Assert.NotEqual(type1, type2);
@@ -342,27 +342,27 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test37()
         {
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet_Enum>();
-            var type = container.CreateInstance("Build.Tests.TestSet21.Type2(Build.Tests.TestSet21.MyFun)");
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet_Enum>();
+            var type = container.CreateInstance("Build.Tests.TestSet21.Type2(Build.Tests.TestSet21.Interface)");
             Assert.NotNull(type);
         }
 
         [Fact]
         public static void Test38()
         {
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet_Enum2>();
-            var type = container.CreateInstance("Build.Tests.TestSet21.Type3(Build.Tests.TestSet21.MyFun2)");
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet_Enum2>();
+            var type = container.CreateInstance("Build.Tests.TestSet21.Type3(Build.Tests.TestSet21.Interface2)");
             Assert.NotNull(type);
         }
 
         [Fact]
         public static void Test39()
         {
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet_Enum>();
-            var type = container.CreateInstance("Build.Tests.TestSet21.Type2(Build.Tests.TestSet21.MyFun2)");
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet_Enum>();
+            var type = container.CreateInstance("Build.Tests.TestSet21.Type2(Build.Tests.TestSet21.Interface2)");
             Assert.NotNull(type);
         }
 
@@ -370,9 +370,9 @@ namespace Build.Tests.TestSet21
         public static void Test4()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
             var srv = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.ServiceDataRepository(Build.Tests.TestSet21.IPersonRepository)");
             var sqlRepository = srv.Repository as SqlDataRepository;
             Assert.Equal(2018, sqlRepository.RepositoryId);
@@ -381,18 +381,18 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test40()
         {
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet_Enum>();
-            var type = (Type2)container.CreateInstance("Build.Tests.TestSet21.Type2(Build.Tests.TestSet21.MyFun2)");
-            Assert.Equal(-1, (int)type.MyFun2);
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet_Enum>();
+            var type = (Type2)container.CreateInstance("Build.Tests.TestSet21.Type2(Build.Tests.TestSet21.Interface2)");
+            Assert.Equal(-1, (int)type.Interface2);
         }
 
         [Fact]
         public static void Test5()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
             var sql = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(System.Int32)", 2018);
             Assert.Equal(2018, sql.RepositoryId);
         }
@@ -401,10 +401,10 @@ namespace Build.Tests.TestSet21
         public static void Test6()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
-            container.RegisterType<IMyFunRuleSet3>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
+            container.RegisterType<IInterfaceRuleSet3>();
             var sql = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.ServiceDataRepository(Build.Tests.TestSet21.SqlDataRepository)");
             Assert.Equal(2018, ((SqlDataRepository)sql.Repository).RepositoryId);
         }
@@ -413,10 +413,10 @@ namespace Build.Tests.TestSet21
         public static void Test7()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
-            container.RegisterType<IMyFunRuleSet3>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
+            container.RegisterType<IInterfaceRuleSet3>();
             var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository(Build.Tests.TestSet21.ServiceDataRepository)");
             Assert.Equal(2019, ((ServiceDataRepository)sql.RepositoryC).RepositoryId);
         }
@@ -425,10 +425,10 @@ namespace Build.Tests.TestSet21
         public static void Test8()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet1>();
-            container.RegisterType<IMyFunRuleSet3>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet1>();
+            container.RegisterType<IInterfaceRuleSet3>();
             var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository(Build.Tests.TestSet21.IPersonRepository,Build.Tests.TestSet21.IPersonRepository)");
             Assert.Equal(2020, ((ServiceDataRepository)sql.RepositoryA).RepositoryId);
         }
@@ -437,11 +437,11 @@ namespace Build.Tests.TestSet21
         public static void Test9()
         {
             //TestSet16
-            var container = new Container(new MyFunTypeConstructor(), new MyFunTypeFilter(), new MyFunTypeParser(), new MyFunTypeResolver());
-            container.RegisterType<IMyFunRuleSet2>();
-            container.RegisterType<IMyFunRuleSet2_Overwrite>();
-            container.RegisterType<IMyFunRuleSet1>();
-            container.RegisterType<IMyFunRuleSet3>();
+            var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2>();
+            container.RegisterType<IInterfaceRuleSet2_Overwrite>();
+            container.RegisterType<IInterfaceRuleSet1>();
+            container.RegisterType<IInterfaceRuleSet3>();
             var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository(Build.Tests.TestSet21.IPersonRepository,Build.Tests.TestSet21.IPersonRepository)");
             Assert.Equal(2021, ((SqlDataRepository)sql.RepositoryB).RepositoryId);
         }

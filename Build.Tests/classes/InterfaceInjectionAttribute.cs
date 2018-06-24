@@ -10,7 +10,7 @@ namespace Build.Tests
     /// <seealso cref="Build.RuntimeAttribute"/>
     /// <seealso cref="Build.IRuntimeAttribute"/>
     [AttributeUsage(AttributeTargets.Parameter)]
-    public sealed class MyFunInjectionAttribute : RuntimeAttribute, IInjectionAttribute
+    public sealed class InterfaceInjectionAttribute : RuntimeAttribute, IInjectionAttribute
     {
         /// <summary>
         /// Gets the arguments.
@@ -23,20 +23,20 @@ namespace Build.Tests
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="args">The arguments.</param>
-        public MyFunInjectionAttribute(string id, params object[] args) : this(id) => _arguments = args;
+        public InterfaceInjectionAttribute(string id, params object[] args) : this(id) => _arguments = args;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="args">The arguments.</param>
-        public MyFunInjectionAttribute(Type type, params object[] args) : this(type) => _arguments = args;
+        public InterfaceInjectionAttribute(Type type, params object[] args) : this(type) => _arguments = args;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
         /// <param name="typeFullName"></param>
-        public MyFunInjectionAttribute(string typeFullName) : base(typeFullName)
+        public InterfaceInjectionAttribute(string typeFullName) : base(typeFullName)
         {
         }
 
@@ -44,14 +44,14 @@ namespace Build.Tests
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
-        public MyFunInjectionAttribute(Type type) : base(type)
+        public InterfaceInjectionAttribute(Type type) : base(type)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
-        public MyFunInjectionAttribute()
+        public InterfaceInjectionAttribute()
         {
         }
 

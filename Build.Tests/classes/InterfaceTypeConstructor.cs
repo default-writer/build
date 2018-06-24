@@ -8,7 +8,7 @@ namespace Build.Tests
     /// <summary>
     /// The fun part: use a "magic" method to describe type dependencies
     /// </summary>
-    public sealed class MyFunTypeConstructor : ITypeConstructor
+    public sealed class InterfaceTypeConstructor : ITypeConstructor
     {
         public IEnumerable<ITypeDependencyObject> GetDependencyObjects(Type type, bool defaultTypeInstantiation)
         {
@@ -17,8 +17,8 @@ namespace Build.Tests
             {
                 if (constructorInfo.Name == "Rule")
                 {
-                    var runtimeAttribute = constructorInfo.GetCustomAttribute<MyFunDependencyAttribute>();
-                    var injectionObjects = constructorInfo.GetParameters().Select(p => new TypeInjectionObject(p.GetCustomAttribute<MyFunInjectionAttribute>(), p.ParameterType, defaultTypeInstantiation));
+                    var runtimeAttribute = constructorInfo.GetCustomAttribute<InterfaceDependencyAttribute>();
+                    var injectionObjects = constructorInfo.GetParameters().Select(p => new TypeInjectionObject(p.GetCustomAttribute<InterfaceInjectionAttribute>(), p.ParameterType, defaultTypeInstantiation));
                     dependencyObjects.Add(new TypeDependencyObject(runtimeAttribute, injectionObjects, constructorInfo.ReturnType, defaultTypeInstantiation));
                 }
             }
