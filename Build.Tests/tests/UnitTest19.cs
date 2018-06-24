@@ -82,5 +82,29 @@ namespace Build.Tests.UnitTests19
             var class1 = container.GetInstance<C2>();
             Assert.NotNull(class1);
         }
+
+        [Fact]
+        public static void TestSet18_Method8()
+        {
+            //TestSet19
+            var container = new Container();
+            Func<A> a = () => new A();
+            container.RegisterType<B>(a);
+            container.RegisterType<C2>();
+            var class1 = container.GetInstance<C2>();
+            Assert.Null(class1.A);
+        }
+
+        [Fact]
+        public static void TestSet18_Method9()
+        {
+            //TestSet19
+            var container = new Container();
+            Func<A> a = () => new A();
+            container.RegisterType<B>(a);
+            container.RegisterType<C2>();
+            var class1 = container.GetInstance<C2>();
+            Assert.NotNull(class1.B);
+        }
     }
 }
