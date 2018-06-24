@@ -42,6 +42,18 @@ namespace Build.Tests.TestSet19
         public B B { get; }
     }
 
+    public class C3
+    {
+        public C3(Lazy<A> a, B b)
+        {
+            A = a.GetInstance();
+            B = b;
+        }
+
+        public A A { get; }
+        public B B { get; }
+    }
+
     public class Class1
     {
     }

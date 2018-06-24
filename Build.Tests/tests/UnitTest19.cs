@@ -9,7 +9,7 @@ namespace Build.Tests.UnitTests19
     public static class UnitTests
     {
         [Fact]
-        public static void TestSet18_Method1()
+        public static void TestSet19_Method1()
         {
             //TestSet19
             var container = new Container();
@@ -17,7 +17,37 @@ namespace Build.Tests.UnitTests19
         }
 
         [Fact]
-        public static void TestSet18_Method2()
+        public static void TestSet19_Method10()
+        {
+            //TestSet19
+            var container = new Container();
+            var a = new A();
+            Func<A> func1 = () => a;
+            Func<A> func2 = () => a;
+            container.RegisterType<B>(func1);
+            container.RegisterType<TestSet19.Lazy<A>>(func2);
+            container.RegisterType<C3>();
+            var class1 = container.GetInstance<C3>();
+            Assert.NotNull(class1.A);
+        }
+
+        [Fact]
+        public static void TestSet19_Method11()
+        {
+            //TestSet19
+            var container = new Container();
+            var a = new A();
+            Func<A> func1 = () => a;
+            Func<A> func2 = () => a;
+            container.RegisterType<B>(func1);
+            container.RegisterType<TestSet19.Lazy<A>>(func2);
+            container.RegisterType<C3>();
+            var class1 = container.GetInstance<C3>();
+            Assert.NotNull(class1.B);
+        }
+
+        [Fact]
+        public static void TestSet19_Method2()
         {
             //TestSet19
             var container = new Container();
@@ -27,7 +57,7 @@ namespace Build.Tests.UnitTests19
         }
 
         [Fact]
-        public static void TestSet18_Method3()
+        public static void TestSet19_Method3()
         {
             //TestSet19
             var container = new Container();
@@ -38,7 +68,7 @@ namespace Build.Tests.UnitTests19
         }
 
         [Fact]
-        public static void TestSet18_Method4()
+        public static void TestSet19_Method4()
         {
             //TestSet19
             var container = new Container();
@@ -48,7 +78,7 @@ namespace Build.Tests.UnitTests19
         }
 
         [Fact]
-        public static void TestSet18_Method5()
+        public static void TestSet19_Method5()
         {
             //TestSet19
             var container = new Container();
@@ -58,7 +88,7 @@ namespace Build.Tests.UnitTests19
         }
 
         [Fact]
-        public static void TestSet18_Method6()
+        public static void TestSet19_Method6()
         {
             //TestSet19
             var container = new Container();
@@ -71,12 +101,11 @@ namespace Build.Tests.UnitTests19
         }
 
         [Fact]
-        public static void TestSet18_Method7()
+        public static void TestSet19_Method7()
         {
             //TestSet19
             var container = new Container();
             Func<A> a = () => new A();
-            var b = new B(a);
             container.RegisterType<B>(a);
             container.RegisterType<C2>();
             var class1 = container.GetInstance<C2>();
@@ -84,7 +113,7 @@ namespace Build.Tests.UnitTests19
         }
 
         [Fact]
-        public static void TestSet18_Method8()
+        public static void TestSet19_Method8()
         {
             //TestSet19
             var container = new Container();
@@ -93,18 +122,6 @@ namespace Build.Tests.UnitTests19
             container.RegisterType<C2>();
             var class1 = container.GetInstance<C2>();
             Assert.Null(class1.A);
-        }
-
-        [Fact]
-        public static void TestSet18_Method9()
-        {
-            //TestSet19
-            var container = new Container();
-            Func<A> a = () => new A();
-            container.RegisterType<B>(a);
-            container.RegisterType<C2>();
-            var class1 = container.GetInstance<C2>();
-            Assert.NotNull(class1.B);
         }
     }
 }
