@@ -41,10 +41,10 @@
         [Dependency(RuntimeInstance.Singleton)]
         public SqlDataRepository(int personId)
         {
-            PersinId = personId;
+            PersonId = personId;
         }
 
-        public int PersinId { get; }
+        public int PersonId { get; }
 
         public Person GetPerson(int personId)
         {

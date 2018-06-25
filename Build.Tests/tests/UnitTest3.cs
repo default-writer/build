@@ -100,7 +100,7 @@ namespace Build.Tests.TestSet3
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var instance = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet3.SqlDataRepository(System.Int32)", 123);
-            Assert.Equal(123, instance.PersinId);
+            Assert.Equal(123, instance.PersonId);
         }
 
         [Fact]
@@ -112,7 +112,7 @@ namespace Build.Tests.TestSet3
             container.RegisterType<ServiceDataRepository>();
             var instance1 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet3.SqlDataRepository(System.Int32)", 123);
             var instance2 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet3.SqlDataRepository(System.Int32)");
-            Assert.True(instance1.PersinId == 123 && instance2.PersinId == 0);
+            Assert.True(instance1.PersonId == 123 && instance2.PersonId == 0);
         }
 
         [Fact]
