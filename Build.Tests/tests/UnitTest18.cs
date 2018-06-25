@@ -1,4 +1,5 @@
 using Build.Tests.TestSet18;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Build.Tests.UnitTests18
@@ -285,6 +286,17 @@ namespace Build.Tests.UnitTests18
             var factory1 = (Lazy<Type>)container.CreateInstance("Build.Tests.TestSet18.Lazy`1[Build.Tests.TestSet18.Type]");
             var factory2 = (Lazy<Type>)container.CreateInstance("Build.Tests.TestSet18.Lazy`1[Build.Tests.TestSet18.Type]");
             Assert.Equal(factory1.Func, factory2.Func);
+        }
+
+        [Fact]
+        public static void TestSet18_Method33()
+        {
+            //TestSet18
+            var container = new Container();
+            System.Func<Type> func = () => new Type();
+            container.RegisterType<Lazy<Type>>(func);
+            var count = RuntimeTypeExtensions.FindRintimeTypes(((TypeBuilder)container.Builder).Types.Values, "Build.Tests.TestSet18.Lazy`1[Build.Tests.TestSet18.Type](System.Func`1[Build.Tests.TestSet18.Type])").Length;
+            Assert.Equal(1, count);
         }
 
         [Fact]
