@@ -1,9 +1,8 @@
-using System;
-using System.Threading.Tasks;
-using Build;
 using Microsoft.AspNetCore.Http;
 using MiddlewareExtensibilitySample.Data;
 using MiddlewareExtensibilitySample.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace MiddlewareExtensibilitySample.Middleware
 {

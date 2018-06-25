@@ -21,7 +21,7 @@ namespace Build
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        IRuntimeAttribute GetAttribute(string id);
+        IRuntimeAttribute GetReferenceAttribute(string id);
 
         /// <summary>
         /// Registers the type of the runtime.
@@ -32,6 +32,6 @@ namespace Build
         /// Parameter defaults to true for automatic type attribute overwrite. If value is false
         /// exception will be thrown for type attribute overwrites
         /// </param>
-        void RegisterRuntimeType(string id, IRuntimeAttribute attribute, bool defaultTypeAttributeOverwrite);
+        void RegisterReferenceAttrubute(string id, IRuntimeAttribute attribute, bool defaultTypeAttributeOverwrite);
     }
 }

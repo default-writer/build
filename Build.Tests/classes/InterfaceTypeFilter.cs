@@ -27,7 +27,9 @@ namespace Build.Tests
         /// <returns>
         /// <c>true</c> if this instance can register the specified type; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanRegisterParameter(Type type) => type != null && ((type.IsInterface && type.GetCustomAttributes(typeof(InterfaceAttribute), false).Length != 0) || (type.IsValueType) || (type.IsEnum));
+        public bool CanRegisterParameter(Type type) =>
+            type != null &&
+            ((type.IsInterface && type.GetCustomAttributes(typeof(InterfaceAttribute), false).Length != 0) || (type.IsValueType) || (type.IsEnum));
 
         /// <summary>
         /// Checks type compatibility

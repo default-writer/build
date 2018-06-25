@@ -41,7 +41,7 @@ namespace Build
 
             #endregion
 
-            return args == null ? emptyArray : args.Select(GetParameterFullName).ToArray();
+            return args == null ? emptyArray : args.Select(GetParameterFullName);
         }
     }
 }

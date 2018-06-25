@@ -1,5 +1,3 @@
-using Build.Tests;
-using System;
 using Xunit;
 
 namespace Build.Tests.TestSet22

@@ -8,15 +8,6 @@ namespace Build
     public interface ITypeParser
     {
         /// <summary>
-        /// Finds the specified type.
-        /// </summary>
-        /// <param name="id">The id.</param>
-        /// <param name="args">The arguments.</param>
-        /// <param name="types">The types.</param>
-        /// <returns>Returns runtime type instance</returns>
-        IRuntimeType Find(string id, IEnumerable<string> args, IEnumerable<IRuntimeType> types);
-
-        /// <summary>
         /// Finds all matches for the specified type.
         /// </summary>
         /// <param name="id">The id.</param>

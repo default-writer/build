@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace Build
 {
@@ -42,6 +41,7 @@ namespace Build
         /// <param name="runtimeAttribute">The runtime attribute.</param>
         /// <param name="runtimeType">Type to be instantiated</param>
         /// <returns>Returns custom dependency attrubute</returns>
-        static IRuntimeAttribute GetDependencyAttribute(IRuntimeAttribute runtimeAttribute, Type runtimeType) => runtimeAttribute ?? new DependencyAttribute(runtimeType, RuntimeInstance.CreateInstance);
+        static IRuntimeAttribute GetDependencyAttribute(IRuntimeAttribute runtimeAttribute, Type runtimeType) =>
+            runtimeAttribute ?? new DependencyAttribute(runtimeType, RuntimeInstance.CreateInstance);
     }
 }

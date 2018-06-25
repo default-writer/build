@@ -37,22 +37,22 @@ namespace Build
         /// Gets the runtime type attributes.
         /// </summary>
         /// <value>The runtime types.</value>
-        IDictionary<string, IRuntimeAttribute> IdAttributeDictionary { get; } = new Dictionary<string, IRuntimeAttribute>();
+        IDictionary<string, IRuntimeAttribute> References { get; } = new Dictionary<string, IRuntimeAttribute>();
 
         /// <summary>
-        /// Gets the runtime type attribute.
+        /// Gets referenced runtime attribute.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        public IRuntimeAttribute GetAttribute(string id)
+        public IRuntimeAttribute GetReferenceAttribute(string id)
         {
-            if (!IdAttributeDictionary.ContainsKey(id))
+            if (!References.ContainsKey(id))
                 return this;
-            return IdAttributeDictionary[id];
+            return References[id];
         }
 
         /// <summary>
-        /// Registers the type of the runtime.
+        /// Registers referenced runtime attribute.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="attribute">The runtime attribute.</param>
@@ -60,11 +60,11 @@ namespace Build
         /// Parameter defaults to true for automatic type attribute overwrite. If value is false
         /// exception will be thrown for type attribute overwrites
         /// </param>
-        public void RegisterRuntimeType(string id, IRuntimeAttribute attribute, bool defaultTypeAttributeOverwrite)
+        public void RegisterReferenceAttrubute(string id, IRuntimeAttribute attribute, bool defaultTypeAttributeOverwrite)
         {
-            if (!defaultTypeAttributeOverwrite && IdAttributeDictionary.ContainsKey(id))
+            if (!defaultTypeAttributeOverwrite && References.ContainsKey(id))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (more than one constructor available)", id));
-            IdAttributeDictionary[id] = attribute;
+            References[id] = attribute;
         }
     }
 }

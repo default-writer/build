@@ -39,7 +39,8 @@ namespace Build
         /// Parameter defaults to true for automatic type attribute overwrite. If value is false
         /// exception will be thrown for type attribute overwrites
         /// </param>
-        public Container(ITypeConstructor typeConstructor, ITypeFilter typeFilter, ITypeParser typeParser, ITypeResolver typeResolver, bool defaultTypeResolution, bool defaultTypeInstantiation, bool defaultTypeAttributeOverwrite) => _typeBuilder = new TypeBuilder(typeConstructor, typeFilter, typeParser, typeResolver, defaultTypeResolution, defaultTypeInstantiation, defaultTypeAttributeOverwrite);
+        public Container(ITypeConstructor typeConstructor, ITypeFilter typeFilter, ITypeParser typeParser, ITypeResolver typeResolver, bool defaultTypeResolution, bool defaultTypeInstantiation, bool defaultTypeAttributeOverwrite) =>
+            _typeBuilder = new TypeBuilder(typeConstructor, typeFilter, typeParser, typeResolver, defaultTypeResolution, defaultTypeInstantiation, defaultTypeAttributeOverwrite);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Container"/> class.
@@ -48,7 +49,8 @@ namespace Build
         /// <param name="typeFilter">Type filter</param>
         /// <param name="typeParser">Type parser</param>
         /// <param name="typeResolver">Type resolver</param>
-        public Container(ITypeConstructor typeConstructor, ITypeFilter typeFilter, ITypeParser typeParser, ITypeResolver typeResolver) => _typeBuilder = new TypeBuilder(typeConstructor, typeFilter, typeParser, typeResolver, true, true, true);
+        public Container(ITypeConstructor typeConstructor, ITypeFilter typeFilter, ITypeParser typeParser, ITypeResolver typeResolver) =>
+            _typeBuilder = new TypeBuilder(typeConstructor, typeFilter, typeParser, typeResolver, true, true, true);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Container"/> class.
@@ -65,7 +67,8 @@ namespace Build
         /// Parameter defaults to true for automatic type attribute overwrite. If value is false
         /// exception will be thrown for type attribute overwrites
         /// </param>
-        public Container(bool defaultTypeResolution, bool defaultTypeInstantiation, bool defaultTypeAttributeOverwrite) => _typeBuilder = new TypeBuilder(defaultTypeResolution, defaultTypeInstantiation, defaultTypeAttributeOverwrite);
+        public Container(bool defaultTypeResolution, bool defaultTypeInstantiation, bool defaultTypeAttributeOverwrite) =>
+            _typeBuilder = new TypeBuilder(defaultTypeResolution, defaultTypeInstantiation, defaultTypeAttributeOverwrite);
 
         /// <summary>
         /// Type builder

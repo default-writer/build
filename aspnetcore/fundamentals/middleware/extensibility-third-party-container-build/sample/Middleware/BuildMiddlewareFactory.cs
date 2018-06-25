@@ -1,6 +1,6 @@
-using System;
-using Microsoft.AspNetCore.Http;
 using Build;
+using Microsoft.AspNetCore.Http;
+using System;
 
 namespace MiddlewareExtensibilitySample.Middleware
 {
