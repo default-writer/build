@@ -172,6 +172,17 @@ namespace Build.Tests.TestSet3
         }
 
         [Fact]
+        public static void TestSet3_Method23()
+        {
+            //TestSet3
+            var container = new Container();
+            container.RegisterType<SqlDataRepository>(0);
+            container.RegisterType<ServiceDataRepository>(null);
+            var instances = container.RuntimeNonAliasedTypes.Select(p => container.GetInstance(p));
+            Assert.True(instances.All(p => p != null));
+        }
+
+        [Fact]
         public static void TestSet3_Method3()
         {
             //TestSet3
