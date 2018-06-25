@@ -12,6 +12,6 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <param name="types">The types.</param>
         /// <returns></returns>
-        public static IRuntimeType Find(this ITypeParser typeParser, string id, IEnumerable<string> args, IEnumerable<IRuntimeType> types) => typeParser.FindAll(id, args, types).FirstOrDefault();
+        public static IRuntimeType Find(this ITypeParser typeParser, string id, IEnumerable<string> args, IEnumerable<IRuntimeType> types) => typeParser.FindRuntimeTypes(id, args, types).FirstOrDefault();
     }
 }

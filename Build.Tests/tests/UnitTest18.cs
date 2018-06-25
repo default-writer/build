@@ -184,7 +184,7 @@ namespace Build.Tests.UnitTests18
             System.Func<Type> func = () => null;
             container.RegisterType(typeof(Factory2<Type>), func);
             var factory = (Factory2<Type>)container.CreateInstance(typeof(Factory2<Type>).ToString());
-            Assert.Null(factory.Func);
+            Assert.NotNull(factory.Func);
         }
 
         [Fact]
@@ -265,6 +265,29 @@ namespace Build.Tests.UnitTests18
         }
 
         [Fact]
+        public static void TestSet18_Method31()
+        {
+            //TestSet18
+            var container = new Container();
+            System.Func<Type> func = () => new Type();
+            container.RegisterType<Lazy<Type>>(func);
+            var factory = (Lazy<Type>)container.CreateInstance("Build.Tests.TestSet18.Lazy`1[Build.Tests.TestSet18.Type](System.Func`1[Build.Tests.TestSet18.Type])");
+            Assert.Equal(func, factory.Func);
+        }
+
+        [Fact]
+        public static void TestSet18_Method32()
+        {
+            //TestSet18
+            var container = new Container();
+            System.Func<Type> func = () => new Type();
+            container.RegisterType<Lazy<Type>>(func);
+            var factory1 = (Lazy<Type>)container.CreateInstance("Build.Tests.TestSet18.Lazy`1[Build.Tests.TestSet18.Type]");
+            var factory2 = (Lazy<Type>)container.CreateInstance("Build.Tests.TestSet18.Lazy`1[Build.Tests.TestSet18.Type]");
+            Assert.Equal(factory1.Func, factory2.Func);
+        }
+
+        [Fact]
         public static void TestSet18_Method4()
         {
             //TestSet18
@@ -296,7 +319,7 @@ namespace Build.Tests.UnitTests18
             System.Func<Type> func = () => type;
             container.RegisterType<Factory2<Type>>(func);
             var factory = (Factory2<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Type]");
-            Assert.Null(factory.Func);
+            Assert.NotNull(factory.Func);
         }
 
         [Fact]
@@ -307,7 +330,7 @@ namespace Build.Tests.UnitTests18
             System.Func<Type> func = () => new Type();
             container.RegisterType(typeof(Factory2<Type>), func);
             var factory = (Factory2<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Type]");
-            Assert.Null(factory.Func);
+            Assert.NotNull(factory.Func);
         }
 
         [Fact]

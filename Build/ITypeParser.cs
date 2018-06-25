@@ -14,6 +14,6 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <param name="types">The types.</param>
         /// <returns>Returns runtime type instances</returns>
-        IEnumerable<IRuntimeType> FindAll(string id, IEnumerable<string> args, IEnumerable<IRuntimeType> types);
+        IEnumerable<IRuntimeType> FindRuntimeTypes(string id, IEnumerable<string> args, IEnumerable<IRuntimeType> types);
     }
 }

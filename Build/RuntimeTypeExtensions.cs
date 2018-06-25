@@ -20,14 +20,23 @@ namespace Build
         /// </summary>
         /// <returns></returns>
         public static IRuntimeType[] FilterRuntimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, ITypeParser typeParser, IRuntimeType runtimeType, params object[] args) =>
-            typeParser.FindAll(runtimeType.TypeFullName, Format.GetParametersFullName(args), runtimeTypes.Where((p) => p.Attribute is DependencyAttribute)).Where((p) => p.Type == runtimeType.Type).ToArray();
+            typeParser.FindRuntimeTypes(runtimeType.TypeFullName, Format.GetParametersFullName(args), runtimeTypes.Where((p) => p.Attribute is DependencyAttribute)).Where((p) => p.Type == runtimeType.Type).ToArray();
+
+        /// <summary>
+        /// Finds all dependency runtime types with full parameters specified
+        /// </summary>
+        /// <param name="runtimeTypes"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static IRuntimeType[] FindRintimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, string id) =>
+                            runtimeTypes.Where((p) => id == Format.GetConstructorWithParameters(p.TypeFullName, p.RuntimeTypes.Select((s) => s.TypeFullName))).ToArray();
 
         /// <summary>
         /// Finds all dependency runtime types (instantiable types) which matches the criteria
         /// </summary>
         /// <returns></returns>
         public static IRuntimeType[] GetRuntimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, ITypeParser typeParser, string typeFullName, params object[] args) =>
-            typeParser.FindAll(typeFullName, Format.GetParametersFullName(args), runtimeTypes.Where((p) => p.Attribute is DependencyAttribute)).ToArray();
+            typeParser.FindRuntimeTypes(typeFullName, Format.GetParametersFullName(args), runtimeTypes.Where((p) => p.Attribute is DependencyAttribute)).ToArray();
 
         /// <summary>
         /// Gets runtime type values

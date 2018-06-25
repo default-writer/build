@@ -422,7 +422,7 @@ namespace Build
         void RegisterConstructorParameters(string typeFullName, params object[] args)
         {
             var parameterArgs = Format.GetParametersFullName(args);
-            var runtimeType = Parser.FindAll(typeFullName, parameterArgs, Types.Values).FirstOrDefault();
+            var runtimeType = Parser.FindRuntimeTypes(typeFullName, parameterArgs, Types.Values).FirstOrDefault();
             if (runtimeType == null)
                 throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", typeFullName));
             runtimeType.SetRuntimeInstance(RuntimeInstance.GetInstance);
