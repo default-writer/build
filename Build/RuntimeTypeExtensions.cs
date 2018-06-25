@@ -29,7 +29,7 @@ namespace Build
         /// <param name="id"></param>
         /// <returns></returns>
         public static IRuntimeType[] FindRintimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, string id) =>
-                            runtimeTypes.Where((p) => id == Format.GetConstructorWithParameters(p.TypeFullName, p.RuntimeTypes.Select((s) => s.TypeFullName))).ToArray();
+            runtimeTypes.Where((p) => id == Format.GetConstructorWithParameters(p.TypeFullName, p.RuntimeTypes.Select((s) => s.TypeFullName))).ToArray();
 
         /// <summary>
         /// Finds all dependency runtime types (instantiable types) which matches the criteria
