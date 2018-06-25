@@ -14,7 +14,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test10()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -26,7 +26,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test11()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -38,7 +38,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test12()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -50,7 +50,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test13()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -61,7 +61,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test14()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             var sql = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(System.Int32)", 2018);
@@ -71,7 +71,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test15()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -82,7 +82,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test16()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -93,7 +93,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test17()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -104,7 +104,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test18()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -116,7 +116,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test19()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -137,7 +137,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test20()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver(), false, true, true);
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -148,7 +148,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test21()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -159,7 +159,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test22()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -170,7 +170,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test23()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -181,7 +181,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test24()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -193,7 +193,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test25()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -206,7 +206,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test26()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -219,7 +219,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test27()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -229,7 +229,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test28()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver(), true, true, false);
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -240,7 +240,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test29()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2_ValueType>();
             container.RegisterType<IInterfaceRuleSet2>();
@@ -253,7 +253,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test3()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2_ValueType>();
             container.RegisterType<IInterfaceRuleSet2>();
@@ -264,7 +264,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test30()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2_ValueType>();
             container.RegisterType<IInterfaceRuleSet2>();
@@ -277,7 +277,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test31()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -289,7 +289,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test32()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             var sql = container.CreateInstance<SqlDataRepository>(default(int));
@@ -299,7 +299,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test33()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2_ValueType>();
             container.RegisterType<IInterfaceRuleSet2>();
@@ -310,7 +310,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test34()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             // If your type have multiple constructors available, you must specify type with parameters for the build
@@ -367,7 +367,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test4()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -388,7 +388,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test41()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceThisTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceThisRuleSet1>();
             container.RegisterType<IInterfaceThisRuleSet2>();
@@ -399,7 +399,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test5()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             var sql = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(System.Int32)", 2018);
@@ -409,7 +409,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test6()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -421,7 +421,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test7()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -433,7 +433,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test8()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
@@ -445,7 +445,7 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test9()
         {
-            //TestSet16
+            //TestSet21
             var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet2_Overwrite>();
