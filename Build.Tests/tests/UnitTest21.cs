@@ -386,6 +386,17 @@ namespace Build.Tests.TestSet21
         }
 
         [Fact]
+        public static void Test41()
+        {
+            //TestSet16
+            var container = new Container(new InterfaceThisTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceThisRuleSet1>();
+            container.RegisterType<IInterfaceThisRuleSet2>();
+            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository(Build.Tests.TestSet21.ServiceDataRepository)");
+            Assert.Equal(2019, ((ServiceDataRepository)sql.RepositoryC).RepositoryId);
+        }
+
+        [Fact]
         public static void Test5()
         {
             //TestSet16

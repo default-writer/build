@@ -108,6 +108,32 @@
             [InterfaceInjection("Build.Tests.TestSet21.ServiceDataRepository", 2021)]IPersonRepository repositoryB);
     }
 
+    [Interface]
+    interface IInterfaceThisRuleSet1
+    {
+        ServiceDataRepository this[int repositoryId]
+        { get; }
+
+        ServiceDataRepository this[
+            [InterfaceInjection(typeof(SqlDataRepository), 2018)]IPersonRepository repository]
+        { get; }
+    }
+
+    [Interface]
+    interface IInterfaceThisRuleSet2
+    {
+        WebServiceDataRepository this[int repositoryId]
+        { get; }
+
+        WebServiceDataRepository this[[InterfaceInjection(typeof(ServiceDataRepository), 2019)]IPersonRepository repository]
+        { get; }
+
+        WebServiceDataRepository this[
+            [InterfaceInjection("Build.Tests.TestSet21.ServiceDataRepository", 2020)]IPersonRepository repositoryA,
+            [InterfaceInjection("Build.Tests.TestSet21.SqlDataRepository", 2021)]IPersonRepository repositoryB]
+        { get; }
+    }
+
     public class Person
     {
         readonly IPersonRepository _personRepository;
