@@ -23,7 +23,8 @@ setlocal enabledelayedexpansion
 
   set procedures=
   set procedures=%procedures% build
-  set procedures=%procedures% build_tests
+  set procedures=%procedures% build_test
+  set procedures=%procedures% build_test_coverage
 
   net.exe session 1>nul 2>&1 || (
     call :print_error_message Cannot run tests because this is not an administrator window.
@@ -44,7 +45,7 @@ setlocal
   call :dotnet_pack
   exit /b %errorlevel%
 
-:build_tests
+:build_test
 setlocal
   cd /d %~dp0\Build.Tests
   dotnet.exe restore --no-cache --packages "%~dp0packages"                                                                || exit /b 1
@@ -57,6 +58,13 @@ setlocal
   dotnet.exe restore --no-cache --packages "%~dp0packages"                                                                || exit /b 1
   dotnet.exe build -c %BuildConfiguration%                                                                                || exit /b 1
   dotnet.exe test --no-build -c %BuildConfiguration%                                                                      || exit /b 1
+  exit /b %errorlevel%
+
+:build_test_coverage
+setlocal
+  cd /d %~dp0
+  dotnet.exe restore --no-cache --packages "%~dp0packages"                                                                || exit /b 1
+  call run                                                                                                                || exit /b 1
   exit /b %errorlevel%
 
 :dotnet_build
@@ -75,21 +83,14 @@ setlocal
 :dotnet_pack
 setlocal
   dotnet.exe restore --no-cache --packages "%~dp0packages"                                                                || exit /b 1
-  call :dotnet_build || exit /b 1
-
-  for %%v in (net45 net451 net452 net46 net461 net462 net47 net471 net472 netstandard2.0 netcoreapp2.1) do (
-    dotnet.exe publish -c %BuildConfiguration% --framework "%%v"                            || exit /b 1
-    pushd ".\bin\%BuildConfiguration%\%%v\publish"
-
-    rem if "%%v" == "net461" (
-    rem   ".\simpleharness.exe"            --perf:collect default+gcapi --perf:outputdir "!cd!" || exit /b 1
-    rem ) else (
-    rem   dotnet.exe ".\simpleharness.dll" --perf:collect default+gcapi --perf:outputdir "!cd!" || exit /b 1
-    rem )
-    
-    popd
-  )
-
+  call :dotnet_build                                                                                                      || exit /b 1
+  dotnet.exe publish -c %BuildConfiguration%                                                                              || exit /b 1
+  rem if "%%v" == "net461" (
+  rem   ".\simpleharness.exe"            --perf:collect default+gcapi --perf:outputdir "!cd!" || exit /b 1
+  rem ) else (
+  rem   dotnet.exe ".\simpleharness.dll" --perf:collect default+gcapi --perf:outputdir "!cd!" || exit /b 1
+  rem )
+   
   exit /b %errorlevel%
 
   echo/
