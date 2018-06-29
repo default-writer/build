@@ -30,11 +30,6 @@ setlocal enabledelayedexpansion
   set procedures=%procedures% build_test_coverage
   set procedures=%procedures% build_myget
 
-  net.exe session 1>nul 2>&1 || (
-    call :print_error_message Cannot run tests because this is not an administrator window.
-    exit /b 1
-  )
-
   for %%p in (%procedures%) do (
     call :%%p || (
       call :print_error_message Failed to run %%p
