@@ -16,7 +16,7 @@ setlocal enabledelayedexpansion
   rem Don't fall back to machine-installed versions of dotnet, only use repo-local version
   set DOTNET_MULTILEVEL_LOOKUP=0
 
-  call "%~dp0.\dotnet-install.cmd" || exit /b 1
+  call "%~dp0.\MyGet-dotnet-install.cmd" || exit /b 1
 
   echo DotNet CLI
   where.exe /R %~dp0 /F dotnet.exe
