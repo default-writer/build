@@ -86,7 +86,7 @@ setlocal
   call :remove_directory bin                                                                                              || exit /b 1
   call :remove_directory obj                                                                                              || exit /b 1
 
-  for %%v in (net45 net451 net452 net46 net461 net462 net47 net471 net472 netstandard2.0 netcoreapp2.1) do (
+  for %%v in (net45 net451 net452 net46 net461 net462 net47 net471 netstandard2.0 netcoreapp2.1) do (
     dotnet.exe build --no-dependencies -c %BuildConfiguration% --version-suffix %VersionSuffix% --framework "%%v" || exit /b 1
   )
   exit /b 0
