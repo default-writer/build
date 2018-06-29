@@ -70,9 +70,13 @@ setlocal
 setlocal
   cd /d %~dp0
   set /p BuildVersion=<BuildVersion.txt                                                                                   || exit /b 1
-  nuget pack MyGet-Build.DependencyInjection.nuspec -Properties Configuration=Release;BuildVersion=%BuildVersion%               || exit /b 1
+  nuget pack MyGet-Build.DependencyInjection.nuspec -Properties Configuration=Release;BuildVersion=%BuildVersion%         || exit /b 1
   for /f "tokens=* usebackq" %%f in (`dir /B *.nupkg`) do (
     set NuGetPackage=%%f
+  )
+  if "%MYGET_ACCESSTOKEN%" == "" (
+    call :print_error_message Missing MyGet access token environment variable for MyGet feed API key
+    exit /b 1
   )
   nuget push %NuGetPackage% %MYGET_ACCESSTOKEN% -Source https://www.myget.org/F/build-core/api/v2/package                 || exit /b 1
   del /f /q %NuGetPackage%
