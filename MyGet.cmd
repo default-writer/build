@@ -79,7 +79,7 @@ setlocal
     exit /b 1
   )
   nuget push %NuGetPackage% %MYGET_ACCESSTOKEN% -Source https://www.myget.org/F/build-core/api/v2/package                 || exit /b 1
-  del /f /q %NuGetPackage%
+  rem del /f /q %NuGetPackage%
   exit /b %errorlevel%
 
 :dotnet_build
