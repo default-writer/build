@@ -18,13 +18,17 @@ setlocal enabledelayedexpansion
 
   call "%~dp0.\dotnet-install.cmd" || exit /b 1
 
-  echo Where is dotnet.exe?
-  where.exe dotnet.exe
+  echo DotNet CLI
+  where.exe /R %~dp0 /F dotnet.exe
+
+  echo NuGet CLI 
+  where.exe /R %~dp0 /F nuget.exe
 
   set procedures=
   set procedures=%procedures% build
   set procedures=%procedures% build_test
   set procedures=%procedures% build_test_coverage
+  set procedures=%procedures% build_myget
 
   net.exe session 1>nul 2>&1 || (
     call :print_error_message Cannot run tests because this is not an administrator window.
@@ -65,6 +69,18 @@ setlocal
   cd /d %~dp0
   dotnet.exe restore --no-cache --packages "%~dp0packages"                                                                || exit /b 1
   call run                                                                                                                || exit /b 1
+  exit /b %errorlevel%
+
+:build_myget
+setlocal
+  cd /d %~dp0
+  set /p BuildVersion=<BuildVersion.txt                                                                                   || exit /b 1
+  nuget pack Build.DependencyInjection.nuspec -Properties Configuration=Release;BuildVersion=%BuildVersion%               || exit /b 1
+  for /f "tokens=* usebackq" %%f in (`dir /B *.nupkg`) do (
+    set NuGetPackage=%%f
+  )
+  nuget push %NuGetPackage% %MYGET_ACCESSTOKEN% -Source https://www.myget.org/F/build-core/api/v2/package                 || exit /b 1
+  del /f /q %NuGetPackage%
   exit /b %errorlevel%
 
 :dotnet_build

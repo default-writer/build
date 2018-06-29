@@ -11,10 +11,17 @@ setlocal
     exit /b 1
   )
 
+  set /p NuGet_Version=<"%~dp0NuGetCLIVersion.txt"
+  if not defined DotNet_Version (
+    call :print_error_message Unknown DotNet CLI Version.
+    exit /b 1
+  )
+
   set DotNet_Path=%~dp0tools\dotnet\%DotNet_Version%
   set DotNet=%DotNet_Path%\dotnet.exe
   set Init_Tools_Log=%DotNet_Path%\install.log
   set DotNet_Installer_Url=https://raw.githubusercontent.com/dotnet/cli/release/2.0.0/scripts/obtain/dotnet-install.ps1
+  set NuGet_Url=https://dist.nuget.org/win-x86-commandline/v%NuGet_Version%/nuget.exe
 
   REM dotnet.exe might exist, but it might not be the right version.
   REM Here we verify that if it is not the right version, then we install it
@@ -35,6 +42,14 @@ setlocal
   powershell -NoProfile -ExecutionPolicy unrestricted -Command "Invoke-WebRequest -Uri '%DotNet_Installer_Url%' -OutFile '%DotNet_Path%\dotnet-install.ps1'"
   if not exist "%DotNet_Path%\dotnet-install.ps1" (
     call :print_error_message Failed to download "%DotNet_Path%\dotnet-install.ps1"
+    exit /b 1
+  )
+
+  echo Installing NuGet CLI
+  echo Downloading NuGet
+  powershell -NoProfile -ExecutionPolicy unrestricted -Command "Invoke-WebRequest -Uri '%NuGet_Url%' -OutFile '%DotNet_Path%\nuget.exe'"
+  if not exist "%DotNet_Path%\nuget.exe" (
+    call :print_error_message Failed to download "%DotNet_Path%\nuget.exe"
     exit /b 1
   )
 

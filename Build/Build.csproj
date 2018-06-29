@@ -43,11 +43,12 @@
     <RepositoryUrl>https://github.com/hack2root/build.git</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Dependency Injection</PackageTags>
-    <PackageReleaseNotes>Features:
-- Added ASP.NET Core 2.1 middleware extensibility
-- Added System.Func&lt;T&gt; type initialization
-- Added TypeBuilder.GetInstance(...) methods
-</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      Features:
+      - Added ASP.NET Core 2.1 middleware extensibility
+      - Added System.Func&lt;T&gt; type initialization
+      - Added TypeBuilder.GetInstance(...) methods
+    </PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>Build.DependencyInjection</PackageId>
     <Version>1.0.0.15</Version>
@@ -77,5 +78,4 @@
     <None Remove="StyleCop.Cache" />
     <None Remove="stylecop.json" />
   </ItemGroup>
-
 </Project>
