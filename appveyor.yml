@@ -10,12 +10,7 @@ skip_tags: true
 #    environment configuration    #
 #---------------------------------#
 
-image: Visual Studio 2017 Preview
-
-clone_depth: 1
-
-nuget:
-    disable_publish_on_pr: true
+image: Visual Studio 2017
 
 environment:
     SONARCLOUDTOKEN:
@@ -26,10 +21,6 @@ environment:
 cache:
     - packages -> **\packages.config
 
-install:
-    - bash install.sh
-
 build_script:
     - dotnet restore
     - ps: ./coverage.ps1
-    - bash coveralls.sh

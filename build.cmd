@@ -63,7 +63,7 @@ setlocal
 setlocal
   cd /d %~dp0
   dotnet.exe restore --no-cache --packages "%~dp0packages"                                                                || exit /b 1
-  call run                                                                                                                || exit /b 1
+  call coverage                                                                                                           || exit /b 1
   exit /b %errorlevel%
 
 :build_myget

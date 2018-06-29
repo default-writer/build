@@ -27,7 +27,6 @@ setlocal enabledelayedexpansion
   set procedures=
   set procedures=%procedures% build
   set procedures=%procedures% build_test
-  set procedures=%procedures% build_test_coverage
   set procedures=%procedures% build_myget
 
   for %%p in (%procedures%) do (
@@ -57,13 +56,6 @@ setlocal
   dotnet.exe restore --no-cache --packages "%~dp0packages"                                                                || exit /b 1
   dotnet.exe build -c %BuildConfiguration%                                                                                || exit /b 1
   dotnet.exe test --no-build -c %BuildConfiguration%                                                                      || exit /b 1
-  exit /b %errorlevel%
-
-:build_test_coverage
-setlocal
-  cd /d %~dp0
-  dotnet.exe restore --no-cache --packages "%~dp0packages"                                                                || exit /b 1
-  call coverage                                                                                                           || exit /b 1
   exit /b %errorlevel%
 
 :build_myget
