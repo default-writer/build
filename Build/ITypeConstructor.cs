@@ -3,8 +3,11 @@ using System.Collections.Generic;
 
 namespace Build
 {
+    /// <summary>
+    /// Constructs type dependency
+    /// </summary>
     public interface ITypeConstructor
     {
-        IEnumerable<ITypeDependencyObject> GetDependencyObjects(Type type, bool defaultTypeInstantiation);
+        IEnumerable<ITypeDependencyObject> GetDependencyObjects(ITypeActivator runtimeTypeActivator, Type type, bool defaultTypeInstantiation);
     }
 }

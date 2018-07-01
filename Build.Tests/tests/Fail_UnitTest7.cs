@@ -24,7 +24,7 @@ namespace Build.Tests.Fail_TestSet7
         public static void Fail_TestSet7_Method3()
         {
             //Fail_TestSet7
-            var container = new Container(true, false, true);
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeInstantiation = false });
             container.RegisterType<ServiceDataRepository>();
             Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository>());
         }
@@ -44,7 +44,7 @@ namespace Build.Tests.Fail_TestSet7
         public static void Fail_TestSet7_Method5()
         {
             //Fail_TestSet7
-            var container = new Container(true, true, false);
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
             container.RegisterType<ServiceDataRepository>();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository>());
         }
@@ -53,7 +53,7 @@ namespace Build.Tests.Fail_TestSet7
         public static void Fail_TestSet7_Method6()
         {
             //Fail_TestSet7
-            var container = new Container(true, true, true);
+            var container = new Container();
             container.RegisterType<ServiceDataRepository>();
             var serviceDataRepository = container.CreateInstance<ServiceDataRepository>();
             Assert.Null(serviceDataRepository.Repository);
@@ -63,7 +63,7 @@ namespace Build.Tests.Fail_TestSet7
         public static void Fail_TestSet7_Method7()
         {
             //Fail_TestSet7
-            var container = new Container(true, true, true);
+            var container = new Container();
             container.RegisterType<ServiceDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             Assert.True(container.RuntimeTypes.Any());

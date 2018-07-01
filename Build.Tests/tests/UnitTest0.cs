@@ -10,7 +10,7 @@ namespace Build.Tests.TestSet0
         public static void TestSet0_Method0_1()
         {
             //TestSet0
-            var container = new Container(new TypeConstructor(), new TypeFilter(), new TypeParser(), new TypeResolver());
+            var container = new Container(new TypeActivator(), new TypeConstructor(), new TypeFilter(), new TypeParser(), new TypeResolver());
             Assert.NotNull(container.Builder.Constructor);
         }
 
@@ -18,7 +18,7 @@ namespace Build.Tests.TestSet0
         public static void TestSet0_Method0_2()
         {
             //TestSet0
-            var container = new Container(new TypeConstructor(), new TypeFilter(), new TypeParser(), new TypeResolver());
+            var container = new Container(new TypeActivator(), new TypeConstructor(), new TypeFilter(), new TypeParser(), new TypeResolver());
             Assert.NotNull(container.Builder.Filter);
         }
 
@@ -26,7 +26,7 @@ namespace Build.Tests.TestSet0
         public static void TestSet0_Method0_3()
         {
             //TestSet0
-            var container = new Container(new TypeConstructor(), new TypeFilter(), new TypeParser(), new TypeResolver());
+            var container = new Container(new TypeActivator(), new TypeConstructor(), new TypeFilter(), new TypeParser(), new TypeResolver());
             Assert.NotNull(container.Builder.Parser);
         }
 
@@ -34,7 +34,7 @@ namespace Build.Tests.TestSet0
         public static void TestSet0_Method0_4()
         {
             //TestSet0
-            var container = new Container(new TypeConstructor(), new TypeFilter(), new TypeParser(), new TypeResolver());
+            var container = new Container(new TypeActivator(), new TypeConstructor(), new TypeFilter(), new TypeParser(), new TypeResolver());
             Assert.NotNull(container.Builder.Resolver);
         }
 
@@ -42,28 +42,28 @@ namespace Build.Tests.TestSet0
         public static void TestSet0_Method0_5()
         {
             //TestSet0
-            Assert.Throws<ArgumentNullException>(() => new Container(null, new TypeFilter(), new TypeParser(), new TypeResolver()));
+            Assert.Throws<ArgumentNullException>(() => new Container(new TypeActivator(), null, new TypeFilter(), new TypeParser(), new TypeResolver()));
         }
 
         [Fact]
         public static void TestSet0_Method0_6()
         {
             //TestSet0
-            Assert.Throws<ArgumentNullException>(() => new Container(new TypeConstructor(), null, new TypeParser(), new TypeResolver()));
+            Assert.Throws<ArgumentNullException>(() => new Container(new TypeActivator(), new TypeConstructor(), null, new TypeParser(), new TypeResolver()));
         }
 
         [Fact]
         public static void TestSet0_Method0_7()
         {
             //TestSet0
-            Assert.Throws<ArgumentNullException>(() => new Container(new TypeConstructor(), new TypeFilter(), null, new TypeResolver()));
+            Assert.Throws<ArgumentNullException>(() => new Container(new TypeActivator(), new TypeConstructor(), new TypeFilter(), null, new TypeResolver()));
         }
 
         [Fact]
         public static void TestSet0_Method0_8()
         {
             //TestSet0
-            Assert.Throws<ArgumentNullException>(() => new Container(new TypeConstructor(), new TypeFilter(), new TypeParser(), null));
+            Assert.Throws<ArgumentNullException>(() => new Container(new TypeActivator(), new TypeConstructor(), new TypeFilter(), new TypeParser(), null));
         }
 
         [Fact]

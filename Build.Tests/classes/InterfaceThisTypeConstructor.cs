@@ -10,7 +10,7 @@ namespace Build.Tests
     /// </summary>
     public sealed class InterfaceThisTypeConstructor : ITypeConstructor
     {
-        public IEnumerable<ITypeDependencyObject> GetDependencyObjects(Type type, bool defaultTypeInstantiation)
+        public IEnumerable<ITypeDependencyObject> GetDependencyObjects(ITypeActivator runtimeTypeActivator, Type type, bool defaultTypeInstantiation)
         {
             var dependencyObjects = new List<ITypeDependencyObject>();
             foreach (var constructorInfo in type.GetMethods())
@@ -18,8 +18,8 @@ namespace Build.Tests
                 if (constructorInfo.Name == "get_Item")
                 {
                     var runtimeAttribute = constructorInfo.GetCustomAttribute<InterfaceDependencyAttribute>();
-                    var injectionObjects = constructorInfo.GetParameters().Select(p => new TypeInjectionObject(p.GetCustomAttribute<InterfaceInjectionAttribute>(), p.ParameterType, defaultTypeInstantiation));
-                    dependencyObjects.Add(new TypeDependencyObject(runtimeAttribute, injectionObjects, constructorInfo.ReturnType, defaultTypeInstantiation));
+                    var injectionObjects = constructorInfo.GetParameters().Select(p => new TypeInjectionObject(runtimeTypeActivator, p.GetCustomAttribute<InterfaceInjectionAttribute>(), p.ParameterType, defaultTypeInstantiation));
+                    dependencyObjects.Add(new TypeDependencyObject(runtimeTypeActivator, runtimeAttribute, injectionObjects, constructorInfo.ReturnType, defaultTypeInstantiation));
                 }
             }
             return dependencyObjects;

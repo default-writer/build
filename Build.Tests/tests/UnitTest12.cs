@@ -8,7 +8,7 @@ namespace Build.Tests.TestSet12
         public static void TestSet12_Method1()
         {
             //TestSet12
-            var container = new Container(true, true, true);
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
@@ -19,7 +19,7 @@ namespace Build.Tests.TestSet12
         public static void TestSet12_Method10()
         {
             //TestSet12
-            var container = new Container(true, true, false);
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
             container.RegisterType<SqlDataRepository>();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository>());
         }
@@ -28,7 +28,7 @@ namespace Build.Tests.TestSet12
         public static void TestSet12_Method2()
         {
             //TestSet12
-            var container = new Container(true, true, true);
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
@@ -39,7 +39,7 @@ namespace Build.Tests.TestSet12
         public static void TestSet12_Method3()
         {
             //TestSet12
-            var container = new Container(true, true, true);
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
@@ -50,7 +50,7 @@ namespace Build.Tests.TestSet12
         public static void TestSet12_Method4()
         {
             //TestSet12
-            var container = new Container(true, true, true);
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
@@ -61,7 +61,7 @@ namespace Build.Tests.TestSet12
         public static void TestSet12_Method5()
         {
             //TestSet12
-            var container = new Container(true, true, true);
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
@@ -73,7 +73,7 @@ namespace Build.Tests.TestSet12
         public static void TestSet12_Method6()
         {
             //TestSet12
-            var container = new Container(true, true, true);
+            var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
@@ -85,7 +85,7 @@ namespace Build.Tests.TestSet12
         public static void TestSet12_Method7()
         {
             //TestSet12
-            var container = new Container(false, false, false);
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false, UseDefaultTypeInstantiation = false, UseDefaultTypeAttributeOverwrite = false });
             container.RegisterType<SqlDataRepository>();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository>());
         }
@@ -94,7 +94,7 @@ namespace Build.Tests.TestSet12
         public static void TestSet12_Method8()
         {
             //TestSet12
-            var container = new Container(false, true, false);
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false, UseDefaultTypeAttributeOverwrite = false });
             container.RegisterType<SqlDataRepository>();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository>());
         }
@@ -103,7 +103,7 @@ namespace Build.Tests.TestSet12
         public static void TestSet12_Method9()
         {
             //TestSet12
-            var container = new Container(true, false, false);
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeInstantiation = false, UseDefaultTypeAttributeOverwrite = false });
             container.RegisterType<SqlDataRepository>();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository>());
         }

@@ -4,6 +4,9 @@
 :main
 setlocal enabledelayedexpansion
   set errorlevel=
+
+  set /p BuildVersion=<"%~dp0BuildVersion.txt"
+
   set BuildConfiguration=%~1
   if "%BuildConfiguration%"=="" set BuildConfiguration=Release
 
@@ -61,7 +64,6 @@ setlocal
 :build_myget
 setlocal
   cd /d %~dp0
-  set /p BuildVersion=<BuildVersion.txt                                                                                   || exit /b 1
   nuget pack MyGet-Build.DependencyInjection.nuspec -Properties Configuration=Release;BuildVersion=%BuildVersion%         || exit /b 1
   for /f "tokens=* usebackq" %%f in (`dir /B *.nupkg`) do (
     set NuGetPackage=%%f

@@ -150,7 +150,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method21()
         {
             //TestSet18
-            var container = new Container(true, true, false);
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
             System.Func<Type> func = () => null;
             container.RegisterType(typeof(Factory3<Type>), (object)(func));
             var factory = (Factory3<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory3`1[Build.Tests.TestSet18.Type](System.Func`1[Build.Tests.TestSet18.Type])");
@@ -170,7 +170,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method23()
         {
             //TestSet18
-            var container = new Container(true, true, false);
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
             System.Func<Type> func = () => null;
             container.RegisterType(typeof(Factory3<Type>), new object[] { func });
             var factory = (Factory3<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory3`1[Build.Tests.TestSet18.Type](System.Func`1[Build.Tests.TestSet18.Type])");
@@ -225,7 +225,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method28()
         {
             //TestSet18
-            var container = new Container(true, true, false);
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
             System.Func<Type> func = () => null;
             container.RegisterType(typeof(Factory3<Type>), new object[] { func });
             Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet18.Factory3`1[Build.Tests.TestSet18.Type](System.Object)"));

@@ -12,27 +12,19 @@ namespace Build
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeBuilder"/> class.
         /// </summary>
-        /// <param name="defaultTypeResolution">
-        /// Parameter defaults to true for automatic type resolution enabled. If value is false and
-        /// not all type dependencies are resolved, exception will be thrown
-        /// </param>
-        /// <param name="defaultTypeInstantiation">
-        /// Parameter defaults to true for automatic type instantiation enabled. If value is false
-        /// and type is resolved to default value for reference type, exception will be thrown
-        /// </param>
-        /// <param name="defaultTypeAttributeOverwrite">
-        /// Parameter defaults to true for automatic type attribute overwrite. If value is false
-        /// exception will be thrown for type attribute overwrites
-        /// </param>
-        public TypeBuilder(bool defaultTypeResolution, bool defaultTypeInstantiation, bool defaultTypeAttributeOverwrite)
+        /// <param name="options">Type builder options</param>
+        public TypeBuilder(TypeBuilderOptions options)
         {
-            UseDefaultTypeResolution = defaultTypeResolution;
-            UseDefaultTypeInstantiation = defaultTypeInstantiation;
-            UseDefaultTypeAttributeOverwrite = defaultTypeAttributeOverwrite;
-            Constructor = new TypeConstructor();
-            Filter = new TypeFilter();
-            Resolver = new TypeResolver();
-            Parser = new TypeParser();
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+            UseDefaultTypeResolution = options.UseDefaultTypeResolution ?? true;
+            UseDefaultTypeInstantiation = options.UseDefaultTypeInstantiation ?? true;
+            UseDefaultTypeAttributeOverwrite = options.UseDefaultTypeAttributeOverwrite ?? true;
+            Activator = options.Activator ?? new TypeActivator();
+            Constructor = options.Constructor ?? new TypeConstructor();
+            Filter = options.Filter ?? new TypeFilter();
+            Resolver = options.Resolver ?? new TypeResolver();
+            Parser = options.Parser ?? new TypeParser();
         }
 
         /// <summary>
@@ -42,23 +34,9 @@ namespace Build
         /// <param name="typeFilter">Type filter</param>
         /// <param name="typeParser">Type parser</param>
         /// <param name="typeResolver">Type resolver</param>
-        /// <param name="defaultTypeResolution">
-        /// Parameter defaults to true for automatic type resolution enabled. If value is false and
-        /// not all type dependencies are resolved, exception will be thrown
-        /// </param>
-        /// <param name="defaultTypeInstantiation">
-        /// Parameter defaults to true for automatic type instantiation enabled. If value is false
-        /// and type is resolved to default value for reference type, exception will be thrown
-        /// </param>
-        /// <param name="defaultTypeAttributeOverwrite">
-        /// Parameter defaults to true for automatic type attribute overwrite. If value is false
-        /// exception will be thrown for type attribute overwrites
-        /// </param>
-        public TypeBuilder(ITypeConstructor typeConstructor, ITypeFilter typeFilter, ITypeParser typeParser, ITypeResolver typeResolver, bool defaultTypeResolution, bool defaultTypeInstantiation, bool defaultTypeAttributeOverwrite)
+        public TypeBuilder(ITypeActivator typeActivator, ITypeConstructor typeConstructor, ITypeFilter typeFilter, ITypeParser typeParser, ITypeResolver typeResolver)
         {
-            UseDefaultTypeResolution = defaultTypeResolution;
-            UseDefaultTypeInstantiation = defaultTypeInstantiation;
-            UseDefaultTypeAttributeOverwrite = defaultTypeAttributeOverwrite;
+            Activator = typeActivator ?? throw new ArgumentNullException(nameof(typeActivator));
             Constructor = typeConstructor ?? throw new ArgumentNullException(nameof(typeConstructor));
             Filter = typeFilter ?? throw new ArgumentNullException(nameof(typeFilter));
             Resolver = typeResolver ?? throw new ArgumentNullException(nameof(typeResolver));
@@ -66,26 +44,31 @@ namespace Build
         }
 
         /// <summary>
+        /// Creates an instance of the specified runtime type
+        /// </summary>
+        public ITypeActivator Activator { get; }
+
+        /// <summary>
         /// Constructs type dependency
         /// </summary>
         public ITypeConstructor Constructor { get; }
 
         /// <summary>
-        /// Gets the filter.
+        /// Gets type filter
         /// </summary>
-        /// <value>The filter.</value>
+        /// <value>The filter</value>
         public ITypeFilter Filter { get; }
 
         /// <summary>
-        /// Gets the parser.
+        /// Gets type parser
         /// </summary>
-        /// <value>The parser.</value>
+        /// <value>The parser</value>
         public ITypeParser Parser { get; }
 
         /// <summary>
-        /// Gets the resolver.
+        /// Gets type resolver
         /// </summary>
-        /// <value>The resolver.</value>
+        /// <value>The resolver</value>
         public ITypeResolver Resolver { get; }
 
         /// <summary>
@@ -126,7 +109,7 @@ namespace Build
         /// If automatic type instantiation for reference types is enabled, type will defaults to
         /// null if not resolved and no exception will be thrown
         /// </remarks>
-        bool UseDefaultTypeAttributeOverwrite { get; }
+        bool UseDefaultTypeAttributeOverwrite { get; } = true;
 
         /// <summary>
         /// True if automatic type instantiation for reference types option enabled (does not throws
@@ -136,7 +119,7 @@ namespace Build
         /// If automatic type instantiation for reference types is enabled, type will defaults to
         /// null if not resolved and no exception will be thrown
         /// </remarks>
-        bool UseDefaultTypeInstantiation { get; }
+        bool UseDefaultTypeInstantiation { get; } = true;
 
         /// <summary>
         /// True if automatic type resolution for reference types option enabled (does not throws
@@ -146,7 +129,7 @@ namespace Build
         /// If automatic type resolution for reference types is enabled, type will defaults to null
         /// if not resolved and no exception will be thrown
         /// </remarks>
-        bool UseDefaultTypeResolution { get; }
+        bool UseDefaultTypeResolution { get; } = true;
 
         /// <summary>
         /// List the visited types.
@@ -339,7 +322,7 @@ namespace Build
         {
             if (!type.IsValueType)
             {
-                var constructorEnumerator = Constructor.GetDependencyObjects(type, UseDefaultTypeInstantiation).GetEnumerator();
+                var constructorEnumerator = Constructor.GetDependencyObjects(Activator, type, UseDefaultTypeInstantiation).GetEnumerator();
                 if (!constructorEnumerator.MoveNext())
                     throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", type));
                 do
@@ -457,5 +440,69 @@ namespace Build
                 constructor.AddConstructorParameter(CanRegister(result.Type), result);
             }
         }
+    }
+
+    /// <summary>
+    /// Optional type builder parameters
+    /// </summary>
+    public sealed class TypeBuilderOptions
+    {
+        /// <summary>
+        /// Creates an instance of the specified runtime type
+        /// </summary>
+        public ITypeActivator Activator { get; set; } = new TypeActivator();
+
+        /// <summary>
+        /// Constructs type dependency
+        /// </summary>
+        public ITypeConstructor Constructor { get; set; } = new TypeConstructor();
+
+        /// <summary>
+        /// Gets type filter
+        /// </summary>
+        /// <value>The filter</value>
+        public ITypeFilter Filter { get; set; } = new TypeFilter();
+
+        /// <summary>
+        /// Gets type parser
+        /// </summary>
+        /// <value>The parser</value>
+        public ITypeParser Parser { get; set; } = new TypeParser();
+
+        /// <summary>
+        /// Gets type resolver
+        /// </summary>
+        /// <value>The resolver</value>
+        public ITypeResolver Resolver { get; set; } = new TypeResolver();
+
+        /// <summary>
+        /// True if automatic type instantiation for reference types option enabled (does not throws
+        /// exceptions for reference types defaults to null)
+        /// </summary>
+        /// <remarks>
+        /// If automatic type instantiation for reference types is enabled, type will defaults to
+        /// null if not resolved and no exception will be thrown
+        /// </remarks>
+        public bool? UseDefaultTypeAttributeOverwrite { get; set; }
+
+        /// <summary>
+        /// True if automatic type instantiation for reference types option enabled (does not throws
+        /// exceptions for reference types defaults to null)
+        /// </summary>
+        /// <remarks>
+        /// If automatic type instantiation for reference types is enabled, type will defaults to
+        /// null if not resolved and no exception will be thrown
+        /// </remarks>
+        public bool? UseDefaultTypeInstantiation { get; set; }
+
+        /// <summary>
+        /// True if automatic type resolution for reference types option enabled (does not throws
+        /// exceptions for reference types contains type dependencies to non-registered types)
+        /// </summary>
+        /// <remarks>
+        /// If automatic type resolution for reference types is enabled, type will defaults to null
+        /// if not resolved and no exception will be thrown
+        /// </remarks>
+        public bool? UseDefaultTypeResolution { get; set; }
     }
 }

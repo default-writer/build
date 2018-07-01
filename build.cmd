@@ -4,6 +4,9 @@
 :main
 setlocal enabledelayedexpansion
   set errorlevel=
+
+  set /p BuildVersion=<"%~dp0BuildVersion.txt"
+
   set BuildConfiguration=%~1
   if "%BuildConfiguration%"=="" set BuildConfiguration=Release
 

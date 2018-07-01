@@ -4,10 +4,10 @@ namespace Build
 {
     public class TypeObject : ITypeObject
     {
-        public TypeObject(IRuntimeAttribute runtimeAttribute, Type runtimeType, bool defaultTypeInstantiation)
+        public TypeObject(ITypeActivator runtimeTypeActivator, IRuntimeAttribute runtimeAttribute, Type runtimeType, bool defaultTypeInstantiation)
         {
             RuntimeAttribute = runtimeAttribute;
-            RuntimeType = new RuntimeType(runtimeAttribute, runtimeType, defaultTypeInstantiation);
+            RuntimeType = new RuntimeType(runtimeTypeActivator, runtimeAttribute, runtimeType, defaultTypeInstantiation);
         }
 
         public IRuntimeAttribute RuntimeAttribute { get; }

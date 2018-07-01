@@ -5,7 +5,7 @@ namespace Build
 {
     public sealed class TypeInjectionObject : TypeObject, ITypeInjectionObject
     {
-        public TypeInjectionObject(IInjectionAttribute runtimeAttribute, Type runtimeType, bool defaultTypeInstantiation) : base(GetInjectionAttribute(runtimeAttribute, runtimeType), runtimeType, defaultTypeInstantiation)
+        public TypeInjectionObject(ITypeActivator runtimeTypeActivator, IInjectionAttribute runtimeAttribute, Type runtimeType, bool defaultTypeInstantiation) : base(runtimeTypeActivator, GetInjectionAttribute(runtimeAttribute, runtimeType), runtimeType, defaultTypeInstantiation)
         {
             var injectionAttribute = (IInjectionAttribute)RuntimeAttribute;
             InjectionAttribute = injectionAttribute;

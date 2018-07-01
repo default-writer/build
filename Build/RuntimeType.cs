@@ -8,7 +8,7 @@ namespace Build
     /// Runtime information for type
     /// </summary>
     /// <seealso cref="Build.IRuntimeType"/>
-    public sealed class RuntimeType : IRuntimeType
+    class RuntimeType : IRuntimeType
     {
         /// <summary>
         /// Gets the runtime types.
@@ -43,8 +43,9 @@ namespace Build
         /// and type is resolved to default value for reference type, exception will be thrown
         /// </param>
         /// <exception cref="ArgumentNullException">attribute</exception>
-        public RuntimeType(IRuntimeAttribute attribute, Type type, bool defaultTypeInstantiation)
+        public RuntimeType(ITypeActivator typeActivator, IRuntimeAttribute attribute, Type type, bool defaultTypeInstantiation)
         {
+            Activator = typeActivator;
             TypeDefinition = type.ToString();
             Type = type;
             UseDefaultTypeInstantiation = defaultTypeInstantiation;
@@ -107,6 +108,11 @@ namespace Build
         public object Value => GetValue(Attribute, Id);
 
         /// <summary>
+        /// IRuntimeType activator
+        /// </summary>
+        ITypeActivator Activator { get; }
+
+        /// <summary>
         /// True if automatic type instantiation for reference types option enabled (does not throws
         /// exceptions for reference types defaults to null)
         /// </summary>
@@ -163,7 +169,7 @@ namespace Build
         public object CreateInstance(params object[] args)
         {
             if (Type.IsValueType)
-                return CreateValueInstance();
+                return Activator.CreateValueInstance(this);
             var parameters = ReadParameters();
 
             #region Target Frameworks
@@ -278,20 +284,6 @@ namespace Build
         }
 
         /// <summary>
-        /// Creates the instance with type inferenced evaluated arguments.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="attribute">The attribute.</param>
-        /// <returns></returns>
-        object CreateInstance(IRuntimeType type, IRuntimeAttribute attribute) => Activator.CreateInstance(Type, RuntimeTypes.Evaluate(type, attribute));
-
-        /// <summary>
-        /// Creates the instance.
-        /// </summary>
-        /// <returns></returns>
-        object CreateInstance() => Activator.CreateInstance(Type, RuntimeTypes.Values(Attribute, Id));
-
-        /// <summary>
         /// Creates reference type
         /// </summary>
         /// <param name="args">Parameter passed in to type activator</param>
@@ -304,14 +296,8 @@ namespace Build
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (parameter type mismatch)", TypeFullName));
             if (args == null || args.Length == 0)
                 return Evaluate(this, Attribute, null);
-            return CreateInstance();
+            return Activator.CreateInstance(this);
         }
-
-        /// <summary>
-        /// Creates the instance.
-        /// </summary>
-        /// <returns></returns>
-        object CreateValueInstance() => Activator.CreateInstance(Type);
 
         /// <summary>
         /// Evaluates the injection.
@@ -347,7 +333,7 @@ namespace Build
         /// <param name="i">The i.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        object EvaluateInstance(IRuntimeType type, int? i) => CreateInstance(type, i.HasValue ? Attribute.GetReferenceAttribute(type.Id) : Attribute);
+        object EvaluateInstance(IRuntimeType type, int? i) => Activator.CreateInstance(this, type, i.HasValue ? Attribute.GetReferenceAttribute(type.Id) : Attribute);
 
         /// <summary>
         /// Evaluates the singleton.
@@ -378,7 +364,7 @@ namespace Build
                     if (enums.Length > 0)
                         return enums.GetValue(0);
                 }
-                return CreateValueInstance();
+                return Activator.CreateValueInstance(this);
             }
             return default;
         }

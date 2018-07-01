@@ -2,14 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-
     <IsPackable>false</IsPackable>
-
-    <SignAssembly>false</SignAssembly>
-
-    <DelaySign>false</DelaySign>
-
-    <AssemblyOriginatorKeyFile>Build.Tests.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
