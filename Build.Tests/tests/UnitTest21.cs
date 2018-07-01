@@ -8,7 +8,14 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test1()
         {
-            var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            //TestSet21
+            var container = new Container(new TypeBuilderOptions()
+            {
+                Constructor = new InterfaceTypeConstructor(),
+                Filter = new InterfaceTypeFilter(),
+                Parser = new InterfaceTypeParser(),
+                Resolver = new InterfaceTypeResolver()
+            });
             Assert.NotNull(container);
         }
 
@@ -396,7 +403,13 @@ namespace Build.Tests.TestSet21
         [Fact]
         public static void Test40()
         {
-            var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            var container = new Container(new TypeBuilderOptions
+            {
+                Constructor = new InterfaceTypeConstructor(),
+                Filter = new InterfaceTypeFilter(),
+                Parser = new InterfaceTypeParser(),
+                Resolver = new InterfaceTypeResolver()
+            });
             container.RegisterType<IInterfaceRuleSet_Enum>();
             var type = (Type2)container.CreateInstance("Build.Tests.TestSet21.Type2(Build.Tests.TestSet21.Interface2)");
             Assert.Equal(-1, (int)type.Interface2);
@@ -406,7 +419,13 @@ namespace Build.Tests.TestSet21
         public static void Test41()
         {
             //TestSet21
-            var container = new Container(new TypeActivator(), new InterfaceThisTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            var container = new Container(new TypeBuilderOptions
+            {
+                Constructor = new InterfaceThisTypeConstructor(),
+                Filter = new InterfaceTypeFilter(),
+                Parser = new InterfaceTypeParser(),
+                Resolver = new InterfaceTypeResolver()
+            });
             container.RegisterType<IInterfaceThisRuleSet1>();
             container.RegisterType<IInterfaceThisRuleSet2>();
             var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository(Build.Tests.TestSet21.ServiceDataRepository)");

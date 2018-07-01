@@ -1,3 +1,4 @@
+using Build.Tests.TestSet;
 using Xunit;
 
 namespace Build.Tests.TestSet22
@@ -7,18 +8,31 @@ namespace Build.Tests.TestSet22
         [Fact]
         public static void Test1()
         {
-            var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            //TestSet22
+            var container = new Container(new TypeBuilderOptions()
+            {
+                Constructor = new InterfaceTypeConstructor(),
+                Filter = new InterfaceTypeFilter(),
+                Parser = new InterfaceTypeParser(),
+                Resolver = new InterfaceTypeResolver()
+            });
             Assert.NotNull(container);
         }
 
         [Fact]
         public static void Test2()
         {
-            //TestSet16
-            var container = new Container(new TypeActivator(), new InterfaceThisTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            //TestSet22
+            var container = new Container(new TypeBuilderOptions
+            {
+                Constructor = new InterfaceThisTypeConstructor(),
+                Filter = new InterfaceTypeFilter(),
+                Parser = new InterfaceTypeParser(),
+                Resolver = new InterfaceTypeResolver()
+            });
             container.RegisterType<IInterfaceSet1>();
-            var c2 = container.CreateInstance<C2>();
-            Assert.NotNull(c2);
+            var c = container.CreateInstance<C>();
+            Assert.NotNull(c);
         }
     }
 }
