@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 using Xunit;
 
 namespace Build.Tests.TestSet17
