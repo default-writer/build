@@ -7,24 +7,6 @@ namespace Build.Tests.TestSet23
     public static class UnitTest23
     {
         [Fact]
-        public static void Tes30_1()
-        {
-            //TestSet23
-            var container = new Container(new TypeBuilderOptions
-            {
-                Activator = new PropertyTypeActivator(),
-                Constructor = new PropertyTypeConstructor()
-            });
-            var aobj = new A();
-            var bobj = new B();
-            var cobj = new C() { A = aobj, B = bobj };
-            container.RegisterType<H>(cobj);
-            container.RegisterType<C>();
-            var h = container.CreateInstance<H>();
-            Assert.Equal(aobj, h.C.A);
-        }
-
-        [Fact]
         public static void Test1()
         {
             //TestSet23
@@ -487,6 +469,24 @@ namespace Build.Tests.TestSet23
         }
 
         [Fact]
+        public static void Test30_1()
+        {
+            //TestSet23
+            var container = new Container(new TypeBuilderOptions
+            {
+                Activator = new PropertyTypeActivator(),
+                Constructor = new PropertyTypeConstructor()
+            });
+            var aobj = new A();
+            var bobj = new B();
+            var cobj = new C() { A = aobj, B = bobj };
+            container.RegisterType<H>(cobj);
+            container.RegisterType<C>();
+            var h = container.CreateInstance<H>();
+            Assert.Equal(aobj, h.C.A);
+        }
+
+        [Fact]
         public static void Test30_2()
         {
             //TestSet23
@@ -538,6 +538,57 @@ namespace Build.Tests.TestSet23
             var h1 = container.GetInstance<H>();
             var h2 = container.GetInstance<H>();
             Assert.NotEqual(h1.C, h2.C);
+        }
+
+        [Fact]
+        public static void Test33()
+        {
+            //TestSet23
+            var container = new Container(new TypeBuilderOptions
+            {
+                Activator = new PropertyTypeActivator(),
+                Constructor = new PropertyTypeConstructor()
+            });
+            var aobj = new A();
+            var bobj = new B();
+            container.RegisterType<H>();
+            container.RegisterType<C>(aobj, bobj);
+            var h = container.GetInstance<H>();
+            Assert.NotNull(h.C);
+        }
+
+        [Fact]
+        public static void Test34_1()
+        {
+            //TestSet23
+            var container = new Container(new TypeBuilderOptions
+            {
+                Activator = new PropertyTypeActivator(),
+                Constructor = new PropertyTypeConstructor()
+            });
+            var aobj = new A();
+            var bobj = new B();
+            container.RegisterType<H>();
+            container.RegisterType<C>(aobj, bobj);
+            var h = container.GetInstance<H>();
+            Assert.Equal(aobj, h.C.A);
+        }
+
+        [Fact]
+        public static void Test34_2()
+        {
+            //TestSet23
+            var container = new Container(new TypeBuilderOptions
+            {
+                Activator = new PropertyTypeActivator(),
+                Constructor = new PropertyTypeConstructor()
+            });
+            var aobj = new A();
+            var bobj = new B();
+            container.RegisterType<H>();
+            container.RegisterType<C>(aobj, bobj);
+            var h = container.GetInstance<H>();
+            Assert.Equal(bobj, h.C.B);
         }
 
         [Fact]
