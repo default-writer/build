@@ -38,5 +38,17 @@ namespace Build.Tests.TestSet17
             var type = (Type)container.CreateInstance("Build.Tests.TestSet17.Type(Build.Tests.TestSet17.SubType)");
             Assert.NotNull(type.SubType);
         }
+
+        [Fact]
+        public static void TestSet17_Method4()
+        {
+            //TestSet7
+            var container = new Container();
+            container.RegisterType<Type>();
+            var typeActivator = new TypeActivator();
+            var runtimeType = new RuntimeType(typeActivator, new InjectionAttribute("Build.Tests.TestSet17.Type"), typeof(Type), true);
+            var value = runtimeType.GetValue("");
+            Assert.Null(value);
+        }
     }
 }

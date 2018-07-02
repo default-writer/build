@@ -73,20 +73,25 @@ setlocal
 :build_nuget
 setlocal
   cd /d %~dp0
-  nuget pack Build.DependencyInjection.nuspec -Properties Configuration=Release;BuildVersion=%BuildVersion%               || exit /b 1
-  for /f "tokens=* usebackq" %%f in (`dir /B *.nupkg`) do (
-    set NuGetPackage=%%f
-  )
   if "%NUGET_ACCESSTOKEN%" == "" (
     call :print_error_message Missing NuGet access token environment variable API key
     exit /b 1
   )
-  dotnet nuget push %NuGetPackage% -k %NUGET_ACCESSTOKEN% -s https://api.nuget.org/v3/index.json                          || exit /b 1
+  for /f "tokens=* usebackq" %%f in (`dir /B *.nuspec`) do (
+    nuget pack %%f -Properties Configuration=Release;BuildVersion=%BuildVersion%                                          
+  )
+  for /f "tokens=* usebackq" %%f in (`dir /B *.nupkg`) do (
+    dotnet nuget push %%f -k %NUGET_ACCESSTOKEN% -s https://api.nuget.org/v3/index.json                                   
+  )
   exit /b %errorlevel%
 
 :build_myget
 setlocal
   cd /d %~dp0
+  if "%MYGET_ACCESSTOKEN%" == "" (
+    call :print_error_message Missing NuGet access token environment variable API key
+    exit /b 1
+  )
   nuget pack Build.DependencyInjection.nuspec -Properties Configuration=Release;BuildVersion=%BuildVersion%               || exit /b 1
   for /f "tokens=* usebackq" %%f in (`dir /B *.nupkg`) do (
     set NuGetPackage=%%f
