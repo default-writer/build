@@ -11,11 +11,19 @@ namespace Build
         }
 
         public IRuntimeAttribute RuntimeAttribute { get; }
-        public IRuntimeType RuntimeType { get; }
+        public IRuntimeType RuntimeType { get; set; }
 
         /// <summary>
         /// Gets the type full name
         /// </summary>
         public string TypeFullName => RuntimeAttribute.TypeFullName ?? RuntimeType.TypeFullName;
+
+#if EXPERIMENTAL
+        /// <summary>
+        /// Initializes runtime type
+        /// </summary>
+        /// <param name="runtimeType"></param>
+        public void SetRuntimeType(IRuntimeType runtimeType) => RuntimeType = runtimeType;
+#endif
     }
 }

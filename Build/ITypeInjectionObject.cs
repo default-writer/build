@@ -12,5 +12,13 @@ namespace Build
         /// Enumerates type parameters
         /// </summary>
         IEnumerable<string> TypeParameters { get; }
+
+#if EXPERIMENTAL
+        /// <summary>
+        /// Initializes runtime type
+        /// </summary>
+        /// <param name="runtimeType"></param>
+        void SetRuntimeType(IRuntimeType runtimeType);
+#endif
     }
 }

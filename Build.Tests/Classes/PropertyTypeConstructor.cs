@@ -14,17 +14,17 @@ namespace Build.Tests.Classes
         {
             var dependencyObjects = new List<ITypeDependencyObject>();
             var constructors = type.GetConstructors();
-            if (constructors.Length == 0 || constructors.Length == 1)
+            if (constructors.Length == 1)
             {
-                var constructorParameters = constructors.Length == 1 ? constructors[0].GetParameters() : null;
-                if (constructorParameters == null || constructorParameters.Length == 0)
+                var constructorParameters = constructors[0].GetParameters();
+                if (constructorParameters.Length == 0)
                 {
                     var injectionObjects = new List<ITypeInjectionObject>();
                     var runtimeAttribute = type.GetCustomAttribute<PropertyDependencyAttribute>();
                     var properties = type.GetProperties().Where((p) => !p.IsSpecialName && p.CanRead && p.CanWrite);
                     injectionObjects.AddRange(properties.Select((p) =>
                     {
-                        var injectionObject = new TypeInjectionObject(runtimeTypeActivator, p.GetCustomAttribute<InjectionAttribute>(), p.PropertyType, defaultTypeInstantiation);
+                        var injectionObject = new TypeInjectionObject(runtimeTypeActivator, p.GetCustomAttribute<PropertyInjectionAttribute>(), p.PropertyType, defaultTypeInstantiation);
                         var id = Format.GetRuntimeTypeParameter(injectionObject.RuntimeType);
                         injectionObject.RuntimeType.SetValue(id, p);
                         return injectionObject;
