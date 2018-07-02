@@ -29,7 +29,7 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 ## v1.0.0.16
 
 - Added ```TypeBuilderOptions``` class
-- Added [sample](https://github.com/hack2root/build/tree/master/Build.Tests/classes/PropertyTypeConstructor.cs) implementation of property-based type dependency injector
+- Added [sample](https://github.com/hack2root/build/tree/master/Build.Tests/Classes/PropertyTypeConstructor.cs) implementation of property-based type dependency injector
 
 ## v1.0.0.15
 
