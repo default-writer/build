@@ -374,10 +374,6 @@ namespace Build
             CheckParametersFullName(constructorType.Name, parameterType.Name);
             var parameters = injectionObject.TypeParameters;
             var runtimeType = Types.Values.Count > 0 ? Parser.Find(typeFullName, parameters, Types.Values.ToArray()) : null;
-#if EXPERIMENTAL
-            if (runtimeType != null && runtimeType.Type == parameter.Type)
-                injectionObject.SetRuntimeType(runtimeType);
-#endif
             if (UseDefaultTypeResolution && runtimeType == null)
                 RegisterConstructorParameter(attributeType);
             RegisterConstructorType(parameterType);
