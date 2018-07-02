@@ -26,6 +26,10 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 - [Build](https://github.com/hack2root/build/wiki)
 
+## v1.0.0.16
+
+- Added ```TypeBuilderOptions``` class
+
 ## v1.0.0.15
 
 - Added [ASP.NET Core 2.1 middleware extensibility](https://github.com/hack2root/build/blob/master/aspnetcore/fundamentals/middleware/extensibility-third-party-container-build/sample/)

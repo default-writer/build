@@ -31,6 +31,7 @@ setlocal enabledelayedexpansion
   set procedures=%procedures% build
   set procedures=%procedures% build_test
   set procedures=%procedures% build_test_coverage
+  set procedures=%procedures% build_nuget
   set procedures=%procedures% build_myget
 
   for %%p in (%procedures%) do (
@@ -69,10 +70,23 @@ setlocal
   call coverage                                                                                                           || exit /b 1
   exit /b %errorlevel%
 
+:build_nuget
+setlocal
+  cd /d %~dp0
+  nuget pack Build.DependencyInjection.nuspec -Properties Configuration=Release;BuildVersion=%BuildVersion%               || exit /b 1
+  for /f "tokens=* usebackq" %%f in (`dir /B *.nupkg`) do (
+    set NuGetPackage=%%f
+  )
+  if "%NUGET_ACCESSTOKEN%" == "" (
+    call :print_error_message Missing NuGet access token environment variable API key
+    exit /b 1
+  )
+  dotnet nuget push %NuGetPackage% -k %NUGET_ACCESSTOKEN% -s https://api.nuget.org/v3/index.json                          || exit /b 1
+  exit /b %errorlevel%
+
 :build_myget
 setlocal
   cd /d %~dp0
-  set /p BuildVersion=<BuildVersion.txt                                                                                   || exit /b 1
   nuget pack Build.DependencyInjection.nuspec -Properties Configuration=Release;BuildVersion=%BuildVersion%               || exit /b 1
   for /f "tokens=* usebackq" %%f in (`dir /B *.nupkg`) do (
     set NuGetPackage=%%f
