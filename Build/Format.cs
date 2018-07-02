@@ -43,5 +43,12 @@ namespace Build
 
             return args == null ? emptyArray : args.Select(GetParameterFullName);
         }
+
+        /// <summary>
+        /// Converts runtime type to corresponding parameter string value
+        /// </summary>
+        /// <param name="runtimeType">Runtime type</param>
+        /// <returns>Returns runtime type parameter</returns>
+        public static string GetRuntimeTypeParameter(IRuntimeType runtimeType) => string.Format(":{0}", runtimeType.Type);
     }
 }

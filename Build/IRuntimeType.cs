@@ -56,6 +56,9 @@ namespace Build
         /// </summary>
         string TypeFullName { get; }
 
+        /// <summary>
+        /// Attribute value
+        /// </summary>
         object Value { get; }
 
         /// <summary>
@@ -91,12 +94,19 @@ namespace Build
         object Evaluate(IRuntimeType type, IRuntimeAttribute attribute, int? i);
 
         /// <summary>
-        /// Gets the specified value from the specified attribute.
+        /// Gets the value from the specified attribue.
         /// </summary>
         /// <param name="attribute">Attribute</param>
         /// <param name="id">Id</param>
         /// <value>Value</value>
         object GetValue(IRuntimeAttribute attribute, string id);
+
+        /// <summary>
+        /// Gets the value from the runtime type.
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <value>Value</value>
+        object GetValue(string id);
 
         /// <summary>
         /// Registers the parameters.
@@ -117,12 +127,19 @@ namespace Build
         /// <param name="runtimeInstance"></param>
         void SetRuntimeInstance(RuntimeInstance runtimeInstance);
 
-        ///// <summary>
-        ///// Sets the specified value to the specified attribute.
-        ///// </summary>
-        ///// <param name="attribute">Attribute</param>
-        ///// <param name="id">Id</param>
-        ///// <param name="value">Value</param>
+        /// <summary>
+        /// Sets the value to the specified attribute.
+        /// </summary>
+        /// <param name="attribute">Attribute</param>
+        /// <param name="id">Id</param>
+        /// <param name="value">Value</param>
         void SetValue(IRuntimeAttribute attribute, string id, object value);
+
+        /// <summary>
+        /// Sets the value to the runtime type.
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <param name="value">Value</param>
+        void SetValue(string id, object value);
     }
 }

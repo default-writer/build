@@ -1,8 +1,10 @@
-using Build.Tests.TestSet;
 using Xunit;
 
 namespace Build.Tests.TestSet22
 {
+    using TestSet;
+    using Classes;
+
     public static class UnitTest22
     {
         [Fact]

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Build.Tests
+namespace Build.Tests.Classes
 {
     public sealed class InterfaceTypeParser : ITypeParser
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Build.Tests
+namespace Build.Tests.Classes
 {
     /// <summary>
     /// Injection attribute

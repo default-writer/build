@@ -1,6 +1,7 @@
 ﻿namespace Build.Tests.TestSet22
 {
     using TestSet;
+    using Classes;
 
     [Interface]
     interface IInterfaceSet1

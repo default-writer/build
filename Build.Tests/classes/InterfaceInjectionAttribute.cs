@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Build.Tests
+namespace Build.Tests.Classes
 {
     /// <summary>
     /// Injection attribute

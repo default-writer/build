@@ -1,5 +1,7 @@
 ﻿namespace Build.Tests.TestSet21
 {
+    using Classes;
+
     public enum Database
     {
         SQL,

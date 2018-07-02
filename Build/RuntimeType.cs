@@ -11,6 +11,11 @@ namespace Build
     class RuntimeType : IRuntimeType
     {
         /// <summary>
+        /// The raw values
+        /// </summary>
+        readonly IDictionary<string, object> _objects = new Dictionary<string, object>();
+
+        /// <summary>
         /// Gets the runtime types.
         /// </summary>
         /// <value>The runtime types.</value>
@@ -105,7 +110,7 @@ namespace Build
         /// </summary>
         public string TypeFullName => Type.ToString();
 
-        public object Value => GetValue(Attribute, Id);
+        public object Value { get => GetValue(Attribute, Id); set => SetValue(Attribute, Id, value); }
 
         /// <summary>
         /// IRuntimeType activator
@@ -135,10 +140,27 @@ namespace Build
             {
                 var runtimeAttribute = attribute.GetReferenceAttribute(typeFullName);
                 if (!_values.ContainsKey(runtimeAttribute))
-                    _values.Add(runtimeAttribute, GetDefaultValue());
+                    return GetDefaultValue();
                 return _values[attribute];
             }
             set => _values[attribute.GetReferenceAttribute(typeFullName)] = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the <see cref="System.Object"/>.
+        /// </summary>
+        /// <value>The <see cref="System.Object"/>.</value>
+        /// <param name="id">Object id.</param>
+        /// <returns></returns>
+        object this[string id]
+        {
+            get
+            {
+                if (!_objects.ContainsKey(id))
+                    return default;
+                return _objects[id];
+            }
+            set => _objects[id] = value;
         }
 
         /// <summary>
@@ -212,12 +234,19 @@ namespace Build
         }
 
         /// <summary>
-        /// Gets the specified value from the specified attribute.
+        /// Gets the value from the specified attribue.
         /// </summary>
         /// <param name="attribute">Attribute</param>
         /// <param name="id">Id</param>
         /// <value>Value</value>
         public object GetValue(IRuntimeAttribute attribute, string id) => this[attribute, id];
+
+        /// <summary>
+        /// Gets the value from the runtime type.
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <value>Value</value>
+        public object GetValue(string id) => this[id];
 
         /// <summary>
         /// Gets the parameters;
@@ -259,13 +288,20 @@ namespace Build
         /// <value>The runtime instance.</value>
         public void SetRuntimeInstance(RuntimeInstance runtimeInstance) => _runtimeInstance = _runtimeInstance | runtimeInstance;
 
-        ///// <summary>
-        ///// Sets the specified value to the specified attribute.
-        ///// </summary>
-        ///// <param name="attribute">Attribute</param>
-        ///// <param name="id">Id</param>
-        ///// <param name="value">Value</param>
+        /// <summary>
+        /// Sets the value to the specified attribute.
+        /// </summary>
+        /// <param name="attribute">Attribute</param>
+        /// <param name="id">Id</param>
+        /// <param name="value">Value</param>
         public void SetValue(IRuntimeAttribute attribute, string id, object value) => this[attribute, id] = value;
+
+        /// <summary>
+        /// Sets the value to the runtime type.
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <param name="value">Value</param>
+        public void SetValue(string id, object value) => this[id] = value;
 
         /// <summary>
         /// Registers the parameters.

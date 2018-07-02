@@ -3,6 +3,8 @@ using Xunit;
 
 namespace Build.Tests.TestSet21
 {
+    using Classes;
+
     public static class UnitTest21
     {
         [Fact]
