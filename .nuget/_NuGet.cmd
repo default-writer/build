@@ -52,7 +52,7 @@ setlocal
   echo/ ========== NuGet ==========
   echo/   Restoring %cd%
   echo/ ========== NuGet ==========
-  dotnet.exe restore --no-cache --packages "%~dp0..\packages"                                                             || exit /b 1
+  dotnet.exe restore --no-cache --packages "%~dp0..\packages\.packages"                                                   || exit /b 1
   echo/
   echo/ ========== NuGet ==========
   echo/   Building %cd%
@@ -98,7 +98,7 @@ setlocal
   echo/ ========== NuGet ==========
   echo/   Restoring %cd%
   echo/ ========== NuGet ==========
-  dotnet.exe restore --no-cache --packages "%~dp0..\packages"                                                             || exit /b 1
+  dotnet.exe restore --no-cache --packages "%~dp0..\packages\.packages"                                                   || exit /b 1
   call :dotnet_build                                                                                                      || exit /b 1
 
   dotnet.exe publish -c %BuildConfiguration%                                                                              || exit /b 1
@@ -122,7 +122,7 @@ setlocal
 :build_test_coverage
 setlocal
   cd /d %~dp0..\
-  dotnet.exe restore --no-cache --packages "%~dp0..\packages"                                                             || exit /b 1
+  dotnet.exe restore --no-cache --packages "%~dp0..\packages\.packages"                                                   || exit /b 1
   call coverage                                                                                                           || exit /b 1
   exit /b %errorlevel%
 
