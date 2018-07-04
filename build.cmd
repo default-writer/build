@@ -26,13 +26,6 @@ setlocal EnableDelayedExpansion
   set LV_GIT_HEAD_SHA=
   for /f %%c in ('git rev-parse HEAD') do set "LV_GIT_HEAD_SHA=%%c"
 
-  set LocalDotNet_ToolsDir=%~dp0packages
-  if exist "%LocalDotNet_ToolsDir%" rmdir /s /q "%LocalDotNet_ToolsDir%"
-  if exist "%LocalDotNet_ToolsDir%" (
-    echo ERROR: Failed to remove "%LocalDotNet_ToolsDir%" folder.
-    exit /b 1
-  )
-
   set LocalDotNet_PackagesDir=%~dp0packages
   if exist "%LocalDotNet_PackagesDir%" rmdir /s /q "%LocalDotNet_PackagesDir%"
   if exist "%LocalDotNet_PackagesDir%" (
@@ -44,14 +37,14 @@ setlocal EnableDelayedExpansion
   echo/ Building %BuildVersion% %BuildConfiguration% version of NuGet packages.
   echo/==================
   call _NuGet.cmd %BuildConfiguration% %BuildVersion%
-  set OutputDirectory=%~dp0nuget
+  set OutputDirectory=%~dp0.nuget\nuget
   call :remove_directory "%OutputDirectory%" || exit /b 1
 
   echo/==================
   echo/ Building %BuildVersion% %BuildConfiguration% version of MyGet packages.
   echo/==================
   call _MyGet.cmd %BuildConfiguration% %BuildVersion%
-  set OutputDirectory=%~dp0myget
+  set OutputDirectory=%~dp0.muget\myget
   call :remove_directory "%OutputDirectory%" || exit /b 1
 
 endlocal&  exit /b %errorlevel%

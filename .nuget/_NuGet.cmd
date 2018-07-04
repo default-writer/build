@@ -19,6 +19,11 @@ setlocal enabledelayedexpansion
 
   call "%~dp0NuGet-dotnet-install.cmd" || exit /b 1
 
+  set GitHeadSha=
+  if defined LV_GIT_HEAD_SHA (
+    set "GitHeadSha=%LV_GIT_HEAD_SHA%"
+  )
+
   set procedures=
   set procedures=%procedures% build
   set procedures=%procedures% build_test
@@ -73,7 +78,7 @@ setlocal
     exit /b 1
   )
   for /f "tokens=* usebackq" %%f in (`dir /B .nuget\*.nuspec`) do (
-    nuget pack .nuget\%%f -Properties Configuration=Release;BuildVersion=%BuildVersion% -OutputDirectory "%OutputDirectory%"
+    nuget pack .nuget\%%f -Properties Configuration=Release;BuildVersion=%BuildVersion%;GitHeadSha=%GitHeadSha% -OutputDirectory "%OutputDirectory%"
   )
   for /f "tokens=* usebackq" %%f in (`dir /B %OutputDirectory%\*.nupkg`) do (
     dotnet nuget push %OutputDirectory%\%%f -k %NUGET_ACCESSTOKEN% -s https://api.nuget.org/v3/index.json                                   

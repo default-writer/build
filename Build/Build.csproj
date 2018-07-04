@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="$(MSBuildThisFileDirectory)../common.props" />
+
   <PropertyGroup>
     <TargetFrameworks>
       <!-- netstandard1.0; -->
@@ -36,7 +38,8 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Artur Mustafin (hack2root)</Authors>
     <Company>Artur Mustafin (hack2root)</Company>
-    <Description>.NET Core 2.1 Dependency Injection framework</Description>
+    <Description>.NET Core 2.1 Dependency Injection framework 
+Commit SHA: $(CommitHash)</Description>
     <Copyright>Artur Mustafin (hack2root)</Copyright>
     <PackageLicenseUrl>https://github.com/hack2root/build/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://hack2root.github.io/build/</PackageProjectUrl>

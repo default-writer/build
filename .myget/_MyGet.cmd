@@ -19,6 +19,11 @@ setlocal enabledelayedexpansion
 
   call "%~dp0MyGet-dotnet-install.cmd" || exit /b 1
 
+  set GitHeadSha=
+  if defined LV_GIT_HEAD_SHA (
+    set "GitHeadSha=%LV_GIT_HEAD_SHA%"
+  )
+
   set procedures=
   set procedures=%procedures% build
   set procedures=%procedures% build_test
@@ -72,7 +77,7 @@ setlocal
     exit /b 1
   )
   for /f "tokens=* usebackq" %%f in (`dir /B .myget\*.nuspec`) do (
-    nuget pack .myget\%%f -Properties Configuration=Release;BuildVersion=%BuildVersion% -OutputDirectory "%OutputDirectory%"
+    nuget pack .myget\%%f -Properties Configuration=Release;BuildVersion=%BuildVersion%;GitHeadSha=%GitHeadSha% -OutputDirectory "%OutputDirectory%"
   )
   for /f "tokens=* usebackq" %%f in (`dir /B %OutputDirectory%\*.nupkg`) do (
     nuget push %OutputDirectory%\%%f %MYGET_ACCESSTOKEN% -Source https://www.myget.org/F/build-core/api/v2/package
