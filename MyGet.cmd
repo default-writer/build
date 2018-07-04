@@ -10,7 +10,7 @@ setlocal enabledelayedexpansion
   set BuildConfiguration=%~1
   if "%BuildConfiguration%"=="" set BuildConfiguration=Release
 
-  set OutputDirectory=%~dp0MyGetLocalPackages
+  set OutputDirectory=%~dp0.myget
   call :remove_directory "%OutputDirectory%" || exit /b 1
 
   rem Don't fall back to machine-installed versions of dotnet, only use repo-local version
@@ -110,4 +110,3 @@ setlocal
     exit /b 1
   )
   exit /b 0
-:exit
