@@ -5,7 +5,7 @@
 setlocal EnableDelayedExpansion
   set errorlevel=
   set BuildConfiguration=Release
-  set /p BuildVersion=<"%~dp0BuildVersion.txt"
+  set /p BuildVersion=<"%~dp0.\config\BuildVersion.txt"
 
   REM Check that git is on path.
   where.exe /Q git.exe || (

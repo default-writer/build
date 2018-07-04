@@ -17,6 +17,7 @@ setlocal
     exit /b 1
   )
 
+  set Tools_Path=%~dp0..\packages\tools
   set DotNet_Path=%~dp0..\packages\dotnet\%DotNet_Version%
   set NuGet_Path=%~dp0..\packages\nuget
   set DotNet=%DotNet_Path%\dotnet.exe
@@ -76,15 +77,13 @@ setlocal
     exit /b 1
   )
 
-  call :tools
-
 :install_dotnet_cli_exit
   echo/
   call "%DotNet%" --info
   call :tools
 
 endlocal& (
-  set "PATH=%DotNet_Path%;%NuGet_Path%;%PATH%"
+  set "PATH=%DotNet_Path%;%NuGet_Path%;%Tools_Path%;%PATH%"
   exit /b 0
 )
 

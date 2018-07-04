@@ -76,8 +76,6 @@ setlocal
     exit /b 1
   )
 
-  call :tools
-
 :install_dotnet_cli_exit
   echo/
   call "%DotNet%" --info
@@ -90,15 +88,15 @@ endlocal& (
 
 :tools
   echo/
-  echo/ ========== NuGet ==========
+  echo/ ========== MyGet ==========
   echo/ DotNet CLI
-  echo/ ========== NuGet ==========
+  echo/ ========== MyGet ==========
   where.exe /R %~dp0..\packages /F dotnet.exe
 
   echo/
-  echo/ ========== NuGet ==========
+  echo/ ========== MyGet ==========
   echo/ NuGet CLI 
-  echo/ ========== NuGet ==========
+  echo/ ========== MyGet ==========
   where.exe /R %~dp0..\packages /F nuget.exe
 
   echo/
