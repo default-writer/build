@@ -71,7 +71,6 @@ setlocal
   for /f "tokens=* usebackq" %%f in (`dir /B %OutputDirectory%\*.nupkg`) do (
     nuget push %OutputDirectory%\%%f %MYGET_ACCESSTOKEN% -Source https://www.myget.org/F/build-core/api/v2/package
   )
-  rem call :remove_directory "%OutputDirectory%" || exit /b 1
   exit /b 0
 
 :dotnet_build

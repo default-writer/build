@@ -6,6 +6,7 @@ setlocal EnableDelayedExpansion
   set errorlevel=
   set BuildConfiguration=Release
   set /p BuildVersion=<"%~dp0BuildVersion.txt"
+  set OutputDirectory=%~dp0LocalPackages
 
   REM Check that git is on path.
   where.exe /Q git.exe || (
@@ -26,7 +27,7 @@ setlocal EnableDelayedExpansion
   set LV_GIT_HEAD_SHA=
   for /f %%c in ('git rev-parse HEAD') do set "LV_GIT_HEAD_SHA=%%c"
 
-  set LocalDotNet_ToolsDir=%~dp0tools
+  set LocalDotNet_ToolsDir=%~dp0packages
   if exist "%LocalDotNet_ToolsDir%" rmdir /s /q "%LocalDotNet_ToolsDir%"
   if exist "%LocalDotNet_ToolsDir%" (
     echo ERROR: Failed to remove "%LocalDotNet_ToolsDir%" folder.
@@ -44,4 +45,24 @@ setlocal EnableDelayedExpansion
   echo/ Building %BuildVersion% %BuildConfiguration% version of NuGet packages.
   echo/==================
   call build.cmd %BuildConfiguration% %BuildVersion%
-endlocal& exit /b %errorlevel%
+  call :remove_directory "%OutputDirectory%" || exit /b 1
+endlocal&  exit /b %errorlevel%
+
+:print_error_message
+  echo/
+  echo/  [ERROR] %*
+  echo/
+  exit /b %errorlevel%
+
+:remove_directory
+  if "%~1" == "" (
+    call :print_error_message Directory name was not specified.
+    exit /b 1
+  )
+  if exist "%~1" rmdir /s /q "%~1"
+  if exist "%~1" (
+    call :print_error_message Failed to remove directory "%~1".
+    exit /b 1
+  )
+  exit /b 0
+:exit
