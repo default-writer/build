@@ -8,7 +8,7 @@ setlocal enabledelayedexpansion
   set BuildConfiguration=%~1
   if "%BuildConfiguration%"=="" set BuildConfiguration=Release
 
-  set BuildVersion=%~1
+  set BuildVersion=%~2
   if "%BuildVersion%"=="" set /p BuildVersion=<"%~dp0BuildVersion.txt"
 
   set OutputDirectory=%~dp0LocalPackages
