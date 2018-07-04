@@ -13,6 +13,8 @@ setlocal EnableDelayedExpansion
     exit /b 1
   )
 
+  git clean -xdf
+
   set /a count = 0
   for /f %%l in ('git clean -xdn') do set /a count += 1
   for /f %%l in ('git status --porcelain') do set /a count += 1
