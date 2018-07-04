@@ -13,8 +13,8 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Signing">
-    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)common/Build.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly>true</SignAssembly>
-    <PublicSign Condition="'$(OS)' != 'Windows_NT'">true</PublicSign>
+    <!-- <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)common/Build.snk</AssemblyOriginatorKeyFile> -->
+    <!-- <SignAssembly>true</SignAssembly> -->
+    <!-- <PublicSign Condition="'$(OS)' != 'Windows_NT'">true</PublicSign> -->
   </PropertyGroup>
 </Project>
