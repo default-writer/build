@@ -56,7 +56,7 @@ setlocal
   echo/ ========== MyGet ==========
   echo/   Building %cd%
   echo/ ========== MyGet ==========
-  dotnet.exe build -c %BuildConfiguration%                                                                                || exit /b 1
+  dotnet.exe build  --verbosity normal -c %BuildConfiguration% > build.log                                                || exit /b 1
   echo/
   echo/ ========== MyGet ==========
   echo/   Testing %cd%
@@ -86,8 +86,9 @@ setlocal
   echo/ ========== MyGet ==========
   echo/   Building %cd%
   echo/ ========== MyGet ==========
+  echo/ > build.log
   for %%v in (net45 net451 net452 net46 net461 net462 net47 net471 netstandard2.0 netcoreapp2.1) do (
-    dotnet.exe build --no-dependencies -c %BuildConfiguration% --framework "%%v" || exit /b 1
+    dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" >> build.log
   )
   exit /b 0
 
