@@ -29,16 +29,16 @@
     </dependencies>
   </metadata>
   <files>
-    <file src=".\Build\bin\Release\net45\Build.dll" target="lib\net45\Build.dll" />
-    <file src=".\Build\bin\Release\net451\Build.dll" target="lib\net451\Build.dll" />
-    <file src=".\Build\bin\Release\net452\Build.dll" target="lib\net452\Build.dll" />
-    <file src=".\Build\bin\Release\net46\Build.dll" target="lib\net46\Build.dll" />
-    <file src=".\Build\bin\Release\net461\Build.dll" target="lib\net461\Build.dll" />
-    <file src=".\Build\bin\Release\net462\Build.dll" target="lib\net462\Build.dll" />
-    <file src=".\Build\bin\Release\net47\Build.dll" target="lib\net47\Build.dll" />
-    <file src=".\Build\bin\Release\net471\Build.dll" target="lib\net471\Build.dll" />
-    <!-- <file src=".\Build\bin\Release\net472\Build.dll" target="lib\net472\Build.dll" /> -->
-    <file src=".\Build\bin\Release\netcoreapp2.1\Build.dll" target="lib\netcoreapp2.1\Build.dll" />
-    <file src=".\Build\bin\Release\netstandard2.0\Build.dll" target="lib\netstandard2.0\Build.dll" />
+    <file src="..\Build\bin\Release\net45\Build.dll" target="lib\net45\Build.dll" />
+    <file src="..\Build\bin\Release\net451\Build.dll" target="lib\net451\Build.dll" />
+    <file src="..\Build\bin\Release\net452\Build.dll" target="lib\net452\Build.dll" />
+    <file src="..\Build\bin\Release\net46\Build.dll" target="lib\net46\Build.dll" />
+    <file src="..\Build\bin\Release\net461\Build.dll" target="lib\net461\Build.dll" />
+    <file src="..\Build\bin\Release\net462\Build.dll" target="lib\net462\Build.dll" />
+    <file src="..\Build\bin\Release\net47\Build.dll" target="lib\net47\Build.dll" />
+    <file src="..\Build\bin\Release\net471\Build.dll" target="lib\net471\Build.dll" />
+    <!-- <file src="..\Build\bin\Release\net472\Build.dll" target="lib\net472\Build.dll" /> -->
+    <file src="..\Build\bin\Release\netcoreapp2.1\Build.dll" target="lib\netcoreapp2.1\Build.dll" />
+    <file src="..\Build\bin\Release\netstandard2.0\Build.dll" target="lib\netstandard2.0\Build.dll" />
   </files>
 </package>

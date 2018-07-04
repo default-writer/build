@@ -10,9 +10,6 @@ setlocal enabledelayedexpansion
   set BuildConfiguration=%~1
   if "%BuildConfiguration%"=="" set BuildConfiguration=Release
 
-  set VersionSuffix=%~2
-  if "%VersionSuffix%"=="" set VersionSuffix=release
-
   set OutputDirectory=%~dp0LocalPackages
   call :remove_directory "%OutputDirectory%" || exit /b 1
 
@@ -32,7 +29,6 @@ setlocal enabledelayedexpansion
   set procedures=%procedures% build_test
   set procedures=%procedures% build_test_coverage
   set procedures=%procedures% build_nuget
-  set procedures=%procedures% build_myget
 
   for %%p in (%procedures%) do (
     call :%%p || (
@@ -77,28 +73,14 @@ setlocal
     call :print_error_message Missing NuGet access token environment variable API key
     exit /b 1
   )
-  for /f "tokens=* usebackq" %%f in (`dir /B *.nuspec`) do (
-    nuget pack %%f -Properties Configuration=Release;BuildVersion=%BuildVersion%                                          
+  for /f "tokens=* usebackq" %%f in (`dir /B NuGet\*.nuspec`) do (
+    nuget pack NuGet\%%f -Properties Configuration=Release;BuildVersion=%BuildVersion% -OutputDirectory "%OutputDirectory%"
   )
-  for /f "tokens=* usebackq" %%f in (`dir /B *.nupkg`) do (
-    dotnet nuget push %%f -k %NUGET_ACCESSTOKEN% -s https://api.nuget.org/v3/index.json                                   
+  for /f "tokens=* usebackq" %%f in (`dir /B %OutputDirectory%\*.nupkg`) do (
+    dotnet nuget push %OutputDirectory%\%%f -k %NUGET_ACCESSTOKEN% -s https://api.nuget.org/v3/index.json                                   
   )
-  exit /b %errorlevel%
-
-:build_myget
-setlocal
-  cd /d %~dp0
-  if "%MYGET_ACCESSTOKEN%" == "" (
-    call :print_error_message Missing NuGet access token environment variable API key
-    exit /b 1
-  )
-  nuget pack Build.DependencyInjection.nuspec -Properties Configuration=Release;BuildVersion=%BuildVersion%               || exit /b 1
-  for /f "tokens=* usebackq" %%f in (`dir /B *.nupkg`) do (
-    set NuGetPackage=%%f
-  )
-  nuget push %NuGetPackage% %MYGET_ACCESSTOKEN% -Source https://www.myget.org/F/build-core/api/v2/package                 || exit /b 1
-  del /f /q %NuGetPackage%
-  exit /b %errorlevel%
+  call :remove_directory "%OutputDirectory%" || exit /b 1
+  exit /b 0
 
 :dotnet_build
   echo/
@@ -109,7 +91,7 @@ setlocal
   call :remove_directory obj                                                                                              || exit /b 1
 
   for %%v in (net45 net451 net452 net46 net461 net462 net47 net471 net472 netstandard2.0 netcoreapp2.1) do (
-    dotnet.exe build --no-dependencies -c %BuildConfiguration% --version-suffix %VersionSuffix% --framework "%%v" || exit /b 1
+    dotnet.exe build --no-dependencies -c %BuildConfiguration% --framework "%%v"                                          || exit /b 1
   )
   exit /b 0
 
@@ -117,15 +99,9 @@ setlocal
 setlocal
   dotnet.exe restore --no-cache --packages "%~dp0packages"                                                                || exit /b 1
   call :dotnet_build                                                                                                      || exit /b 1
-  dotnet.exe publish -c %BuildConfiguration%                                                                              || exit /b 1
-  rem if "%%v" == "net461" (
-  rem   ".\simpleharness.exe"            --perf:collect default+gcapi --perf:outputdir "!cd!" || exit /b 1
-  rem ) else (
-  rem   dotnet.exe ".\simpleharness.dll" --perf:collect default+gcapi --perf:outputdir "!cd!" || exit /b 1
-  rem )
-   
-  exit /b %errorlevel%
 
+  dotnet.exe publish -c %BuildConfiguration%                                                                              || exit /b 1
+   
   echo/
   echo/  ==========
   echo/   Packing %cd%
@@ -133,14 +109,14 @@ setlocal
   set MsBuildArgs=
   set "MsBuildArgs=%MsBuildArgs% --no-build"
   set "MsBuildArgs=%MsBuildArgs% -c %BuildConfiguration%"
-  set "MsBuildArgs=%MsBuildArgs% --version-suffix %VersionSuffix%"
   set "MsBuildArgs=%MsBuildArgs% --output "%OutputDirectory%""
   set "MsBuildArgs=%MsBuildArgs% --include-symbols --include-source"
   if defined LV_GIT_HEAD_SHA (
     set "MsBuildArgs=%MsBuildArgs% /p:GitHeadSha=%LV_GIT_HEAD_SHA%"
   )
   dotnet.exe pack %MsBuildArgs% || exit /b 1
-  exit /b 0
+
+  exit /b %errorlevel%
 
 :print_error_message
   echo/
