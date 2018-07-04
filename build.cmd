@@ -5,10 +5,11 @@
 setlocal enabledelayedexpansion
   set errorlevel=
 
-  set /p BuildVersion=<"%~dp0BuildVersion.txt"
-
   set BuildConfiguration=%~1
   if "%BuildConfiguration%"=="" set BuildConfiguration=Release
+
+  set BuildVersion=%~1
+  if "%BuildVersion%"=="" set /p BuildVersion=<"%~dp0BuildVersion.txt"
 
   set OutputDirectory=%~dp0LocalPackages
   call :remove_directory "%OutputDirectory%" || exit /b 1
