@@ -1,5 +1,15 @@
-& dotnet tool install --tool-path packages dotnet-sonarscanner
-& dotnet tool install --tool-path packages coveralls.net
+if(![System.IO.File]::Exists("packages\dotnet-sonarscanner.exe")) {
+  # file with path $path doesn't exist
+  dotnet tool install --tool-path packages dotnet-sonarscanner
+} else {
+  dotnet tool update --tool-path packages dotnet-sonarscanner
+}
+if(![System.IO.File]::Exists("packages\csmacnz.Coveralls.exe")) {
+  # file with path $path doesn't exist
+  dotnet tool install --tool-path packages coveralls.net
+} else {
+  dotnet tool update --tool-path packages coveralls.net
+}
 & dotnet add Build.Tests package --package-directory packages OpenCover
 & dotnet add Build.Tests package --package-directory packages coverlet.msbuild
 & dotnet restore
