@@ -5,20 +5,22 @@
 setlocal
   set "DOTNET_MULTILEVEL_LOOKUP=0"
 
-  set /p DotNet_Version=<"%~dp0DotNetCLIVersion.txt"
+  set /p DotNet_Version=<"%~dp0..\.config\DotNetCLIVersion.txt"
   if not defined DotNet_Version (
     call :print_error_message Unknown DotNet CLI Version.
     exit /b 1
   )
 
-  set /p NuGet_Version=<"%~dp0NuGetCLIVersion.txt"
-  if not defined DotNet_Version (
-    call :print_error_message Unknown DotNet CLI Version.
+  set /p NuGet_Version=<"%~dp0..\.config\NuGetCLIVersion.txt"
+  if not defined NuGet_Version (
+    call :print_error_message Unknown NuGet CLI Version.
     exit /b 1
   )
 
-  set DotNet_Path=%~dp0packages\dotnet\%DotNet_Version%
+  set DotNet_Path=%~dp0..\packages\dotnet\%DotNet_Version%
+  set NuGet_Path=%~dp0..\packages\nuget
   set DotNet=%DotNet_Path%\dotnet.exe
+  set NuGet=%NuGet_Path%\nuget.exe
   set Init_Tools_Log=%DotNet_Path%\install.log
   set DotNet_Installer_Url=https://raw.githubusercontent.com/dotnet/cli/release/2.0.0/scripts/obtain/dotnet-install.ps1
   set NuGet_Url=https://dist.nuget.org/win-x86-commandline/v%NuGet_Version%/nuget.exe
@@ -29,6 +31,13 @@ setlocal
     (call "%DotNet%" --version|findstr /i "%DotNet_Version%" 1>nul 2>&1) && goto :install_dotnet_cli_exit
     call :print_error_message Current version of "%DotNet%" does not match expected version "%DotNet_Version%"
     call :remove_directory "%DotNet_Path%" || exit /b 1
+  )
+
+  if exist "%NuGet%" (
+    call :remove_directory "%NuGet_Path%" || exit /b 1
+  )
+  if not exist "%NuGet_Path%" (
+    mkdir "%NuGet_Path%"
   )
 
   if not exist "%DotNet_Path%" mkdir "%DotNet_Path%"
@@ -47,9 +56,9 @@ setlocal
 
   echo Installing NuGet CLI
   echo Downloading NuGet
-  powershell -NoProfile -ExecutionPolicy unrestricted -Command "Invoke-WebRequest -Uri '%NuGet_Url%' -OutFile '%DotNet_Path%\nuget.exe'"
-  if not exist "%DotNet_Path%\nuget.exe" (
-    call :print_error_message Failed to download "%DotNet_Path%\nuget.exe"
+  powershell -NoProfile -ExecutionPolicy unrestricted -Command "Invoke-WebRequest -Uri '%NuGet_Url%' -OutFile '%NuGet_Path%\nuget.exe'"
+  if not exist "%NuGet_Path%\nuget.exe" (
+    call :print_error_message Failed to download "%NuGet_Path%\nuget.exe"
     exit /b 1
   )
 
@@ -67,14 +76,34 @@ setlocal
     exit /b 1
   )
 
+  call :tools
+
 :install_dotnet_cli_exit
-  ECHO/
+  echo/
   call "%DotNet%" --info
-  ECHO/
+  call :tools
+
 endlocal& (
-  set "PATH=%DotNet_Path%;%PATH%"
+  set "PATH=%DotNet_Path%;%NuGet_Path%;%PATH%"
   exit /b 0
 )
+
+:tools
+  echo/
+  echo/ ========== NuGet ==========
+  echo/ DotNet CLI
+  echo/ ========== NuGet ==========
+  where.exe /R %~dp0..\packages /F dotnet.exe
+
+  echo/
+  echo/ ========== NuGet ==========
+  echo/ NuGet CLI 
+  echo/ ========== NuGet ==========
+  where.exe /R %~dp0..\packages /F nuget.exe
+
+  echo/
+
+  exit /b 0
 
 :print_error_message
   echo/
@@ -93,3 +122,4 @@ endlocal& (
     exit /b 1
   )
   exit /b 0
+:exit
