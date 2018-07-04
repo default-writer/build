@@ -80,7 +80,7 @@ setlocal
   for /f "tokens=* usebackq" %%f in (`dir /B %OutputDirectory%\*.nupkg`) do (
     dotnet nuget push %OutputDirectory%\%%f -k %NUGET_ACCESSTOKEN% -s https://api.nuget.org/v3/index.json                                   
   )
-  call :remove_directory "%OutputDirectory%" || exit /b 1
+  rem call :remove_directory "%OutputDirectory%" || exit /b 1
   exit /b 0
 
 :dotnet_build
