@@ -73,16 +73,25 @@ setlocal
 :build_nuget
 setlocal
   cd /d %~dp0..\
-  if "%NUGET_ACCESSTOKEN%" == "" (
-    call :print_error_message Missing NuGet access token environment variable API key
-    exit /b 1
-  )
   for /f "tokens=* usebackq" %%f in (`dir /B .nuget\*.nuspec`) do (
     nuget pack .nuget\%%f -Properties Configuration=Release;BuildVersion=%BuildVersion%;GitHeadSha=%GitHeadSha% -OutputDirectory "%OutputDirectory%"
   )
-  for /f "tokens=* usebackq" %%f in (`dir /B %OutputDirectory%\*.nupkg`) do (
-    dotnet nuget push %OutputDirectory%\%%f -k %NUGET_ACCESSTOKEN% -s https://api.nuget.org/v3/index.json                                   
+  if "%NUGET_ACCESSTOKEN%" == "" (
+    echo/ 
+    echo/ ========== NuGet ==========
+    echo/ Missing NuGet access token environment variable API key
+    echo/ ========== NuGet ==========
   )
+  if not "%NUGET_ACCESSTOKEN%" == "" (
+    for /f "tokens=* usebackq" %%f in (`dir /B %OutputDirectory%\*.nupkg`) do (
+      echo/ 
+      echo/ ========== NuGet ==========
+     echo/ Uploading NuGet package %OutputDirectory%\%%f
+      echo/ ========== NuGet ==========
+      dotnet nuget push %OutputDirectory%\%%f -k %NUGET_ACCESSTOKEN% -s https://api.nuget.org/v3/index.json                                   
+    )
+  )
+  call :remove_directory %~dp0..\packages\.packages
   exit /b 0
 
 :dotnet_build

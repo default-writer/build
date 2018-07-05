@@ -72,16 +72,25 @@ setlocal
 :build_myget
 setlocal
   cd /d %~dp0..\
-  if "%MYGET_ACCESSTOKEN%" == "" (
-    call :print_error_message Missing MyGet access token environment variable API key
-    exit /b 1
-  )
   for /f "tokens=* usebackq" %%f in (`dir /B .myget\*.nuspec`) do (
     nuget pack .myget\%%f -Properties Configuration=Release;BuildVersion=%BuildVersion%;GitHeadSha=%GitHeadSha% -OutputDirectory "%OutputDirectory%"
   )
-  for /f "tokens=* usebackq" %%f in (`dir /B %OutputDirectory%\*.nupkg`) do (
-    nuget push %OutputDirectory%\%%f %MYGET_ACCESSTOKEN% -Source https://www.myget.org/F/build-core/api/v2/package
+  if "%MYGET_ACCESSTOKEN%" == "" (
+    echo/ 
+    echo/ ========== MyGet ==========
+    echo/ Missing MyGet access token environment variable API key
+    echo/ ========== MyGet ==========
   )
+  if not "%MYGET_ACCESSTOKEN%" == "" (
+    for /f "tokens=* usebackq" %%f in (`dir /B %OutputDirectory%\*.nupkg`) do (
+      echo/ 
+      echo/ ========== MyGet ==========
+      echo/ Uploading MyGet package %OutputDirectory%\%%f
+      echo/ ========== MyGet ==========
+      nuget push %OutputDirectory%\%%f %MYGET_ACCESSTOKEN% -Source https://www.myget.org/F/build-core/api/v2/package
+    )
+  )
+  call :remove_directory %~dp0..\packages\.packages
   exit /b 0
 
 :dotnet_build
