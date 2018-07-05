@@ -21,14 +21,3 @@ ENTRYPOINT ["dotnet", "test", "--logger:trx"]
 FROM build AS test
 WORKDIR /app/Build.Tests
 RUN dotnet test
-
-
-#FROM build AS publish
-#WORKDIR /app/Build
-#RUN dotnet publish -c Release -o out
-#
-#
-#FROM microsoft/dotnet:2.1-runtime-alpine AS runtime
-#WORKDIR /app
-#COPY --from=publish /app/Build/out ./
-#ENTRYPOINT ["dotnet", "Build.dll"]
