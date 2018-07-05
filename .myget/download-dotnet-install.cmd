@@ -23,7 +23,6 @@ setlocal
   powershell -NoProfile -ExecutionPolicy unrestricted -Command "Invoke-WebRequest -Uri '%DotNet_Installer_Url%' -OutFile '%~dp0dotnet-install.ps1'"
 
 endlocal& (
-  set "PATH=%DotNet_Path%;%NuGet_Path%;%PATH%"
   exit /b 0
 )
 
