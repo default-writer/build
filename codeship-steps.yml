@@ -1,4 +1,0 @@
-- name: build-core-step
-  tag: master
-  service: build-core-service
-  command: echo "OK"
