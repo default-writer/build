@@ -24,11 +24,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "travis", "travis", "{3C89ED
 		.travis.yml = .travis.yml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ver", "ver", "{C9F66766-F1C6-429D-8A52-4D45F7A5271C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{C9F66766-F1C6-429D-8A52-4D45F7A5271C}"
 	ProjectSection(SolutionItems) = preProject
-		BuildVersion.txt = BuildVersion.txt
-		DotNetCliVersion.txt = DotNetCliVersion.txt
-		NuGetCliVersion.txt = NuGetCliVersion.txt
+		.config\BuildVersion.txt = .config\BuildVersion.txt
+		.config\DotNetCliVersion.txt = .config\DotNetCliVersion.txt
+		.config\NuGetCliVersion.txt = .config\NuGetCliVersion.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{2240316E-8F79-436E-A3E3-1F89BA710DB0}"
@@ -36,7 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{224031
 		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{03A42323-82A8-4897-A9CB-098055C69924}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "global", "global", "{03A42323-82A8-4897-A9CB-098055C69924}"
 	ProjectSection(SolutionItems) = preProject
 		CodeMaid.config = CodeMaid.config
 		global.json = global.json
