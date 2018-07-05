@@ -1,4 +1,4 @@
-build-core:
+build-core-service:
   build:
     image: microsoft/dotnet:2.1.300-preview2-sdk-alpine
   dockerfile:
