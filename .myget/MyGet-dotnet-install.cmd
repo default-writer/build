@@ -47,11 +47,16 @@ setlocal
   )
 
   echo Installing Dotnet CLI
-  echo Downloading dotnet installer script dotnet-install.ps1
-  powershell -NoProfile -ExecutionPolicy unrestricted -Command "Invoke-WebRequest -Uri '%DotNet_Installer_Url%' -OutFile '%DotNet_Path%\dotnet-install.ps1'"
-  if not exist "%DotNet_Path%\dotnet-install.ps1" (
-    call :print_error_message Failed to download "%DotNet_Path%\dotnet-install.ps1"
-    exit /b 1
+  if not exist "%~dp0dotnet-install.ps1" (
+    echo Downloading dotnet installer script dotnet-install.ps1
+    powershell -NoProfile -ExecutionPolicy unrestricted -Command "Invoke-WebRequest -Uri '%DotNet_Installer_Url%' -OutFile '%DotNet_Path%\dotnet-install.ps1'"
+    if not exist "%DotNet_Path%\dotnet-install.ps1" (
+      call :print_error_message Failed to download "%DotNet_Path%\dotnet-install.ps1"
+      exit /b 1
+    )
+  )
+  if exist "%~dp0dotnet-install.ps1" (
+    copy /y "%~dp0dotnet-install.ps1" "%DotNet_Path%\dotnet-install.ps1"
   )
 
   echo Installing NuGet CLI
