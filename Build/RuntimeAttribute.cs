@@ -10,16 +10,20 @@ namespace Build
     /// <seealso cref="Build.IRuntimeAttribute"/>
     public abstract class RuntimeAttribute : Attribute, IRuntimeAttribute
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RuntimeAttribute"/> class.
-        /// </summary>
-        protected RuntimeAttribute(string typeFullName = default) => TypeFullName = typeFullName;
+        readonly string _id;
+
+        readonly Type _type;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RuntimeAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
-        protected RuntimeAttribute(Type type) => TypeFullName = type.ToString();
+        protected RuntimeAttribute(Type type) => _type = type;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RuntimeAttribute"/> class.
+        /// </summary>
+        protected RuntimeAttribute(string typeFullName = default) => _id = typeFullName;
 
         /// <summary>
         /// Gets the runtime instance.
@@ -31,7 +35,7 @@ namespace Build
         /// Gets the full name of the type.
         /// </summary>
         /// <value>The full name of the type.</value>
-        public string TypeFullName { get; }
+        public string TypeFullName => _type == null ? _id : _type.ToString();
 
         /// <summary>
         /// Gets the runtime type attributes.

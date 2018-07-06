@@ -22,14 +22,14 @@ namespace Build.Tests.Classes
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="args">The arguments.</param>
-        public PropertyInjectionAttribute(string id, params object[] args) : this(id) => _arguments = args;
+        public PropertyInjectionAttribute(string id, object[] args= null) : this(id) => _arguments = args;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="args">The arguments.</param>
-        public PropertyInjectionAttribute(Type type, params object[] args) : this(type) => _arguments = args;
+        public PropertyInjectionAttribute(Type type, object[] args= null) : this(type) => _arguments = args;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.

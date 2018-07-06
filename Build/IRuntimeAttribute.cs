@@ -1,3 +1,5 @@
+using System;
+
 namespace Build
 {
     public interface IRuntimeAttribute

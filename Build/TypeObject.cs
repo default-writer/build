@@ -1,21 +1,47 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Build
 {
     public class TypeObject : ITypeObject
     {
-        public TypeObject(ITypeActivator runtimeTypeActivator, IRuntimeAttribute runtimeAttribute, Type runtimeType, bool defaultTypeInstantiation)
+        public TypeObject(ITypeActivator runtimeTypeActivator, IRuntimeAttribute runtimeAttribute, Type runtimeType, IEnumerable<string> typeParameters, bool defaultTypeInstantiation)
         {
             RuntimeAttribute = runtimeAttribute;
+            TypeParameters = typeParameters;
             RuntimeType = new RuntimeType(runtimeTypeActivator, runtimeAttribute, runtimeType, defaultTypeInstantiation);
         }
 
+        /// <summary>
+        /// Runtime attribute
+        /// </summary>
         public IRuntimeAttribute RuntimeAttribute { get; }
-        public IRuntimeType RuntimeType { get; set; }
 
         /// <summary>
-        /// Gets the type full name
+        /// Runtime type
         /// </summary>
+        public IRuntimeType RuntimeType { get; private set; }
+
+        /// <summary>
+        /// Gets the object full name
+        /// </summary>
+        /// <remarks>If runtime attruibute type full name is unknown, then runtime type full name will be used</remarks>
         public string TypeFullName => RuntimeAttribute.TypeFullName ?? RuntimeType.TypeFullName;
+
+        /// <summary>
+        /// Type full name with parameters
+        /// </summary>
+        public string TypeFullNameWithParameters => Format.GetConstructorWithParameters(TypeFullName, TypeParameters);
+
+        /// <summary>
+        /// Type parameters full name
+        /// </summary>
+        public IEnumerable<string> TypeParameters { get; }
+
+        /// <summary>
+        /// Sets
+        /// </summary>
+        /// <param name="runtimeType"></param>
+        public void SetRuntimeType(IRuntimeType runtimeType) => RuntimeType = runtimeType;
     }
 }

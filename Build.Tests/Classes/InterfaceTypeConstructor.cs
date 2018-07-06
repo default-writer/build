@@ -17,8 +17,8 @@ namespace Build.Tests.Classes
             {
                 if (constructorInfo.Name == "Rule")
                 {
-                    var runtimeAttribute = constructorInfo.GetCustomAttribute<InterfaceDependencyAttribute>();
-                    var injectionObjects = constructorInfo.GetParameters().Select(p => new TypeInjectionObject(runtimeTypeActivator, p.GetCustomAttribute<InterfaceInjectionAttribute>(), p.ParameterType, defaultTypeInstantiation));
+                    var runtimeAttribute = constructorInfo.GetAttribute<InterfaceDependencyAttribute>(constructorInfo.ReturnType);
+                    var injectionObjects = constructorInfo.GetParameters().Select(p => new TypeInjectionObject(runtimeTypeActivator, p.GetAttribute<InterfaceInjectionAttribute>(p.ParameterType), p.ParameterType, defaultTypeInstantiation));
                     dependencyObjects.Add(new TypeDependencyObject(runtimeTypeActivator, runtimeAttribute, injectionObjects, constructorInfo.ReturnType, defaultTypeInstantiation));
                 }
             }

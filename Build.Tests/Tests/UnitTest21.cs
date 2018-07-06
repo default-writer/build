@@ -443,6 +443,19 @@ namespace Build.Tests.TestSet21
         }
 
         [Fact]
+        public static void Test43()
+        {
+            //TestSet21
+            var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
+            container.RegisterType<IInterfaceRuleSet2_ValueType>();
+            container.RegisterType<IInterfaceRuleSet2>();
+            var sql1 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(Build.Tests.TestSet21.ValueType)");
+            container.RegisterType<IInterfaceRuleSet2_Overwrite>();
+            var sql2 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(Build.Tests.TestSet21.ValueType)");
+            Assert.NotEqual(sql1.RepositoryId, sql2.RepositoryId);
+        }
+
+        [Fact]
         public static void Test5()
         {
             //TestSet21

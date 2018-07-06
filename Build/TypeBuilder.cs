@@ -10,6 +10,16 @@ namespace Build
     public sealed class TypeBuilder : ITypeBuilder
     {
         /// <summary>
+        /// Dictionary for all pre-computed type invariants for type pararameters
+        /// </summary>
+        IDictionary<string, IRuntimeType> _internalMap = new Dictionary<string, IRuntimeType>();
+
+        /// <summary>
+        /// If set, container locks itself. All type invariants will be pre-computed for lookup table to speed up string search
+        /// </summary>
+        volatile bool _lock;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="TypeBuilder"/> class.
         /// </summary>
         /// <param name="options">Type builder options</param>
@@ -58,6 +68,8 @@ namespace Build
         /// </summary>
         /// <value>The filter</value>
         public ITypeFilter Filter { get; }
+
+        public bool IsLocked => _lock;
 
         /// <summary>
         /// Gets type parser
@@ -167,11 +179,12 @@ namespace Build
         /// <summary>
         /// Creates the instance.
         /// </summary>
+        /// <param name="type">Type type.</param>
         /// <param name="typeFullName">The identifier.</param>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        public object CreateInstance(string typeFullName, params object[] args)
+        public object CreateInstance(string typeFullName, object[] args = null)
         {
             if (Types.ContainsKey(typeFullName))
                 return Types[typeFullName].CreateInstance(args);
@@ -194,11 +207,12 @@ namespace Build
         /// <summary>
         /// Creates the instance.
         /// </summary>
+        /// <param name="type">The type.</param>
         /// <param name="typeFullName">The identifier.</param>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        public object GetInstance(string typeFullName, params object[] args)
+        public object GetInstance(string typeFullName, object[] args = null)
         {
             if (Types.ContainsKey(typeFullName))
                 return Types[typeFullName].CreateInstance(args);
@@ -218,33 +232,78 @@ namespace Build
         }
 
         /// <summary>
+        /// Locks the container. Pre-computes all registered type invariants for lookup table speed up
+        /// </summary>
+        public void Lock()
+        {
+            if (!_lock)
+            {
+                lock (this)
+                {
+                    _lock = true;
+                    foreach (var runtimeType in Types.Values)
+                    {
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Registers the type.
         /// </summary>
         /// <param name="type">The type.</param>
-        public void RegisterType(Type type, params object[] args)
+        public void RegisterType(Type type, object[] args = null)
         {
-            Visited.Add(type);
-            try
+            if (!_lock)
             {
-                RegisterConstructor(type);
-                if (args == null || args.Length == 0)
-                    return;
-                RegisterConstructorParameters(type.ToString(), args);
-            }
-            catch (TypeRegistrationException ex)
-            {
-                throw new TypeRegistrationException(string.Format("{0} is not registered", type), ex);
-            }
-            finally
-            {
-                Visited.Remove(type);
+                lock (this)
+                {
+                    Visited.Add(type);
+                    try
+                    {
+                        RegisterConstructor(type);
+                        if (args == null || args.Length == 0)
+                            return;
+                        RegisterConstructorParameters(type.ToString(), args);
+                    }
+                    catch (TypeRegistrationException ex)
+                    {
+                        throw new TypeRegistrationException(string.Format("{0} is not registered", type), ex);
+                    }
+                    finally
+                    {
+                        Visited.Remove(type);
+                    }
+                }
             }
         }
 
         /// <summary>
         /// Resets this instance.
         /// </summary>
-        public void Reset() => Types.Clear();
+        public void Reset()
+        {
+            lock (this)
+            {
+                Types.Clear();
+                _lock = false;
+            }
+        }
+
+        /// <summary>
+        /// Unlocks the container. Flushes all pre-computed registered type invariants for lookup table speed up
+        /// </summary>
+        public void Unlock()
+        {
+            if (_lock)
+            {
+                lock (this)
+                {
+                    Parser.Flush();
+                    _lock = false;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets the full name of the parameters.
@@ -287,12 +346,12 @@ namespace Build
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", attributeType.Name, dependencyObject.RuntimeType.TypeFullName));
         }
 
-        object[] GetRuntimeTypeParameters(IRuntimeType runtimeType, object[] args)
+        object[] GetRuntimeTypeParameters(IRuntimeType runtimeType, object[] args = null)
         {
             var parameters = new List<object>();
             foreach (var parameter in runtimeType.RuntimeTypes)
             {
-                var parameterRuntimeTypes = Types.Values.FilterRuntimeTypes(Parser, parameter, args);
+                var parameterRuntimeTypes = Types.Values.FindRuntimeTypes(Parser, parameter, args);
                 if (parameterRuntimeTypes.Length == 1)
                 {
                     var parameterRuntimeType = parameterRuntimeTypes[0];
@@ -310,7 +369,7 @@ namespace Build
             return parameters.ToArray();
         }
 
-        IRuntimeType[] GetRuntimeTypes(ITypeParser typeParser, string typeFullName, object[] args) =>
+        IRuntimeType[] GetRuntimeTypes(ITypeParser typeParser, string typeFullName, object[] args = null) =>
             Types.Values.GetRuntimeTypes(typeParser, typeFullName, args);
 
         /// <summary>
@@ -374,6 +433,8 @@ namespace Build
             CheckParametersFullName(constructorType.Name, parameterType.Name);
             var parameters = injectionObject.TypeParameters;
             var runtimeType = Types.Values.Count > 0 ? Parser.Find(typeFullName, parameters, Types.Values.ToArray()) : null;
+            if (runtimeType != null && runtimeType.Type == parameter.Type)
+                injectionObject.SetRuntimeType(runtimeType);
             if (UseDefaultTypeResolution && runtimeType == null)
                 RegisterConstructorParameter(attributeType);
             RegisterConstructorType(parameterType);
@@ -398,11 +459,12 @@ namespace Build
         /// <summary>
         /// Creates the instance.
         /// </summary>
+        /// <param name="type">The type.</param>
         /// <param name="typeFullName">The identifier.</param>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        void RegisterConstructorParameters(string typeFullName, params object[] args)
+        void RegisterConstructorParameters(string typeFullName, object[] args = null)
         {
             var parameterArgs = Format.GetParametersFullName(args);
             var runtimeType = Parser.FindRuntimeTypes(typeFullName, parameterArgs, Types.Values).FirstOrDefault();

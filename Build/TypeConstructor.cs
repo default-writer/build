@@ -12,9 +12,9 @@ namespace Build
             var dependencyObjects = new List<ITypeDependencyObject>();
             foreach (var constructorInfo in type.GetConstructors())
             {
-                var runtimeAttribute = constructorInfo.GetCustomAttribute<DependencyAttribute>();
-                var injectionObjects = constructorInfo.GetParameters().Select(p => new TypeInjectionObject(runtimeTypeActivator, p.GetCustomAttribute<InjectionAttribute>(), p.ParameterType, defaultTypeInstantiation));
-                dependencyObjects.Add(new TypeDependencyObject(runtimeTypeActivator, runtimeAttribute, injectionObjects, constructorInfo.DeclaringType, defaultTypeInstantiation));
+                var runtimeAttribute = constructorInfo.GetAttribute<DependencyAttribute>(type);
+                var injectionObjects = constructorInfo.GetParameters().Select(p => new TypeInjectionObject(runtimeTypeActivator, p.GetAttribute<InjectionAttribute>(p.ParameterType), p.ParameterType, defaultTypeInstantiation));
+                dependencyObjects.Add(new TypeDependencyObject(runtimeTypeActivator, runtimeAttribute, injectionObjects, type, defaultTypeInstantiation));
             }
             return dependencyObjects;
         }

@@ -31,6 +31,10 @@ namespace Build
         /// <value>The identifier.</value>
         string Id { get; }
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is initialized.
+        /// </summary>
+        /// <value><c>true</c> if this instance is initialized; otherwise, <c>false</c>.</value>
         bool IsInitialized { get; }
 
         /// <summary>
@@ -82,7 +86,7 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        object CreateInstance(params object[] args);
+        object CreateInstance(object[] args = null);
 
         /// <summary>
         /// Evaluates the runtime instance.
@@ -113,7 +117,7 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
-        bool RegisterConstructorParameters(params object[] args);
+        bool RegisterConstructorParameters(object[] args);
 
         /// <summary>
         /// Registers type full name as assignable type

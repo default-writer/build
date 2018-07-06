@@ -11,19 +11,7 @@ namespace Build
     [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class InjectionAttribute : RuntimeAttribute, IInjectionAttribute
     {
-        #region Target Frameworks
-
-        /// <summary>
-        /// Gets the arguments.
-        /// </summary>
-        /// <value>The arguments.</value>
-#if NET45 || NET451 || NET452
         readonly object[] _arguments = new object[0];
-#else
-        readonly object[] _arguments = Array.Empty<object>();
-#endif
-
-        #endregion
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.

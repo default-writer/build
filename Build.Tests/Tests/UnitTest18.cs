@@ -299,6 +299,16 @@ namespace Build.Tests.UnitTests18
         }
 
         [Fact]
+        public static void TestSet18_Method34()
+        {
+            //TestSet18
+            var container = new Container();
+            container.Lock();
+            object obj = null;
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<Factory2<Type>>(obj));
+        }
+
+        [Fact]
         public static void TestSet18_Method4()
         {
             //TestSet18

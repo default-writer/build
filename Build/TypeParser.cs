@@ -15,7 +15,7 @@ namespace Build
         /// Cache for RuntimeTtype.
         /// </summary>
         /// <value>The cache.</value>
-        HashSet<IRuntimeType> Cache { get; } = new HashSet<IRuntimeType>();
+        IDictionary<string, IRuntimeType> Cache { get; } = new Dictionary<string, IRuntimeType>();
 
         /// <summary>
         /// Finds the specified identifier.
@@ -26,73 +26,34 @@ namespace Build
         /// <returns></returns>
         public IEnumerable<IRuntimeType> FindRuntimeTypes(string id, IEnumerable<string> args, IEnumerable<IRuntimeType> types)
         {
-            var runtimeTypes = Cache.Where((p) => id == p.TypeFullName);
-            var count = runtimeTypes.Count();
-            if (count > 0)
-                return runtimeTypes;
-            var func = Regex.Match(id, @"([^()]+)(?:\((.*)\)){0,1}$");
-            var name = func.Groups[1].Value.Trim();
-            var pars = Regex.Matches(func.Groups[2].Value.Trim(), @"([^,]+\(.+?\))|([^,]+)");
-            return types.Where((p) => MatchParameters(p, name, args, pars)).Select(Index);
-        }
-
-        /// <summary>
-        /// Matches the arguments.
-        /// </summary>
-        /// <param name="arguments">The arguments.</param>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns></returns>
-        static bool Match(IEnumerable<string> arguments, IEnumerable<IRuntimeType> parameters)
-        {
-            var args = arguments.GetEnumerator();
-            var pars = parameters.GetEnumerator();
-            while (args.MoveNext() && pars.MoveNext())
+            IRuntimeType CacheRuntimeType(IRuntimeType runtimeType)
             {
-                var argumentType = args.Current;
-                var parameterType = pars.Current;
-                if (!parameterType.ContainsTypeDefinition(argumentType))
-                    return false;
+                if (runtimeType != null)
+                {
+                    if (!Cache.ContainsKey(id))
+                        Cache.Add(id, runtimeType);
+                    return Cache[id];
+                }
+                return runtimeType;
             }
-            return true;
+            var cached = Cache.Where((p) => p.Key == id).Select((p) => p.Value);
+            var cachedCount = cached.Count();
+            if (cachedCount > 0)
+                return cached;
+            var count = types.Count();
+            if (count > 0)
+            {
+                var func = Regex.Match(id, @"([^()]+)(?:\((.*)\)){0,1}$");
+                var name = func.Groups[1].Value.Trim();
+                var pars = Regex.Matches(func.Groups[2].Value.Trim(), @"([^,]+\(.+?\))|([^,]+)");
+                return types.Where((p) => p.MatchParameters(name, args, pars)).Select(CacheRuntimeType);
+            }
+            return new IRuntimeType[0];
         }
 
         /// <summary>
-        /// Matches the parameters.
+        /// Flushes all pre - computed registered type invariants
         /// </summary>
-        /// <param name="runtimeType">Type of the runtime.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="args">The arguments.</param>
-        /// <param name="match">The match.</param>
-        /// <returns></returns>
-        static bool MatchParameters(IRuntimeType runtimeType, string name, IEnumerable<string> args, MatchCollection match)
-            => MatchType(runtimeType, name)
-            && MatchRuntimeTypes(runtimeType, match.Cast<Match>().Select((p) => p.Value.Trim()))
-            && MatchRuntimeTypes(runtimeType, args);
-
-        /// <summary>
-        /// Matches the parameter arguments.
-        /// </summary>
-        /// <param name="runtimeType">Type of the runtime.</param>
-        /// <param name="args">The arguments.</param>
-        /// <returns></returns>
-        static bool MatchRuntimeTypes(IRuntimeType runtimeType, IEnumerable<string> args)
-        {
-            var count = args.Count();
-            return count == 0 || (runtimeType.Count == count && Match(args, runtimeType.RuntimeTypes));
-        }
-
-        /// <summary>
-        /// Matches the type.
-        /// </summary>
-        /// <param name="runtimeType">Type of the runtime.</param>
-        /// <param name="name">The name.</param>
-        /// <returns></returns>
-        static bool MatchType(IRuntimeType runtimeType, string name) => runtimeType.TypeFullName == name;
-
-        IRuntimeType Index(IRuntimeType runtimeType)
-        {
-            Cache.Add(runtimeType);
-            return runtimeType;
-        }
+        public void Flush() => Cache.Clear();
     }
 }

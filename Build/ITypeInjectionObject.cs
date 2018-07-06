@@ -4,13 +4,20 @@ namespace Build
 {
     public interface ITypeInjectionObject : ITypeObject
     {
+        /// <summary>
+        /// Injection object attribute
+        /// </summary>
         IInjectionAttribute InjectionAttribute { get; }
 
-        string TypeFullNameWithParameters { get; }
-
         /// <summary>
-        /// Enumerates type parameters
+        /// List of type parameters
         /// </summary>
         IEnumerable<string> TypeParameters { get; }
+
+        /// <summary>
+        /// Setup runtime type for the injected object
+        /// </summary>
+        /// <param name="runtimeType"></param>
+        void SetRuntimeType(IRuntimeType runtimeType);
     }
 }

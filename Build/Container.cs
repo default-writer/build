@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
@@ -43,6 +44,11 @@ namespace Build
         public ITypeBuilder Builder => _typeBuilder;
 
         /// <summary>
+        /// True if container is locked
+        /// </summary>
+        public bool IsLocked => _typeBuilder.IsLocked;
+
+        /// <summary>
         /// Aliased types.
         /// </summary>
         public IEnumerable<string> RuntimeAliasedTypes => new List<string>(_typeBuilder.RuntimeAliasedTypes);
@@ -76,7 +82,12 @@ namespace Build
         /// <param name="type">Type identifier</param>
         /// <param name="args">Arguments to constuctor</param>
         /// <returns>Returns instance of identified type</returns>
-        public object CreateInstance(Type type, params object[] args) => CreateInstance(type.ToString(), args);
+        public object CreateInstance(Type type, params object[] args)
+        {
+            if (type == null)
+                throw new TypeInstantiationException(string.Format("{0} is null (type name required)", nameof(type)));
+            return _typeBuilder.CreateInstance(type.ToString(), args);
+        }
 
         /// <summary>
         /// Creates an object from identifed type with parameters
@@ -105,20 +116,30 @@ namespace Build
         /// <param name="type">Type identifier</param>
         /// <param name="args">Arguments to constuctor</param>
         /// <returns>Returns instance of identified type</returns>
-        public object GetInstance(Type type, params object[] args) => GetInstance(type.ToString(), args);
+        public object GetInstance(Type type, object[] args = null)
+        {
+            if (type == null)
+                throw new TypeInstantiationException(string.Format("{0} is null (type name required)", nameof(type)));
+            return _typeBuilder.GetInstance(type.ToString(), args);
+        }
 
         /// <summary>
-        /// Creates an object from identifed type with parameters
+        /// Creates an object
         /// </summary>
-        /// <param name="typeFullName">Type identifier with/without parameters 'id(args)' or 'id'</param>
+        /// <param name="typeFullName">Type identifier</param>
         /// <param name="args">Arguments to constuctor</param>
         /// <returns>Returns instance of identified type</returns>
-        public object GetInstance(string typeFullName, params object[] args)
+        public object GetInstance(string typeFullName, object[] args = null)
         {
             if (typeFullName == null)
                 throw new TypeInstantiationException(string.Format("{0} is null (type name required)", nameof(typeFullName)));
             return _typeBuilder.GetInstance(typeFullName, args);
         }
+
+        /// <summary>
+        /// Locks the container. Pre-computes all registered type invariants for lookup table speed up
+        /// </summary>
+        public void Lock() => _typeBuilder.Lock();
 
         /// <summary>
         /// Registers all supported types in assembly
@@ -127,20 +148,7 @@ namespace Build
         /// <param name="exclusionTypes">List of assembly types to ignore</param>
         public void RegisterAssembly(Assembly assembly, IEnumerable<string> exclusionTypes)
         {
-            #region Target Frameworks
-
-#if NET45 || NET451 || NET452
-            var emptyArray = new string[0];
-#else
-            var emptyArray = Array.Empty<string>();
-#endif
-
-            #endregion
-
-            var exclusionList = new List<string>(exclusionTypes ?? emptyArray)
-            {
-                "<PrivateImplementationDetails>"
-            };
+            var exclusionList = new List<string>(exclusionTypes ?? new string[0]) { "<PrivateImplementationDetails>" };
             bool match;
             foreach (var type in assembly.GetTypes())
             {
@@ -174,14 +182,23 @@ namespace Build
         /// <param name="type">Type identifier</param>
         public void RegisterType(Type type, params object[] args)
         {
+            if (type == null)
+                throw new TypeRegistrationException(string.Format("{0} is null (type name required)", nameof(type)));
+            if (_typeBuilder.IsLocked)
+                throw new TypeRegistrationException(string.Format("{0} is not registered (container locked)", type));
             if (!_typeBuilder.CanRegister(type))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not an allowed type)", type));
             _typeBuilder.RegisterType(type, args);
         }
 
         /// <summary>
-        /// Resets information about type registration
+        /// Resets information about type registration. Also, resets freezed containers
         /// </summary>
         public void Reset() => _typeBuilder.Reset();
+
+        /// <summary>
+        /// Unlocks the container. Flushes all pre-computed registered type invariants for lookup table speed up
+        /// </summary>
+        public void Unlock() => _typeBuilder.Unlock();
     }
 }

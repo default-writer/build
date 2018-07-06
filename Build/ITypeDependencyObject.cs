@@ -4,11 +4,15 @@ namespace Build
 {
     public interface ITypeDependencyObject : ITypeObject
     {
+        /// <summary>
+        /// Dependency object attribute
+        /// </summary>
         IDependencyAttribute DependencyAttribute { get; }
 
+        /// <summary>
+        /// List of injected objects
+        /// </summary>
         IEnumerable<ITypeInjectionObject> InjectionObjects { get; }
-
-        string TypeFullNameWithParameters { get; }
 
         /// <summary>
         /// Enumerates type parameters

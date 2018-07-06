@@ -15,5 +15,10 @@ namespace Build
         /// <param name="types">The types.</param>
         /// <returns>Returns runtime type instances</returns>
         IEnumerable<IRuntimeType> FindRuntimeTypes(string id, IEnumerable<string> args, IEnumerable<IRuntimeType> types);
+
+        /// <summary>
+        /// Flushes all pre - computed registered type invariants
+        /// </summary>
+        void Flush();
     }
 }

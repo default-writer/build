@@ -13,7 +13,7 @@ namespace Build.Tests.TestSet17
             var typeActivator = new TypeActivator();
             var runtimeType = new RuntimeType(typeActivator, new InjectionAttribute("Build.Tests.TestSet17.Type"), typeof(Type), true);
             runtimeType.SetRuntimeInstance(RuntimeInstance.CreateInstance);
-            Assert.Throws<TypeInstantiationException>(() => runtimeType.CreateInstance("Build.Tests.TestSet17.Type"));
+            Assert.Throws<TypeInstantiationException>(() => runtimeType.CreateInstance(new object[] { "Build.Tests.TestSet17.Type" }));
         }
 
         [Fact]
@@ -26,7 +26,7 @@ namespace Build.Tests.TestSet17
             var runtimeType = new RuntimeType(typeActivator, new InjectionAttribute("Build.Tests.TestSet17.Type"), typeof(Type), true);
             runtimeType.SetRuntimeInstance(RuntimeInstance.CreateInstance);
             runtimeType.AddConstructorParameter(((TypeBuilder)container.Builder).CanRegister(runtimeType.Type), new RuntimeType(typeActivator, new InjectionAttribute(typeof(Type)), typeof(Type), true));
-            Assert.Throws<TypeInstantiationException>(() => runtimeType.CreateInstance("Build.Tests.TestSet17.Type"));
+            Assert.Throws<TypeInstantiationException>(() => runtimeType.CreateInstance(new object[] { typeof(Type) }));
         }
 
         [Fact]

@@ -50,11 +50,11 @@ namespace Build
         /// <exception cref="ArgumentNullException">attribute</exception>
         public RuntimeType(ITypeActivator typeActivator, IRuntimeAttribute attribute, Type type, bool defaultTypeInstantiation)
         {
-            Activator = typeActivator;
-            TypeDefinition = type.ToString();
-            Type = type;
-            UseDefaultTypeInstantiation = defaultTypeInstantiation;
+            Activator = typeActivator ?? throw new ArgumentNullException(nameof(typeActivator));
+            TypeDefinition = (type ?? throw new ArgumentNullException(nameof(type))).ToString();
+            Type = type ?? throw new ArgumentNullException(nameof(type));
             Attribute = attribute ?? throw new ArgumentNullException(nameof(attribute));
+            UseDefaultTypeInstantiation = defaultTypeInstantiation;
             UpdateTypeId();
         }
 
@@ -188,23 +188,12 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        public object CreateInstance(params object[] args)
+        public object CreateInstance(object[] args = null)
         {
             if (Type.IsValueType)
                 return Activator.CreateValueInstance(this);
             var parameters = ReadParameters();
-
-            #region Target Frameworks
-
-#if NET45 || NET451 || NET452
-            var emptyArray = new object[0];
-#else
-            var emptyArray = Array.Empty<object>();
-#endif
-
-            #endregion
-
-            var result = CreateReferenceType(args ?? emptyArray);
+            var result = CreateReferenceType(args ?? new object[0]);
             WriteParameters(parameters);
             return result;
         }
@@ -222,15 +211,18 @@ namespace Build
             {
                 case RuntimeInstance.Singleton:
                 case RuntimeInstance.Singleton | RuntimeInstance.GetInstance:
-                    return EvaluateSingleton(type, i);
+                    return EvaluateSingleton(type, i.HasValue ? Attribute.GetReferenceAttribute(type.Id) : Attribute);
 
                 case RuntimeInstance.CreateInstance:
                 case RuntimeInstance.CreateInstance | RuntimeInstance.GetInstance:
-                    return EvaluateInstance(type, i);
+                    return EvaluateInstance(type, i.HasValue ? Attribute.GetReferenceAttribute(type.Id) : Attribute);
 
-                default:
-                    return EvaluateDefault(attribute, i);
+                case RuntimeInstance.None:
+                    if (!(!UseDefaultTypeInstantiation && IsDefaultReferencedType()))
+                        return EvaluateAttribute(attribute, i);
+                    break;
             }
+            throw new TypeInstantiationException(string.Format("{0} is not instantiated (constructor not allowed)", TypeFullName));
         }
 
         /// <summary>
@@ -324,7 +316,7 @@ namespace Build
         /// </summary>
         /// <param name="args">Parameter passed in to type activator</param>
         /// <returns>Returns instance of a reference type</returns>
-        object CreateReferenceType(params object[] args)
+        object CreateReferenceType(object[] args)
         {
             if (!IsInitialized)
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructor available)", TypeFullName));
@@ -349,39 +341,25 @@ namespace Build
         }
 
         /// <summary>
-        /// Evaluates the argument.
-        /// </summary>
-        /// <param name="attribute">The attribute.</param>
-        /// <param name="i">The i.</param>
-        /// <returns></returns>
-        /// <exception cref="TypeInstantiationException"></exception>
-        object EvaluateDefault(IRuntimeAttribute attribute, int? i)
-        {
-            if (_runtimeInstance == RuntimeInstance.Exclude || (!UseDefaultTypeInstantiation && IsDefaultReferencedType()))
-                throw new TypeInstantiationException(string.Format("{0} is not instantiated (constructor not allowed)", TypeFullName));
-            return EvaluateAttribute(attribute, i);
-        }
-
-        /// <summary>
         /// Evaluates the instance.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <param name="i">The i.</param>
+        /// <param name="attribute">The runtime attrubute.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        object EvaluateInstance(IRuntimeType type, int? i) => Activator.CreateInstance(this, type, i.HasValue ? Attribute.GetReferenceAttribute(type.Id) : Attribute);
+        object EvaluateInstance(IRuntimeType type, IRuntimeAttribute attribute) => Activator.CreateInstance(this, type, attribute);
 
         /// <summary>
         /// Evaluates the singleton.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <param name="i">The i.</param>
+        /// <param name="attribute">The runtime attribute.</param>
         /// <returns></returns>
-        object EvaluateSingleton(IRuntimeType type, int? i)
+        object EvaluateSingleton(IRuntimeType type, IRuntimeAttribute attribute)
         {
             if (!_instance)
             {
-                _value = EvaluateInstance(type, i);
+                _value = EvaluateInstance(type, attribute);
                 _instance = true;
             }
             return _value;
