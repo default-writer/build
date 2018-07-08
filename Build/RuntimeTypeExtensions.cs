@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace Build
@@ -85,15 +84,6 @@ namespace Build
             var count = args.Count();
             return count == 0 || (runtimeType.Count == count && Match(runtimeType.RuntimeTypes, args));
         }
-
-        /// <summary>
-        /// Matches the type.
-        /// </summary>
-        /// <param name="runtimeType">Type of the runtime.</param>
-        /// <param name="type">The type.</param>
-        /// <param name="name">The name.</param>
-        /// <returns></returns>
-        public static bool MatchType(this IRuntimeType runtimeType, Type type, string name) => runtimeType.TypeFullName == name;
 
         /// <summary>
         /// Matches the type.

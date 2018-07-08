@@ -10,9 +10,9 @@ namespace Build
     public sealed class TypeBuilder : ITypeBuilder
     {
         /// <summary>
-        /// Dictionary for all pre-computed type invariants for type pararameters
+        /// Dictionary for all pre-computed type invariants for type parameters
         /// </summary>
-        IDictionary<string, IRuntimeType> _internalMap = new Dictionary<string, IRuntimeType>();
+        readonly IDictionary<string, IRuntimeType> _internalMap = new Dictionary<string, IRuntimeType>();
 
         /// <summary>
         /// If set, container locks itself. All type invariants will be pre-computed for lookup table to speed up string search
@@ -179,7 +179,6 @@ namespace Build
         /// <summary>
         /// Creates the instance.
         /// </summary>
-        /// <param name="type">Type type.</param>
         /// <param name="typeFullName">The identifier.</param>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
@@ -207,7 +206,6 @@ namespace Build
         /// <summary>
         /// Creates the instance.
         /// </summary>
-        /// <param name="type">The type.</param>
         /// <param name="typeFullName">The identifier.</param>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
@@ -459,7 +457,6 @@ namespace Build
         /// <summary>
         /// Creates the instance.
         /// </summary>
-        /// <param name="type">The type.</param>
         /// <param name="typeFullName">The identifier.</param>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
