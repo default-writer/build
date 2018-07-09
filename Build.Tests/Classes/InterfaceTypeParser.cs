@@ -40,8 +40,8 @@ namespace Build.Tests.Classes
             if (count > 0)
             {
                 var func = Regex.Match(id, @"([^()]+)(?:\((.*)\)){0,1}$");
-                var name = func.Groups[1].Value.Trim();
-                var pars = Regex.Matches(func.Groups[2].Value.Trim(), @"([^,]+\(.+?\))|([^,]+)");
+                var name = func.Groups[1].Value;
+                var pars = Regex.Matches(func.Groups[2].Value, @"([^,]+\(.+?\))|([^,]+)");
                 return types.Where((p) => p.MatchParameters(name, args, pars)).Select(CacheRuntimeType);
             }
             return new IRuntimeType[0];

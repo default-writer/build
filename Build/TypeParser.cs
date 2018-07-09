@@ -27,8 +27,9 @@ namespace Build
         /// <returns></returns>
         public IEnumerable<IRuntimeType> FindRuntimeTypes(string id, IEnumerable<string> args, IEnumerable<IRuntimeType> types)
         {
+            id = Regex.Replace(id, @"\s", "");
             var func = Regex.Match(id, @"([^()]+)(?:\((.*)\)){0,1}$");
-            var constructor = id == func.Groups[1].Value.Trim() ? Format.GetConstructorWithParameters(id, args) : id;
+            var constructor = id == func.Groups[1].Value ? Format.GetConstructorWithParameters(id, args) : id;
             var cached = Cache.Where((p) => p.Value == constructor).Select((p) => p.Key);
             var cachedCount = cached.Count();
             if (cachedCount > 0)
@@ -36,8 +37,8 @@ namespace Build
             var count = types.Count();
             if (count > 0)
             {
-                var name = func.Groups[1].Value.Trim();
-                var pars = Regex.Matches(func.Groups[2].Value.Trim(), @"([^,]+\(.+?\))|([^,]+)");
+                var name = func.Groups[1].Value;
+                var pars = Regex.Matches(func.Groups[2].Value, @"([^,]+\(.+?\))|([^,]+)");
                 IRuntimeType CacheRuntimeType(IRuntimeType runtimeType)
                 {
                     if (!Cache.ContainsKey(runtimeType))

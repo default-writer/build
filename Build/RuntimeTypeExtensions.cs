@@ -70,7 +70,7 @@ namespace Build
         /// <returns></returns>
         public static bool MatchParameters(this IRuntimeType runtimeType, string name, IEnumerable<string> args, MatchCollection match)
             => MatchType(runtimeType, name)
-            && MatchRuntimeTypes(runtimeType, match.Cast<Match>().Select((p) => p.Value.Trim()))
+            && MatchRuntimeTypes(runtimeType, match.Cast<Match>().Select((p) => p.Value))
             && MatchRuntimeTypes(runtimeType, args);
 
         /// <summary>
