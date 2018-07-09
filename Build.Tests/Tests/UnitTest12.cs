@@ -25,6 +25,23 @@ namespace Build.Tests.TestSet12
         }
 
         [Fact]
+        public static void TestSet12_Method11()
+        {
+            //TestSet12
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
+            container.RegisterType<SqlDataRepository>();
+            try
+            {
+                container.RegisterType<ServiceDataRepository>();
+                Assert.True(true);
+            }
+            catch
+            {
+                Assert.True(false);
+            }
+        }
+
+        [Fact]
         public static void TestSet12_Method2()
         {
             //TestSet12

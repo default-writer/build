@@ -242,11 +242,45 @@ namespace Build.Tests.TestSet1
         public static void TestSet1_Method20()
         {
             //TestSet1
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             container.RegisterType<PrivateSqlDataRepository>();
             Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet1.PrivateSqlDataRepository", null));
+        }
+
+        [Fact]
+        public static void TestSet1_Method21()
+        {
+            //TestSet1
+            var container = new Container();
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<PrivateSqlDataRepository>();
+            var srv1 = container.CreateInstance("Build.Tests.TestSet1.PrivateSqlDataRepository", null);
+            Assert.NotNull(srv1);
+        }
+
+        [Fact]
+        public static void TestSet1_Method22()
+        {
+            //TestSet1
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<PrivateSqlDataRepository>();
+            Assert.NotNull(container.CreateInstance("Build.Tests.TestSet1.PrivateSqlDataRepository", null));
+        }
+
+        [Fact]
+        public static void TestSet1_Method23()
+        {
+            //TestSet1
+            var container = new Container();
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<PrivateSqlDataRepository>();
+            Assert.NotNull(container.CreateInstance("Build.Tests.TestSet1.PrivateSqlDataRepository"));
         }
 
         [Fact]

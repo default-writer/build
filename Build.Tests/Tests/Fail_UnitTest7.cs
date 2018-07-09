@@ -44,7 +44,7 @@ namespace Build.Tests.Fail_TestSet7
         public static void Fail_TestSet7_Method5()
         {
             //Fail_TestSet7
-            var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
+            var container = new Container(new TypeBuilderOptions() { UseDefaultTypeAttributeOverwrite = false });
             container.RegisterType<ServiceDataRepository>();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<ServiceDataRepository>());
         }

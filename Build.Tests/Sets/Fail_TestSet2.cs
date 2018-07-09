@@ -34,11 +34,14 @@ namespace Build.Tests.Fail_TestSet2
         [Dependency("Build.Tests.Fail_TestSet2.IPersonRepository")]
         public SqlDataRepository(int personId)
         {
+            PersonId = personId;
         }
 
         public SqlDataRepository()
         {
         }
+
+        public int PersonId { get; }
 
         public Person GetPerson(int personId)
         {

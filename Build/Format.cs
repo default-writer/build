@@ -29,7 +29,7 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public static IEnumerable<string> GetParametersFullName(object[] args) => args == null ? new string[0] : args.Select(GetParameterFullName);
+        public static IEnumerable<string> GetParametersFullName(object[] args) => args == null || args.Length == 0 ? new string[0] : args.Select(GetParameterFullName);
 
         /// <summary>
         /// Converts runtime type to corresponding parameter string value
