@@ -1,4 +1,5 @@
 using Build.Tests.TestSet18;
+using System;
 using Xunit;
 
 namespace Build.Tests.UnitTests18
@@ -10,9 +11,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            System.Func<Type> func = () => new Type();
-            container.RegisterType<Lazy<Type>>(func);
-            var factory = (Lazy<Type>)container.CreateInstance("Build.Tests.TestSet18.Lazy`1[Build.Tests.TestSet18.Type]");
+            Func<Empty> func = () => new Empty();
+            container.RegisterType<LazyFactory<Empty>>(func);
+            var factory = (LazyFactory<Empty>)container.CreateInstance("Build.Tests.TestSet18.LazyFactory`1[Build.Tests.TestSet18.Empty]", null);
             Assert.Equal(func, factory.Func);
         }
 
@@ -21,10 +22,10 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            var type = new Type();
-            System.Func<Type> func = () => type;
-            container.RegisterType<Factory2<Type>>(func);
-            var factory = (Factory2<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Type](System.Func`1[Build.Tests.TestSet18.Type])");
+            var type = new Empty();
+            Func<Empty> func = () => type;
+            container.RegisterType<Factory2<Empty>>(func);
+            var factory = (Factory2<Empty>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Empty](System.Func`1[Build.Tests.TestSet18.Empty])", null);
             Assert.Equal(type, factory.GetInstance());
         }
 
@@ -33,9 +34,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            System.Func<Type> func = () => new Type();
-            container.RegisterType(typeof(Factory2<Type>), func);
-            var factory = (Factory2<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Type](System.Func`1[Build.Tests.TestSet18.Type])");
+            Func<Empty> func = () => new Empty();
+            container.RegisterType(typeof(Factory2<Empty>), func);
+            var factory = (Factory2<Empty>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Empty](System.Func`1[Build.Tests.TestSet18.Empty])", null);
             Assert.Equal(func, factory.Func);
         }
 
@@ -44,10 +45,10 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            var type = new Type();
-            System.Func<Type> func = () => type;
-            container.RegisterType(typeof(Factory2<Type>), func);
-            var factory = (Factory2<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Type](System.Func`1[Build.Tests.TestSet18.Type])");
+            var type = new Empty();
+            Func<Empty> func = () => type;
+            container.RegisterType(typeof(Factory2<Empty>), func);
+            var factory = (Factory2<Empty>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Empty](System.Func`1[Build.Tests.TestSet18.Empty])", null);
             Assert.Equal(type, factory.GetInstance());
         }
 
@@ -56,9 +57,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            System.Func<Type> func = () => new Type();
+            Func<Empty> func = () => new Empty();
             object obj = null;
-            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<Factory2<Type>>(obj, func));
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<Factory2<Empty>>(obj, func));
         }
 
         [Fact]
@@ -66,10 +67,10 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            var type = new Type();
-            System.Func<Type> func = () => type;
-            container.RegisterType<Factory2<Type>>(func);
-            var factory = (Factory2<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Type]()");
+            var type = new Empty();
+            Func<Empty> func = () => type;
+            container.RegisterType<Factory2<Empty>>(func);
+            var factory = (Factory2<Empty>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Empty]()", null);
             Assert.Null(factory.Func);
         }
 
@@ -78,9 +79,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            System.Func<Type> func = () => null;
-            container.RegisterType(typeof(Factory2<Type>), func);
-            var factory = (Factory2<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Type](System.Func`1[Build.Tests.TestSet18.Type])");
+            Func<Empty> func = () => null;
+            container.RegisterType(typeof(Factory2<Empty>), func);
+            var factory = (Factory2<Empty>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Empty](System.Func`1[Build.Tests.TestSet18.Empty])", null);
             Assert.NotNull(factory.Func);
         }
 
@@ -89,8 +90,8 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            container.RegisterType<Factory2<Type>>(null);
-            var factory = (Factory2<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Type]()");
+            container.RegisterType<Factory2<Empty>>(null);
+            var factory = (Factory2<Empty>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Empty]()", null);
             Assert.Null(factory.Func);
         }
 
@@ -100,7 +101,7 @@ namespace Build.Tests.UnitTests18
             //TestSet18
             var container = new Container();
             object obj = null;
-            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<Factory2<Type>>(obj));
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<Factory2<Empty>>(obj));
         }
 
         [Fact]
@@ -108,9 +109,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            System.Func<Type> func = () => null;
-            container.RegisterType(typeof(Factory2<Type>), func);
-            var factory = (Factory2<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Type](System.Func`1[Build.Tests.TestSet18.Type])");
+            Func<Empty> func = () => null;
+            container.RegisterType(typeof(Factory2<Empty>), func);
+            var factory = (Factory2<Empty>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Empty](System.Func`1[Build.Tests.TestSet18.Empty])", null);
             Assert.Null(factory.GetInstance());
         }
 
@@ -120,8 +121,8 @@ namespace Build.Tests.UnitTests18
             //TestSet18
             var container = new Container();
             System.Func<object> func = () => null;
-            container.RegisterType(typeof(Factory2<Type>));
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Type](System.Func`1[Build.Tests.TestSet18.Type])", func));
+            container.RegisterType(typeof(Factory2<Empty>), null);
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Empty](System.Func`1[Build.Tests.TestSet18.Empty])", new object[] { func }));
         }
 
         [Fact]
@@ -129,10 +130,10 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            var type = new Type();
-            System.Func<Type> func = () => type;
-            container.RegisterType<Lazy<Type>>(func);
-            var factory = (Lazy<Type>)container.CreateInstance("Build.Tests.TestSet18.Lazy`1[Build.Tests.TestSet18.Type]");
+            var type = new Empty();
+            Func<Empty> func = () => type;
+            container.RegisterType<LazyFactory<Empty>>(func);
+            var factory = (LazyFactory<Empty>)container.CreateInstance("Build.Tests.TestSet18.LazyFactory`1[Build.Tests.TestSet18.Empty]", null);
             Assert.Equal(type, factory.GetInstance());
         }
 
@@ -142,7 +143,7 @@ namespace Build.Tests.UnitTests18
             //TestSet18
             var container = new Container();
             System.Func<object> func = () => null;
-            Assert.Throws<TypeRegistrationException>(() => container.RegisterType(typeof(Factory2<Type>), func));
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType(typeof(Factory2<Empty>), new object[] { func }));
         }
 
         [Fact]
@@ -150,9 +151,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
-            System.Func<Type> func = () => null;
-            container.RegisterType(typeof(Factory3<Type>), (object)(func));
-            var factory = (Factory3<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory3`1[Build.Tests.TestSet18.Type](System.Func`1[Build.Tests.TestSet18.Type])");
+            Func<Empty> func = () => null;
+            container.RegisterType(typeof(Factory3<Empty>), (object)(func));
+            var factory = (Factory3<Empty>)container.CreateInstance("Build.Tests.TestSet18.Factory3`1[Build.Tests.TestSet18.Empty](System.Func`1[Build.Tests.TestSet18.Empty])", null);
             Assert.NotNull(factory);
         }
 
@@ -162,7 +163,7 @@ namespace Build.Tests.UnitTests18
             //TestSet18
             var container = new Container();
             object obj = new object();
-            Assert.Throws<TypeRegistrationException>(() => container.RegisterType(typeof(Factory2<Type>), obj));
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType(typeof(Factory2<Empty>), new object[] { obj }));
         }
 
         [Fact]
@@ -170,9 +171,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
-            System.Func<Type> func = () => null;
-            container.RegisterType(typeof(Factory3<Type>), new object[] { func });
-            var factory = (Factory3<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory3`1[Build.Tests.TestSet18.Type](System.Func`1[Build.Tests.TestSet18.Type])");
+            Func<Empty> func = () => null;
+            container.RegisterType(typeof(Factory3<Empty>), new object[] { func });
+            var factory = (Factory3<Empty>)container.CreateInstance("Build.Tests.TestSet18.Factory3`1[Build.Tests.TestSet18.Empty](System.Func`1[Build.Tests.TestSet18.Empty])", null);
             Assert.NotNull(factory);
         }
 
@@ -181,9 +182,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            System.Func<Type> func = () => null;
-            container.RegisterType(typeof(Factory2<Type>), func);
-            var factory = (Factory2<Type>)container.CreateInstance(typeof(Factory2<Type>).ToString());
+            Func<Empty> func = () => null;
+            container.RegisterType(typeof(Factory2<Empty>), func);
+            var factory = (Factory2<Empty>)container.CreateInstance(typeof(Factory2<Empty>).ToString(), null);
             Assert.NotNull(factory.Func);
         }
 
@@ -192,9 +193,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            System.Func<Type> func = () => null;
-            container.RegisterType(typeof(Factory2<Type>), func);
-            var factory = (Factory2<Type>)container.CreateInstance(typeof(Factory2<Type>) + "(" + typeof(System.Func<Type>) + ")");
+            Func<Empty> func = () => null;
+            container.RegisterType(typeof(Factory2<Empty>), func);
+            var factory = (Factory2<Empty>)container.CreateInstance(typeof(Factory2<Empty>) + "(" + typeof(Func<Empty>) + ")", null);
             Assert.NotNull(factory.Func);
         }
 
@@ -203,9 +204,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            System.Func<Type> func = () => null;
-            container.RegisterType(typeof(Factory2<Type>), (object)func);
-            var factory = (Factory2<Type>)container.CreateInstance(typeof(Factory2<Type>) + "(" + typeof(System.Func<Type>) + ")");
+            Func<Empty> func = () => null;
+            container.RegisterType(typeof(Factory2<Empty>), (object)func);
+            var factory = (Factory2<Empty>)container.CreateInstance(typeof(Factory2<Empty>) + "(" + typeof(Func<Empty>) + ")", null);
             Assert.NotNull(factory.Func);
         }
 
@@ -214,9 +215,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            System.Func<Type> func = () => null;
-            container.RegisterType(typeof(Factory2<Type>), func);
-            var factory = (Factory2<Type>)container.CreateInstance(typeof(Factory2<Type>) + "(" + typeof(System.Func<Type>) + ")");
+            Func<Empty> func = () => null;
+            container.RegisterType(typeof(Factory2<Empty>), new object[] { func });
+            var factory = (Factory2<Empty>)container.CreateInstance(typeof(Factory2<Empty>) + "(" + typeof(Func<Empty>) + ")", null);
             Assert.Equal(func, factory.Func);
         }
 
@@ -225,9 +226,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
-            System.Func<Type> func = () => null;
-            container.RegisterType(typeof(Factory3<Type>), new object[] { func });
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet18.Factory3`1[Build.Tests.TestSet18.Type](System.Object)"));
+            Func<Empty> func = () => null;
+            container.RegisterType(typeof(Factory3<Empty>), new object[] { func });
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet18.Factory3`1[Build.Tests.TestSet18.Empty](System.Object)", null));
         }
 
         [Fact]
@@ -235,9 +236,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            System.Func<Type> func = () => null;
-            container.RegisterType(typeof(Factory2<Type>), new object[] { func });
-            var factory = (Factory2<Type>)container.CreateInstance(typeof(Factory2<Type>) + "(" + typeof(System.Func<Type>) + ")");
+            Func<Empty> func = () => null;
+            container.RegisterType(typeof(Factory2<Empty>), new object[] { func });
+            var factory = (Factory2<Empty>)container.CreateInstance(typeof(Factory2<Empty>) + "(" + typeof(Func<Empty>) + ")", null);
             Assert.NotNull(factory.Func);
         }
 
@@ -246,9 +247,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            System.Func<Type> func = () => new Type();
-            container.RegisterType(typeof(Lazy<Type>), func);
-            var factory = (Lazy<Type>)container.CreateInstance("Build.Tests.TestSet18.Lazy`1[Build.Tests.TestSet18.Type]");
+            Func<Empty> func = () => new Empty();
+            container.RegisterType(typeof(LazyFactory<Empty>), new object[] { func });
+            var factory = (LazyFactory<Empty>)container.CreateInstance("Build.Tests.TestSet18.LazyFactory`1[Build.Tests.TestSet18.Empty]", null);
             Assert.Equal(func, factory.Func);
         }
 
@@ -257,10 +258,10 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            var type = new Type();
-            System.Func<Type> func = () => type;
-            container.RegisterType<Lazy<Type>>(func);
-            var factory = (IFactory<Type>)container.CreateInstance("Build.Tests.TestSet18.Lazy`1[Build.Tests.TestSet18.Type]");
+            var type = new Empty();
+            Func<Empty> func = () => type;
+            container.RegisterType<LazyFactory<Empty>>(func);
+            var factory = (IFactory<Empty>)container.CreateInstance("Build.Tests.TestSet18.LazyFactory`1[Build.Tests.TestSet18.Empty]", null);
             Assert.Equal(type, factory.GetInstance());
         }
 
@@ -269,9 +270,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            System.Func<Type> func = () => new Type();
-            container.RegisterType<Lazy<Type>>(func);
-            var factory = (Lazy<Type>)container.CreateInstance("Build.Tests.TestSet18.Lazy`1[Build.Tests.TestSet18.Type](System.Func`1[Build.Tests.TestSet18.Type])");
+            Func<Empty> func = () => new Empty();
+            container.RegisterType<LazyFactory<Empty>>(func);
+            var factory = (LazyFactory<Empty>)container.CreateInstance("Build.Tests.TestSet18.LazyFactory`1[Build.Tests.TestSet18.Empty](System.Func`1[Build.Tests.TestSet18.Empty])", null);
             Assert.Equal(func, factory.Func);
         }
 
@@ -280,10 +281,10 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            System.Func<Type> func = () => new Type();
-            container.RegisterType<Lazy<Type>>(func);
-            var factory1 = (Lazy<Type>)container.CreateInstance("Build.Tests.TestSet18.Lazy`1[Build.Tests.TestSet18.Type]");
-            var factory2 = (Lazy<Type>)container.CreateInstance("Build.Tests.TestSet18.Lazy`1[Build.Tests.TestSet18.Type]");
+            Func<Empty> func = () => new Empty();
+            container.RegisterType<LazyFactory<Empty>>(func);
+            var factory1 = (LazyFactory<Empty>)container.CreateInstance("Build.Tests.TestSet18.LazyFactory`1[Build.Tests.TestSet18.Empty]", null);
+            var factory2 = (LazyFactory<Empty>)container.CreateInstance("Build.Tests.TestSet18.LazyFactory`1[Build.Tests.TestSet18.Empty]", null);
             Assert.Equal(factory1.Func, factory2.Func);
         }
 
@@ -292,9 +293,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            System.Func<Type> func = () => new Type();
-            container.RegisterType<Lazy<Type>>(func);
-            var count = RuntimeTypeExtensions.FindRintimeTypes(((TypeBuilder)container.Builder).Types.Values, "Build.Tests.TestSet18.Lazy`1[Build.Tests.TestSet18.Type](System.Func`1[Build.Tests.TestSet18.Type])").Length;
+            Func<Empty> func = () => new Empty();
+            container.RegisterType<LazyFactory<Empty>>(func);
+            var count = RuntimeTypeExtensions.FindRintimeTypes(((TypeBuilder)container.Builder).Types.Values, "Build.Tests.TestSet18.LazyFactory`1[Build.Tests.TestSet18.Empty](System.Func`1[Build.Tests.TestSet18.Empty])").Length;
             Assert.Equal(1, count);
         }
 
@@ -305,7 +306,7 @@ namespace Build.Tests.UnitTests18
             var container = new Container();
             container.Lock();
             object obj = null;
-            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<Factory2<Type>>(obj));
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<Factory2<Empty>>(obj));
         }
 
         [Fact]
@@ -313,10 +314,10 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            var type = new Type();
-            System.Func<Type> func = () => type;
-            container.RegisterType(typeof(Lazy<Type>), func);
-            var factory = (Lazy<Type>)container.CreateInstance("Build.Tests.TestSet18.Lazy`1[Build.Tests.TestSet18.Type]");
+            var type = new Empty();
+            Func<Empty> func = () => type;
+            container.RegisterType(typeof(LazyFactory<Empty>), func);
+            var factory = (LazyFactory<Empty>)container.CreateInstance("Build.Tests.TestSet18.LazyFactory`1[Build.Tests.TestSet18.Empty]", null);
             Assert.Equal(type, factory.GetInstance());
         }
 
@@ -325,9 +326,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            System.Func<Type> func = () => new Type();
-            container.RegisterType<Factory2<Type>>(func);
-            var factory = (Factory2<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Type]()");
+            Func<Empty> func = () => new Empty();
+            container.RegisterType<Factory2<Empty>>(func);
+            var factory = (Factory2<Empty>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Empty]()", null);
             Assert.Null(factory.Func);
         }
 
@@ -336,10 +337,10 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            var type = new Type();
-            System.Func<Type> func = () => type;
-            container.RegisterType<Factory2<Type>>(func);
-            var factory = (Factory2<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Type]");
+            var type = new Empty();
+            Func<Empty> func = () => type;
+            container.RegisterType<Factory2<Empty>>(func);
+            var factory = (Factory2<Empty>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Empty]", null);
             Assert.NotNull(factory.Func);
         }
 
@@ -348,9 +349,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            System.Func<Type> func = () => new Type();
-            container.RegisterType(typeof(Factory2<Type>), func);
-            var factory = (Factory2<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Type]");
+            Func<Empty> func = () => new Empty();
+            container.RegisterType(typeof(Factory2<Empty>), func);
+            var factory = (Factory2<Empty>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Empty]", null);
             Assert.NotNull(factory.Func);
         }
 
@@ -359,9 +360,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            System.Func<Type> func = () => null;
-            container.RegisterType(typeof(Factory2<Type>), new object[] { func });
-            var factory = (Factory2<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Type](System.Func`1[Build.Tests.TestSet18.Type])");
+            Func<Empty> func = () => null;
+            container.RegisterType(typeof(Factory2<Empty>), new object[] { func });
+            var factory = (Factory2<Empty>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Empty](System.Func`1[Build.Tests.TestSet18.Empty])", null);
             Assert.NotNull(factory.Func);
         }
 
@@ -370,9 +371,9 @@ namespace Build.Tests.UnitTests18
         {
             //TestSet18
             var container = new Container();
-            System.Func<Type> func = () => new Type();
-            container.RegisterType<Factory2<Type>>(func);
-            var factory = (Factory2<Type>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Type](System.Func`1[Build.Tests.TestSet18.Type])");
+            Func<Empty> func = () => new Empty();
+            container.RegisterType<Factory2<Empty>>(func);
+            var factory = (Factory2<Empty>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.Empty](System.Func`1[Build.Tests.TestSet18.Empty])", null);
             Assert.Equal(func, factory.Func);
         }
     }

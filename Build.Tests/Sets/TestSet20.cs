@@ -32,9 +32,9 @@ namespace Build.Tests.TestSet20
 
     public class Class4
     {
-        public Class4(Lazy<Class1> factory) => Lazy = factory;
+        public Class4(LazyFactory<Class1> factory) => Lazy = factory;
 
-        public Lazy<Class1> Lazy { get; }
+        public LazyFactory<Class1> Lazy { get; }
     }
 
     public class Class5
@@ -46,9 +46,9 @@ namespace Build.Tests.TestSet20
         public Func<Class1> Func { get; }
     }
 
-    public class Lazy<T> : IFactory<T>
+    public class LazyFactory<T> : IFactory<T>
     {
-        public Lazy(Func<T> func) => Func = func;
+        public LazyFactory(Func<T> func) => Func = func;
 
         public Func<T> Func { get; }
 

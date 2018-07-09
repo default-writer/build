@@ -25,7 +25,7 @@ namespace Build
         /// Gets the assignable types.
         /// </summary>
         /// <value>The assignable types.</value>
-        readonly List<string> _typeDefinitions = new List<string>();
+        readonly HashSet<string> _types = new HashSet<string>();
 
         /// <summary>
         /// The values
@@ -51,12 +51,18 @@ namespace Build
         public RuntimeType(ITypeActivator typeActivator, IRuntimeAttribute attribute, Type type, bool defaultTypeInstantiation)
         {
             Activator = typeActivator ?? throw new ArgumentNullException(nameof(typeActivator));
-            TypeDefinition = (type ?? throw new ArgumentNullException(nameof(type))).ToString();
-            Type = type ?? throw new ArgumentNullException(nameof(type));
+            Type = (type ?? throw new ArgumentNullException(nameof(type))).ToString();
+            ActivatorType = type ?? throw new ArgumentNullException(nameof(type));
             Attribute = attribute ?? throw new ArgumentNullException(nameof(attribute));
             UseDefaultTypeInstantiation = defaultTypeInstantiation;
             UpdateTypeId();
         }
+
+        /// <summary>
+        /// Gets the CLR type.
+        /// </summary>
+        /// <value>The type.</value>
+        public Type ActivatorType { get; }
 
         /// <summary>
         /// Gets the attribute.
@@ -94,21 +100,20 @@ namespace Build
         public IEnumerable<IRuntimeType> RuntimeTypes => _runtimeTypes;
 
         /// <summary>
-        /// Gets the type.
-        /// </summary>
-        /// <value>The type.</value>
-        public Type Type { get; }
-
-        /// <summary>
-        /// Gets the first assignable type.
+        /// Gets the last assignable type.
         /// </summary>
         /// <value>The type full name of the assignable.</value>
-        public string TypeDefinition { get; private set; }
+        public string Type { get; private set; }
 
         /// <summary>
         /// Gets the full name of hosted runtime type
         /// </summary>
-        public string TypeFullName => Type.ToString();
+        public string TypeFullName => ActivatorType.ToString();
+
+        /// <summary>
+        /// Assignable types
+        /// </summary>
+        public IEnumerable<string> Types => _types;
 
         public object Value { get => GetValue(Attribute, Id); set => SetValue(Attribute, Id, value); }
 
@@ -180,7 +185,7 @@ namespace Build
         /// <returns>
         /// <c>true</c> if the specified identifier is assignable from type, otherwise <c>false</c>.
         /// </returns>
-        public bool ContainsTypeDefinition(string typeFullName) => _typeDefinitions.FirstOrDefault(p => p == typeFullName) != null;
+        public bool ContainsTypeDefinition(string typeFullName) => _types.FirstOrDefault(p => p == typeFullName) != null;
 
         /// <summary>
         /// Creates the instance.
@@ -190,7 +195,7 @@ namespace Build
         /// <exception cref="TypeInstantiationException"></exception>
         public object CreateInstance(object[] args = null)
         {
-            if (Type.IsValueType)
+            if (ActivatorType.IsValueType)
                 return Activator.CreateValueInstance(this);
             var parameters = ReadParameters();
             var result = CreateReferenceType(args ?? new object[0]);
@@ -267,11 +272,8 @@ namespace Build
         /// <param name="typeFullName">The type full name.</param>
         public void RegisterTypeDefinition(string typeFullName)
         {
-            if (!_typeDefinitions.Contains(typeFullName))
-            {
-                _typeDefinitions.Add(typeFullName);
-                TypeDefinition = typeFullName;
-            }
+            if (_types.Add(typeFullName))
+                Type = typeFullName;
         }
 
         /// <summary>
@@ -370,11 +372,11 @@ namespace Build
         /// </summary>
         object GetDefaultValue()
         {
-            if (Type.IsValueType)
+            if (ActivatorType.IsValueType)
             {
-                if (Type.IsEnum)
+                if (ActivatorType.IsEnum)
                 {
-                    var enums = Enum.GetValues(Type);
+                    var enums = Enum.GetValues(ActivatorType);
                     if (enums.Length > 0)
                         return enums.GetValue(0);
                 }
@@ -387,11 +389,11 @@ namespace Build
         /// Checks whether type is not a value type and not yet initialized
         /// </summary>
         /// <returns></returns>
-        bool IsDefaultReferencedType() => !Type.IsValueType && _runtimeInstance == RuntimeInstance.None;
+        bool IsDefaultReferencedType() => !ActivatorType.IsValueType && _runtimeInstance == RuntimeInstance.None;
 
         /// <summary>
         /// Updates runtime type id
         /// </summary>
-        void UpdateTypeId() => Id = Format.GetConstructorWithParameters(TypeFullName, _runtimeTypes.Select(p => p.TypeDefinition));
+        void UpdateTypeId() => Id = Format.GetConstructorWithParameters(TypeFullName, _runtimeTypes.Select(p => p.Type));
     }
 }

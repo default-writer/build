@@ -44,7 +44,7 @@ namespace Build.Tests.TestSet19
 
     public class C3
     {
-        public C3(Lazy<A> a, B b)
+        public C3(LazyFactory<A> a, B b)
         {
             A = a.GetInstance();
             B = b;
@@ -65,9 +65,9 @@ namespace Build.Tests.TestSet19
         public Class2(Func<Class1> class1) => _class1 = class1;
     }
 
-    public class Lazy<T> : IFactory<T>
+    public class LazyFactory<T> : IFactory<T>
     {
-        public Lazy(Func<T> func) => Func = func;
+        public LazyFactory(Func<T> func) => Func = func;
 
         public Func<T> Func { get; }
 

@@ -12,21 +12,15 @@ namespace Build
     public sealed class Container : IContainer
     {
         /// <summary>
-        /// The type builder
-        /// </summary>
-        readonly TypeBuilder _typeBuilder;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Container"/> class.
         /// </summary>
-        public Container() => _typeBuilder = new TypeBuilder(new TypeBuilderOptions());
+        public Container() => TypeBuilder = new TypeBuilder(new TypeBuilderOptions());
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Container"/> class.
         /// </summary>
         /// <param name="typeBuilderOptions">Type options</param>
-        public Container(TypeBuilderOptions typeBuilderOptions) =>
-            _typeBuilder = new TypeBuilder(typeBuilderOptions);
+        public Container(TypeBuilderOptions typeBuilderOptions) => TypeBuilder = new TypeBuilder(typeBuilderOptions);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Container"/> class.
@@ -35,38 +29,39 @@ namespace Build
         /// <param name="typeFilter">Type filter</param>
         /// <param name="typeParser">Type parser</param>
         /// <param name="typeResolver">Type resolver</param>
-        public Container(ITypeActivator typeActivator, ITypeConstructor typeConstructor, ITypeFilter typeFilter, ITypeParser typeParser, ITypeResolver typeResolver) =>
-            _typeBuilder = new TypeBuilder(typeActivator, typeConstructor, typeFilter, typeParser, typeResolver);
+        public Container(ITypeActivator typeActivator, ITypeConstructor typeConstructor, ITypeFilter typeFilter, ITypeParser typeParser, ITypeResolver typeResolver) => TypeBuilder = new TypeBuilder(typeActivator, typeConstructor, typeFilter, typeParser, typeResolver);
 
         /// <summary>
         /// Type builder
         /// </summary>
-        public ITypeBuilder Builder => _typeBuilder;
+        public ITypeBuilder Builder => TypeBuilder;
 
         /// <summary>
         /// True if container is locked
         /// </summary>
-        public bool IsLocked => _typeBuilder.IsLocked;
+        public bool IsLocked => TypeBuilder.IsLocked;
 
         /// <summary>
         /// Aliased types.
         /// </summary>
-        public IEnumerable<string> RuntimeAliasedTypes => new List<string>(_typeBuilder.RuntimeAliasedTypes);
+        public IEnumerable<string> RuntimeAliasedTypes => new List<string>(TypeBuilder.RuntimeAliasedTypes);
 
         /// <summary>
         /// Non-aliased types.
         /// </summary>
-        public IEnumerable<string> RuntimeNonAliasedTypes => new List<string>(_typeBuilder.RuntimeNonAliasedTypes);
+        public IEnumerable<string> RuntimeNonAliasedTypes => new List<string>(TypeBuilder.RuntimeNonAliasedTypes);
 
         /// <summary>
         /// Type aliases
         /// </summary>
-        public IEnumerable<string> RuntimeTypeAliases => new List<string>(_typeBuilder.RuntimeTypeAliases);
+        public IEnumerable<string> RuntimeTypeAliases => new List<string>(TypeBuilder.RuntimeTypeAliases);
 
         /// <summary>
         /// Runtime types.
         /// </summary>
-        public IEnumerable<string> RuntimeTypes => new List<string>(_typeBuilder.RuntimeTypes);
+        public IEnumerable<string> RuntimeTypes => new List<string>(TypeBuilder.RuntimeTypes);
+
+        public TypeBuilder TypeBuilder { get; private set; }
 
         /// <summary>
         /// Creates an object identified as instance of type T
@@ -86,7 +81,7 @@ namespace Build
         {
             if (type == null)
                 throw new TypeInstantiationException(string.Format("{0} is null (type name required)", nameof(type)));
-            return _typeBuilder.CreateInstance(type.ToString(), args);
+            return TypeBuilder.CreateInstance(type.ToString(), args);
         }
 
         /// <summary>
@@ -99,7 +94,7 @@ namespace Build
         {
             if (typeFullName == null)
                 throw new TypeInstantiationException(string.Format("{0} is null (type name required)", nameof(typeFullName)));
-            return _typeBuilder.CreateInstance(typeFullName, args);
+            return TypeBuilder.CreateInstance(typeFullName, args);
         }
 
         /// <summary>
@@ -116,11 +111,11 @@ namespace Build
         /// <param name="type">Type identifier</param>
         /// <param name="args">Arguments to constuctor</param>
         /// <returns>Returns instance of identified type</returns>
-        public object GetInstance(Type type, object[] args = null)
+        public object GetInstance(Type type, params object[] args)
         {
             if (type == null)
                 throw new TypeInstantiationException(string.Format("{0} is null (type name required)", nameof(type)));
-            return _typeBuilder.GetInstance(type.ToString(), args);
+            return TypeBuilder.GetInstance(type.ToString(), args);
         }
 
         /// <summary>
@@ -129,17 +124,17 @@ namespace Build
         /// <param name="typeFullName">Type identifier</param>
         /// <param name="args">Arguments to constuctor</param>
         /// <returns>Returns instance of identified type</returns>
-        public object GetInstance(string typeFullName, object[] args = null)
+        public object GetInstance(string typeFullName, params object[] args)
         {
             if (typeFullName == null)
                 throw new TypeInstantiationException(string.Format("{0} is null (type name required)", nameof(typeFullName)));
-            return _typeBuilder.GetInstance(typeFullName, args);
+            return TypeBuilder.GetInstance(typeFullName, args);
         }
 
         /// <summary>
         /// Locks the container. Pre-computes all registered type invariants for lookup table speed up
         /// </summary>
-        public void Lock() => _typeBuilder.Lock();
+        public void Lock() => TypeBuilder.Lock();
 
         /// <summary>
         /// Registers all supported types in assembly
@@ -164,8 +159,8 @@ namespace Build
                 }
                 if (match)
                     continue;
-                if (_typeBuilder.CanRegister(type))
-                    _typeBuilder.RegisterType(type);
+                if (TypeBuilder.CanRegister(type))
+                    TypeBuilder.RegisterType(type, null);
             }
         }
 
@@ -184,21 +179,21 @@ namespace Build
         {
             if (type == null)
                 throw new TypeRegistrationException(string.Format("{0} is null (type name required)", nameof(type)));
-            if (_typeBuilder.IsLocked)
+            if (TypeBuilder.IsLocked)
                 throw new TypeRegistrationException(string.Format("{0} is not registered (container locked)", type));
-            if (!_typeBuilder.CanRegister(type))
+            if (!TypeBuilder.CanRegister(type))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not an allowed type)", type));
-            _typeBuilder.RegisterType(type, args);
+            TypeBuilder.RegisterType(type, args);
         }
 
         /// <summary>
         /// Resets information about type registration. Also, resets freezed containers
         /// </summary>
-        public void Reset() => _typeBuilder.Reset();
+        public void Reset() => TypeBuilder.Reset();
 
         /// <summary>
         /// Unlocks the container. Flushes all pre-computed registered type invariants for lookup table speed up
         /// </summary>
-        public void Unlock() => _typeBuilder.Unlock();
+        public void Unlock() => TypeBuilder.Unlock();
     }
 }

@@ -22,37 +22,31 @@ namespace Build.Tests.Classes
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="args">The arguments.</param>
-        public PropertyInjectionAttribute(string id, object[] args= null) : this(id) => _arguments = args;
+        public PropertyInjectionAttribute(string id, object[] args) : base(id) => _arguments = args ?? throw new ArgumentNullException(nameof(args));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="args">The arguments.</param>
-        public PropertyInjectionAttribute(Type type, object[] args= null) : this(type) => _arguments = args;
+        public PropertyInjectionAttribute(Type type, object[] args) : base(type) => _arguments = args ?? throw new ArgumentNullException(nameof(args));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
-        /// <param name="typeFullName"></param>
-        public PropertyInjectionAttribute(string typeFullName) : base(typeFullName)
-        {
-        }
+        /// <param name="id">The identifier.</param>
+        public PropertyInjectionAttribute(string id) : base(id) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
-        public PropertyInjectionAttribute(Type type) : base(type)
-        {
-        }
+        public PropertyInjectionAttribute(Type type) : base(type) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
-        public PropertyInjectionAttribute()
-        {
-        }
+        public PropertyInjectionAttribute() { }
 
         /// <summary>
         /// Gets the full name of the parameters.

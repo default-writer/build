@@ -25,7 +25,7 @@ namespace Build.Tests.UnitTests19
             Func<A> func1 = () => a;
             Func<A> func2 = () => a;
             container.RegisterType<B>(func1);
-            container.RegisterType<Lazy<A>>(func2);
+            container.RegisterType<LazyFactory<A>>(func2);
             container.RegisterType<C3>();
             var class1 = container.GetInstance<C3>();
             Assert.NotNull(class1.B);
@@ -40,7 +40,7 @@ namespace Build.Tests.UnitTests19
             Func<A> func1 = () => a;
             Func<A> func2 = () => a;
             container.RegisterType<B>(func1);
-            container.RegisterType<Lazy<A>>(func2);
+            container.RegisterType<LazyFactory<A>>(func2);
             container.RegisterType<C3>();
             Assert.Throws<TargetInvocationException>(() => container.CreateInstance<C3>());
         }
@@ -54,9 +54,9 @@ namespace Build.Tests.UnitTests19
             Func<A> func1 = () => a;
             Func<A> func2 = () => a;
             container.RegisterType<B>(func1);
-            container.RegisterType<Lazy<A>>(func2);
+            container.RegisterType<LazyFactory<A>>(func2);
             container.RegisterType<C3>();
-            var class1 = container.CreateInstance<C3>(container.GetInstance<Lazy<A>>(), container.GetInstance<B>());
+            var class1 = container.CreateInstance<C3>(container.GetInstance<LazyFactory<A>>(), container.GetInstance<B>());
             Assert.NotNull(class1.A);
         }
 
@@ -69,10 +69,78 @@ namespace Build.Tests.UnitTests19
             Func<A> func1 = () => a;
             Func<A> func2 = () => a;
             container.RegisterType<B>(func1);
-            container.RegisterType<Lazy<A>>(func2);
+            container.RegisterType<LazyFactory<A>>(func2);
             container.RegisterType<C3>();
-            var class1 = container.CreateInstance<C3>(container.GetInstance<Lazy<A>>(), container.GetInstance<B>());
+            var class1 = container.CreateInstance<C3>(container.GetInstance<LazyFactory<A>>(), container.GetInstance<B>());
             Assert.NotNull(class1.B);
+        }
+
+        [Fact]
+        public static void TestSet19_Method14()
+        {
+            //TestSet19
+            var container = new Container();
+            var a = new A();
+            Func<A> func1 = () => a;
+            Func<A> func2 = () => a;
+            container.RegisterType<B>(func1);
+            container.RegisterType<LazyFactory<A>>(func2);
+            container.RegisterType<C3>();
+            var class1 = container.CreateInstance<C3>(container.GetInstance("Build.Tests.TestSet19.LazyFactory`1[Build.Tests.TestSet19.A]", null), container.GetInstance<B>());
+            Assert.NotNull(class1.B);
+        }
+
+        [Fact]
+        public static void TestSet19_Method15()
+        {
+            //TestSet19
+            var container = new Container();
+            var a = new A();
+            Func<A> func1 = () => a;
+            Func<A> func2 = () => a;
+            container.RegisterType<B>(func1);
+            container.RegisterType<LazyFactory<A>>(func2);
+            container.RegisterType<C3>();
+            var class1 = container.CreateInstance<C3>(container.GetInstance(typeof(LazyFactory<A>), null), container.GetInstance<B>());
+            Assert.NotNull(class1.B);
+        }
+
+        [Fact]
+        public static void TestSet19_Method16()
+        {
+            //TestSet19
+            var container = new Container();
+            var a = new A();
+            Func<A> func1 = () => a;
+            Func<A> func2 = () => a;
+            container.RegisterType<B>(func1);
+            container.RegisterType<LazyFactory<A>>(func2);
+            container.RegisterType<C3>();
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<C3>(container.GetInstance((Type)null, null), container.GetInstance<B>()));
+        }
+
+        [Fact]
+        public static void TestSet19_Method17()
+        {
+            //TestSet19
+            var container = new Container();
+            var a = new A();
+            Func<A> func = () => a;
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType((Type)null, func));
+        }
+
+        [Fact]
+        public static void TestSet19_Method18()
+        {
+            //TestSet19
+            var container = new Container();
+            var a = new A();
+            Func<A> func1 = () => a;
+            Func<A> func2 = () => a;
+            container.RegisterType<B>(func1);
+            container.RegisterType<LazyFactory<A>>(func2);
+            container.RegisterType<C3>();
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance((Type)null));
         }
 
         [Fact]
@@ -162,7 +230,7 @@ namespace Build.Tests.UnitTests19
             Func<A> func1 = () => a;
             Func<A> func2 = () => a;
             container.RegisterType<B>(func1);
-            container.RegisterType<Lazy<A>>(func2);
+            container.RegisterType<LazyFactory<A>>(func2);
             container.RegisterType<C3>();
             var class1 = container.GetInstance<C3>();
             Assert.NotNull(class1.A);

@@ -36,6 +36,6 @@ namespace Build
         /// </summary>
         /// <param name="runtimeType">Runtime type</param>
         /// <returns>Returns runtime type parameter</returns>
-        public static string GetRuntimeTypeParameter(IRuntimeType runtimeType) => string.Format(":{0}", runtimeType.Type);
+        public static string GetRuntimeTypeParameter(IRuntimeType runtimeType) => string.Format(":{0}", runtimeType.ActivatorType);
     }
 }

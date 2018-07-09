@@ -178,7 +178,7 @@ namespace Build.Tests.TestSet3
             var container = new Container();
             container.RegisterType<SqlDataRepository>(0);
             container.RegisterType<ServiceDataRepository>(null);
-            var instances = container.RuntimeNonAliasedTypes.Select(p => container.GetInstance(p));
+            var instances = container.RuntimeNonAliasedTypes.Select(p => container.GetInstance(p, null));
             Assert.True(instances.All(p => p != null));
         }
 

@@ -30,14 +30,14 @@ namespace Build
         /// Finds all dependency runtime types (instantiable types) which matches the criteria
         /// </summary>
         /// <returns></returns>
-        public static IRuntimeType[] FindRuntimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, ITypeParser typeParser, IRuntimeType runtimeType, object[] args = null) =>
-            typeParser.FindRuntimeTypes(runtimeType.TypeFullName, Format.GetParametersFullName(args), runtimeTypes.Where((p) => p.Attribute is IDependencyAttribute)).Where((p) => p.Type == runtimeType.Type).ToArray();
+        public static IRuntimeType[] FindRuntimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, ITypeParser typeParser, IRuntimeType runtimeType, object[] args) =>
+            typeParser.FindRuntimeTypes(runtimeType.TypeFullName, Format.GetParametersFullName(args), runtimeTypes.Where((p) => p.Attribute is IDependencyAttribute)).Where((p) => p.ActivatorType == runtimeType.ActivatorType).ToArray();
 
         /// <summary>
         /// Finds all dependency runtime types (instantiable types) which matches the criteria
         /// </summary>
         /// <returns></returns>
-        public static IRuntimeType[] GetRuntimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, ITypeParser typeParser, string typeFullName, object[] args = null) =>
+        public static IRuntimeType[] GetRuntimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, ITypeParser typeParser, string typeFullName, object[] args) =>
             typeParser.FindRuntimeTypes(typeFullName, Format.GetParametersFullName(args), runtimeTypes.Where((p) => p.Attribute is IDependencyAttribute)).ToArray();
 
         /// <summary>

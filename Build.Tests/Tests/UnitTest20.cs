@@ -84,7 +84,7 @@ namespace Build.Tests.TestSet20
             //TestSet2
             var container = new Container();
             Func<Class1> class1FactoryMethod = () => new Class1();
-            container.RegisterType<Lazy<Class1>>(class1FactoryMethod);
+            container.RegisterType<LazyFactory<Class1>>(class1FactoryMethod);
             container.RegisterType<Class2>();
             var srv1 = container.GetInstance<Class2>();
             Assert.Null(srv1.Func);
@@ -96,8 +96,8 @@ namespace Build.Tests.TestSet20
             //TestSet2
             var container = new Container();
             Func<Class1> class1FactoryMethod = () => new Class1();
-            container.RegisterType<Lazy<Class1>>(class1FactoryMethod);
-            var srv1 = container.GetInstance<Lazy<Class1>>();
+            container.RegisterType<LazyFactory<Class1>>(class1FactoryMethod);
+            var srv1 = container.GetInstance<LazyFactory<Class1>>();
             Assert.NotNull(srv1.Func);
         }
 
@@ -107,7 +107,7 @@ namespace Build.Tests.TestSet20
             //TestSet2
             var container = new Container();
             Func<Class1> class1FactoryMethod = () => new Class1();
-            container.RegisterType<Lazy<Class1>>(class1FactoryMethod);
+            container.RegisterType<LazyFactory<Class1>>(class1FactoryMethod);
             container.RegisterType<Class2>(class1FactoryMethod);
             var srv1 = container.GetInstance<Class2>();
             Assert.NotNull(srv1.Func);
@@ -156,7 +156,7 @@ namespace Build.Tests.TestSet20
             //TestSet2
             var container = new Container();
             Func<Class1> class1FactoryMethod = () => new Class1();
-            container.RegisterType<Lazy<Class1>>(class1FactoryMethod);
+            container.RegisterType<LazyFactory<Class1>>(class1FactoryMethod);
             container.RegisterType<Class2>();
             var srv1 = container.GetInstance<Class2>(null);
             Assert.Null(srv1.Func);
@@ -168,7 +168,7 @@ namespace Build.Tests.TestSet20
             //TestSet2
             var container = new Container();
             Func<Class1> class1FactoryMethod = () => new Class1();
-            container.RegisterType<Lazy<Class1>>(class1FactoryMethod);
+            container.RegisterType<LazyFactory<Class1>>(class1FactoryMethod);
             container.RegisterType<Class2>();
             var srv1 = container.GetInstance<Class2>(Array.Empty<object>());
             Assert.Null(srv1.Func);
@@ -181,10 +181,10 @@ namespace Build.Tests.TestSet20
             var container = new Container();
             var builder = (TypeBuilder)container.Builder;
             Func<Class1> class1FactoryMethod = () => new Class1();
-            container.RegisterType<Lazy<Class1>>(class1FactoryMethod);
+            container.RegisterType<LazyFactory<Class1>>(class1FactoryMethod);
             container.RegisterType<Class2>();
             var args = new List<string> { typeof(Func<Class1>).ToString() };
-            var instance = builder.GetInstance(Format.GetConstructorWithParameters(typeof(Class2).ToString(), args));
+            var instance = builder.GetInstance(Format.GetConstructorWithParameters(typeof(Class2).ToString(), args), null);
             Assert.NotNull(instance);
         }
 
@@ -195,10 +195,10 @@ namespace Build.Tests.TestSet20
             var container = new Container();
             var builder = (TypeBuilder)container.Builder;
             Func<Class1> class1FactoryMethod = () => new Class1();
-            container.RegisterType<Lazy<Class1>>(class1FactoryMethod);
+            container.RegisterType<LazyFactory<Class1>>(class1FactoryMethod);
             container.RegisterType<Class2>();
             var args = new List<string> { typeof(Func<Class1>).ToString() };
-            var instance = (Class2)builder.GetInstance(Format.GetConstructorWithParameters(typeof(Class2).ToString(), args));
+            var instance = (Class2)builder.GetInstance(Format.GetConstructorWithParameters(typeof(Class2).ToString(), args), null);
             Assert.Null(instance.Func);
         }
 
@@ -208,7 +208,7 @@ namespace Build.Tests.TestSet20
             //TestSet2
             var container = new Container();
             Func<Class1> class1FactoryMethod = () => new Class1();
-            container.RegisterType<Lazy<Class1>>(class1FactoryMethod);
+            container.RegisterType<LazyFactory<Class1>>(class1FactoryMethod);
             container.RegisterType<Class2>();
             var args = new List<string> { typeof(Func<Class1>).ToString() };
             var instance = (Class2)container.GetInstance(Format.GetConstructorWithParameters(typeof(Class2).ToString(), args), new object[] { class1FactoryMethod });
@@ -221,15 +221,15 @@ namespace Build.Tests.TestSet20
             //TestSet2
             var container = new Container();
             Func<Class1> class1FactoryMethod = () => new Class1();
-            container.RegisterType<Lazy<Class1>>(class1FactoryMethod);
+            container.RegisterType<LazyFactory<Class1>>(class1FactoryMethod);
             container.RegisterType<Class2>();
 
             Func<Class1> appDbContextFactoryFunction = () => new Class1();
 
-            container.RegisterType<Lazy<Class1>>(appDbContextFactoryFunction);
+            container.RegisterType<LazyFactory<Class1>>(appDbContextFactoryFunction);
             container.RegisterType<Class4>();
 
-            var instance = container.GetInstance(typeof(Class4).ToString());
+            var instance = container.GetInstance(typeof(Class4).ToString(), null);
             Assert.NotNull(instance);
         }
 
@@ -240,9 +240,9 @@ namespace Build.Tests.TestSet20
             var container = new Container();
             var builder = (TypeBuilder)container.Builder;
             Func<Class1> class1FactoryMethod = () => new Class1();
-            container.RegisterType<Lazy<Class1>>(class1FactoryMethod);
+            container.RegisterType<LazyFactory<Class1>>(class1FactoryMethod);
             container.RegisterType<Class2>();
-            var instance = (Class2)builder.GetInstance(typeof(Class2).ToString());
+            var instance = (Class2)builder.GetInstance(typeof(Class2).ToString(), null);
             Assert.Null(instance.Func);
         }
 
@@ -253,7 +253,7 @@ namespace Build.Tests.TestSet20
             var container = new Container();
             var builder = (TypeBuilder)container.Builder;
             Func<Class1> class1FactoryMethod = () => new Class1();
-            container.RegisterType<Lazy<Class1>>(class1FactoryMethod);
+            container.RegisterType<LazyFactory<Class1>>(class1FactoryMethod);
             container.RegisterType<Class2>();
             Func<Class1> args = () => null;
             var instance = builder.GetInstance(typeof(Class2).ToString(), new[] { args });
@@ -267,7 +267,7 @@ namespace Build.Tests.TestSet20
             var container = new Container();
             var builder = (TypeBuilder)container.Builder;
             Func<Class1> class1FactoryMethod = () => new Class1();
-            container.RegisterType<Lazy<Class1>>(class1FactoryMethod);
+            container.RegisterType<LazyFactory<Class1>>(class1FactoryMethod);
             var args = new List<string> { typeof(Func<Class1>).ToString() };
             Assert.Throws<TypeInstantiationException>(() => builder.GetInstance(typeof(Class2).ToString(), new[] { args }));
         }
@@ -279,7 +279,7 @@ namespace Build.Tests.TestSet20
             var container = new Container();
             var builder = (TypeBuilder)container.Builder;
             container.RegisterType<Class2>();
-            var instance = (Class2)builder.GetInstance(typeof(Class2).ToString());
+            var instance = (Class2)builder.GetInstance(typeof(Class2).ToString(), null);
             Assert.Null(instance.Func);
         }
 
@@ -301,7 +301,7 @@ namespace Build.Tests.TestSet20
             var container = new Container();
             var builder = (TypeBuilder)container.Builder;
             Func<Class1> class1FactoryMethod = () => new Class1();
-            container.RegisterType<Lazy<Class1>>(class1FactoryMethod);
+            container.RegisterType<LazyFactory<Class1>>(class1FactoryMethod);
             container.RegisterType<Class5>();
             Func<Class1> args = () => new Class1();
             Assert.Throws<TypeInstantiationException>(() => builder.GetInstance(typeof(Class5).ToString(), new[] { args }));
@@ -325,7 +325,7 @@ namespace Build.Tests.TestSet20
             var container = new Container();
             var builder = (TypeBuilder)container.Builder;
             container.RegisterType<Class2>();
-            Assert.Throws<ArgumentNullException>(() => (Class2)builder.GetInstance(null));
+            Assert.Throws<ArgumentNullException>(() => (Class2)builder.GetInstance(null, null));
         }
 
         [Fact]
@@ -334,7 +334,7 @@ namespace Build.Tests.TestSet20
             var container = new Container();
             container.RegisterType<Class2>();
             string t = null;
-            Assert.Throws<TypeInstantiationException>(() => container.GetInstance(t));
+            Assert.Throws<TypeInstantiationException>(() => container.GetInstance(t, null));
         }
 
         [Fact]
@@ -343,7 +343,7 @@ namespace Build.Tests.TestSet20
             //TestSet2
             var container = new Container();
             Func<Class1> class1FactoryMethod = () => new Class1();
-            container.RegisterType<Lazy<Class1>>(class1FactoryMethod);
+            container.RegisterType<LazyFactory<Class1>>(class1FactoryMethod);
             container.RegisterType<Class2>();
             var args = new List<string> { typeof(Func<Class1>).ToString() };
             container.Lock();

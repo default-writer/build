@@ -16,7 +16,7 @@ namespace Build.Tests.Classes
         /// <returns></returns>
         public object CreateInstance(IRuntimeType instance, IRuntimeType type, IRuntimeAttribute attribute)
         {
-            var obj = instance.GetValue(type.Attribute, type.Id) ?? Activator.CreateInstance(instance.Type);
+            var obj = instance.GetValue(type.Attribute, type.Id) ?? Activator.CreateInstance(instance.ActivatorType);
             var runtimeTypes = instance.RuntimeTypes.ToArray();
             for (int i = 0; i < runtimeTypes.Length; i++)
             {
@@ -35,7 +35,7 @@ namespace Build.Tests.Classes
         /// <returns></returns>
         public object CreateInstance(IRuntimeType instance)
         {
-            var obj = Activator.CreateInstance(instance.Type);
+            var obj = Activator.CreateInstance(instance.ActivatorType);
             var runtimeTypes = instance.RuntimeTypes.ToArray();
             for (int i = 0; i < runtimeTypes.Length; i++)
             {
@@ -52,6 +52,6 @@ namespace Build.Tests.Classes
         /// Creates the instance.
         /// </summary>
         /// <returns></returns>
-        public object CreateValueInstance(IRuntimeType instance) => Activator.CreateInstance(instance.Type);
+        public object CreateValueInstance(IRuntimeType instance) => Activator.CreateInstance(instance.ActivatorType);
     }
 }

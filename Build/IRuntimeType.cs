@@ -9,6 +9,12 @@ namespace Build
     public interface IRuntimeType
     {
         /// <summary>
+        /// Gets the CLR type.
+        /// </summary>
+        /// <value>The type.</value>
+        Type ActivatorType { get; }
+
+        /// <summary>
         /// Gets the attribute.
         /// </summary>
         /// <value>The attribute.</value>
@@ -44,21 +50,20 @@ namespace Build
         IEnumerable<IRuntimeType> RuntimeTypes { get; }
 
         /// <summary>
-        /// Gets the type.
-        /// </summary>
-        /// <value>The type.</value>
-        Type Type { get; }
-
-        /// <summary>
         /// Gets the type of the assignable.
         /// </summary>
         /// <value>The type of the assignable.</value>
-        string TypeDefinition { get; }
+        string Type { get; }
 
         /// <summary>
         /// Gets the full name of hosted runtime type
         /// </summary>
         string TypeFullName { get; }
+
+        /// <summary>
+        /// Assignable types
+        /// </summary>
+        IEnumerable<string> Types { get; }
 
         /// <summary>
         /// Attribute value

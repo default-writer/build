@@ -34,24 +34,18 @@ namespace Build.Tests.Classes
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
         /// <param name="typeFullName"></param>
-        public PropertyDependencyAttribute(string typeFullName) : base(typeFullName)
-        {
-        }
+        public PropertyDependencyAttribute(string typeFullName) : base(typeFullName) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
-        public PropertyDependencyAttribute(Type type) : base(type)
-        {
-        }
+        public PropertyDependencyAttribute(Type type) : base(type) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
-        public PropertyDependencyAttribute()
-        {
-        }
+        public PropertyDependencyAttribute() { }
 
         /// <summary>
         /// Gets the runtime instance.

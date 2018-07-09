@@ -10,16 +10,6 @@ namespace Build
     public sealed class TypeBuilder : ITypeBuilder
     {
         /// <summary>
-        /// Dictionary for all pre-computed type invariants for type parameters
-        /// </summary>
-        readonly IDictionary<string, IRuntimeType> _internalMap = new Dictionary<string, IRuntimeType>();
-
-        /// <summary>
-        /// If set, container locks itself. All type invariants will be pre-computed for lookup table to speed up string search
-        /// </summary>
-        volatile bool _lock;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="TypeBuilder"/> class.
         /// </summary>
         /// <param name="options">Type builder options</param>
@@ -69,7 +59,10 @@ namespace Build
         /// <value>The filter</value>
         public ITypeFilter Filter { get; }
 
-        public bool IsLocked => _lock;
+        /// <summary>
+        /// Gets the status of type builder
+        /// </summary>
+        public bool IsLocked => Locked;
 
         /// <summary>
         /// Gets type parser
@@ -108,10 +101,20 @@ namespace Build
         public IEnumerable<string> RuntimeTypes => Types.Select(p => p.Value.Id);
 
         /// <summary>
+        /// Gets all type invariants
+        /// </summary>
+        public IDictionary<string, IRuntimeType> TypeInvariants { get; } = new Dictionary<string, IRuntimeType>();
+
+        /// <summary>
         /// Gets the types.
         /// </summary>
         /// <value>The types.</value>
         public IDictionary<string, IRuntimeType> Types { get; } = new Dictionary<string, IRuntimeType>();
+
+        /// <summary>
+        /// If locked returns true
+        /// </summary>
+        bool Locked { get; set; }
 
         /// <summary>
         /// True if automatic type instantiation for reference types option enabled (does not throws
@@ -183,18 +186,20 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        public object CreateInstance(string typeFullName, object[] args = null)
+        public object CreateInstance(string typeFullName, object[] args)
         {
             if (Types.ContainsKey(typeFullName))
                 return Types[typeFullName].CreateInstance(args);
+            var runtimeType = TypeInvariants.ContainsKey(typeFullName) ? TypeInvariants[typeFullName] : null;
             var runtimeTypes = GetRuntimeTypes(Parser, typeFullName, args);
-            if (runtimeTypes.Length == 1)
-                return runtimeTypes[0].CreateInstance(args);
+            runtimeType = runtimeTypes.Length == 1 ? runtimeTypes[0] : null;
+            if (runtimeType != null)
+                return runtimeType.CreateInstance(args);
             if (runtimeTypes.Length > 1)
             {
                 if (args != null && args.Length == 0)
                 {
-                    var runtimeType = runtimeTypes.FirstOrDefault((p) => p.Count == 0);
+                    runtimeType = runtimeTypes.FirstOrDefault((p) => p.Count == 0);
                     if (runtimeType != null)
                         return runtimeType.CreateInstance(args);
                 }
@@ -210,14 +215,15 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        public object GetInstance(string typeFullName, object[] args = null)
+        public object GetInstance(string typeFullName, object[] args)
         {
             if (Types.ContainsKey(typeFullName))
                 return Types[typeFullName].CreateInstance(args);
+            var runtimeType = TypeInvariants.ContainsKey(typeFullName) ? TypeInvariants[typeFullName] : null;
             var runtimeTypes = GetRuntimeTypes(Parser, typeFullName, args);
-            if (runtimeTypes.Length == 1)
+            runtimeType = runtimeTypes.Length == 1 ? runtimeTypes[0] : null;
+            if (runtimeType != null)
             {
-                var runtimeType = runtimeTypes[0];
                 if (runtimeType.GetInstance)
                     return runtimeType.CreateInstance();
                 return runtimeType.CreateInstance(GetRuntimeTypeParameters(runtimeType, args));
@@ -234,13 +240,17 @@ namespace Build
         /// </summary>
         public void Lock()
         {
-            if (!_lock)
+            if (!Locked)
             {
-                lock (this)
+                Locked = true;
+                foreach (var runtimeType in Types.Values)
                 {
-                    _lock = true;
-                    foreach (var runtimeType in Types.Values)
+                    if (runtimeType.RuntimeTypes.Any())
                     {
+                        foreach (var invariant in GetRuntimeTypes(runtimeType))
+                        {
+                            TypeInvariants.Add(invariant, runtimeType);
+                        }
                     }
                 }
             }
@@ -250,28 +260,25 @@ namespace Build
         /// Registers the type.
         /// </summary>
         /// <param name="type">The type.</param>
-        public void RegisterType(Type type, object[] args = null)
+        public void RegisterType(Type type, object[] args)
         {
-            if (!_lock)
+            if (!Locked)
             {
-                lock (this)
+                Visited.Add(type);
+                try
                 {
-                    Visited.Add(type);
-                    try
-                    {
-                        RegisterConstructor(type);
-                        if (args == null || args.Length == 0)
-                            return;
-                        RegisterConstructorParameters(type.ToString(), args);
-                    }
-                    catch (TypeRegistrationException ex)
-                    {
-                        throw new TypeRegistrationException(string.Format("{0} is not registered", type), ex);
-                    }
-                    finally
-                    {
-                        Visited.Remove(type);
-                    }
+                    RegisterConstructor(type);
+                    if (args == null || args.Length == 0)
+                        return;
+                    RegisterConstructorParameters(type.ToString(), args);
+                }
+                catch (TypeRegistrationException ex)
+                {
+                    throw new TypeRegistrationException(string.Format("{0} is not registered", type), ex);
+                }
+                finally
+                {
+                    Visited.Remove(type);
                 }
             }
         }
@@ -281,11 +288,10 @@ namespace Build
         /// </summary>
         public void Reset()
         {
-            lock (this)
-            {
-                Types.Clear();
-                _lock = false;
-            }
+            TypeInvariants.Clear();
+            Types.Clear();
+            Parser.Flush();
+            Locked = false;
         }
 
         /// <summary>
@@ -293,13 +299,9 @@ namespace Build
         /// </summary>
         public void Unlock()
         {
-            if (_lock)
+            if (Locked)
             {
-                lock (this)
-                {
-                    Parser.Flush();
-                    _lock = false;
-                }
+                Locked = false;
             }
         }
 
@@ -339,12 +341,29 @@ namespace Build
         {
             var constructor = dependencyObject.RuntimeType;
             string typeFullName = dependencyObject.TypeFullName;
-            var attributeType = Resolver.GetType(constructor.Type.Assembly, typeFullName);
-            if (attributeType != null && !Filter.CheckTypeFullName(attributeType, dependencyObject.RuntimeType.Type))
+            var attributeType = Resolver.GetType(constructor.ActivatorType.Assembly, typeFullName);
+            if (attributeType != null && !Filter.CheckTypeFullName(attributeType, dependencyObject.RuntimeType.ActivatorType))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", attributeType.Name, dependencyObject.RuntimeType.TypeFullName));
         }
 
-        object[] GetRuntimeTypeParameters(IRuntimeType runtimeType, object[] args = null)
+        IEnumerable<string[]> GetRuntimeTypeInvariants(IRuntimeType runtimeType, IRuntimeType head, IEnumerable<IRuntimeType> tail)
+        {
+            foreach (var h in head.Types)
+            {
+                if (tail.Any())
+                {
+                    foreach (var t in GetRuntimeTypeInvariants(runtimeType, tail.First(), tail.Skip(1)))
+                    {
+                        var result = new List<string> { h };
+                        result.AddRange(t);
+                        yield return result.ToArray();
+                    }
+                }
+                yield return new List<string> { h }.ToArray();
+            }
+        }
+
+        object[] GetRuntimeTypeParameters(IRuntimeType runtimeType, object[] args)
         {
             var parameters = new List<object>();
             foreach (var parameter in runtimeType.RuntimeTypes)
@@ -367,8 +386,15 @@ namespace Build
             return parameters.ToArray();
         }
 
-        IRuntimeType[] GetRuntimeTypes(ITypeParser typeParser, string typeFullName, object[] args = null) =>
+        IRuntimeType[] GetRuntimeTypes(ITypeParser typeParser, string typeFullName, object[] args) =>
             Types.Values.GetRuntimeTypes(typeParser, typeFullName, args);
+
+        IEnumerable<string> GetRuntimeTypes(IRuntimeType runtimeType)
+        {
+            var length = runtimeType.RuntimeTypes.Count();
+            foreach (var invariant in GetRuntimeTypeInvariants(runtimeType, runtimeType.RuntimeTypes.First(), runtimeType.RuntimeTypes.Skip(1)).Where((p) => p.Length == length))
+                yield return Format.GetConstructorWithParameters(runtimeType.TypeFullName, invariant);
+        }
 
         /// <summary>
         /// Registers the constructor.
@@ -422,16 +448,16 @@ namespace Build
         void RegisterConstructorParameter(ITypeDependencyObject dependencyObject, ITypeInjectionObject injectionObject)
         {
             var constructor = dependencyObject.RuntimeType;
-            var constructorType = constructor.Type;
+            var constructorType = constructor.ActivatorType;
             var parameter = injectionObject.RuntimeType;
-            var parameterType = parameter.Type;
+            var parameterType = parameter.ActivatorType;
             string typeFullName = injectionObject.TypeFullName;
             var attributeType = Resolver.GetType(constructorType.Assembly, typeFullName);
             CheckTypeFullName(parameterType, attributeType);
             CheckParametersFullName(constructorType.Name, parameterType.Name);
             var parameters = injectionObject.TypeParameters;
             var runtimeType = Types.Values.Count > 0 ? Parser.Find(typeFullName, parameters, Types.Values.ToArray()) : null;
-            if (runtimeType != null && runtimeType.Type == parameter.Type)
+            if (runtimeType != null && runtimeType.ActivatorType == parameter.ActivatorType)
                 injectionObject.SetRuntimeType(runtimeType);
             if (UseDefaultTypeResolution && runtimeType == null)
                 RegisterConstructorParameter(attributeType);
@@ -450,7 +476,7 @@ namespace Build
             {
                 if (Visited.Contains(type))
                     throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type));
-                RegisterType(type);
+                RegisterType(type, null);
             }
         }
 
@@ -461,7 +487,7 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        void RegisterConstructorParameters(string typeFullName, object[] args = null)
+        void RegisterConstructorParameters(string typeFullName, object[] args)
         {
             var parameterArgs = Format.GetParametersFullName(args);
             var runtimeType = Parser.FindRuntimeTypes(typeFullName, parameterArgs, Types.Values).FirstOrDefault();
@@ -482,7 +508,7 @@ namespace Build
             {
                 if (Visited.Contains(type))
                     throw new TypeRegistrationException(string.Format("{0} is not registered (circular references found)", type));
-                RegisterType(type);
+                RegisterType(type, null);
             }
         }
 
@@ -496,7 +522,7 @@ namespace Build
             {
                 var constructorFullName = dependencyObject.TypeFullNameWithParameters;
                 result.Attribute.RegisterReferenceAttrubute(constructorFullName, injectionObject.InjectionAttribute, UseDefaultTypeAttributeOverwrite);
-                constructor.AddConstructorParameter(CanRegister(result.Type), result);
+                constructor.AddConstructorParameter(CanRegister(result.ActivatorType), result);
             }
         }
     }

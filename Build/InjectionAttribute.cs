@@ -18,37 +18,31 @@ namespace Build
         /// </summary>
         /// <param name="typeFullName">The identifier.</param>
         /// <param name="args">The arguments.</param>
-        public InjectionAttribute(string typeFullName, params object[] args) : this(typeFullName) => _arguments = args;
+        public InjectionAttribute(string typeFullName, params object[] args) : base(typeFullName) => _arguments = args;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="args">The arguments.</param>
-        public InjectionAttribute(Type type, params object[] args) : this(type) => _arguments = args;
+        public InjectionAttribute(Type type, params object[] args) : base(type) => _arguments = args;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
         /// <param name="typeFullName"></param>
-        public InjectionAttribute(string typeFullName) : base(typeFullName)
-        {
-        }
+        public InjectionAttribute(string typeFullName) : base(typeFullName) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
-        public InjectionAttribute(Type type) : base(type)
-        {
-        }
+        public InjectionAttribute(Type type) : base(type) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
-        public InjectionAttribute()
-        {
-        }
+        public InjectionAttribute() { }
 
         /// <summary>
         /// Gets the full name of the parameters.

@@ -22,37 +22,31 @@ namespace Build.Tests.Classes
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="args">The arguments.</param>
-        public InterfaceInjectionAttribute(string id, params object[] args) : this(id) => _arguments = args;
+        public InterfaceInjectionAttribute(string id, params object[] args) : base(id) => _arguments = args;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="args">The arguments.</param>
-        public InterfaceInjectionAttribute(Type type, params object[] args) : this(type) => _arguments = args;
+        public InterfaceInjectionAttribute(Type type, params object[] args) : base(type) => _arguments = args;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
         /// <param name="typeFullName"></param>
-        public InterfaceInjectionAttribute(string typeFullName) : base(typeFullName)
-        {
-        }
+        public InterfaceInjectionAttribute(string typeFullName) : base(typeFullName) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
-        public InterfaceInjectionAttribute(Type type) : base(type)
-        {
-        }
+        public InterfaceInjectionAttribute(Type type) : base(type) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
-        public InterfaceInjectionAttribute()
-        {
-        }
+        public InterfaceInjectionAttribute() { }
 
         /// <summary>
         /// Gets the full name of the parameters.
