@@ -20,7 +20,7 @@ namespace Build.Tests.TestSet11
         {
             //TestSet11
             var container = new Container();
-            container.RegisterType(typeof(SqlDataRepository), null);
+            container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv2.Repository);
@@ -31,7 +31,7 @@ namespace Build.Tests.TestSet11
         {
             //TestSet11
             var container = new Container();
-            container.RegisterType(typeof(SqlDataRepository), null);
+            container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
@@ -43,7 +43,7 @@ namespace Build.Tests.TestSet11
         {
             //TestSet11
             var container = new Container();
-            container.RegisterType(typeof(SqlDataRepository), null);
+            container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
@@ -56,7 +56,7 @@ namespace Build.Tests.TestSet11
             //TestSet11
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
-            container.RegisterType(typeof(ServiceDataRepository), null);
+            container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv1);
         }
@@ -67,7 +67,7 @@ namespace Build.Tests.TestSet11
             //TestSet11
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
-            container.RegisterType(typeof(ServiceDataRepository), null);
+            container.RegisterType<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv2);
         }
@@ -78,7 +78,7 @@ namespace Build.Tests.TestSet11
             //TestSet11
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
-            container.RegisterType(typeof(ServiceDataRepository), null);
+            container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv1.Repository);
         }
@@ -89,7 +89,7 @@ namespace Build.Tests.TestSet11
             //TestSet11
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
-            container.RegisterType(typeof(ServiceDataRepository), null);
+            container.RegisterType<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv2.Repository);
         }
@@ -100,7 +100,7 @@ namespace Build.Tests.TestSet11
             //TestSet11
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
-            container.RegisterType(typeof(ServiceDataRepository), null);
+            container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotEqual(srv1, srv2);
@@ -112,7 +112,7 @@ namespace Build.Tests.TestSet11
             //TestSet11
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
-            container.RegisterType(typeof(ServiceDataRepository), null);
+            container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotEqual(srv1.Repository, srv2.Repository);
@@ -123,7 +123,7 @@ namespace Build.Tests.TestSet11
         {
             //TestSet11
             var container = new Container();
-            container.RegisterType(typeof(ServiceDataRepository), null);
+            container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotEqual(srv1, srv2);
@@ -145,7 +145,7 @@ namespace Build.Tests.TestSet11
         {
             //TestSet11
             var container = new Container();
-            container.RegisterType(typeof(ServiceDataRepository), null);
+            container.RegisterType<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv2);
         }
@@ -155,7 +155,7 @@ namespace Build.Tests.TestSet11
         {
             //TestSet11
             var container = new Container();
-            container.RegisterType(typeof(ServiceDataRepository), null);
+            container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv1.Repository);
         }
@@ -165,7 +165,7 @@ namespace Build.Tests.TestSet11
         {
             //TestSet11
             var container = new Container();
-            container.RegisterType(typeof(ServiceDataRepository), null);
+            container.RegisterType<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv2.Repository);
         }
@@ -175,7 +175,7 @@ namespace Build.Tests.TestSet11
         {
             //TestSet11
             var container = new Container();
-            container.RegisterType(typeof(ServiceDataRepository), null);
+            container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotEqual(srv1.Repository, srv2.Repository);
@@ -186,8 +186,8 @@ namespace Build.Tests.TestSet11
         {
             //TestSet11
             var container = new Container();
-            container.RegisterType(typeof(SqlDataRepository), null);
-            container.RegisterType(typeof(ServiceDataRepository), null);
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotEqual(srv1, srv2);
@@ -198,7 +198,7 @@ namespace Build.Tests.TestSet11
         {
             //TestSet11
             var container = new Container();
-            Assert.Throws<TypeRegistrationException>(() => container.RegisterType(typeof(IPersonRepository)));
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<IPersonRepository>());
         }
 
         [Fact]
@@ -206,7 +206,7 @@ namespace Build.Tests.TestSet11
         {
             //TestSet11
             var container = new Container();
-            Assert.Throws<TypeRegistrationException>(() => container.RegisterType(typeof(IPersonRepository), null));
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType<IPersonRepository>());
         }
 
         [Fact]
@@ -260,7 +260,7 @@ namespace Build.Tests.TestSet11
         {
             //TestSet11
             var container = new Container();
-            container.RegisterType(typeof(SqlDataRepository), null);
+            container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv1);
@@ -271,7 +271,7 @@ namespace Build.Tests.TestSet11
         {
             //TestSet11
             var container = new Container();
-            container.RegisterType(typeof(SqlDataRepository), null);
+            container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv2);
@@ -282,7 +282,7 @@ namespace Build.Tests.TestSet11
         {
             //TestSet11
             var container = new Container();
-            container.RegisterType(typeof(SqlDataRepository), null);
+            container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv1.Repository);

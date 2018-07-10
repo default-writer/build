@@ -204,6 +204,38 @@ namespace Build
         }
 
         /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        public object CreateInstance(string[] args = null)
+        {
+            if (ActivatorType.IsValueType)
+                return Activator.CreateValueInstance(this);
+            var parameters = ReadParameters();
+            var result = CreateReferenceType(args ?? new string[0]);
+            WriteParameters(parameters);
+            return result;
+        }
+
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        public object CreateInstance(Type[] args = null)
+        {
+            if (ActivatorType.IsValueType)
+                return Activator.CreateValueInstance(this);
+            var parameters = ReadParameters();
+            var result = CreateReferenceType(args ?? new Type[0]);
+            WriteParameters(parameters);
+            return result;
+        }
+
+        /// <summary>
         /// Evaluates the runtime instance.
         /// </summary>
         /// <param name="type">The type.</param>
@@ -264,7 +296,21 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
+        public bool RegisterConstructorParameters(Type[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && WriteParameters(args);
+
+        /// <summary>
+        /// Registers the specified arguments match search criteria.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
         public bool RegisterConstructorParameters(object[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && WriteParameters(args);
+
+        /// <summary>
+        /// Registers the specified arguments match search criteria.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        public bool RegisterConstructorParameters(string[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && WriteParameters(args);
 
         /// <summary>
         /// Registers type full name as assignable type
@@ -314,11 +360,73 @@ namespace Build
         }
 
         /// <summary>
+        /// Registers the parameters.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
+        public bool WriteParameters(string[] args)
+        {
+            for (int i = 0; i < args.Length; i++)
+            {
+                if (args[i] != null && !_runtimeTypes[i].ContainsTypeDefinition(Format.GetParameterFullName(args[i])))
+                    return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Registers the parameters.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
+        public bool WriteParameters(Type[] args)
+        {
+            for (int i = 0; i < args.Length; i++)
+            {
+                if (args[i] != null && !_runtimeTypes[i].ContainsTypeDefinition(Format.GetParameterFullName(args[i])))
+                    return false;
+            }
+            return true;
+        }
+
+        /// <summary>
         /// Creates reference type
         /// </summary>
         /// <param name="args">Parameter passed in to type activator</param>
         /// <returns>Returns instance of a reference type</returns>
         object CreateReferenceType(object[] args)
+        {
+            if (!IsInitialized)
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructor available)", TypeFullName));
+            if (!RegisterConstructorParameters(args))
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated (parameter type mismatch)", TypeFullName));
+            if (args == null || args.Length == 0)
+                return Evaluate(this, Attribute, null);
+            return Activator.CreateInstance(this);
+        }
+
+        /// <summary>
+        /// Creates reference type
+        /// </summary>
+        /// <param name="args">Parameter passed in to type activator</param>
+        /// <returns>Returns instance of a reference type</returns>
+        object CreateReferenceType(string[] args)
+        {
+            if (!IsInitialized)
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructor available)", TypeFullName));
+            if (!RegisterConstructorParameters(args))
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated (parameter type mismatch)", TypeFullName));
+            if (args == null || args.Length == 0)
+                return Evaluate(this, Attribute, null);
+            return Activator.CreateInstance(this);
+        }
+
+        /// <summary>
+        /// Creates reference type
+        /// </summary>
+        /// <param name="args">Parameter passed in to type activator</param>
+        /// <returns>Returns instance of a reference type</returns>
+        object CreateReferenceType(Type[] args)
         {
             if (!IsInitialized)
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructor available)", TypeFullName));

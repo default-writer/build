@@ -145,7 +145,7 @@ namespace Build.Tests.TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var instances = container.RuntimeAliasedTypes.Select(p => container.CreateInstance(p, null));
+            var instances = container.RuntimeAliasedTypes.Select(p => container.CreateInstance(p, (object[])null));
             Assert.Throws<TypeInstantiationException>(() => instances.All(p => p != null));
         }
 
@@ -156,7 +156,7 @@ namespace Build.Tests.TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var instances = container.RuntimeTypes.Select(p => container.CreateInstance(p, null));
+            var instances = container.RuntimeTypes.Select(p => container.CreateInstance(p, (object[])null));
             Assert.Throws<TypeInstantiationException>(() => instances.All(p => p != null));
         }
 
@@ -166,7 +166,7 @@ namespace Build.Tests.TestSet3
             //TestSet3
             var container = new Container();
             container.RegisterType<SqlDataRepository>(0);
-            container.RegisterType<ServiceDataRepository>(null);
+            container.RegisterType<ServiceDataRepository>();
             var instances = container.RuntimeNonAliasedTypes.Select(p => container.CreateInstance(p));
             Assert.True(instances.All(p => p != null));
         }
@@ -177,7 +177,7 @@ namespace Build.Tests.TestSet3
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
             container.RegisterType<SqlDataRepository>(0);
-            container.RegisterType<ServiceDataRepository>(null);
+            container.RegisterType<ServiceDataRepository>();
             var instances = container.RuntimeNonAliasedTypes.Select(p => container.GetInstance(p, null));
             Assert.True(instances.All(p => p != null));
         }
@@ -189,7 +189,7 @@ namespace Build.Tests.TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var instances = container.RuntimeAliasedTypes.Select(p => container.CreateInstance(p, null));
+            var instances = container.RuntimeAliasedTypes.Select(p => container.CreateInstance(p, (object[])null));
             Assert.True(instances.All(p => p != null));
         }
 
@@ -210,7 +210,7 @@ namespace Build.Tests.TestSet3
             //TestSet3
             var container = new Container();
             container.RegisterType<SqlDataRepository>(0);
-            container.RegisterType<ServiceDataRepository>(null);
+            container.RegisterType<ServiceDataRepository>();
             var instances = container.RuntimeNonAliasedTypes.Select(p => container.GetInstance(p));
             Assert.True(instances.All(p => p != null));
         }
@@ -405,7 +405,7 @@ namespace Build.Tests.TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var srv1 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)", null);
+            var srv1 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)", (object[])null);
             var srv2 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)", (IPersonRepository)null);
             Assert.False(srv2.Repository != null && srv1.Repository == srv2.Repository);
         }

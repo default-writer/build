@@ -11,7 +11,7 @@ namespace Build.Tests.Classes
         /// Cache for RuntimeTtype.
         /// </summary>
         /// <value>The cache.</value>
-        IDictionary<string, IRuntimeType> Cache { get; } = new Dictionary<string, IRuntimeType>();
+        IDictionary<IRuntimeType, string> Cache { get; } = new Dictionary<IRuntimeType, string>();
 
         /// <summary>
         /// Finds the specified identifier.
@@ -22,17 +22,15 @@ namespace Build.Tests.Classes
         /// <returns></returns>
         public IEnumerable<IRuntimeType> FindRuntimeTypes(string id, IEnumerable<string> args, IEnumerable<IRuntimeType> types)
         {
+            id = Regex.Replace(id, @"\s", "");
             IRuntimeType CacheRuntimeType(IRuntimeType runtimeType)
             {
-                if (runtimeType != null)
-                {
-                    if (!Cache.ContainsKey(id))
-                        Cache.Add(id, runtimeType);
-                    return Cache[id];
-                }
+                if (!Cache.ContainsKey(runtimeType))
+                    Cache.Add(runtimeType, id);
+                Cache[runtimeType] = id;
                 return runtimeType;
             }
-            var cached = Cache.Where((p) => p.Key == id).Select((p) => p.Value);
+            var cached = Cache.Where((p) => p.Value == id).Select((p) => p.Key);
             var cachedCount = cached.Count();
             if (cachedCount > 0)
                 return cached;

@@ -246,7 +246,7 @@ namespace Build.Tests.TestSet1
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             container.RegisterType<PrivateSqlDataRepository>();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet1.PrivateSqlDataRepository", null));
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet1.PrivateSqlDataRepository", (object[])null));
         }
 
         [Fact]
@@ -257,7 +257,7 @@ namespace Build.Tests.TestSet1
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             container.RegisterType<PrivateSqlDataRepository>();
-            var srv1 = container.CreateInstance("Build.Tests.TestSet1.PrivateSqlDataRepository", null);
+            var srv1 = container.CreateInstance("Build.Tests.TestSet1.PrivateSqlDataRepository", (object[])null);
             Assert.NotNull(srv1);
         }
 
@@ -269,7 +269,7 @@ namespace Build.Tests.TestSet1
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             container.RegisterType<PrivateSqlDataRepository>();
-            Assert.NotNull(container.CreateInstance("Build.Tests.TestSet1.PrivateSqlDataRepository", null));
+            Assert.NotNull(container.CreateInstance("Build.Tests.TestSet1.PrivateSqlDataRepository", (object[])null));
         }
 
         [Fact]

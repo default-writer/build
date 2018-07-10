@@ -41,6 +41,13 @@ namespace Build
             typeParser.FindRuntimeTypes(typeFullName, Format.GetParametersFullName(args), runtimeTypes.Where((p) => p.Attribute is IDependencyAttribute)).ToArray();
 
         /// <summary>
+        /// Finds all dependency runtime types (instantiable types) which matches the criteria
+        /// </summary>
+        /// <returns></returns>
+        public static IRuntimeType[] GetRuntimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, ITypeParser typeParser, string typeFullName, string[] args) =>
+            typeParser.FindRuntimeTypes(typeFullName, args, runtimeTypes.Where((p) => p.Attribute is IDependencyAttribute)).ToArray();
+
+        /// <summary>
         /// Matches the arguments.
         /// </summary>
         /// <param name="arguments">The arguments.</param>

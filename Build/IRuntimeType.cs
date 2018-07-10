@@ -94,6 +94,22 @@ namespace Build
         object CreateInstance(object[] args = null);
 
         /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        object CreateInstance(string[] args = null);
+
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        object CreateInstance(Type[] args = null);
+
+        /// <summary>
         /// Evaluates the runtime instance.
         /// </summary>
         /// <param name="type">The type.</param>
@@ -123,6 +139,20 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
         bool RegisterConstructorParameters(object[] args);
+
+        /// <summary>
+        /// Registers the parameters.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
+        bool RegisterConstructorParameters(Type[] args);
+
+        /// <summary>
+        /// Registers the parameters.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
+        bool RegisterConstructorParameters(string[] args);
 
         /// <summary>
         /// Registers type full name as assignable type

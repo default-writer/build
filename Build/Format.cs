@@ -25,11 +25,39 @@ namespace Build
         public static string GetParameterFullName(object o) => (o ?? typeof(object)).GetType().ToString();
 
         /// <summary>
+        /// Gets object full name
+        /// </summary>
+        /// <param name="o"></param>
+        /// <returns></returns>
+        public static string GetParameterFullName(string o) => o ?? "System.Object";
+
+        /// <summary>
+        /// Gets object full name
+        /// </summary>
+        /// <param name="o"></param>
+        /// <returns></returns>
+        public static string GetParameterFullName(Type o) => (o ?? typeof(object)).ToString();
+
+        /// <summary>
         /// Gets the full name of the parameters.
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         public static IEnumerable<string> GetParametersFullName(object[] args) => args == null || args.Length == 0 ? new string[0] : args.Select(GetParameterFullName);
+
+        /// <summary>
+        /// Gets the full name of the parameters.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        public static IEnumerable<string> GetParametersFullName(string[] args) => args == null || args.Length == 0 ? new string[0] : args.Select(GetParameterFullName);
+
+        /// <summary>
+        /// Gets the full name of the parameters.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        public static IEnumerable<string> GetParametersFullName(Type[] args) => args == null || args.Length == 0 ? new string[0] : args.Select(GetParameterFullName);
 
         /// <summary>
         /// Converts runtime type to corresponding parameter string value
