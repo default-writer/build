@@ -232,6 +232,13 @@ namespace Build
         /// Registers identified type T
         /// </summary>
         /// <typeparam name="T">Type identifier</typeparam>
+        /// <param name="args">Constructor arguments</param>
+        public void RegisterType<T>(params Type[] args) => RegisterType(typeof(T), args);
+
+        /// <summary>
+        /// Registers identified type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
         public void RegisterType<T>() => RegisterType(typeof(T), new object[0]);
 
         /// <summary>
@@ -278,87 +285,6 @@ namespace Build
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not an allowed type)", type));
             TypeBuilder.RegisterTypeWithParameters(type, args);
         }
-
-        /// <summary>
-        /// Registers identified type T
-        /// </summary>
-        /// <typeparam name="T">Type identifier</typeparam>
-        /// <param name="args">Constructor arguments</param>
-        public void RegisterType<T>(params Type[] args) => RegisterTypeWithParameters(typeof(T), args);
-
-        /// <summary>
-        /// Registers type
-        /// </summary>
-        /// <param name="type">Type identifier</param>
-        public void RegisterTypeWithParameter(Type type, params string[] args)
-        {
-            if (type == null)
-                throw new TypeRegistrationException(string.Format("{0} is null (type name required)", nameof(type)));
-            if (TypeBuilder.IsLocked)
-                throw new TypeRegistrationException(string.Format("{0} is not registered (container locked)", type));
-            if (!TypeBuilder.CanRegister(type))
-                throw new TypeRegistrationException(string.Format("{0} is not registered (not an allowed type)", type));
-            TypeBuilder.RegisterTypeWithParameters(type, args);
-        }
-
-        /// <summary>
-        /// Registers type
-        /// </summary>
-        /// <param name="type">Type identifier</param>
-        public void RegisterTypeWithParameters(Type type, params object[] args)
-        {
-            if (type == null)
-                throw new TypeRegistrationException(string.Format("{0} is null (type name required)", nameof(type)));
-            if (TypeBuilder.IsLocked)
-                throw new TypeRegistrationException(string.Format("{0} is not registered (container locked)", type));
-            if (!TypeBuilder.CanRegister(type))
-                throw new TypeRegistrationException(string.Format("{0} is not registered (not an allowed type)", type));
-            TypeBuilder.RegisterTypeWithParameters(type, args);
-        }
-
-        /// <summary>
-        /// Registers type
-        /// </summary>
-        /// <param name="type">Type identifier</param>
-        public void RegisterTypeWithParameters(Type type, params Type[] args)
-        {
-            if (type == null)
-                throw new TypeRegistrationException(string.Format("{0} is null (type name required)", nameof(type)));
-            if (TypeBuilder.IsLocked)
-                throw new TypeRegistrationException(string.Format("{0} is not registered (container locked)", type));
-            if (!TypeBuilder.CanRegister(type))
-                throw new TypeRegistrationException(string.Format("{0} is not registered (not an allowed type)", type));
-            TypeBuilder.RegisterTypeWithParameters(type, args);
-        }
-
-        /// <summary>
-        /// Registers type
-        /// </summary>
-        /// <param name="type">Type identifier</param>
-        public void RegisterTypeWithParameters(Type type, params string[] args)
-        {
-            if (type == null)
-                throw new TypeRegistrationException(string.Format("{0} is null (type name required)", nameof(type)));
-            if (TypeBuilder.IsLocked)
-                throw new TypeRegistrationException(string.Format("{0} is not registered (container locked)", type));
-            if (!TypeBuilder.CanRegister(type))
-                throw new TypeRegistrationException(string.Format("{0} is not registered (not an allowed type)", type));
-            TypeBuilder.RegisterTypeWithParameters(type, args);
-        }
-
-        /// <summary>
-        /// Registers identified type T
-        /// </summary>
-        /// <typeparam name="T">Type identifier</typeparam>
-        /// <param name="args">Constructor arguments</param>
-        public void RegisterTypeWithParameters<T>(params string[] args) => RegisterTypeWithParameters(typeof(T), args);
-
-        /// <summary>
-        /// Registers identified type T
-        /// </summary>
-        /// <typeparam name="T">Type identifier</typeparam>
-        /// <param name="args">Constructor arguments</param>
-        public void RegisterTypeWithParameters<T>(params object[] args) => RegisterTypeWithParameters(typeof(T), args);
 
         /// <summary>
         /// Resets information about type registration. Also, resets freezed containers

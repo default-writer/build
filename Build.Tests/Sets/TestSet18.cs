@@ -31,6 +31,20 @@ namespace Build.Tests.TestSet18
         public object Func { get; }
     }
 
+    public class Factory4<T> : IFactory<T>
+    {
+        public Factory4()
+        {
+        }
+
+        [Dependency(typeof(Func<>))]
+        public Factory4(Func<T> func) => Func = func;
+
+        public Func<T> Func { get; }
+
+        public T GetInstance() => Func();
+    }
+
     public class LazyFactory<T> : IFactory<T>
     {
         public LazyFactory(Func<T> func) => Func = func;

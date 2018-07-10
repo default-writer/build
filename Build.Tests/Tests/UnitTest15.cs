@@ -277,7 +277,6 @@ namespace Build.Tests.TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            //container.RegisterType<WebServiceDataRepository>();
             container.RegisterType<WebServiceDataRepository>("Build.Tests.TestSet15.SqlDataRepository");
             container.Lock();
             var sql = (WebServiceDataRepository)container.GetInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)");
