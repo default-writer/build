@@ -195,8 +195,8 @@ namespace Build
         public object CreateInstance()
         {
             var parameters = ReadParameters();
-            var result = CreateReferenceType(new object[0]);
-            TryWriteParameters(parameters);
+            var result = CreateReferenceType(ObjectArray.Empty);
+            WriteParameters(parameters);
             return result;
         }
 
@@ -211,8 +211,8 @@ namespace Build
             if (ActivatorType.IsValueType && ActivatorType.IsPrimitive)
                 return Value;
             var parameters = ReadParameters();
-            var result = CreateReferenceType(args ?? new object[0]);
-            TryWriteParameters(parameters);
+            var result = CreateReferenceType(args ?? ObjectArray.Empty);
+            WriteParameters(parameters);
             return result;
         }
 
@@ -224,11 +224,9 @@ namespace Build
         /// <exception cref="TypeInstantiationException"></exception>
         public object CreateInstance(string[] args)
         {
-            //if (ActivatorType.IsValueType)
-            //    return Activator.CreateValueInstance(this);
             var parameters = ReadParameters();
-            var result = CreateReferenceType(args ?? new string[0]);
-            TryWriteParameters(parameters);
+            var result = CreateReferenceType(args ?? StringArray.Empty);
+            WriteParameters(parameters);
             return result;
         }
 
@@ -240,11 +238,9 @@ namespace Build
         /// <exception cref="TypeInstantiationException"></exception>
         public object CreateInstance(Type[] args)
         {
-            //if (ActivatorType.IsValueType)
-            //    return Activator.CreateValueInstance(this);
             var parameters = ReadParameters();
-            var result = CreateReferenceType(args ?? new Type[0]);
-            TryWriteParameters(parameters);
+            var result = CreateReferenceType(args ?? TypeArray.Empty);
+            WriteParameters(parameters);
             return result;
         }
 
@@ -328,7 +324,7 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public bool RegisterConstructorParameters(object[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && TryWriteParameters(args);
+        public bool RegisterConstructorParameters(object[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && WriteParameters(args);
 
         /// <summary>
         /// Registers the specified arguments match search criteria.
@@ -373,30 +369,11 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
-        public bool TryWriteParameters(object[] args)
-        {
-            for (int i = 0; i < args.Length; i++)
-            {
-                if (args[i] != null && !_runtimeTypes[i].ActivatorType.IsAssignableFrom(Format.GetParameterType(args[i])))
-                    return false;
-                _runtimeTypes[i].SetValue(Attribute, Id, args[i]);
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// Registers the parameters.
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
         public bool TryWriteParameters(Type[] args)
         {
             for (int i = 0; i < args.Length; i++)
-            {
                 if (args[i] != null && !_runtimeTypes[i].ContainsTypeDefinition(args[i].ToString()))
                     return false;
-                //_runtimeTypes[i].SetValue(Attribute, Id, args[i]);
-            }
             return true;
         }
 
@@ -408,10 +385,23 @@ namespace Build
         public bool TryWriteParameters(string[] args)
         {
             for (int i = 0; i < args.Length; i++)
-            {
                 if (args[i] != null && !_runtimeTypes[i].ContainsTypeDefinition(args[i]))
                     return false;
-                //_runtimeTypes[i].SetValue(Attribute, Id, args[i]);
+            return true;
+        }
+
+        /// <summary>
+        /// Registers the parameters.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
+        public bool WriteParameters(object[] args)
+        {
+            for (int i = 0; i < args.Length; i++)
+            {
+                if (args[i] != null && !_runtimeTypes[i].ActivatorType.IsAssignableFrom(Format.GetParameterType(args[i])))
+                    return false;
+                _runtimeTypes[i].SetValue(Attribute, Id, args[i]);
             }
             return true;
         }

@@ -84,7 +84,7 @@ namespace Build
         /// </summary>
         /// <param name="typeFullName">Type identifier with/without parameters 'id(args)' or 'id'</param>
         /// <returns>Returns instance of identified type</returns>
-        public object CreateInstance(string typeFullName) => TypeBuilder.CreateInstance(TypeBuilder.GetTypeFullName(typeFullName), new object[0]);
+        public object CreateInstance(string typeFullName) => TypeBuilder.CreateInstance(TypeBuilder.GetTypeFullName(typeFullName), ObjectArray.Empty);
 
         /// <summary>
         /// Creates an object from identifed type with parameters
@@ -107,7 +107,7 @@ namespace Build
         /// </summary>
         /// <param name="type">Type identifier</param>
         /// <returns>Returns instance of identified type</returns>
-        public object CreateInstance(Type type) => TypeBuilder.CreateInstance(TypeBuilder.GetTypeFullName(type), new Type[0]);
+        public object CreateInstance(Type type) => TypeBuilder.CreateInstance(TypeBuilder.GetTypeFullName(type), TypeArray.Empty);
 
         /// <summary>
         /// Creates an object
@@ -161,7 +161,7 @@ namespace Build
         /// </summary>
         /// <param name="typeFullName">Type identifier</param>
         /// <returns>Returns instance of identified type</returns>
-        public object GetInstance(string typeFullName) => TypeBuilder.GetInstance(TypeBuilder.GetTypeFullName(typeFullName), new object[0]);
+        public object GetInstance(string typeFullName) => TypeBuilder.GetInstance(TypeBuilder.GetTypeFullName(typeFullName), ObjectArray.Empty);
 
         /// <summary>
         /// Creates an object
@@ -192,7 +192,7 @@ namespace Build
         /// </summary>
         /// <param name="type">Type identifier</param>
         /// <returns>Returns instance of identified type</returns>
-        public object GetInstance(Type type) => TypeBuilder.GetInstance(TypeBuilder.GetTypeFullName(type), new object[0]);
+        public object GetInstance(Type type) => TypeBuilder.GetInstance(TypeBuilder.GetTypeFullName(type), ObjectArray.Empty);
 
         /// <summary>
         /// Creates an object
@@ -224,7 +224,7 @@ namespace Build
         {
             if (TypeBuilder.IsLocked)
                 throw new TypeRegistrationException(string.Format("{0} is not registered (container locked)", nameof(assembly)));
-            var exclusionList = new List<string>(exclusionTypes ?? new string[0]) { "<PrivateImplementationDetails>" };
+            var exclusionList = new List<string>(exclusionTypes ?? StringArray.Empty) { "<PrivateImplementationDetails>" };
             bool match;
             foreach (var type in assembly.GetTypes())
             {
@@ -270,7 +270,7 @@ namespace Build
         /// Registers identified type T
         /// </summary>
         /// <typeparam name="T">Type identifier</typeparam>
-        public void RegisterType<T>() => RegisterType(typeof(T), new object[0]);
+        public void RegisterType<T>() => RegisterType(typeof(T), ObjectArray.Empty);
 
         /// <summary>
         /// Registers type
@@ -299,7 +299,7 @@ namespace Build
                 throw new TypeRegistrationException(string.Format("{0} is null (type name required)", nameof(typeId)));
             if (TypeBuilder.IsLocked)
                 throw new TypeRegistrationException(string.Format("{0} is not registered (container locked)", typeId));
-            var runtimeTypes = TypeBuilder.Parser.FindRuntimeTypes(typeId, new string[0], TypeBuilder.Types.Values).ToArray();
+            var runtimeTypes = TypeBuilder.Parser.FindRuntimeTypes(typeId, StringArray.Empty, TypeBuilder.Types.Values).ToArray();
             if (runtimeTypes.Length == 1)
             {
                 var runtimeType = runtimeTypes[0];
@@ -307,14 +307,6 @@ namespace Build
                 runtimeType.RegisterConstructorParameters(args.Length == 0 ? new object[runtimeType.Count] : args);
                 return;
             }
-            runtimeTypes = TypeBuilder.Parser.FindRuntimeTypes(typeId, Format.GetParametersFullName(args), TypeBuilder.Types.Values).ToArray();
-            //if (runtimeTypes.Length == 1)
-            //{
-            //    var runtimeType = runtimeTypes[0];
-            //    runtimeType.SetRuntimeInstance(RuntimeInstance.GetInstance);
-            //    runtimeType.RegisterConstructorParameters(args);
-            //    return;
-            //}
             throw new TypeRegistrationException(string.Format("{0} is not registered (parameter type mismatch)", typeId));
         }
 

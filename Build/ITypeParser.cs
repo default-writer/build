@@ -9,6 +9,11 @@ namespace Build
     public interface ITypeParser
     {
         /// <summary>
+        /// Clears all precomputed registered type invariants
+        /// </summary>
+        void Clear();
+
+        /// <summary>
         /// Finds all matches for the specified type.
         /// </summary>
         /// <param name="typeId">The id.</param>
@@ -16,10 +21,5 @@ namespace Build
         /// <param name="types">The types.</param>
         /// <returns>Returns runtime type instances</returns>
         IEnumerable<IRuntimeType> FindRuntimeTypes(string typeId, IEnumerable<string> args, IEnumerable<IRuntimeType> types);
-
-        /// <summary>
-        /// Flushes all pre - computed registered type invariants
-        /// </summary>
-        void Flush();
     }
 }

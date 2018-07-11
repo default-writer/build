@@ -19,6 +19,11 @@ namespace Build
         IDictionary<IRuntimeType, string> Cache { get; } = new Dictionary<IRuntimeType, string>();
 
         /// <summary>
+        /// Clears all precomputed registered type invariants
+        /// </summary>
+        public void Clear() => Cache.Clear();
+
+        /// <summary>
         /// Finds the specified identifier.
         /// </summary>
         /// <param name="typeId">The identifier.</param>
@@ -43,17 +48,11 @@ namespace Build
                 {
                     if (!Cache.ContainsKey(runtimeType))
                         Cache.Add(runtimeType, constructor);
-                    Cache[runtimeType] = constructor;
                     return runtimeType;
                 }
                 return types.Where((p) => p.MatchParameters(name, args, pars)).Select(CacheRuntimeType);
             }
             return new IRuntimeType[0];
         }
-
-        /// <summary>
-        /// Flushes all pre - computed registered type invariants
-        /// </summary>
-        public void Flush() => Cache.Clear();
     }
 }

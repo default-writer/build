@@ -14,6 +14,11 @@ namespace Build.Tests.Classes
         IDictionary<IRuntimeType, string> Cache { get; } = new Dictionary<IRuntimeType, string>();
 
         /// <summary>
+        /// Clears all precomputed registered type invariants
+        /// </summary>
+        public void Clear() => Cache.Clear();
+
+        /// <summary>
         /// Finds the specified identifier.
         /// </summary>
         /// <param name="typeId">The identifier.</param>
@@ -27,7 +32,6 @@ namespace Build.Tests.Classes
             {
                 if (!Cache.ContainsKey(runtimeType))
                     Cache.Add(runtimeType, id);
-                Cache[runtimeType] = id;
                 return runtimeType;
             }
             var cached = Cache.Where((p) => p.Value == id).Select((p) => p.Key);
@@ -44,10 +48,5 @@ namespace Build.Tests.Classes
             }
             return new IRuntimeType[0];
         }
-
-        /// <summary>
-        /// Flushes all pre - computed registered type invariants
-        /// </summary>
-        public void Flush() => Cache.Clear();
     }
 }

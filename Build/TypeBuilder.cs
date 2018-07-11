@@ -303,12 +303,6 @@ namespace Build
             runtimeType = runtimeTypes.Length == 1 ? runtimeTypes[0] : null;
             if (runtimeType != null)
                 return runtimeType.CreateInstance(args);
-            //if (UseDefaultConstructor || args != null && args.Length == 0)
-            //{
-            //    runtimeType = UseDefaultConstructor ? runtimeTypes.FirstOrDefault((p) => p.Count == 0) : null;
-            //    if (runtimeType != null)
-            //        return runtimeType.CreateInstance(args);
-            //}
             throw new TypeInstantiationException(string.Format("{0} is not instantiated (no matching constructors available)", typeFullName));
         }
 
@@ -332,12 +326,6 @@ namespace Build
             runtimeType = runtimeTypes.Length == 1 ? runtimeTypes[0] : null;
             if (runtimeType != null)
                 return runtimeType.CreateInstance(args);
-            //if (UseDefaultConstructor || args != null && args.Length == 0)
-            //{
-            //    runtimeType = UseDefaultConstructor ? runtimeTypes.FirstOrDefault((p) => p.Count == 0) : null;
-            //    if (runtimeType != null)
-            //        return runtimeType.CreateInstance(args);
-            //}
             throw new TypeInstantiationException(string.Format("{0} is not instantiated (no matching constructors available)", typeFullName));
         }
 
@@ -388,12 +376,6 @@ namespace Build
             runtimeType = runtimeTypes.Length == 1 ? runtimeTypes[0] : null;
             if (runtimeType != null)
                 return GetInstance(args, runtimeType);
-            //if (UseDefaultConstructor || args != null && args.Length == 0)
-            //{
-            //    runtimeType = UseDefaultConstructor ? runtimeTypes.FirstOrDefault((p) => p.Count == 0) : null;
-            //    if (runtimeType != null)
-            //        return GetInstance(args, runtimeType);
-            //}
             throw new TypeInstantiationException(string.Format("{0} is not instantiated (no matching constructors available)", typeFullName));
         }
 
@@ -417,12 +399,6 @@ namespace Build
             runtimeType = runtimeTypes.Length == 1 ? runtimeTypes[0] : null;
             if (runtimeType != null)
                 return GetInstance(args, runtimeType);
-            //if (UseDefaultConstructor || args != null && args.Length == 0)
-            //{
-            //    runtimeType = UseDefaultConstructor ? runtimeTypes.FirstOrDefault((p) => p.Count == 0) : null;
-            //    if (runtimeType != null)
-            //        return GetInstance(args, runtimeType);
-            //}
             throw new TypeInstantiationException(string.Format("{0} is not instantiated (no matching constructors available)", typeFullName));
         }
 
@@ -446,12 +422,6 @@ namespace Build
             runtimeType = runtimeTypes.Length == 1 ? runtimeTypes[0] : null;
             if (runtimeType != null)
                 return GetInstance(args, runtimeType);
-            //if (UseDefaultConstructor || args != null && args.Length == 0)
-            //{
-            //    runtimeType = UseDefaultConstructor ? runtimeTypes.FirstOrDefault((p) => p.Count == 0) : null;
-            //    if (runtimeType != null)
-            //        return GetInstance(args, runtimeType);
-            //}
             throw new TypeInstantiationException(string.Format("{0} is not instantiated (no matching constructors available)", typeFullName));
         }
 
@@ -599,7 +569,7 @@ namespace Build
         {
             TypeInvariants.Clear();
             Types.Clear();
-            Parser.Flush();
+            Parser.Clear();
         }
 
         /// <summary>
@@ -791,8 +761,6 @@ namespace Build
         {
             if (!type.IsValueType || UseValueTypes)
             {
-                //if (!CanRegister(type))
-                //    throw new TypeRegistrationException(string.Format("{0} is not registered (not an allowed type)", type));
                 var constructorEnumerator = Constructor.GetDependencyObjects(Activator, type, UseDefaultTypeInstantiation).GetEnumerator();
                 if (!constructorEnumerator.MoveNext())
                     throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", type));
@@ -929,9 +897,7 @@ namespace Build
         /// <exception cref="TypeInstantiationException"></exception>
         void RegisterPrimitiveType(Type type, object value)
         {
-            var runtimeType = Parser.FindRuntimeTypes(type.ToString(), new string[0], Types.Values).FirstOrDefault();
-            //if (runtimeType == null)
-            //    throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", type));
+            var runtimeType = Parser.FindRuntimeTypes(type.ToString(), StringArray.Empty, Types.Values).FirstOrDefault();
             runtimeType.SetRuntimeInstance(RuntimeInstance.GetInstance);
             runtimeType.SetValue(runtimeType.Attribute, runtimeType.Id, value);
         }

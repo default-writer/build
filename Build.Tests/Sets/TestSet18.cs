@@ -19,10 +19,7 @@ namespace Build.Tests.TestSet18
 
         public static bool operator !=(ValueStruct<T> left, ValueStruct<T> right) => !(left == right);
 
-        public static bool operator ==(ValueStruct<T> left, ValueStruct<T> right)
-        {
-            return left.Equals(right);
-        }
+        public static bool operator ==(ValueStruct<T> left, ValueStruct<T> right) => left.Equals(right);
 
         public override bool Equals(object obj) => base.Equals(obj);
 
