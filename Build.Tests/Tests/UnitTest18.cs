@@ -222,7 +222,7 @@ namespace Build.Tests.UnitTests18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
-            Assert.NotNull(container.GetInstance(typeof(IntPtrFactory).ToString(), StringArray.Empty));
+            Assert.NotNull(container.GetInstance(typeof(IntPtrFactory).ToString(), StringArray.Empty()));
         }
 
         [Fact]
@@ -463,7 +463,7 @@ namespace Build.Tests.UnitTests18
             container.RegisterType<IntPtrFactory>();
             container.RegisterType(typeof(Factory2<EmptyClass>), func);
             container.RegisterType<Factory5<EmptyClass>>();
-            var value = (Factory2<EmptyClass>)container.GetInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")", StringArray.Empty);
+            var value = (Factory2<EmptyClass>)container.GetInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")", StringArray.Empty());
             var constructorName = typeof(Factory5<EmptyClass>) + "(" + typeof(IFactory<EmptyClass>) + ")";
             container.RegisterType(constructorName, value);
             Assert.NotNull(value);
@@ -479,7 +479,7 @@ namespace Build.Tests.UnitTests18
             container.RegisterType(typeof(Factory2<EmptyClass>), func);
             container.RegisterType<Factory5<EmptyClass>>();
             container.Lock();
-            var value = (Factory2<EmptyClass>)container.GetInstance(typeof(Factory2<EmptyClass>), StringArray.Empty);
+            var value = (Factory2<EmptyClass>)container.GetInstance(typeof(Factory2<EmptyClass>), StringArray.Empty());
             Assert.NotNull(value);
         }
 
@@ -492,7 +492,7 @@ namespace Build.Tests.UnitTests18
             container.RegisterType<IntPtrFactory>();
             container.RegisterType(typeof(Factory2<EmptyClass>), func);
             container.RegisterType<Factory5<EmptyClass>>();
-            var value = (Factory2<EmptyClass>)container.CreateInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")", StringArray.Empty);
+            var value = (Factory2<EmptyClass>)container.CreateInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")", StringArray.Empty());
             var constructorName = typeof(Factory5<EmptyClass>) + "(" + typeof(IFactory<EmptyClass>) + ")";
             container.RegisterType(constructorName, value);
             Assert.NotNull(value);
@@ -507,7 +507,7 @@ namespace Build.Tests.UnitTests18
             container.RegisterType<IntPtrFactory>();
             container.RegisterType(typeof(Factory2<EmptyClass>), func);
             container.RegisterType<Factory5<EmptyClass>>();
-            var value = (Factory2<EmptyClass>)container.CreateInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")", TypeArray.Empty);
+            var value = (Factory2<EmptyClass>)container.CreateInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")", TypeArray.Empty());
             var constructorName = typeof(Factory5<EmptyClass>) + "(" + typeof(IFactory<EmptyClass>) + ")";
             container.RegisterType(constructorName, value);
             Assert.NotNull(value);
@@ -560,7 +560,7 @@ namespace Build.Tests.UnitTests18
             container.RegisterType<IntPtrFactory>();
             container.RegisterType(typeof(Factory2<EmptyClass>), func);
             container.RegisterType<Factory5<EmptyClass>>();
-            var value = (Factory2<EmptyClass>)container.GetInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")", TypeArray.Empty);
+            var value = (Factory2<EmptyClass>)container.GetInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")", TypeArray.Empty());
             var constructorName = typeof(Factory5<EmptyClass>) + "(" + typeof(IFactory<EmptyClass>) + ")";
             container.RegisterType(constructorName, value);
             Assert.NotNull(value);
@@ -585,7 +585,7 @@ namespace Build.Tests.UnitTests18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
-            Assert.NotNull(container.GetInstance(typeof(IntPtrFactory).ToString(), TypeArray.Empty));
+            Assert.NotNull(container.GetInstance(typeof(IntPtrFactory).ToString(), TypeArray.Empty()));
         }
 
         [Fact]

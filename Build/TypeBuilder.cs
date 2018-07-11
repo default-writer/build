@@ -897,7 +897,7 @@ namespace Build
         /// <exception cref="TypeInstantiationException"></exception>
         void RegisterPrimitiveType(Type type, object value)
         {
-            var runtimeType = Parser.FindRuntimeTypes(type.ToString(), StringArray.Empty, Types.Values).FirstOrDefault();
+            var runtimeType = Parser.FindRuntimeTypes(type.ToString(), StringArray.Empty(), Types.Values).FirstOrDefault();
             runtimeType.SetRuntimeInstance(RuntimeInstance.GetInstance);
             runtimeType.SetValue(runtimeType.Attribute, runtimeType.Id, value);
         }

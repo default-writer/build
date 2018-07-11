@@ -43,28 +43,28 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public static IEnumerable<string> GetParametersFullName(object[] args) => args == null || args.Length == 0 ? StringArray.Empty : args.Select(GetParameterFullName);
+        public static IEnumerable<string> GetParametersFullName(object[] args) => args == null || args.Length == 0 ? StringArray.Empty() : args.Select(GetParameterFullName);
 
         /// <summary>
         /// Gets the full name of the parameters.
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public static IEnumerable<string> GetParametersFullName(string[] args) => args == null || args.Length == 0 ? StringArray.Empty : args.Select(GetParameterFullName);
+        public static IEnumerable<string> GetParametersFullName(string[] args) => args == null || args.Length == 0 ? StringArray.Empty() : args.Select(GetParameterFullName);
 
         /// <summary>
         /// Gets the full name of the parameters.
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public static IEnumerable<string> GetParametersFullName(Type[] args) => args == null || args.Length == 0 ? StringArray.Empty : args.Select(GetParameterFullName);
+        public static IEnumerable<string> GetParametersFullName(Type[] args) => args == null || args.Length == 0 ? StringArray.Empty() : args.Select(GetParameterFullName);
 
         /// <summary>
         /// Gets the type of the parameters.
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public static IEnumerable<Type> GetParametersType(object[] args) => args == null || args.Length == 0 ? TypeArray.Empty : args.Select(GetParameterType);
+        public static IEnumerable<Type> GetParametersType(object[] args) => args == null || args.Length == 0 ? TypeArray.Empty() : args.Select(GetParameterType);
 
         /// <summary>
         /// Gets object full name

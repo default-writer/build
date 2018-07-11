@@ -195,7 +195,7 @@ namespace Build
         public object CreateInstance()
         {
             var parameters = ReadParameters();
-            var result = CreateReferenceType(ObjectArray.Empty);
+            var result = CreateReferenceType(ObjectArray.Empty());
             WriteParameters(parameters);
             return result;
         }
@@ -211,7 +211,7 @@ namespace Build
             if (ActivatorType.IsValueType && ActivatorType.IsPrimitive)
                 return Value;
             var parameters = ReadParameters();
-            var result = CreateReferenceType(args ?? ObjectArray.Empty);
+            var result = CreateReferenceType(args ?? ObjectArray.Empty());
             WriteParameters(parameters);
             return result;
         }
@@ -225,7 +225,7 @@ namespace Build
         public object CreateInstance(string[] args)
         {
             var parameters = ReadParameters();
-            var result = CreateReferenceType(args ?? StringArray.Empty);
+            var result = CreateReferenceType(args ?? StringArray.Empty());
             WriteParameters(parameters);
             return result;
         }
@@ -239,7 +239,7 @@ namespace Build
         public object CreateInstance(Type[] args)
         {
             var parameters = ReadParameters();
-            var result = CreateReferenceType(args ?? TypeArray.Empty);
+            var result = CreateReferenceType(args ?? TypeArray.Empty());
             WriteParameters(parameters);
             return result;
         }

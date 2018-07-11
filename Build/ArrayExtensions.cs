@@ -4,17 +4,17 @@ namespace Build
 {
     public static class ObjectArray
     {
-        public static object[] Empty => TypeHolder<object>.EmptyArray;
+        public static object[] Empty() => TypeHolder<object>.EmptyArray;
     }
 
     public static class StringArray
     {
-        public static string[] Empty => TypeHolder<string>.EmptyArray;
+        public static string[] Empty() => TypeHolder<string>.EmptyArray;
     }
 
     public static class TypeArray
     {
-        public static Type[] Empty => TypeHolder<Type>.EmptyArray;
+        public static Type[] Empty() => TypeHolder<Type>.EmptyArray;
     }
 
     static class TypeHolder<T>

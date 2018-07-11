@@ -242,7 +242,7 @@ namespace Build.Tests.TestSet20
             Func<Class1> class1FactoryMethod = () => new Class1();
             container.RegisterType<LazyFactory<Class1>>(class1FactoryMethod);
             container.RegisterType<Class2>();
-            var instance = (Class2)builder.GetInstance(typeof(Class2), ObjectArray.Empty);
+            var instance = (Class2)builder.GetInstance(typeof(Class2), ObjectArray.Empty());
             Assert.Null(instance.Func);
         }
 
@@ -279,7 +279,7 @@ namespace Build.Tests.TestSet20
             var container = new Container();
             var builder = (TypeBuilder)container.Builder;
             container.RegisterType<Class2>();
-            var instance = (Class2)builder.GetInstance(typeof(Class2), ObjectArray.Empty);
+            var instance = (Class2)builder.GetInstance(typeof(Class2), ObjectArray.Empty());
             Assert.Null(instance.Func);
         }
 
