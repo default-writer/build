@@ -332,6 +332,15 @@ namespace Build.Tests.Fail_TestSet1
         }
 
         [Fact]
+        public static void Fail_TestSet1_Method42()
+        {
+            //Fail_TestSet1
+            var container = new Container();
+            container.RegisterType<ServiceDataRepository2>();
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance(typeof(IPersonRepository).ToString(), new string[0]));
+        }
+
+        [Fact]
         public static void Fail_TestSet1_Method5()
         {
             //Fail_TestSet1
