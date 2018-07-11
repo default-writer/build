@@ -182,6 +182,14 @@ namespace Build
         /// <summary>
         /// Creates an object
         /// </summary>
+        /// <param name="typeFullName">Type identifier</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object GetInstance(string typeFullName, params Type[] args) => TypeBuilder.GetInstance(TypeBuilder.GetTypeFullName(typeFullName), TypeBuilder.GetArgs(args));
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
         /// <param name="type">Type identifier</param>
         /// <returns>Returns instance of identified type</returns>
         public object GetInstance(Type type) => TypeBuilder.GetInstance(TypeBuilder.GetTypeFullName(type), new object[0]);

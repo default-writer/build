@@ -395,6 +395,17 @@ namespace Build.Tests.TestSet20
         }
 
         [Fact]
+        public static void TestSet2_Method39()
+        {
+            //TestSet2
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
+            var builder = (TypeBuilder)container.Builder;
+            Func<Class1> class1FactoryMethod = () => new Class1();
+            container.RegisterType<LazyFactory<Class1>>(class1FactoryMethod);
+            Assert.Throws<TypeInstantiationException>(() => builder.GetInstance(typeof(Class2).ToString(), new string[] { "System.IntPtr" }));
+        }
+
+        [Fact]
         public static void TestSet2_Method4()
         {
             //TestSet2
@@ -404,6 +415,17 @@ namespace Build.Tests.TestSet20
             container.RegisterType<Class2>(class1FactoryMethod);
             var srv2 = container.CreateInstance<Class2>();
             Assert.NotNull(srv2.Func);
+        }
+
+        [Fact]
+        public static void TestSet2_Method40()
+        {
+            //TestSet2
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
+            var builder = (TypeBuilder)container.Builder;
+            Func<Class1> class1FactoryMethod = () => new Class1();
+            container.RegisterType<LazyFactory<Class1>>(class1FactoryMethod);
+            Assert.Throws<TypeInstantiationException>(() => builder.GetInstance(typeof(Class2).ToString(), new Type[] { typeof(System.IntPtr) }));
         }
 
         [Fact]
