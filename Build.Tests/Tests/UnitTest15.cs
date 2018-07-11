@@ -261,7 +261,7 @@ namespace Build.Tests.TestSet15
         public static void TestSet15_Method30()
         {
             //TestSet15
-            var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false, UseValueTypes = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             container.RegisterType<WebServiceDataRepository>(typeof(SqlDataRepository));
@@ -274,13 +274,89 @@ namespace Build.Tests.TestSet15
         public static void TestSet15_Method31()
         {
             //TestSet15
-            var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false, UseValueTypes = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             container.RegisterType<WebServiceDataRepository>("Build.Tests.TestSet15.SqlDataRepository");
             container.Lock();
             var sql = (WebServiceDataRepository)container.GetInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)");
             Assert.Equal(2019, ((SqlDataRepository)sql.Repository).PersonId);
+        }
+
+        [Fact]
+        public static void TestSet15_Method32()
+        {
+            //TestSet15
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<WebServiceDataRepository>();
+            container.Lock();
+            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)", typeof(Build.Tests.TestSet15.SqlDataRepository).ToString());
+            Assert.Null(sql.Repository);
+        }
+
+        [Fact]
+        public static void TestSet15_Method33()
+        {
+            //TestSet15
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<WebServiceDataRepository>();
+            container.Lock();
+            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)", typeof(SqlDataRepository));
+            Assert.Null(sql.Repository);
+        }
+
+        [Fact]
+        public static void TestSet15_Method34()
+        {
+            //TestSet15
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<WebServiceDataRepository>();
+            container.Lock();
+            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)", typeof(IPersonRepository));
+            Assert.Null(sql.Repository);
+        }
+
+        [Fact]
+        public static void TestSet15_Method35()
+        {
+            //TestSet15
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<WebServiceDataRepository>();
+            container.Lock();
+            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)", typeof(IPersonRepository).ToString());
+            Assert.Null(sql.Repository);
+        }
+
+        [Fact]
+        public static void TestSet15_Method36()
+        {
+            //TestSet15
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<WebServiceDataRepository>();
+            container.Lock();
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)", typeof(int).ToString()));
+        }
+
+        [Fact]
+        public static void TestSet15_Method38()
+        {
+            //TestSet15
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<WebServiceDataRepository>();
+            container.Lock();
+            Assert.Throws<TypeInstantiationException>(() => (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)", typeof(int)));
         }
 
         [Fact]

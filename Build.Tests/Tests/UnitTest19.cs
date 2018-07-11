@@ -94,7 +94,7 @@ namespace Build.Tests.UnitTests19
         public static void TestSet19_Method15()
         {
             //TestSet19
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             var a = new A();
             Func<A> func1 = () => a;
             Func<A> func2 = () => a;

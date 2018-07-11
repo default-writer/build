@@ -97,7 +97,7 @@ namespace Build.Tests.Fail_TestSet1
         public static void Fail_TestSet1_Method18()
         {
             //Fail_TestSet1
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<ServiceDataRepository2>();
             Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<IPersonRepository>());
         }
@@ -209,7 +209,7 @@ namespace Build.Tests.Fail_TestSet1
         public static void Fail_TestSet1_Method3()
         {
             //Fail_TestSet1
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseValueTypes = false });
             container.RegisterType<SqlDataRepository>();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<int>());
         }
@@ -258,7 +258,7 @@ namespace Build.Tests.Fail_TestSet1
         public static void Fail_TestSet1_Method34()
         {
             //Fail_TestSet1
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<ServiceDataRepository2>();
             var srv1 = container.CreateInstance<ServiceDataRepository2>();
             Assert.Null(srv1.Repository);
@@ -320,6 +320,15 @@ namespace Build.Tests.Fail_TestSet1
             var container = new Container();
             container.RegisterType<ServiceDataRepository2>();
             Assert.Throws<TypeInstantiationException>(() => container.CreateInstance(typeof(ServiceDataRepository), typeof(IPersonRepository)));
+        }
+
+        [Fact]
+        public static void Fail_TestSet1_Method41()
+        {
+            //Fail_TestSet1
+            var container = new Container();
+            container.RegisterType<ServiceDataRepository2>();
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance(typeof(ServiceDataRepository).ToString(), typeof(IPersonRepository).ToString()));
         }
 
         [Fact]

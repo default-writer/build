@@ -472,6 +472,41 @@ namespace Build.Tests.TestSet1
         }
 
         [Fact]
+        public static void TestSet1_Method37()
+        {
+            //TestSet1
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<PrivateSqlDataRepository>(2);
+            Assert.Throws<TypeInstantiationException>(() => container.GetInstance("Build.Tests.TestSet1.PrivateSqlDataRepository()", 1));
+        }
+
+        [Fact]
+        public static void TestSet1_Method38()
+        {
+            //TestSet1
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<PrivateSqlDataRepository>(2);
+            var sql = (PrivateSqlDataRepository)container.GetInstance("Build.Tests.TestSet1.PrivateSqlDataRepository(System.Int32)", 1);
+            Assert.Equal(1, sql.PersonId);
+        }
+
+        [Fact]
+        public static void TestSet1_Method39()
+        {
+            //TestSet1
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<PrivateSqlDataRepository>(2);
+            var sql = (PrivateSqlDataRepository)container.GetInstance("Build.Tests.TestSet1.PrivateSqlDataRepository", 1);
+            Assert.Equal(2, sql.PersonId);
+        }
+
+        [Fact]
         public static void TestSet1_Method4()
         {
             //TestSet1

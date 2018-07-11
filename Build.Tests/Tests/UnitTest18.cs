@@ -131,7 +131,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method107()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = true });
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             Func<EmptyClass> func = () => null;
             container.RegisterType<Factory5<EmptyClass>>();
             container.RegisterType(typeof(Factory2<EmptyClass>), func);
@@ -147,7 +147,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method108()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = true });
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             Func<EmptyClass> func = () => null;
             container.RegisterType<IntPtrFactory>();
             container.RegisterType(typeof(Factory2<EmptyClass>), func);
@@ -160,7 +160,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method109()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = true });
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
             container.CreateInstance<IntPtrFactory>();
@@ -181,7 +181,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method110()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = true });
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
             var ptr = container.CreateInstance<IntPtrFactory>();
@@ -192,7 +192,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method111()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = true });
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<IntPtr>());
         }
 
@@ -200,7 +200,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method112()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = true });
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var value = IntPtr.Zero;
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<IntPtr>(value));
         }
@@ -209,7 +209,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method113()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = true });
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
             Assert.NotNull(container.GetInstance(typeof(IntPtrFactory).ToString()));
@@ -219,7 +219,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method114()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = true });
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
             Assert.NotNull(container.GetInstance(typeof(IntPtrFactory).ToString(), new string[0]));
@@ -229,7 +229,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method115()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = true });
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
             Assert.Throws<TypeInstantiationException>(() => container.GetInstance((string)null, (string[])null));
@@ -239,7 +239,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method116()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = true });
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
             Assert.Throws<TypeInstantiationException>(() => container.GetInstance((Type)null, (Type[])null));
@@ -249,7 +249,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method117()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = true });
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var builder = (TypeBuilder)container.Builder;
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
@@ -260,7 +260,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method118()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = true });
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var builder = (TypeBuilder)container.Builder;
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
@@ -271,7 +271,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method119()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = true });
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var builder = (TypeBuilder)container.Builder;
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
@@ -294,7 +294,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method120()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = true });
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var builder = (TypeBuilder)container.Builder;
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
@@ -328,12 +328,90 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method123()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false, UseValueTypes = true });
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false, UseValueTypes = false });
             var builder = (TypeBuilder)container.Builder;
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
             var ptr = (IntPtrFactory)builder.GetInstance(typeof(IntPtrFactory), new Type[] { typeof(IntPtr) });
             Assert.Equal(value, ptr.Factory);
+        }
+
+        [Fact]
+        public static void TestSet18_Method124()
+        {
+            //TestSet18
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
+            Func<EmptyClass> func = () => null;
+            container.RegisterType(typeof(Factory2<EmptyClass>), func);
+            var factory = (Factory2<EmptyClass>)container.CreateInstance(typeof(Factory2<EmptyClass>).ToString());
+            Assert.Null(factory.Func);
+        }
+
+        [Fact]
+        public static void TestSet18_Method125()
+        {
+            //TestSet18
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
+            Func<EmptyClass> func = () => null;
+            container.RegisterType(typeof(Factory2<EmptyClass>), func);
+            var value = container.GetInstance<Factory2<EmptyClass>>();
+            container.RegisterType(typeof(Factory5<EmptyClass>), (IFactory<EmptyClass>)value);
+            container.Lock();
+            var sql = (Factory2<EmptyClass>)container.CreateInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")", typeof(Func<EmptyClass>).ToString());
+            Assert.Equal(func, sql.Func);
+        }
+
+        [Fact]
+        public static void TestSet18_Method126()
+        {
+            //TestSet18
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
+            Func<EmptyClass> func = () => null;
+            container.RegisterType(typeof(Factory2<EmptyClass>), func);
+            var value = (Factory2<EmptyClass>)container.GetInstance(typeof(Factory2<EmptyClass>), typeof(Func<EmptyClass>).ToString());
+            container.RegisterType<Factory5<EmptyClass>>();
+            container.RegisterType(typeof(Factory5<EmptyClass>) + "(" + typeof(IFactory<EmptyClass>) + ")", value);
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType(typeof(Factory5<EmptyClass>) + "(" + typeof(IFactory<EmptyClass>) + ")", (object[])null));
+        }
+
+        [Fact]
+        public static void TestSet18_Method127()
+        {
+            //TestSet18
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
+            Func<EmptyClass> func = () => null;
+            container.RegisterType(typeof(Factory2<EmptyClass>), func);
+            var value = container.GetInstance<Factory2<EmptyClass>>();
+            container.RegisterType(typeof(Factory5<EmptyClass>), (IFactory<EmptyClass>)value);
+            container.Lock();
+            var sql = (Factory2<EmptyClass>)container.CreateInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")", typeof(Func<EmptyClass>));
+            Assert.Equal(func, sql.Func);
+        }
+
+        [Fact]
+        public static void TestSet18_Method128()
+        {
+            //TestSet18
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
+            Func<EmptyClass> func = () => null;
+            container.RegisterType(typeof(Factory2<EmptyClass>), func);
+            container.RegisterType<Factory5<EmptyClass>>();
+            container.Lock();
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType(typeof(Factory5<EmptyClass>) + "(" + typeof(IFactory<EmptyClass>) + ")", (object[])null));
+        }
+
+        [Fact]
+        public static void TestSet18_Method129()
+        {
+            //TestSet18
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
+            Func<EmptyClass> func = () => null;
+            container.RegisterType<IntPtrFactory>();
+            container.RegisterType(typeof(Factory2<EmptyClass>), func);
+            var value = (Factory2<EmptyClass>)container.GetInstance(typeof(Factory2<EmptyClass>), typeof(Func<EmptyClass>).ToString());
+            var constructorName = typeof(Factory5<EmptyClass>) + "(" + typeof(IFactory<EmptyClass>) + ")";
+            container.Lock();
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType(constructorName, value));
         }
 
         [Fact]
@@ -459,17 +537,6 @@ namespace Build.Tests.UnitTests18
             container.RegisterType(typeof(Factory3<EmptyClass>), new object[] { func });
             var factory = (Factory3<EmptyClass>)container.CreateInstance("Build.Tests.TestSet18.Factory3`1[Build.Tests.TestSet18.EmptyClass](System.Func`1[Build.Tests.TestSet18.EmptyClass])");
             Assert.NotNull(factory);
-        }
-
-        [Fact]
-        public static void TestSet18_Method24_1()
-        {
-            //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
-            Func<EmptyClass> func = () => null;
-            container.RegisterType(typeof(Factory2<EmptyClass>), func);
-            var factory = (Factory2<EmptyClass>)container.CreateInstance(typeof(Factory2<EmptyClass>).ToString());
-            Assert.Null(factory.Func);
         }
 
         [Fact]
@@ -675,7 +742,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method41()
         {
             //TestSet18
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             Func<EmptyClass> func = () => null;
             container.RegisterType(typeof(LazyFactory<EmptyClass>), func);
             var factory = (LazyFactory<EmptyClass>)container.CreateInstance(typeof(LazyFactory<EmptyClass>).ToString());
@@ -888,7 +955,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method61()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
             Func<EmptyClass> func = () => null;
             container.RegisterType(typeof(Factory2<EmptyClass>), func);
             var factory = (Factory2<EmptyClass>)container.CreateInstance(typeof(Factory2<EmptyClass>).ToString(), typeof(Func<EmptyClass>));
@@ -931,7 +998,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method65()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false, UseValueTypes = false });
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<int>(1));
         }
 
@@ -939,7 +1006,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method66()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseValueTypes = true });
+            var container = new Container();
             container.RegisterType<ValueStruct<int>>(1);
             int value = (ValueStruct<int>)container.CreateInstance(typeof(ValueStruct<int>).ToString(), 1);
             Assert.Equal(1, value);
@@ -949,7 +1016,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method67()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseValueTypes = true });
+            var container = new Container();
             container.RegisterType<ValueStruct<int>>(1);
             int value = (ValueStruct<int>)container.GetInstance(typeof(ValueStruct<int>).ToString());
             Assert.Equal(1, value);
@@ -959,7 +1026,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method68()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseValueTypes = true });
+            var container = new Container();
             container.RegisterType<int>(1);
             int value = (int)container.GetInstance(typeof(int).ToString());
             Assert.Equal(1, value);
@@ -969,7 +1036,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method69()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseValueTypes = true });
+            var container = new Container();
             container.RegisterType<ValueClass<int>>(1);
             int value = (ValueClass<int>)container.GetInstance(typeof(ValueClass<int>).ToString());
             Assert.Equal(1, value);
@@ -990,7 +1057,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method70()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseValueTypes = true });
+            var container = new Container();
             container.RegisterType<ValueClass<int>>(1);
             int value = (ValueClass<int>)container.CreateInstance(typeof(ValueClass<int>).ToString(), 1);
             Assert.Equal(1, value);
@@ -1000,7 +1067,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method71()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseValueTypes = true });
+            var container = new Container();
             container.RegisterType<ValueClass<int>>();
             int value = (ValueClass<int>)container.CreateInstance(typeof(ValueClass<int>).ToString(), 1);
             Assert.Equal(1, value);
@@ -1010,7 +1077,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method72()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseValueTypes = true });
+            var container = new Container();
             container.RegisterType<ValueStruct<int>>();
             int value = (ValueStruct<int>)container.CreateInstance(typeof(ValueStruct<int>).ToString(), 1);
             Assert.Equal(1, value);
@@ -1020,7 +1087,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method73()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseValueTypes = true });
+            var container = new Container();
             container.RegisterType<int>(1);
             int value = (int)container.CreateInstance(typeof(int).ToString());
             Assert.Equal(1, value);
@@ -1048,7 +1115,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method76()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseValueTypes = true });
+            var container = new Container();
             container.RegisterType<ValueStruct<int>>(1);
             int value = (ValueStruct<int>)container.CreateInstance(typeof(ValueStruct<int>).ToString());
             Assert.Equal(1, value);
@@ -1058,7 +1125,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method77()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseValueTypes = true });
+            var container = new Container();
             container.RegisterType<ValueClass<int>>(1);
             var value = container.CreateInstance<ValueClass<int>>();
             Assert.Equal(1, value.Value);
@@ -1076,7 +1143,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method79()
         {
             //TestSet18
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseValueTypes = false, UseDefaultConstructor = false });
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<int>(1));
         }
 
@@ -1095,7 +1162,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method80()
         {
             //TestSet18
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseValueTypes = false, UseDefaultConstructor = true });
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<ValueStruct<int>>(1));
         }
 
@@ -1217,7 +1284,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method90()
         {
             //TestSet18
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             Func<EmptyClass> func = () => null;
             container.RegisterType(typeof(Factory2<EmptyClass>), func);
             var value = container.GetInstance<Factory2<EmptyClass>>();
@@ -1255,7 +1322,7 @@ namespace Build.Tests.UnitTests18
         public static void TestSet18_Method93()
         {
             //TestSet18
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             Func<EmptyClass> func = () => new EmptyClass();
             container.RegisterType(typeof(Factory2<EmptyClass>), func);
             var factory = (Factory2<EmptyClass>)container.CreateInstance("Build.Tests.TestSet18.Factory2`1[Build.Tests.TestSet18.EmptyClass]");

@@ -115,7 +115,7 @@ namespace Build
         /// </summary>
         public IEnumerable<string> Types => _types;
 
-        public object Value { get => GetValue(Attribute, Id); }
+        public object Value => GetValue(Attribute, Id);
 
         /// <summary>
         /// IRuntimeType activator
@@ -196,7 +196,7 @@ namespace Build
         {
             var parameters = ReadParameters();
             var result = CreateReferenceType(new object[0]);
-            WriteParameters(parameters);
+            TryWriteParameters(parameters);
             return result;
         }
 
@@ -212,7 +212,7 @@ namespace Build
                 return Value;
             var parameters = ReadParameters();
             var result = CreateReferenceType(args ?? new object[0]);
-            WriteParameters(parameters);
+            TryWriteParameters(parameters);
             return result;
         }
 
@@ -224,11 +224,11 @@ namespace Build
         /// <exception cref="TypeInstantiationException"></exception>
         public object CreateInstance(string[] args)
         {
-            if (ActivatorType.IsValueType)
-                return Activator.CreateValueInstance(this);
+            //if (ActivatorType.IsValueType)
+            //    return Activator.CreateValueInstance(this);
             var parameters = ReadParameters();
             var result = CreateReferenceType(args ?? new string[0]);
-            WriteParameters(parameters);
+            TryWriteParameters(parameters);
             return result;
         }
 
@@ -240,11 +240,11 @@ namespace Build
         /// <exception cref="TypeInstantiationException"></exception>
         public object CreateInstance(Type[] args)
         {
-            if (ActivatorType.IsValueType)
-                return Activator.CreateValueInstance(this);
+            //if (ActivatorType.IsValueType)
+            //    return Activator.CreateValueInstance(this);
             var parameters = ReadParameters();
             var result = CreateReferenceType(args ?? new Type[0]);
-            WriteParameters(parameters);
+            TryWriteParameters(parameters);
             return result;
         }
 
@@ -321,21 +321,21 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public bool RegisterConstructorParameters(Type[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && WriteParameters(args);
+        public bool RegisterConstructorParameters(Type[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && TryWriteParameters(args);
 
         /// <summary>
         /// Registers the specified arguments match search criteria.
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public bool RegisterConstructorParameters(object[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && WriteParameters(args);
+        public bool RegisterConstructorParameters(object[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && TryWriteParameters(args);
 
         /// <summary>
         /// Registers the specified arguments match search criteria.
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public bool RegisterConstructorParameters(string[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && WriteParameters(args);
+        public bool RegisterConstructorParameters(string[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && TryWriteParameters(args);
 
         /// <summary>
         /// Registers type full name as assignable type
@@ -357,7 +357,7 @@ namespace Build
         /// Sets the value to the specified attribute.
         /// </summary>
         /// <param name="attribute">Attribute</param>
-        /// <param name="id">Id</param>
+        /// <param name="typeId">Type id</param>
         /// <param name="value">Value</param>
         public void SetValue(IRuntimeAttribute attribute, string typeId, object value) => this[attribute, typeId] = value;
 
@@ -373,7 +373,7 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
-        public bool WriteParameters(object[] args)
+        public bool TryWriteParameters(object[] args)
         {
             for (int i = 0; i < args.Length; i++)
             {
@@ -389,12 +389,13 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
-        public bool WriteParameters(string[] args)
+        public bool TryWriteParameters(Type[] args)
         {
             for (int i = 0; i < args.Length; i++)
             {
-                if (args[i] != null && !_runtimeTypes[i].ContainsTypeDefinition(Format.GetParameterFullName(args[i])))
+                if (args[i] != null && !_runtimeTypes[i].ContainsTypeDefinition(args[i].ToString()))
                     return false;
+                //_runtimeTypes[i].SetValue(Attribute, Id, args[i]);
             }
             return true;
         }
@@ -404,12 +405,13 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
-        public bool WriteParameters(Type[] args)
+        public bool TryWriteParameters(string[] args)
         {
             for (int i = 0; i < args.Length; i++)
             {
-                if (args[i] != null && !_runtimeTypes[i].ContainsTypeDefinition(Format.GetParameterFullName(args[i])))
+                if (args[i] != null && !_runtimeTypes[i].ContainsTypeDefinition(args[i]))
                     return false;
+                //_runtimeTypes[i].SetValue(Attribute, Id, args[i]);
             }
             return true;
         }

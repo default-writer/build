@@ -54,7 +54,7 @@ namespace Build.Tests.TestSet11
         public static void TestSet11_Method13()
         {
             //TestSet11
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
@@ -87,7 +87,7 @@ namespace Build.Tests.TestSet11
         public static void TestSet11_Method16()
         {
             //TestSet11
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
@@ -98,7 +98,7 @@ namespace Build.Tests.TestSet11
         public static void TestSet11_Method17()
         {
             //TestSet11
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
@@ -110,7 +110,7 @@ namespace Build.Tests.TestSet11
         public static void TestSet11_Method18()
         {
             //TestSet11
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
@@ -133,7 +133,7 @@ namespace Build.Tests.TestSet11
         public static void TestSet11_Method2()
         {
             //TestSet11
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
@@ -185,7 +185,7 @@ namespace Build.Tests.TestSet11
         public static void TestSet11_Method24()
         {
             //TestSet11
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
@@ -205,7 +205,7 @@ namespace Build.Tests.TestSet11
         public static void TestSet11_Method26()
         {
             //TestSet11
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType<IPersonRepository>());
         }
 
@@ -213,7 +213,7 @@ namespace Build.Tests.TestSet11
         public static void TestSet11_Method3()
         {
             //TestSet11
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
@@ -224,7 +224,7 @@ namespace Build.Tests.TestSet11
         public static void TestSet11_Method4()
         {
             //TestSet11
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
@@ -235,7 +235,7 @@ namespace Build.Tests.TestSet11
         public static void TestSet11_Method5()
         {
             //TestSet11
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
@@ -247,7 +247,7 @@ namespace Build.Tests.TestSet11
         public static void TestSet11_Method6()
         {
             //TestSet11
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
@@ -259,7 +259,7 @@ namespace Build.Tests.TestSet11
         public static void TestSet11_Method7()
         {
             //TestSet11
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
@@ -270,7 +270,7 @@ namespace Build.Tests.TestSet11
         public static void TestSet11_Method8()
         {
             //TestSet11
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false, UseValueTypes = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
@@ -281,7 +281,7 @@ namespace Build.Tests.TestSet11
         public static void TestSet11_Method9()
         {
             //TestSet11
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();

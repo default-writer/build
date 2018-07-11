@@ -106,7 +106,6 @@ namespace Build
         /// Creates an object
         /// </summary>
         /// <param name="type">Type identifier</param>
-        /// <param name="args">Arguments to constuctor</param>
         /// <returns>Returns instance of identified type</returns>
         public object CreateInstance(Type type) => TypeBuilder.CreateInstance(TypeBuilder.GetTypeFullName(type), new Type[0]);
 
@@ -278,14 +277,14 @@ namespace Build
                 runtimeType.RegisterConstructorParameters(args.Length == 0 ? new object[runtimeType.Count] : args);
                 return;
             }
-            runtimeTypes = TypeBuilder.Parser.FindRuntimeTypes(typeId, Format.GetParametersFullName(args), TypeBuilder.Types.Values).ToArray();
-            if (runtimeTypes.Length == 1)
-            {
-                var runtimeType = runtimeTypes[0];
-                runtimeType.SetRuntimeInstance(RuntimeInstance.GetInstance);
-                runtimeType.RegisterConstructorParameters(args);
-                return;
-            }
+            //runtimeTypes = TypeBuilder.Parser.FindRuntimeTypes(typeId, Format.GetParametersFullName(args), TypeBuilder.Types.Values).ToArray();
+            //if (runtimeTypes.Length == 1)
+            //{
+            //    var runtimeType = runtimeTypes[0];
+            //    runtimeType.SetRuntimeInstance(RuntimeInstance.GetInstance);
+            //    runtimeType.RegisterConstructorParameters(args);
+            //    return;
+            //}
             throw new TypeRegistrationException(string.Format("{0} is not registered (parameter type mismatch)", typeId));
         }
 

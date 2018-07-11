@@ -11,7 +11,7 @@ namespace Build.Tests.Fail_TestSet2
             //Fail_TestSet2
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<SqlDataRepository>(null));
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<SqlDataRepository>((Type[])null));
         }
 
         [Fact]

@@ -16,6 +16,17 @@ namespace Build.Tests.TestSet18
         public static implicit operator T(ValueStruct<T> valueStruct) => valueStruct.Value;
 
         public static implicit operator ValueStruct<T>(T value) => new ValueStruct<T>(value);
+
+        public static bool operator !=(ValueStruct<T> left, ValueStruct<T> right) => !(left == right);
+
+        public static bool operator ==(ValueStruct<T> left, ValueStruct<T> right)
+        {
+            return left.Equals(right);
+        }
+
+        public override bool Equals(object obj) => base.Equals(obj);
+
+        public override int GetHashCode() => base.GetHashCode();
     }
 
     public class EmptyClass

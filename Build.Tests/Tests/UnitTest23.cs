@@ -73,7 +73,8 @@ namespace Build.Tests.TestSet23
             var container = new Container(new TypeBuilderOptions
             {
                 Activator = new PropertyTypeActivator(),
-                Constructor = new PropertyTypeConstructor()
+                Constructor = new PropertyTypeConstructor(),
+                UseValueTypes = false
             });
             var d = new D();
             container.RegisterType<E>(d);
@@ -88,7 +89,8 @@ namespace Build.Tests.TestSet23
             var container = new Container(new TypeBuilderOptions
             {
                 Activator = new PropertyTypeActivator(),
-                Constructor = new PropertyTypeConstructor()
+                Constructor = new PropertyTypeConstructor(),
+                UseValueTypes = false
             });
             var f = new F() { C = new C() };
             container.RegisterType<G>(f);
@@ -103,7 +105,8 @@ namespace Build.Tests.TestSet23
             var container = new Container(new TypeBuilderOptions
             {
                 Activator = new PropertyTypeActivator(),
-                Constructor = new PropertyTypeConstructor()
+                Constructor = new PropertyTypeConstructor(),
+                UseValueTypes = false
             });
             var f = new F() { C = new C() };
             container.RegisterType<G>();
@@ -118,7 +121,8 @@ namespace Build.Tests.TestSet23
             var container = new Container(new TypeBuilderOptions
             {
                 Activator = new PropertyTypeActivator(),
-                Constructor = new PropertyTypeConstructor()
+                Constructor = new PropertyTypeConstructor(),
+                UseValueTypes = false
             });
             var f = new F() { C = new C() };
             container.RegisterType<G>();
@@ -133,7 +137,8 @@ namespace Build.Tests.TestSet23
             var container = new Container(new TypeBuilderOptions
             {
                 Activator = new PropertyTypeActivator(),
-                Constructor = new PropertyTypeConstructor()
+                Constructor = new PropertyTypeConstructor(),
+                UseValueTypes = false
             });
             var f = new F() { C = new C() { A = new A(), B = new B() } };
             container.RegisterType<C>(f.C.A, f.C.B);

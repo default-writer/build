@@ -164,7 +164,8 @@ namespace Build.Tests.TestSet21
                 Constructor = new InterfaceTypeConstructor(),
                 Filter = new InterfaceTypeFilter(),
                 Parser = new InterfaceTypeParser(),
-                Resolver = new InterfaceTypeResolver()
+                Resolver = new InterfaceTypeResolver(),
+                UseValueTypes = false
             };
             var container = new Container(typeBuilderOptions);
             container.RegisterType<IInterfaceRuleSet2>();
@@ -254,7 +255,8 @@ namespace Build.Tests.TestSet21
                 Filter = new InterfaceTypeFilter(),
                 Parser = new InterfaceTypeParser(),
                 Resolver = new InterfaceTypeResolver(),
-                UseDefaultTypeAttributeOverwrite = false
+                UseDefaultTypeAttributeOverwrite = false,
+                UseValueTypes = false
             };
             var container = new Container(typeBuilderOptions);
             container.RegisterType<IInterfaceRuleSet2>();
@@ -345,7 +347,8 @@ namespace Build.Tests.TestSet21
                 Filter = new InterfaceTypeFilter(),
                 Parser = new InterfaceTypeParser(),
                 Resolver = new InterfaceTypeResolver(),
-                UseDefaultConstructor = true
+                UseDefaultConstructor = true,
+                UseValueTypes = false
             });
             container.RegisterType<IInterfaceRuleSet2_ValueType>();
             container.RegisterType<IInterfaceRuleSet2>();
@@ -431,7 +434,8 @@ namespace Build.Tests.TestSet21
                 Constructor = new InterfaceTypeConstructor(),
                 Filter = new InterfaceTypeFilter(),
                 Parser = new InterfaceTypeParser(),
-                Resolver = new InterfaceTypeResolver()
+                Resolver = new InterfaceTypeResolver(),
+                UseValueTypes = false
             });
             container.RegisterType<IInterfaceRuleSet_Enum>();
             var type = (Type2)container.CreateInstance("Build.Tests.TestSet21.Type2(Build.Tests.TestSet21.Interface2)");
@@ -447,7 +451,8 @@ namespace Build.Tests.TestSet21
                 Constructor = new InterfaceThisTypeConstructor(),
                 Filter = new InterfaceTypeFilter(),
                 Parser = new InterfaceTypeParser(),
-                Resolver = new InterfaceTypeResolver()
+                Resolver = new InterfaceTypeResolver(),
+                UseValueTypes = false
             });
             container.RegisterType<IInterfaceThisRuleSet1>();
             container.RegisterType<IInterfaceThisRuleSet2>();

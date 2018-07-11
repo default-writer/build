@@ -34,7 +34,7 @@ namespace Build.Tests.TestSet20
         public static void TestSet2_Method11()
         {
             //TestSet2
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseValueTypes = false });
             container.RegisterType<Class1>();
             Func<Class1> class1FactoryMethod = () => new Class1();
             container.RegisterType<Class2>(class1FactoryMethod);

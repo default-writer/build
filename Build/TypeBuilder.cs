@@ -21,7 +21,7 @@ namespace Build
             UseDefaultTypeInstantiation = options.UseDefaultTypeInstantiation ?? true;
             UseDefaultTypeAttributeOverwrite = options.UseDefaultTypeAttributeOverwrite ?? true;
             UseDefaultConstructor = options.UseDefaultConstructor ?? true;
-            UseValueTypes = options.UseValueTypes ?? false;
+            UseValueTypes = options.UseValueTypes ?? true;
             Activator = options.Activator ?? new TypeActivator();
             Constructor = options.Constructor ?? new TypeConstructor();
             Filter = options.Filter ?? new TypeFilter();
@@ -187,23 +187,22 @@ namespace Build
         /// <summary>
         /// Returns type args. If type args is null, exception will be thrown
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="args">Args</param>
         /// <returns></returns>
-        public static object[] GetArgs(object[] args) => args != null ? args : throw new TypeInstantiationException(string.Format("{0} is null (parameters required)", nameof(args)));
+        public static object[] GetArgs(object[] args) => args ?? throw new TypeInstantiationException(string.Format("{0} is null (parameters required)", nameof(args)));
 
         /// <summary>
         /// Returns type args. If type args is null, exception will be thrown
         /// </summary>
-        /// <param name="type"></param>
         /// <returns></returns>
-        public static string[] GetArgs(string[] args) => args != null ? args : throw new TypeInstantiationException(string.Format("{0} is null (parameters required)", nameof(args)));
+        public static string[] GetArgs(string[] args) => args ?? throw new TypeInstantiationException(string.Format("{0} is null (parameters required)", nameof(args)));
 
         /// <summary>
         /// Returns type args. If type args is null, exception will be thrown
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="args"></param>
         /// <returns></returns>
-        public static Type[] GetArgs(Type[] args) => args != null ? args : throw new TypeInstantiationException(string.Format("{0} is null (parameters required)", nameof(args)));
+        public static Type[] GetArgs(Type[] args) => args ?? throw new TypeInstantiationException(string.Format("{0} is null (parameters required)", nameof(args)));
 
         /// <summary>
         /// Returns type full name. If type is null, exception will be thrown
@@ -217,7 +216,7 @@ namespace Build
         /// </summary>
         /// <param name="typeFullName"></param>
         /// <returns></returns>
-        public static string GetTypeFullName(string typeFullName) => typeFullName != null ? typeFullName : throw new TypeInstantiationException(string.Format("{0} is null (parameters required)", nameof(typeFullName)));
+        public static string GetTypeFullName(string typeFullName) => typeFullName ?? throw new TypeInstantiationException(string.Format("{0} is null (parameters required)", nameof(typeFullName)));
 
         /// <summary>
         /// Determines whether this instance can register the specified type.
@@ -249,7 +248,7 @@ namespace Build
         /// <summary>
         /// Creates the instance.
         /// </summary>
-        /// <param name="typeFullName">The identifier.</param>
+        /// <param name="type">The identifier.</param>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
@@ -304,12 +303,12 @@ namespace Build
             runtimeType = runtimeTypes.Length == 1 ? runtimeTypes[0] : null;
             if (runtimeType != null)
                 return runtimeType.CreateInstance(args);
-            if (UseDefaultConstructor || args != null && args.Length == 0)
-            {
-                runtimeType = UseDefaultConstructor ? runtimeTypes.FirstOrDefault((p) => p.Count == 0) : null;
-                if (runtimeType != null)
-                    return runtimeType.CreateInstance(args);
-            }
+            //if (UseDefaultConstructor || args != null && args.Length == 0)
+            //{
+            //    runtimeType = UseDefaultConstructor ? runtimeTypes.FirstOrDefault((p) => p.Count == 0) : null;
+            //    if (runtimeType != null)
+            //        return runtimeType.CreateInstance(args);
+            //}
             throw new TypeInstantiationException(string.Format("{0} is not instantiated (no matching constructors available)", typeFullName));
         }
 
@@ -333,12 +332,12 @@ namespace Build
             runtimeType = runtimeTypes.Length == 1 ? runtimeTypes[0] : null;
             if (runtimeType != null)
                 return runtimeType.CreateInstance(args);
-            if (UseDefaultConstructor || args != null && args.Length == 0)
-            {
-                runtimeType = UseDefaultConstructor ? runtimeTypes.FirstOrDefault((p) => p.Count == 0) : null;
-                if (runtimeType != null)
-                    return runtimeType.CreateInstance(args);
-            }
+            //if (UseDefaultConstructor || args != null && args.Length == 0)
+            //{
+            //    runtimeType = UseDefaultConstructor ? runtimeTypes.FirstOrDefault((p) => p.Count == 0) : null;
+            //    if (runtimeType != null)
+            //        return runtimeType.CreateInstance(args);
+            //}
             throw new TypeInstantiationException(string.Format("{0} is not instantiated (no matching constructors available)", typeFullName));
         }
 
@@ -430,7 +429,7 @@ namespace Build
         /// <summary>
         /// Creates the instance.
         /// </summary>
-        /// <param name="type">The identifier.</param>
+        /// <param name="typeFullName">The identifier.</param>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
