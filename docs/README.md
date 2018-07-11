@@ -26,6 +26,12 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 - [Build](https://github.com/hack2root/build/wiki)
 
+## v1.0.0.18
+- Added API functions
+
+## v1.0.0.17
+- Added value types support
+
 ## v1.0.0.16
 
 - Added ```TypeBuilderOptions``` class
