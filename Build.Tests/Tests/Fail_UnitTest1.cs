@@ -10,16 +10,15 @@ namespace Build.Tests.Fail_TestSet1
         {
             //Fail_TestSet1
             var container = new Container();
-            bool throwsException = false;
             try
             {
                 container.RegisterType<SqlDataRepository>();
+                Assert.True(true);
             }
             catch (Exception)
             {
-                throwsException = true;
+                Assert.True(false);
             }
-            Assert.False(throwsException);
         }
 
         [Fact]
@@ -64,7 +63,7 @@ namespace Build.Tests.Fail_TestSet1
             //Fail_TestSet1
             var container = new Container();
             container.RegisterType<ServiceDataRepository2>();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.Fail_TestSet1.ServiceDataRepository2(Build.Tests.Fail_TestSet1.Other2)", (object[])null));
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.Fail_TestSet1.ServiceDataRepository2(Build.Tests.Fail_TestSet1.Other2)"));
         }
 
         [Fact]
@@ -100,7 +99,7 @@ namespace Build.Tests.Fail_TestSet1
             //Fail_TestSet1
             var container = new Container();
             container.RegisterType<ServiceDataRepository2>();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<IPersonRepository>(null));
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<IPersonRepository>());
         }
 
         [Fact]
@@ -109,7 +108,7 @@ namespace Build.Tests.Fail_TestSet1
             //Fail_TestSet1
             var container = new Container();
             container.RegisterType<ServiceDataRepository2>();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance(typeof(IPersonRepository), null));
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance(typeof(IPersonRepository)));
         }
 
         [Fact]
@@ -249,9 +248,9 @@ namespace Build.Tests.Fail_TestSet1
         public static void Fail_TestSet1_Method33()
         {
             //Fail_TestSet1
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<ServiceDataRepository5>();
-            var srv1 = (ServiceDataRepository5)container.CreateInstance(typeof(ServiceDataRepository5), null);
+            var srv1 = (ServiceDataRepository5)container.CreateInstance(typeof(ServiceDataRepository5));
             Assert.Null(srv1.Repository);
         }
 
@@ -261,7 +260,7 @@ namespace Build.Tests.Fail_TestSet1
             //Fail_TestSet1
             var container = new Container();
             container.RegisterType<ServiceDataRepository2>();
-            var srv1 = container.CreateInstance<ServiceDataRepository2>(null);
+            var srv1 = container.CreateInstance<ServiceDataRepository2>();
             Assert.Null(srv1.Repository);
         }
 
@@ -315,12 +314,21 @@ namespace Build.Tests.Fail_TestSet1
         }
 
         [Fact]
+        public static void Fail_TestSet1_Method40()
+        {
+            //Fail_TestSet1
+            var container = new Container();
+            container.RegisterType<ServiceDataRepository2>();
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance(typeof(ServiceDataRepository), typeof(IPersonRepository)));
+        }
+
+        [Fact]
         public static void Fail_TestSet1_Method5()
         {
             //Fail_TestSet1
-            var container = new Container(new TypeBuilderOptions { UseDefaultTypeInstantiation = false });
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeInstantiation = true });
             container.RegisterType<ServiceDataRepository2>();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository2>(null));
+            Assert.NotNull(container.CreateInstance<ServiceDataRepository2>());
         }
 
         [Fact]
@@ -330,7 +338,7 @@ namespace Build.Tests.Fail_TestSet1
             var container = new Container();
             container.RegisterType<Other2>();
             container.RegisterType<ServiceDataRepository2>();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<IPersonRepository>(null));
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<IPersonRepository>());
         }
 
         [Fact]
@@ -357,7 +365,7 @@ namespace Build.Tests.Fail_TestSet1
             //Fail_TestSet1
             var container = new Container();
             container.RegisterType<ServiceDataRepository2>();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.Fail_TestSet1.ServiceDataRepository2(Build.Tests.Fail_TestSet1.Other)", (object[])null));
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.Fail_TestSet1.ServiceDataRepository2(Build.Tests.Fail_TestSet1.Other)"));
         }
     }
 }

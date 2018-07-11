@@ -60,6 +60,20 @@ namespace Build
         public static IEnumerable<string> GetParametersFullName(Type[] args) => args == null || args.Length == 0 ? new string[0] : args.Select(GetParameterFullName);
 
         /// <summary>
+        /// Gets the type of the parameters.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        public static IEnumerable<Type> GetParametersType(object[] args) => args == null || args.Length == 0 ? new Type[0] : args.Select(GetParameterType);
+
+        /// <summary>
+        /// Gets object full name
+        /// </summary>
+        /// <param name="o"></param>
+        /// <returns></returns>
+        public static Type GetParameterType(object o) => (o ?? typeof(object)).GetType();
+
+        /// <summary>
         /// Converts runtime type to corresponding parameter string value
         /// </summary>
         /// <param name="runtimeType">Runtime type</param>

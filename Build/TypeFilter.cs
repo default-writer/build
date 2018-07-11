@@ -15,7 +15,7 @@ namespace Build
         /// <returns>
         /// <c>true</c> if this instance can register the specified type; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanRegister(Type type) => type != null && type.IsClass && !type.IsAbstract && !IsSpecialType(type);
+        public bool CanRegister(Type type) => type != null && !type.IsAbstract && !IsSpecialType(type);
 
         /// <summary>
         /// Determines whether this instance can register the specified type.
@@ -39,6 +39,6 @@ namespace Build
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns><c>true</c> if [is special type] [the specified type]; otherwise, <c>false</c>.</returns>
-        static bool IsSpecialType(Type type) => typeof(Type).IsAssignableFrom(type) || typeof(Attribute).IsAssignableFrom(type) || typeof(MarshalByRefObject).IsAssignableFrom(type);
+        static bool IsSpecialType(Type type) => typeof(IntPtr).IsAssignableFrom(type) || typeof(Type).IsAssignableFrom(type) || typeof(Attribute).IsAssignableFrom(type) || typeof(MarshalByRefObject).IsAssignableFrom(type);
     }
 }

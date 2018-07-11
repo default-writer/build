@@ -27,17 +27,17 @@ namespace Build.Tests.Classes
                     injectionObjects.AddRange(properties.Select((p) =>
                     {
                         var injectionObject = new TypeInjectionObject(runtimeTypeActivator, p.GetAttribute<PropertyInjectionAttribute>(p.PropertyType), p.PropertyType, defaultTypeInstantiation);
-                        var id = Format.GetRuntimeTypeParameter(injectionObject.RuntimeType);
-                        injectionObject.RuntimeType.SetValue(id, p);
+                        var typeId = Format.GetRuntimeTypeParameter(injectionObject.RuntimeType);
+                        injectionObject.RuntimeType.SetValue(typeId, p);
                         return injectionObject;
                     }));
                     var dependencyObject = new TypeDependencyObject(runtimeTypeActivator, runtimeAttribute, injectionObjects, constructorType, defaultTypeInstantiation);
                     dependencyObjects.Add(dependencyObject);
                     foreach (var injectionObject in injectionObjects)
                     {
-                        string id = Format.GetRuntimeTypeParameter(injectionObject.RuntimeType);
-                        object value = injectionObject.RuntimeType.GetValue(id);
-                        dependencyObject.RuntimeType.SetValue(id, value);
+                        string typeId = Format.GetRuntimeTypeParameter(injectionObject.RuntimeType);
+                        object value = injectionObject.RuntimeType.GetValue(typeId);
+                        dependencyObject.RuntimeType.SetValue(typeId, value);
                     }
                 }
             }

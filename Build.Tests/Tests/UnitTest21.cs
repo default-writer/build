@@ -323,13 +323,34 @@ namespace Build.Tests.TestSet21
         }
 
         [Fact]
-        public static void Test33()
+        public static void Test33_1()
         {
             //TestSet21
             var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2_ValueType>();
             container.RegisterType<IInterfaceRuleSet2>();
             // If your type have multiple constructors available, you must specify type with parameters for the build
+            // unless you are using a default constructor
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository"));
+        }
+
+        [Fact]
+        public static void Test33_2()
+        {
+            //TestSet21
+            var container = new Container(new TypeBuilderOptions()
+            {
+                Activator = new TypeActivator(),
+                Constructor = new InterfaceTypeConstructor(),
+                Filter = new InterfaceTypeFilter(),
+                Parser = new InterfaceTypeParser(),
+                Resolver = new InterfaceTypeResolver(),
+                UseDefaultConstructor = true
+            });
+            container.RegisterType<IInterfaceRuleSet2_ValueType>();
+            container.RegisterType<IInterfaceRuleSet2>();
+            // If your type have multiple constructors available, you must specify type with parameters for the build
+            // unless you are using a default constructor
             Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository"));
         }
 

@@ -21,14 +21,18 @@ namespace Build
         /// Finds all dependency runtime types with full parameters specified
         /// </summary>
         /// <param name="runtimeTypes"></param>
-        /// <param name="id"></param>
+        /// <param name="typeId"></param>
         /// <returns></returns>
-        public static IRuntimeType[] FindRintimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, string id) =>
-            runtimeTypes.Where((p) => id == Format.GetConstructorWithParameters(p.TypeFullName, p.RuntimeTypes.Select((s) => s.TypeFullName))).ToArray();
+        public static IRuntimeType[] FindRuntimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, string typeId) =>
+            runtimeTypes.Where((p) => typeId == Format.GetConstructorWithParameters(p.TypeFullName, p.RuntimeTypes.Select((s) => s.TypeFullName))).ToArray();
 
         /// <summary>
         /// Finds all dependency runtime types (instantiable types) which matches the criteria
         /// </summary>
+        /// <param name="runtimeTypes">Types</param>
+        /// <param name="typeParser">Parset</param>
+        /// <param name="runtimeType">Id</param>
+        /// <param name="args">Values</param>
         /// <returns></returns>
         public static IRuntimeType[] FindRuntimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, ITypeParser typeParser, IRuntimeType runtimeType, object[] args) =>
             typeParser.FindRuntimeTypes(runtimeType.TypeFullName, Format.GetParametersFullName(args), runtimeTypes.Where((p) => p.Attribute is IDependencyAttribute)).Where((p) => p.ActivatorType == runtimeType.ActivatorType).ToArray();
@@ -36,16 +40,35 @@ namespace Build
         /// <summary>
         /// Finds all dependency runtime types (instantiable types) which matches the criteria
         /// </summary>
+        /// <param name="runtimeTypes">Types</param>
+        /// <param name="typeParser">Parset</param>
+        /// <param name="typeId">Id</param>
+        /// <param name="args">Values</param>
         /// <returns></returns>
-        public static IRuntimeType[] GetRuntimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, ITypeParser typeParser, string typeFullName, object[] args) =>
-            typeParser.FindRuntimeTypes(typeFullName, Format.GetParametersFullName(args), runtimeTypes.Where((p) => p.Attribute is IDependencyAttribute)).ToArray();
+        public static IRuntimeType[] GetRuntimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, ITypeParser typeParser, string typeId, object[] args) =>
+            typeParser.FindRuntimeTypes(typeId, Format.GetParametersFullName(args), runtimeTypes.Where((p) => p.Attribute is IDependencyAttribute)).ToArray();
 
         /// <summary>
         /// Finds all dependency runtime types (instantiable types) which matches the criteria
         /// </summary>
+        /// <param name="runtimeTypes">Types</param>
+        /// <param name="typeParser">Parset</param>
+        /// <param name="typeId">Id</param>
+        /// <param name="args">Values</param>
         /// <returns></returns>
-        public static IRuntimeType[] GetRuntimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, ITypeParser typeParser, string typeFullName, string[] args) =>
-            typeParser.FindRuntimeTypes(typeFullName, args, runtimeTypes.Where((p) => p.Attribute is IDependencyAttribute)).ToArray();
+        public static IRuntimeType[] GetRuntimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, ITypeParser typeParser, string typeId, string[] args) =>
+            typeParser.FindRuntimeTypes(typeId, Format.GetParametersFullName(args), runtimeTypes.Where((p) => p.Attribute is IDependencyAttribute)).ToArray();
+
+        /// <summary>
+        /// Finds all dependency runtime types (instantiable types) which matches the criteria
+        /// </summary>
+        /// <param name="runtimeTypes">Types</param>
+        /// <param name="typeParser">Parset</param>
+        /// <param name="typeId">Id</param>
+        /// <param name="args">Values</param>
+        /// <returns></returns>
+        public static IRuntimeType[] GetRuntimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, ITypeParser typeParser, string typeId, Type[] args) =>
+            typeParser.FindRuntimeTypes(typeId, Format.GetParametersFullName(args), runtimeTypes.Where((p) => p.Attribute is IDependencyAttribute)).ToArray();
 
         /// <summary>
         /// Matches the arguments.
@@ -62,6 +85,26 @@ namespace Build
                 var argumentType = args.Current;
                 var parameterType = pars.Current;
                 if (!parameterType.ContainsTypeDefinition(argumentType))
+                    return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Matches the arguments.
+        /// </summary>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns></returns>
+        public static bool Match(this IEnumerable<IRuntimeType> parameters, IEnumerable<Type> arguments)
+        {
+            var args = arguments.GetEnumerator();
+            var pars = parameters.GetEnumerator();
+            while (args.MoveNext() && pars.MoveNext())
+            {
+                var argumentType = args.Current;
+                var parameterType = pars.Current;
+                if (!parameterType.ActivatorType.IsAssignableFrom(argumentType))
                     return false;
             }
             return true;
@@ -103,9 +146,11 @@ namespace Build
         /// <summary>
         /// Gets runtime type values
         /// </summary>
-        /// <param name="runtimeTypes"></param>
+        /// <param name="runtimeTypes">Types</param>
+        /// <param name="runtimeAttribute">Attribute</param>
+        /// <param name="typeId">Id</param>
         /// <returns>Returns runtime types values</returns>
-        public static object[] Values(this IEnumerable<IRuntimeType> runtimeTypes, IRuntimeAttribute runtimeAttribute, string id) =>
-            runtimeTypes.Select((p) => p.GetValue(runtimeAttribute, id)).ToArray();
+        public static object[] Values(this IEnumerable<IRuntimeType> runtimeTypes, IRuntimeAttribute runtimeAttribute, string typeId) =>
+            runtimeTypes.Select((p) => p.GetValue(runtimeAttribute, typeId)).ToArray();
     }
 }

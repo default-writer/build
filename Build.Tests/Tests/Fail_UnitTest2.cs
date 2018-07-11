@@ -76,14 +76,14 @@ namespace Build.Tests.Fail_TestSet2
             //Fail_TestSet2
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
-            Assert.NotNull(container.CreateInstance<SqlDataRepository>(null));
+            Assert.NotNull(container.CreateInstance<SqlDataRepository>());
         }
 
         [Fact]
         public static void Fail_TestSet2_Method7()
         {
             //Fail_TestSet2
-            var container = new Container();
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
             container.RegisterType<SqlDataRepository>();
             Assert.NotNull(container.CreateInstance<SqlDataRepository>());
         }

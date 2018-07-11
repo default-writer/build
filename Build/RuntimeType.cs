@@ -115,7 +115,7 @@ namespace Build
         /// </summary>
         public IEnumerable<string> Types => _types;
 
-        public object Value { get => GetValue(Attribute, Id); set => SetValue(Attribute, Id, value); }
+        public object Value { get => GetValue(Attribute, Id); }
 
         /// <summary>
         /// IRuntimeType activator
@@ -155,17 +155,17 @@ namespace Build
         /// Gets or sets the <see cref="System.Object"/>.
         /// </summary>
         /// <value>The <see cref="System.Object"/>.</value>
-        /// <param name="id">Object id.</param>
+        /// <param name="typeId">Object id.</param>
         /// <returns></returns>
-        object this[string id]
+        object this[string typeId]
         {
             get
             {
-                if (!_objects.ContainsKey(id))
+                if (!_objects.ContainsKey(typeId))
                     return default;
-                return _objects[id];
+                return _objects[typeId];
             }
-            set => _objects[id] = value;
+            set => _objects[typeId] = value;
         }
 
         /// <summary>
@@ -185,7 +185,20 @@ namespace Build
         /// <returns>
         /// <c>true</c> if the specified identifier is assignable from type, otherwise <c>false</c>.
         /// </returns>
-        public bool ContainsTypeDefinition(string typeFullName) => _types.FirstOrDefault(p => p == typeFullName) != null;
+        public bool ContainsTypeDefinition(string typeFullName) => _types.Contains(typeFullName);
+
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        public object CreateInstance()
+        {
+            var parameters = ReadParameters();
+            var result = CreateReferenceType(new object[0]);
+            WriteParameters(parameters);
+            return result;
+        }
 
         /// <summary>
         /// Creates the instance.
@@ -193,10 +206,10 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        public object CreateInstance(object[] args = null)
+        public object CreateInstance(object[] args)
         {
-            if (ActivatorType.IsValueType)
-                return Activator.CreateValueInstance(this);
+            if (ActivatorType.IsValueType && ActivatorType.IsPrimitive)
+                return Value;
             var parameters = ReadParameters();
             var result = CreateReferenceType(args ?? new object[0]);
             WriteParameters(parameters);
@@ -209,7 +222,7 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        public object CreateInstance(string[] args = null)
+        public object CreateInstance(string[] args)
         {
             if (ActivatorType.IsValueType)
                 return Activator.CreateValueInstance(this);
@@ -225,7 +238,7 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        public object CreateInstance(Type[] args = null)
+        public object CreateInstance(Type[] args)
         {
             if (ActivatorType.IsValueType)
                 return Activator.CreateValueInstance(this);
@@ -233,6 +246,18 @@ namespace Build
             var result = CreateReferenceType(args ?? new Type[0]);
             WriteParameters(parameters);
             return result;
+        }
+
+        /// <summary>
+        /// Creates the value instance.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        public object CreateValueInstance()
+        {
+            if (ActivatorType.IsPrimitive)
+                return Value;
+            return Activator.CreateInstance(this);
         }
 
         /// <summary>
@@ -255,7 +280,7 @@ namespace Build
                     return EvaluateInstance(type, i.HasValue ? Attribute.GetReferenceAttribute(type.Id) : Attribute);
 
                 case RuntimeInstance.None:
-                    if (!(!UseDefaultTypeInstantiation && IsDefaultReferencedType()))
+                    if (UseDefaultTypeInstantiation || !IsDefaultReferencedType())
                         return EvaluateAttribute(attribute, i);
                     break;
             }
@@ -266,16 +291,16 @@ namespace Build
         /// Gets the value from the specified attribue.
         /// </summary>
         /// <param name="attribute">Attribute</param>
-        /// <param name="id">Id</param>
+        /// <param name="typeId">Id</param>
         /// <value>Value</value>
-        public object GetValue(IRuntimeAttribute attribute, string id) => this[attribute, id];
+        public object GetValue(IRuntimeAttribute attribute, string typeId) => this[attribute, typeId];
 
         /// <summary>
         /// Gets the value from the runtime type.
         /// </summary>
-        /// <param name="id">Id</param>
+        /// <param name="typeId">Id</param>
         /// <value>Value</value>
-        public object GetValue(string id) => this[id];
+        public object GetValue(string typeId) => this[typeId];
 
         /// <summary>
         /// Gets the parameters;
@@ -334,14 +359,14 @@ namespace Build
         /// <param name="attribute">Attribute</param>
         /// <param name="id">Id</param>
         /// <param name="value">Value</param>
-        public void SetValue(IRuntimeAttribute attribute, string id, object value) => this[attribute, id] = value;
+        public void SetValue(IRuntimeAttribute attribute, string typeId, object value) => this[attribute, typeId] = value;
 
         /// <summary>
         /// Sets the value to the runtime type.
         /// </summary>
-        /// <param name="id">Id</param>
+        /// <param name="typeId">Id</param>
         /// <param name="value">Value</param>
-        public void SetValue(string id, object value) => this[id] = value;
+        public void SetValue(string typeId, object value) => this[typeId] = value;
 
         /// <summary>
         /// Registers the parameters.
@@ -352,7 +377,7 @@ namespace Build
         {
             for (int i = 0; i < args.Length; i++)
             {
-                if (args[i] != null && !_runtimeTypes[i].ContainsTypeDefinition(Format.GetParameterFullName(args[i])))
+                if (args[i] != null && !_runtimeTypes[i].ActivatorType.IsAssignableFrom(Format.GetParameterType(args[i])))
                     return false;
                 _runtimeTypes[i].SetValue(Attribute, Id, args[i]);
             }

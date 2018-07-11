@@ -66,7 +66,7 @@ namespace Build
         IEnumerable<string> Types { get; }
 
         /// <summary>
-        /// Attribute value
+        /// Runtime type value
         /// </summary>
         object Value { get; }
 
@@ -88,10 +88,9 @@ namespace Build
         /// <summary>
         /// Creates the instance.
         /// </summary>
-        /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        object CreateInstance(object[] args = null);
+        object CreateInstance();
 
         /// <summary>
         /// Creates the instance.
@@ -99,7 +98,7 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        object CreateInstance(string[] args = null);
+        object CreateInstance(object[] args);
 
         /// <summary>
         /// Creates the instance.
@@ -107,7 +106,21 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        object CreateInstance(Type[] args = null);
+        object CreateInstance(string[] args);
+
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        object CreateInstance(Type[] args);
+
+        /// <summary>
+        /// Creates the value instance
+        /// </summary>
+        /// <returns></returns>
+        object CreateValueInstance();
 
         /// <summary>
         /// Evaluates the runtime instance.
@@ -122,16 +135,16 @@ namespace Build
         /// Gets the value from the specified attribue.
         /// </summary>
         /// <param name="attribute">Attribute</param>
-        /// <param name="id">Id</param>
+        /// <param name="typeId">Id</param>
         /// <value>Value</value>
-        object GetValue(IRuntimeAttribute attribute, string id);
+        object GetValue(IRuntimeAttribute attribute, string typeId);
 
         /// <summary>
         /// Gets the value from the runtime type.
         /// </summary>
-        /// <param name="id">Id</param>
+        /// <param name="typeId">Id</param>
         /// <value>Value</value>
-        object GetValue(string id);
+        object GetValue(string typeId);
 
         /// <summary>
         /// Registers the parameters.
@@ -170,15 +183,15 @@ namespace Build
         /// Sets the value to the specified attribute.
         /// </summary>
         /// <param name="attribute">Attribute</param>
-        /// <param name="id">Id</param>
+        /// <param name="typeId">Id</param>
         /// <param name="value">Value</param>
-        void SetValue(IRuntimeAttribute attribute, string id, object value);
+        void SetValue(IRuntimeAttribute attribute, string typeId, object value);
 
         /// <summary>
         /// Sets the value to the runtime type.
         /// </summary>
-        /// <param name="id">Id</param>
+        /// <param name="typeId">Id</param>
         /// <param name="value">Value</param>
-        void SetValue(string id, object value);
+        void SetValue(string typeId, object value);
     }
 }

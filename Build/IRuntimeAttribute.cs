@@ -19,19 +19,19 @@ namespace Build
         /// <summary>
         /// Gets the type of the runtime.
         /// </summary>
-        /// <param name="id">The identifier.</param>
+        /// <param name="typeId">The identifier.</param>
         /// <returns></returns>
-        IRuntimeAttribute GetReferenceAttribute(string id);
+        IRuntimeAttribute GetReferenceAttribute(string typeId);
 
         /// <summary>
         /// Registers the type of the runtime.
         /// </summary>
-        /// <param name="id">The identifier.</param>
+        /// <param name="typeId">The identifier.</param>
         /// <param name="attribute">The attribute.</param>
         /// <param name="defaultTypeAttributeOverwrite">
         /// Parameter defaults to true for automatic type attribute overwrite. If value is false
         /// exception will be thrown for type attribute overwrites
         /// </param>
-        void RegisterReferenceAttrubute(string id, IRuntimeAttribute attribute, bool defaultTypeAttributeOverwrite);
+        void RegisterReferenceAttrubute(string typeId, IRuntimeAttribute attribute, bool defaultTypeAttributeOverwrite);
     }
 }

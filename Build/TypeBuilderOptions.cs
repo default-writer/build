@@ -69,5 +69,10 @@
         /// if not resolved and no exception will be thrown
         /// </remarks>
         public bool? UseDefaultTypeResolution { get; set; }
+
+        /// <summary>
+        /// Allows use of value types
+        /// </summary>
+        public bool? UseValueTypes { get; set; }
     }
 }

@@ -21,6 +21,7 @@ namespace Build
             UseDefaultTypeInstantiation = options.UseDefaultTypeInstantiation ?? true;
             UseDefaultTypeAttributeOverwrite = options.UseDefaultTypeAttributeOverwrite ?? true;
             UseDefaultConstructor = options.UseDefaultConstructor ?? true;
+            UseValueTypes = options.UseValueTypes ?? false;
             Activator = options.Activator ?? new TypeActivator();
             Constructor = options.Constructor ?? new TypeConstructor();
             Filter = options.Filter ?? new TypeFilter();
@@ -120,6 +121,11 @@ namespace Build
         public bool UseDefaultConstructor { get; set; }
 
         /// <summary>
+        /// Allows use of value types
+        /// </summary>
+        public bool UseValueTypes { get; set; }
+
+        /// <summary>
         /// If locked returns true
         /// </summary>
         bool Locked { get; set; }
@@ -179,13 +185,75 @@ namespace Build
         }
 
         /// <summary>
+        /// Returns type args. If type args is null, exception will be thrown
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static object[] GetArgs(object[] args) => args != null ? args : throw new TypeInstantiationException(string.Format("{0} is null (parameters required)", nameof(args)));
+
+        /// <summary>
+        /// Returns type args. If type args is null, exception will be thrown
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static string[] GetArgs(string[] args) => args != null ? args : throw new TypeInstantiationException(string.Format("{0} is null (parameters required)", nameof(args)));
+
+        /// <summary>
+        /// Returns type args. If type args is null, exception will be thrown
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static Type[] GetArgs(Type[] args) => args != null ? args : throw new TypeInstantiationException(string.Format("{0} is null (parameters required)", nameof(args)));
+
+        /// <summary>
+        /// Returns type full name. If type is null, exception will be thrown
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static string GetTypeFullName(Type type) => type != null ? type.ToString() : throw new TypeInstantiationException(string.Format("{0} is null (parameters required)", nameof(type)));
+
+        /// <summary>
+        /// Returns type full name. If type is null, exception will be thrown
+        /// </summary>
+        /// <param name="typeFullName"></param>
+        /// <returns></returns>
+        public static string GetTypeFullName(string typeFullName) => typeFullName != null ? typeFullName : throw new TypeInstantiationException(string.Format("{0} is null (parameters required)", nameof(typeFullName)));
+
+        /// <summary>
         /// Determines whether this instance can register the specified type.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>
         /// <c>true</c> if this instance can register the specified type; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanRegister(Type type) => Filter.CanRegister(type);
+        public bool CanRegister(Type type) => (UseValueTypes || !type.IsValueType) && !type.IsSpecialName && Filter.CanRegister(type);
+
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="type">The identifier.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        public object CreateInstance(Type type, object[] args) => CreateInstance(GetTypeFullName(type), args);
+
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="type">The identifier.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        public object CreateInstance(Type type, string[] args) => CreateInstance(GetTypeFullName(type), args);
+
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="typeFullName">The identifier.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        public object CreateInstance(Type type, Type[] args) => CreateInstance(GetTypeFullName(type), args);
 
         /// <summary>
         /// Creates the instance.
@@ -201,21 +269,19 @@ namespace Build
             var runtimeType = TypeInvariants.ContainsKey(typeFullName) ? TypeInvariants[typeFullName] : null;
             if (runtimeType != null)
                 return runtimeType.CreateInstance(args);
-            var runtimeTypes = GetRuntimeTypes(Parser, typeFullName, args);
+            var runtimeTypes = Types.Values.Where((p) => p.TypeFullName == typeFullName && p.Count == args.Length && p.RuntimeTypes.Match(Format.GetParametersType(args))).ToArray();
+            if (runtimeTypes.Length == 0)
+                runtimeTypes = GetRuntimeTypes(Parser, typeFullName, args);
             runtimeType = runtimeTypes.Length == 1 ? runtimeTypes[0] : null;
             if (runtimeType != null)
                 return runtimeType.CreateInstance(args);
-            if (runtimeTypes.Length > 1)
+            if (UseDefaultConstructor || args != null && args.Length == 0)
             {
-                if (UseDefaultConstructor || args != null && args.Length == 0)
-                {
-                    runtimeType = runtimeTypes.FirstOrDefault((p) => p.Count == 0);
-                    if (runtimeType != null)
-                        return runtimeType.CreateInstance(args);
-                }
-                throw new TypeInstantiationException(string.Format("{0} is not instantiated (more than one constructor available)", typeFullName));
+                runtimeType = UseDefaultConstructor ? runtimeTypes.FirstOrDefault((p) => p.Count == 0) : null;
+                if (runtimeType != null)
+                    return runtimeType.CreateInstance(args);
             }
-            throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructors available)", typeFullName));
+            throw new TypeInstantiationException(string.Format("{0} is not instantiated (no matching constructors available)", typeFullName));
         }
 
         /// <summary>
@@ -232,21 +298,19 @@ namespace Build
             var runtimeType = TypeInvariants.ContainsKey(typeFullName) ? TypeInvariants[typeFullName] : null;
             if (runtimeType != null)
                 return runtimeType.CreateInstance(args);
-            var runtimeTypes = GetRuntimeTypes(Parser, typeFullName, Format.GetParametersFullName(args).ToArray());
+            var runtimeTypes = Types.Values.Where((p) => p.TypeFullName == typeFullName && p.Count == args.Length && p.RuntimeTypes.Match(args)).ToArray();
+            if (runtimeTypes.Length == 0)
+                runtimeTypes = GetRuntimeTypes(Parser, typeFullName, args);
             runtimeType = runtimeTypes.Length == 1 ? runtimeTypes[0] : null;
             if (runtimeType != null)
                 return runtimeType.CreateInstance(args);
-            if (runtimeTypes.Length > 1)
+            if (UseDefaultConstructor || args != null && args.Length == 0)
             {
-                if (UseDefaultConstructor || args != null && args.Length == 0)
-                {
-                    runtimeType = runtimeTypes.FirstOrDefault((p) => p.Count == 0);
-                    if (runtimeType != null)
-                        return runtimeType.CreateInstance(args);
-                }
-                throw new TypeInstantiationException(string.Format("{0} is not instantiated (more than one constructor available)", typeFullName));
+                runtimeType = UseDefaultConstructor ? runtimeTypes.FirstOrDefault((p) => p.Count == 0) : null;
+                if (runtimeType != null)
+                    return runtimeType.CreateInstance(args);
             }
-            throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructors available)", typeFullName));
+            throw new TypeInstantiationException(string.Format("{0} is not instantiated (no matching constructors available)", typeFullName));
         }
 
         /// <summary>
@@ -263,22 +327,47 @@ namespace Build
             var runtimeType = TypeInvariants.ContainsKey(typeFullName) ? TypeInvariants[typeFullName] : null;
             if (runtimeType != null)
                 return runtimeType.CreateInstance(args);
-            var runtimeTypes = GetRuntimeTypes(Parser, typeFullName, Format.GetParametersFullName(args).ToArray());
+            var runtimeTypes = Types.Values.Where((p) => p.TypeFullName == typeFullName && p.Count == args.Length && p.RuntimeTypes.Match(args)).ToArray();
+            if (runtimeTypes.Length == 0)
+                runtimeTypes = GetRuntimeTypes(Parser, typeFullName, args);
             runtimeType = runtimeTypes.Length == 1 ? runtimeTypes[0] : null;
             if (runtimeType != null)
                 return runtimeType.CreateInstance(args);
-            if (runtimeTypes.Length > 1)
+            if (UseDefaultConstructor || args != null && args.Length == 0)
             {
-                if (UseDefaultConstructor || args != null && args.Length == 0)
-                {
-                    runtimeType = runtimeTypes.FirstOrDefault((p) => p.Count == 0);
-                    if (runtimeType != null)
-                        return runtimeType.CreateInstance(args);
-                }
-                throw new TypeInstantiationException(string.Format("{0} is not instantiated (more than one constructor available)", typeFullName));
+                runtimeType = UseDefaultConstructor ? runtimeTypes.FirstOrDefault((p) => p.Count == 0) : null;
+                if (runtimeType != null)
+                    return runtimeType.CreateInstance(args);
             }
-            throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructors available)", typeFullName));
+            throw new TypeInstantiationException(string.Format("{0} is not instantiated (no matching constructors available)", typeFullName));
         }
+
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="type">The identifier.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        public object GetInstance(Type type, object[] args) => GetInstance(GetTypeFullName(type), args);
+
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="type">The identifier.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        public object GetInstance(Type type, string[] args) => GetInstance(GetTypeFullName(type), args);
+
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="type">The identifier.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        public object GetInstance(Type type, Type[] args) => GetInstance(GetTypeFullName(type), args);
 
         /// <summary>
         /// Creates the instance.
@@ -293,24 +382,80 @@ namespace Build
                 return Types[typeFullName].CreateInstance(args);
             var runtimeType = TypeInvariants.ContainsKey(typeFullName) ? TypeInvariants[typeFullName] : null;
             if (runtimeType != null)
-            {
-                if (runtimeType.GetInstance)
-                    return runtimeType.CreateInstance((object[])null);
-                return runtimeType.CreateInstance(GetRuntimeTypeParameters(runtimeType, args));
-            }
-            var runtimeTypes = GetRuntimeTypes(Parser, typeFullName, args);
+                return GetInstance(args, runtimeType);
+            var runtimeTypes = Types.Values.Where((p) => p.TypeFullName == typeFullName && p.Count == args.Length && p.RuntimeTypes.Match(Format.GetParametersType(args))).ToArray();
+            if (runtimeTypes.Length == 0)
+                runtimeTypes = GetRuntimeTypes(Parser, typeFullName, args);
             runtimeType = runtimeTypes.Length == 1 ? runtimeTypes[0] : null;
             if (runtimeType != null)
+                return GetInstance(args, runtimeType);
+            if (UseDefaultConstructor || args != null && args.Length == 0)
             {
-                if (runtimeType.GetInstance)
-                    return runtimeType.CreateInstance((object[])null);
-                return runtimeType.CreateInstance(GetRuntimeTypeParameters(runtimeType, args));
+                runtimeType = UseDefaultConstructor ? runtimeTypes.FirstOrDefault((p) => p.Count == 0) : null;
+                if (runtimeType != null)
+                    return GetInstance(args, runtimeType);
             }
-            if (runtimeTypes.Length > 1)
+            throw new TypeInstantiationException(string.Format("{0} is not instantiated (no matching constructors available)", typeFullName));
+        }
+
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="typeFullName">The identifier.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        public object GetInstance(string typeFullName, string[] args)
+        {
+            if (Types.ContainsKey(typeFullName))
+                return Types[typeFullName].CreateInstance(args);
+            var runtimeType = TypeInvariants.ContainsKey(typeFullName) ? TypeInvariants[typeFullName] : null;
+            if (runtimeType != null)
+                return GetInstance(args, runtimeType);
+            var runtimeTypes = Types.Values.Where((p) => p.TypeFullName == typeFullName && p.Count == args.Length && p.RuntimeTypes.Match(args)).ToArray();
+            if (runtimeTypes.Length == 0)
+                runtimeTypes = GetRuntimeTypes(Parser, typeFullName, args);
+            runtimeType = runtimeTypes.Length == 1 ? runtimeTypes[0] : null;
+            if (runtimeType != null)
+                return GetInstance(args, runtimeType);
+            if (UseDefaultConstructor || args != null && args.Length == 0)
             {
-                throw new TypeInstantiationException(string.Format("{0} is not instantiated (more than one constructor available)", typeFullName));
+                runtimeType = UseDefaultConstructor ? runtimeTypes.FirstOrDefault((p) => p.Count == 0) : null;
+                if (runtimeType != null)
+                    return GetInstance(args, runtimeType);
             }
-            throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructors available)", typeFullName));
+            throw new TypeInstantiationException(string.Format("{0} is not instantiated (no matching constructors available)", typeFullName));
+        }
+
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="type">The identifier.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        public object GetInstance(string typeFullName, Type[] args)
+        {
+            if (typeFullName == null)
+                throw new ArgumentNullException(nameof(typeFullName));
+            if (Types.ContainsKey(typeFullName))
+                return Types[typeFullName].CreateInstance(args);
+            var runtimeType = TypeInvariants.ContainsKey(typeFullName) ? TypeInvariants[typeFullName] : null;
+            if (runtimeType != null)
+                return GetInstance(args, runtimeType);
+            var runtimeTypes = Types.Values.Where((p) => p.TypeFullName == typeFullName && p.Count == args.Length && p.RuntimeTypes.Match(args)).ToArray();
+            if (runtimeTypes.Length == 0)
+                runtimeTypes = GetRuntimeTypes(Parser, typeFullName, args);
+            runtimeType = runtimeTypes.Length == 1 ? runtimeTypes[0] : null;
+            if (runtimeType != null)
+                return GetInstance(args, runtimeType);
+            if (UseDefaultConstructor || args != null && args.Length == 0)
+            {
+                runtimeType = UseDefaultConstructor ? runtimeTypes.FirstOrDefault((p) => p.Count == 0) : null;
+                if (runtimeType != null)
+                    return GetInstance(args, runtimeType);
+            }
+            throw new TypeInstantiationException(string.Format("{0} is not instantiated (no matching constructors available)", typeFullName));
         }
 
         /// <summary>
@@ -372,7 +517,16 @@ namespace Build
                     RegisterConstructor(type);
                     if (args == null || args.Length == 0)
                         return;
-                    RegisterConstructorWithParameters(type.ToString(), args);
+                    if (type.IsPrimitive)
+                    {
+                        if (args.Length == 1 && type == args[0].GetType())
+                        {
+                            RegisterPrimitiveType(type, args[0]);
+                            return;
+                        }
+                        throw new TypeRegistrationException(string.Format("{0} is not registered (parameter type mismatch)", type));
+                    }
+                    RegisterConstructorWithParameters(type, args);
                 }
                 catch (TypeRegistrationException ex)
                 {
@@ -399,7 +553,8 @@ namespace Build
                     RegisterConstructor(type);
                     if (args == null || args.Length == 0)
                         return;
-                    RegisterConstructorWithParameters(type.ToString(), args);
+                    if (!type.IsPrimitive)
+                        RegisterConstructorWithParameters(type, args);
                 }
                 catch (TypeRegistrationException ex)
                 {
@@ -426,7 +581,8 @@ namespace Build
                     RegisterConstructor(type);
                     if (args == null || args.Length == 0)
                         return;
-                    RegisterConstructorWithParameters(type.ToString(), args);
+                    if (!type.IsPrimitive)
+                        RegisterConstructorWithParameters(type, args);
                 }
                 catch (TypeRegistrationException ex)
                 {
@@ -447,7 +603,6 @@ namespace Build
             TypeInvariants.Clear();
             Types.Clear();
             Parser.Flush();
-            Locked = false;
         }
 
         /// <summary>
@@ -457,6 +612,7 @@ namespace Build
         {
             if (Locked)
             {
+                TypeInvariants.Clear();
                 Locked = false;
             }
         }
@@ -502,6 +658,76 @@ namespace Build
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not assignable from {1})", attributeType.Name, dependencyObject.RuntimeType.TypeFullName));
         }
 
+        private object GetInstance(object[] args, IRuntimeType runtimeType)
+        {
+            if (runtimeType.GetInstance)
+            {
+                if (UseValueTypes)
+                    return runtimeType.CreateValueInstance();
+                return runtimeType.CreateInstance();
+            }
+            return runtimeType.CreateInstance(GetRuntimeTypeParameters(runtimeType, args));
+        }
+
+        private object GetInstance(string[] args, IRuntimeType runtimeType)
+        {
+            if (runtimeType.GetInstance)
+            {
+                if (UseValueTypes)
+                    return runtimeType.CreateValueInstance();
+                return runtimeType.CreateInstance(args);
+            }
+            return runtimeType.CreateInstance(GetRuntimeTypeParameters(runtimeType, args));
+        }
+
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="type">The identifier.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        IRuntimeType GetRuntimeType(Type type, string[] args)
+        {
+            var runtimeTypes = Types.Values.Where((p) => p.ActivatorType == type && p.Count == args.Length && p.RuntimeTypes.Match(args)).ToArray();
+            var runtimeType = runtimeTypes.Length == 1 ? runtimeTypes[0] : Parser.FindRuntimeTypes(type.ToString(), args, Types.Values).FirstOrDefault();
+            if (runtimeType == null)
+                throw new TypeRegistrationException(string.Format("{0} is not registered (parameter type mismatch)", type));
+            return runtimeType;
+        }
+
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="type">The identifier.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        IRuntimeType GetRuntimeType(Type type, Type[] args)
+        {
+            var runtimeTypes = Types.Values.Where((p) => p.ActivatorType == type && p.Count == args.Length && p.RuntimeTypes.Match(args)).ToArray();
+            var runtimeType = runtimeTypes.Length == 1 ? runtimeTypes[0] : Parser.FindRuntimeTypes(type.ToString(), Format.GetParametersFullName(args), Types.Values).FirstOrDefault();
+            if (runtimeType == null)
+                throw new TypeRegistrationException(string.Format("{0} is not registered (parameter type mismatch)", type));
+            return runtimeType;
+        }
+
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="type">The identifier.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        IRuntimeType GetRuntimeType(Type type, object[] args)
+        {
+            var runtimeTypes = Types.Values.Where((p) => p.ActivatorType == type && p.Count == args.Length && p.RuntimeTypes.Match(Format.GetParametersType(args))).ToArray();
+            var runtimeType = runtimeTypes.Length == 1 ? runtimeTypes[0] : Parser.FindRuntimeTypes(type.ToString(), Format.GetParametersFullName(args), Types.Values).FirstOrDefault();
+            if (runtimeType == null)
+                throw new TypeRegistrationException(string.Format("{0} is not registered (parameter type mismatch)", type));
+            return runtimeType;
+        }
+
         IEnumerable<string[]> GetRuntimeTypeInvariants(IRuntimeType runtimeType, IRuntimeType head, IEnumerable<IRuntimeType> tail)
         {
             foreach (var h in head.Types)
@@ -529,7 +755,7 @@ namespace Build
                 {
                     var parameterRuntimeType = parameterRuntimeTypes[0];
                     if (parameterRuntimeType.GetInstance)
-                        parameters.Add(parameterRuntimeType.CreateInstance((object[])null));
+                        parameters.Add(parameterRuntimeType.CreateInstance());
                     else
                         parameters.Add(parameterRuntimeType.Value);
                 }
@@ -548,6 +774,9 @@ namespace Build
         IRuntimeType[] GetRuntimeTypes(ITypeParser typeParser, string typeFullName, string[] args) =>
             Types.Values.GetRuntimeTypes(typeParser, typeFullName, args);
 
+        IRuntimeType[] GetRuntimeTypes(ITypeParser typeParser, string typeFullName, Type[] args) =>
+            Types.Values.GetRuntimeTypes(typeParser, typeFullName, args);
+
         IEnumerable<string> GetRuntimeTypes(IRuntimeType runtimeType)
         {
             var length = runtimeType.RuntimeTypes.Count();
@@ -562,8 +791,10 @@ namespace Build
         /// <exception cref="TypeRegistrationException"></exception>
         void RegisterConstructor(Type type)
         {
-            if (!type.IsValueType)
+            if (!type.IsValueType || UseValueTypes)
             {
+                //if (!CanRegister(type))
+                //    throw new TypeRegistrationException(string.Format("{0} is not registered (not an allowed type)", type));
                 var constructorEnumerator = Constructor.GetDependencyObjects(Activator, type, UseDefaultTypeInstantiation).GetEnumerator();
                 if (!constructorEnumerator.MoveNext())
                     throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", type));
@@ -571,9 +802,7 @@ namespace Build
                 {
                     var dependencyObject = constructorEnumerator.Current;
                     foreach (var injectionObject in dependencyObject.InjectionObjects)
-                    {
                         RegisterConstructorParameter(dependencyObject, injectionObject);
-                    }
                     RegisterConstructorDependencyObject(dependencyObject);
                 } while (constructorEnumerator.MoveNext());
             }
@@ -592,10 +821,8 @@ namespace Build
             if (!Types.ContainsKey(typeFullName))
             {
                 var result = this[typeFullName, constructor];
-                if (result != null)
-                {
+                if (result != null && !constructor.ActivatorType.IsPrimitive)
                     result.SetRuntimeInstance(constructorAttribute.RuntimeInstance);
-                }
             }
         }
 
@@ -657,15 +884,13 @@ namespace Build
         /// <summary>
         /// Creates the instance.
         /// </summary>
-        /// <param name="typeFullName">The identifier.</param>
+        /// <param name="type">The identifier.</param>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        void RegisterConstructorWithParameters(string typeFullName, object[] args)
+        void RegisterConstructorWithParameters(Type type, object[] args)
         {
-            var runtimeType = Parser.FindRuntimeTypes(typeFullName, Format.GetParametersFullName(args), Types.Values).FirstOrDefault();
-            if (runtimeType == null)
-                throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", typeFullName));
+            var runtimeType = GetRuntimeType(type, args);
             runtimeType.SetRuntimeInstance(RuntimeInstance.GetInstance);
             runtimeType.RegisterConstructorParameters(args);
         }
@@ -673,15 +898,13 @@ namespace Build
         /// <summary>
         /// Creates the instance.
         /// </summary>
-        /// <param name="typeFullName">The identifier.</param>
+        /// <param name="type">The identifier.</param>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        void RegisterConstructorWithParameters(string typeFullName, string[] args)
+        void RegisterConstructorWithParameters(Type type, string[] args)
         {
-            var runtimeType = Parser.FindRuntimeTypes(typeFullName, args, Types.Values).FirstOrDefault();
-            if (runtimeType == null)
-                throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", typeFullName));
+            var runtimeType = GetRuntimeType(type, args);
             runtimeType.SetRuntimeInstance(RuntimeInstance.GetInstance);
             runtimeType.RegisterConstructorParameters(args);
         }
@@ -689,17 +912,30 @@ namespace Build
         /// <summary>
         /// Creates the instance.
         /// </summary>
-        /// <param name="typeFullName">The identifier.</param>
+        /// <param name="type">The identifier.</param>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        void RegisterConstructorWithParameters(string typeFullName, Type[] args)
+        void RegisterConstructorWithParameters(Type type, Type[] args)
         {
-            var runtimeType = Parser.FindRuntimeTypes(typeFullName, Format.GetParametersFullName(args), Types.Values).FirstOrDefault();
-            if (runtimeType == null)
-                throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", typeFullName));
+            var runtimeType = GetRuntimeType(type, args);
             runtimeType.SetRuntimeInstance(RuntimeInstance.GetInstance);
             runtimeType.RegisterConstructorParameters(args);
+        }
+
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="type">The identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="TypeInstantiationException"></exception>
+        void RegisterPrimitiveType(Type type, object value)
+        {
+            var runtimeType = Parser.FindRuntimeTypes(type.ToString(), new string[0], Types.Values).FirstOrDefault();
+            //if (runtimeType == null)
+            //    throw new TypeRegistrationException(string.Format("{0} is not registered (no constructors available)", type));
+            runtimeType.SetRuntimeInstance(RuntimeInstance.GetInstance);
+            runtimeType.SetValue(runtimeType.Attribute, runtimeType.Id, value);
         }
 
         void RegisterRuntimeType(ITypeDependencyObject dependencyObject, ITypeInjectionObject injectionObject)

@@ -20,9 +20,9 @@ namespace Build.Tests.Classes
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
         /// </summary>
-        /// <param name="id">The identifier.</param>
+        /// <param name="typeId">The identifier.</param>
         /// <param name="args">The arguments.</param>
-        public InterfaceInjectionAttribute(string id, params object[] args) : base(id) => _arguments = args;
+        public InterfaceInjectionAttribute(string typeId, params object[] args) : base(typeId) => _arguments = args;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.

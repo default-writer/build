@@ -46,6 +46,13 @@ namespace Build.Tests.TestSet20
         public Func<Class1> Func { get; }
     }
 
+    public class Class6
+    {
+        public Class6(Func<Class1> func) => Func = func;
+
+        public Func<Class1> Func { get; }
+    }
+
     public class LazyFactory<T> : IFactory<T>
     {
         public LazyFactory(Func<T> func) => Func = func;

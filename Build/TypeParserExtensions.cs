@@ -9,10 +9,10 @@ namespace Build
         /// <summary>
         /// Finds the specified identifier.
         /// </summary>
-        /// <param name="id">The identifier.</param>
+        /// <param name="typeId">The identifier.</param>
         /// <param name="args">The arguments.</param>
         /// <param name="types">The types.</param>
         /// <returns></returns>
-        public static IRuntimeType Find(this ITypeParser typeParser, string id, IEnumerable<string> args, IEnumerable<IRuntimeType> types) => typeParser.FindRuntimeTypes(id, args, types).FirstOrDefault();
+        public static IRuntimeType Find(this ITypeParser typeParser, string typeId, IEnumerable<string> args, IEnumerable<IRuntimeType> types) => typeParser.FindRuntimeTypes(typeId, args, types).FirstOrDefault();
     }
 }

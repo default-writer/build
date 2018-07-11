@@ -16,13 +16,13 @@ namespace Build.Tests.Classes
         /// <summary>
         /// Finds the specified identifier.
         /// </summary>
-        /// <param name="id">The identifier.</param>
+        /// <param name="typeId">The identifier.</param>
         /// <param name="args">The arguments.</param>
         /// <param name="types">The types.</param>
         /// <returns></returns>
-        public IEnumerable<IRuntimeType> FindRuntimeTypes(string id, IEnumerable<string> args, IEnumerable<IRuntimeType> types)
+        public IEnumerable<IRuntimeType> FindRuntimeTypes(string typeId, IEnumerable<string> args, IEnumerable<IRuntimeType> types)
         {
-            id = Regex.Replace(id, @"\s", "");
+            var id = Regex.Replace(typeId, @"\s", "");
             IRuntimeType CacheRuntimeType(IRuntimeType runtimeType)
             {
                 if (!Cache.ContainsKey(runtimeType))

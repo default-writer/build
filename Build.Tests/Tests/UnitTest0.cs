@@ -73,16 +73,15 @@ namespace Build.Tests.TestSet0
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            bool exception = false;
             try
             {
                 container.Reset();
+                Assert.True(true);
             }
             catch (Exception)
             {
-                exception = true;
+                Assert.True(false);
             }
-            Assert.False(exception);
         }
 
         [Fact]

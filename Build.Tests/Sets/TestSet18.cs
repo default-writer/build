@@ -7,7 +7,18 @@ namespace Build.Tests.TestSet18
         T GetInstance();
     }
 
-    public class Empty
+    public struct ValueStruct<T> where T : struct
+    {
+        public T Value;
+
+        public ValueStruct(T value) => Value = value;
+
+        public static implicit operator T(ValueStruct<T> valueStruct) => valueStruct.Value;
+
+        public static implicit operator ValueStruct<T>(T value) => new ValueStruct<T>(value);
+    }
+
+    public class EmptyClass
     {
     }
 
@@ -45,6 +56,22 @@ namespace Build.Tests.TestSet18
         public T GetInstance() => Func();
     }
 
+    public class Factory5<T>
+    {
+        public Factory5(Factory2<T> factory) => Factory = factory;
+
+        public Factory5(IFactory<T> factory) => Factory = factory;
+
+        public IFactory<T> Factory { get; }
+    }
+
+    public class IntPtrFactory
+    {
+        public IntPtrFactory(IntPtr factory) => Factory = factory;
+
+        public IntPtr Factory { get; }
+    }
+
     public class LazyFactory<T> : IFactory<T>
     {
         public LazyFactory(Func<T> func) => Func = func;
@@ -52,5 +79,16 @@ namespace Build.Tests.TestSet18
         public Func<T> Func { get; }
 
         public T GetInstance() => Func();
+    }
+
+    public class ValueClass<T> where T : struct
+    {
+        public T Value;
+
+        public ValueClass(T value) => Value = value;
+
+        public static implicit operator T(ValueClass<T> valueStruct) => valueStruct.Value;
+
+        public static implicit operator ValueClass<T>(T value) => new ValueClass<T>(value);
     }
 }

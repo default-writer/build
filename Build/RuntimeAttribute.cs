@@ -46,29 +46,29 @@ namespace Build
         /// <summary>
         /// Gets referenced runtime attribute.
         /// </summary>
-        /// <param name="id">The identifier.</param>
+        /// <param name="typeId">The identifier.</param>
         /// <returns></returns>
-        public IRuntimeAttribute GetReferenceAttribute(string id)
+        public IRuntimeAttribute GetReferenceAttribute(string typeId)
         {
-            if (!References.ContainsKey(id))
+            if (!References.ContainsKey(typeId))
                 return this;
-            return References[id];
+            return References[typeId];
         }
 
         /// <summary>
         /// Registers referenced runtime attribute.
         /// </summary>
-        /// <param name="id">The identifier.</param>
+        /// <param name="typeId">The identifier.</param>
         /// <param name="attribute">The runtime attribute.</param>
         /// <param name="defaultTypeAttributeOverwrite">
         /// Parameter defaults to true for automatic type attribute overwrite. If value is false
         /// exception will be thrown for type attribute overwrites
         /// </param>
-        public void RegisterReferenceAttrubute(string id, IRuntimeAttribute attribute, bool defaultTypeAttributeOverwrite)
+        public void RegisterReferenceAttrubute(string typeId, IRuntimeAttribute attribute, bool defaultTypeAttributeOverwrite)
         {
-            if (!defaultTypeAttributeOverwrite && References.ContainsKey(id))
-                throw new TypeRegistrationException(string.Format("{0} is not registered (more than one constructor available)", id));
-            References[id] = attribute;
+            if (!defaultTypeAttributeOverwrite && References.ContainsKey(typeId))
+                throw new TypeRegistrationException(string.Format("{0} is not registered (more than one constructor available)", typeId));
+            References[typeId] = attribute;
         }
     }
 }

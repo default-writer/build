@@ -35,7 +35,7 @@ namespace Build.Tests.TestSet17
             //TestSet7
             var container = new Container();
             container.RegisterType<Type>();
-            var type = (Type)container.CreateInstance("Build.Tests.TestSet17.Type(Build.Tests.TestSet17.SubType)", (object[])null);
+            var type = (Type)container.CreateInstance("Build.Tests.TestSet17.Type(Build.Tests.TestSet17.SubType)");
             Assert.NotNull(type.SubType);
         }
 

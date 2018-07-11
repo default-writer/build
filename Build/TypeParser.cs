@@ -21,13 +21,13 @@ namespace Build
         /// <summary>
         /// Finds the specified identifier.
         /// </summary>
-        /// <param name="id">The identifier.</param>
+        /// <param name="typeId">The identifier.</param>
         /// <param name="args">The arguments.</param>
         /// <param name="types">The types.</param>
         /// <returns></returns>
-        public IEnumerable<IRuntimeType> FindRuntimeTypes(string id, IEnumerable<string> args, IEnumerable<IRuntimeType> types)
+        public IEnumerable<IRuntimeType> FindRuntimeTypes(string typeId, IEnumerable<string> args, IEnumerable<IRuntimeType> types)
         {
-            id = Regex.Replace(id, @"\s", "");
+            var id = Regex.Replace(typeId, @"\s", "");
             var func = Regex.Match(id, @"([^()]+)(?:\((.*)\)){0,1}$");
             var constructor = id == func.Groups[1].Value ? Format.GetConstructorWithParameters(id, args) : id;
             var cached = Cache.Where((p) => p.Value == constructor).Select((p) => p.Key);
