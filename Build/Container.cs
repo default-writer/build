@@ -159,10 +159,17 @@ namespace Build
         /// <summary>
         /// Creates an object
         /// </summary>
-        /// <param name="type">Type identifier</param>
+        /// <param name="typeFullName">Type identifier</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object GetInstance(string typeFullName) => TypeBuilder.GetInstance(TypeBuilder.GetTypeFullName(typeFullName), new object[0]);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="typeFullName">Type identifier</param>
         /// <param name="args">Arguments to constuctor</param>
         /// <returns>Returns instance of identified type</returns>
-        public object GetInstance(Type type, params object[] args) => TypeBuilder.GetInstance(TypeBuilder.GetTypeFullName(type), TypeBuilder.GetArgs(args));
+        public object GetInstance(string typeFullName, params string[] args) => TypeBuilder.GetInstance(TypeBuilder.GetTypeFullName(typeFullName), TypeBuilder.GetArgs(args));
 
         /// <summary>
         /// Creates an object
@@ -176,9 +183,24 @@ namespace Build
         /// Creates an object
         /// </summary>
         /// <param name="type">Type identifier</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object GetInstance(Type type) => TypeBuilder.GetInstance(TypeBuilder.GetTypeFullName(type), new object[0]);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">Type identifier</param>
         /// <param name="args">Arguments to constuctor</param>
         /// <returns>Returns instance of identified type</returns>
         public object GetInstance(Type type, params string[] args) => TypeBuilder.GetInstance(TypeBuilder.GetTypeFullName(type), TypeBuilder.GetArgs(args));
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">Type identifier</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object GetInstance(Type type, params object[] args) => TypeBuilder.GetInstance(TypeBuilder.GetTypeFullName(type), TypeBuilder.GetArgs(args));
 
         /// <summary>
         /// Locks the container. Pre-computes all registered type invariants for lookup table speed up
@@ -277,7 +299,7 @@ namespace Build
                 runtimeType.RegisterConstructorParameters(args.Length == 0 ? new object[runtimeType.Count] : args);
                 return;
             }
-            //runtimeTypes = TypeBuilder.Parser.FindRuntimeTypes(typeId, Format.GetParametersFullName(args), TypeBuilder.Types.Values).ToArray();
+            runtimeTypes = TypeBuilder.Parser.FindRuntimeTypes(typeId, Format.GetParametersFullName(args), TypeBuilder.Types.Values).ToArray();
             //if (runtimeTypes.Length == 1)
             //{
             //    var runtimeType = runtimeTypes[0];

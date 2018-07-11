@@ -343,11 +343,12 @@ namespace Build.Tests.TestSet20
             //TestSet2
             var container = new Container();
             Func<Class1> class1FactoryMethod = () => new Class1();
-            container.RegisterType<LazyFactory<Class1>>(class1FactoryMethod);
-            container.RegisterType<Class2>();
             var args = new List<string> { typeof(Func<Class1>).ToString() };
+            var constructorName = Format.GetConstructorWithParameters(typeof(Class2).ToString(), args);
+            container.RegisterType<Class2>();
+            container.RegisterType(constructorName, class1FactoryMethod);
             container.Lock();
-            var instance = (Class2)container.GetInstance(Format.GetConstructorWithParameters(typeof(Class2).ToString(), args), new object[] { class1FactoryMethod });
+            var instance = (Class2)container.GetInstance(constructorName, new object[] { class1FactoryMethod });
             Assert.NotNull(instance.Func);
         }
 
