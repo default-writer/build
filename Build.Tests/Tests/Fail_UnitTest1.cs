@@ -63,7 +63,6 @@ namespace Build.Tests.Fail_TestSet1
             //Fail_TestSet1
             var container = new Container();
             container.RegisterType<ServiceDataRepository2>();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.Fail_TestSet1.ServiceDataRepository2(Build.Tests.Fail_TestSet1.Other2)"));
             Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository2>("Build.Tests.Fail_TestSet1.Other2"));
         }
 
