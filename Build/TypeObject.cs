@@ -26,12 +26,12 @@ namespace Build
         /// Gets the object full name
         /// </summary>
         /// <remarks>If runtime attruibute type full name is unknown, then runtime type full name will be used</remarks>
-        public string TypeFullName => RuntimeAttribute.TypeFullName ?? RuntimeType.TypeFullName;
+        public string Type => RuntimeAttribute.TypeFullName ?? RuntimeType.TypeFullName;
 
         /// <summary>
         /// Type full name with parameters
         /// </summary>
-        public string TypeFullNameWithParameters => Format.GetConstructorWithParameters(TypeFullName, TypeParameters);
+        public string TypeIdentity => Format.GetConstructor(Type, TypeParameters);
 
         /// <summary>
         /// Type parameters full name

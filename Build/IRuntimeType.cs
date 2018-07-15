@@ -109,14 +109,6 @@ namespace Build
         object CreateInstance(string[] args);
 
         /// <summary>
-        /// Creates the instance.
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        /// <returns></returns>
-        /// <exception cref="TypeInstantiationException"></exception>
-        object CreateInstance(Type[] args);
-
-        /// <summary>
         /// Creates the value instance
         /// </summary>
         /// <returns></returns>
@@ -152,13 +144,6 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
         bool RegisterConstructorParameters(object[] args);
-
-        /// <summary>
-        /// Registers the parameters.
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
-        bool RegisterConstructorParameters(Type[] args);
 
         /// <summary>
         /// Registers the parameters.

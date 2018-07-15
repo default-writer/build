@@ -7,6 +7,30 @@ namespace Build.Tests.Fail_TestSet1
         Person GetPerson(int personId);
     }
 
+    public class ErrorClass
+    {
+        public ErrorClass(IdType type) => Id = type.Id;
+
+        public string Id { get; }
+    }
+
+    public class ErrorServiceDataRepository2 : IPersonRepository
+    {
+        public ErrorServiceDataRepository2([Injection("Build.Tests.Fail_TestSet1.Other2")]IPersonRepository repository)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPersonRepository Repository { get; }
+
+        public Person GetPerson(int personId) => new Person(this);
+    }
+
+    public class IdType
+    {
+        public string Id { get; set; }
+    }
+
     public class Other : IPersonRepository
     {
         Other()

@@ -292,7 +292,7 @@ namespace Build.Tests.TestSet15
             container.RegisterType<ServiceDataRepository>();
             container.RegisterType<WebServiceDataRepository>();
             container.Lock();
-            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)", typeof(Build.Tests.TestSet15.SqlDataRepository).ToString());
+            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)", typeof(SqlDataRepository).ToString());
             Assert.Null(sql.Repository);
         }
 
@@ -360,6 +360,18 @@ namespace Build.Tests.TestSet15
         }
 
         [Fact]
+        public static void TestSet15_Method39()
+        {
+            //TestSet15
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<WebServiceDataRepository>();
+            container.Lock();
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet15.ErrorWebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)", typeof(SqlDataRepository).ToString()));
+        }
+
+        [Fact]
         public static void TestSet15_Method4()
         {
             //TestSet15
@@ -378,8 +390,8 @@ namespace Build.Tests.TestSet15
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var p = (IPersonRepository)null;
-            //type information is missing so it will match System.Object. Since there is no ServiceDataRepository(System.Object) constructor, exception will be thrown
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository>(p));
+            var srv = container.CreateInstance<ServiceDataRepository>(p);
+            Assert.NotNull(srv);
         }
 
         [Fact]

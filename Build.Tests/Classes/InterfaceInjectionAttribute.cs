@@ -52,7 +52,7 @@ namespace Build.Tests.Classes
         /// Gets the full name of the parameters.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<string> Arguments => Format.GetParametersFullName(_arguments);
+        public IEnumerable<string> Arguments => Format.GetNames(_arguments);
 
         /// <summary>
         /// Gets the runtime instance.

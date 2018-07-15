@@ -8,6 +8,26 @@ namespace Build
     public static class RuntimeTypeExtensions
     {
         /// <summary>
+        /// Matches the arguments.
+        /// </summary>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns></returns>
+        public static bool ContainsTypeDefinition(this IEnumerable<IRuntimeType> parameters, IEnumerable<string> arguments)
+        {
+            var args = arguments.GetEnumerator();
+            var pars = parameters.GetEnumerator();
+            while (args.MoveNext() && pars.MoveNext())
+            {
+                var argumentType = args.Current;
+                var parameterType = pars.Current;
+                if (!parameterType.ContainsTypeDefinition(argumentType))
+                    return false;
+            }
+            return true;
+        }
+
+        /// <summary>
         /// Evaluates arguments
         /// </summary>
         /// <param name="runtimeTypes">Runtime types</param>
@@ -24,7 +44,7 @@ namespace Build
         /// <param name="typeId"></param>
         /// <returns></returns>
         public static IRuntimeType[] FindRuntimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, string typeId) =>
-            runtimeTypes.Where((p) => typeId == Format.GetConstructorWithParameters(p.TypeFullName, p.RuntimeTypes.Select((s) => s.TypeFullName))).ToArray();
+            runtimeTypes.Where((p) => typeId == Format.GetConstructor(p.TypeFullName, p.RuntimeTypes.Select((s) => s.TypeFullName))).ToArray();
 
         /// <summary>
         /// Finds all dependency runtime types (instantiable types) which matches the criteria
@@ -35,7 +55,7 @@ namespace Build
         /// <param name="args">Values</param>
         /// <returns></returns>
         public static IRuntimeType[] FindRuntimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, ITypeParser typeParser, IRuntimeType runtimeType, object[] args) =>
-            typeParser.FindRuntimeTypes(runtimeType.TypeFullName, Format.GetParametersFullName(args), runtimeTypes.Where((p) => p.Attribute is IDependencyAttribute)).Where((p) => p.ActivatorType == runtimeType.ActivatorType).ToArray();
+            typeParser.FindRuntimeTypes(runtimeType.TypeFullName, Format.GetNames(args), runtimeTypes.Where((p) => p.Attribute is IDependencyAttribute)).Where((p) => p.ActivatorType == runtimeType.ActivatorType).ToArray();
 
         /// <summary>
         /// Finds all dependency runtime types (instantiable types) which matches the criteria
@@ -46,7 +66,7 @@ namespace Build
         /// <param name="args">Values</param>
         /// <returns></returns>
         public static IRuntimeType[] GetRuntimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, ITypeParser typeParser, string typeId, object[] args) =>
-            typeParser.FindRuntimeTypes(typeId, Format.GetParametersFullName(args), runtimeTypes.Where((p) => p.Attribute is IDependencyAttribute)).ToArray();
+            typeParser.FindRuntimeTypes(typeId, Format.GetNames(args), runtimeTypes.Where((p) => p.Attribute is IDependencyAttribute)).ToArray();
 
         /// <summary>
         /// Finds all dependency runtime types (instantiable types) which matches the criteria
@@ -57,18 +77,7 @@ namespace Build
         /// <param name="args">Values</param>
         /// <returns></returns>
         public static IRuntimeType[] GetRuntimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, ITypeParser typeParser, string typeId, string[] args) =>
-            typeParser.FindRuntimeTypes(typeId, Format.GetParametersFullName(args), runtimeTypes.Where((p) => p.Attribute is IDependencyAttribute)).ToArray();
-
-        /// <summary>
-        /// Finds all dependency runtime types (instantiable types) which matches the criteria
-        /// </summary>
-        /// <param name="runtimeTypes">Types</param>
-        /// <param name="typeParser">Parset</param>
-        /// <param name="typeId">Id</param>
-        /// <param name="args">Values</param>
-        /// <returns></returns>
-        public static IRuntimeType[] GetRuntimeTypes(this IEnumerable<IRuntimeType> runtimeTypes, ITypeParser typeParser, string typeId, Type[] args) =>
-            typeParser.FindRuntimeTypes(typeId, Format.GetParametersFullName(args), runtimeTypes.Where((p) => p.Attribute is IDependencyAttribute)).ToArray();
+            typeParser.FindRuntimeTypes(typeId, Format.GetNames(args), runtimeTypes.Where((p) => p.Attribute is IDependencyAttribute)).ToArray();
 
         /// <summary>
         /// Matches the arguments.
@@ -76,7 +85,7 @@ namespace Build
         /// <param name="arguments">The arguments.</param>
         /// <param name="parameters">The parameters.</param>
         /// <returns></returns>
-        public static bool Match(this IEnumerable<IRuntimeType> parameters, IEnumerable<string> arguments)
+        public static bool IsAssignableFrom(this IEnumerable<IRuntimeType> parameters, IEnumerable<Type> arguments)
         {
             var args = arguments.GetEnumerator();
             var pars = parameters.GetEnumerator();
@@ -84,7 +93,7 @@ namespace Build
             {
                 var argumentType = args.Current;
                 var parameterType = pars.Current;
-                if (!parameterType.ContainsTypeDefinition(argumentType))
+                if (argumentType != null && !parameterType.ActivatorType.IsAssignableFrom(argumentType))
                     return false;
             }
             return true;
@@ -96,7 +105,7 @@ namespace Build
         /// <param name="arguments">The arguments.</param>
         /// <param name="parameters">The parameters.</param>
         /// <returns></returns>
-        public static bool Match(this IEnumerable<IRuntimeType> parameters, IEnumerable<Type> arguments)
+        public static bool IsOfType(this IEnumerable<IRuntimeType> parameters, IEnumerable<Type> arguments)
         {
             var args = arguments.GetEnumerator();
             var pars = parameters.GetEnumerator();
@@ -104,7 +113,7 @@ namespace Build
             {
                 var argumentType = args.Current;
                 var parameterType = pars.Current;
-                if (!parameterType.ActivatorType.IsAssignableFrom(argumentType))
+                if (parameterType.ActivatorType != argumentType)
                     return false;
             }
             return true;
@@ -132,7 +141,7 @@ namespace Build
         public static bool MatchRuntimeTypes(this IRuntimeType runtimeType, IEnumerable<string> args)
         {
             var count = args.Count();
-            return count == 0 || (runtimeType.Count == count && Match(runtimeType.RuntimeTypes, args));
+            return count == 0 || (runtimeType.Count == count && ContainsTypeDefinition(runtimeType.RuntimeTypes, args));
         }
 
         /// <summary>

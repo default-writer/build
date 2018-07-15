@@ -30,6 +30,28 @@ namespace Build.Tests.TestSet18
     {
     }
 
+    public class ErrorValueClass<T> where T : struct
+    {
+        public T Value;
+
+        public ErrorValueClass(ValueClass<T> value) => Value = value.Value;
+
+        public static implicit operator ErrorValueClass<T>(T value) => new ErrorValueClass<T>(new ValueClass<T>(value));
+
+        public static implicit operator T(ErrorValueClass<T> valueStruct) => valueStruct.Value;
+    }
+
+    public class ErrorValueStruct<T> where T : struct
+    {
+        public T Value;
+
+        public ErrorValueStruct(ValueClass<T> value) => Value = value.Value;
+
+        public static implicit operator ErrorValueStruct<T>(T value) => new ErrorValueStruct<T>(new ValueClass<T>(value));
+
+        public static implicit operator T(ErrorValueStruct<T> valueStruct) => valueStruct.Value;
+    }
+
     public class Factory2<T> : IFactory<T>
     {
         public Factory2()
@@ -75,9 +97,9 @@ namespace Build.Tests.TestSet18
 
     public class IntPtrFactory
     {
-        public IntPtrFactory(IntPtr factory) => Factory = factory;
+        public IntPtrFactory(IntPtr factory) => Handle = factory;
 
-        public IntPtr Factory { get; }
+        public IntPtr Handle { get; }
     }
 
     public class LazyFactory<T> : IFactory<T>

@@ -1,4 +1,6 @@
-﻿namespace Build.Tests.TestSet15
+﻿using System;
+
+namespace Build.Tests.TestSet15
 {
     public enum Database
     {
@@ -9,6 +11,19 @@
     public interface IPersonRepository
     {
         Person GetPerson(int personId);
+    }
+
+    public class ErrorWebServiceDataRepository : IPersonRepository
+    {
+        public ErrorWebServiceDataRepository([Injection(typeof(SqlDataRepository), 2019)]IPersonRepository repository)
+        {
+            Repository = repository;
+            GetPerson(0);
+        }
+
+        public IPersonRepository Repository { get; }
+
+        public Person GetPerson(int personId) => Repository.GetPerson(personId);
     }
 
     public class Person
@@ -49,8 +64,7 @@
 
         public Person GetPerson(int personId)
         {
-            // get the data from SQL DB and return Person instance.
-            return new Person(this);
+            throw new NotImplementedException();
         }
     }
 

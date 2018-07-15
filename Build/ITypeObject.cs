@@ -8,14 +8,14 @@
         IRuntimeType RuntimeType { get; }
 
         /// <summary>
-        /// Gets the object full name
+        /// Gets the type name
         /// </summary>
         /// <remarks>If runtime attruibute type full name is unknown, then runtime type full name will be used</remarks>
-        string TypeFullName { get; }
+        string Type { get; }
 
         /// <summary>
-        /// Object identity
+        /// Gets the type identity (type name with parameters)
         /// </summary>
-        string TypeFullNameWithParameters { get; }
+        string TypeIdentity { get; }
     }
 }

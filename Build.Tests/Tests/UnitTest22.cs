@@ -2,8 +2,8 @@ using Xunit;
 
 namespace Build.Tests.TestSet22
 {
-    using TestSet;
     using Classes;
+    using TestSet;
 
     public static class UnitTest22
     {

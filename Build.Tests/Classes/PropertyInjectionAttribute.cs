@@ -52,7 +52,7 @@ namespace Build.Tests.Classes
         /// Gets the full name of the parameters.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<string> Arguments => Format.GetParametersFullName(_arguments);
+        public IEnumerable<string> Arguments => Format.GetNames(_arguments);
 
         /// <summary>
         /// Gets the runtime instance.
@@ -65,7 +65,7 @@ namespace Build.Tests.Classes
         /// </summary>
         /// <param name="index">Value index in parameters array</param>
         /// <returns>Returns true if selected index is within parameters array bounds</returns>
-        public bool CheckBounds(int index) => index >= 0 && index < _arguments.Length;
+        public bool CheckBounds(int index) => index < _arguments.Length;
 
         /// <summary>
         /// Gets injected object parameters

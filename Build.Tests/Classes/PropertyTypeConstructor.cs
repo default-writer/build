@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace Build.Tests.Classes
 {
@@ -27,7 +26,7 @@ namespace Build.Tests.Classes
                     injectionObjects.AddRange(properties.Select((p) =>
                     {
                         var injectionObject = new TypeInjectionObject(runtimeTypeActivator, p.GetAttribute<PropertyInjectionAttribute>(p.PropertyType), p.PropertyType, defaultTypeInstantiation);
-                        var typeId = Format.GetRuntimeTypeParameter(injectionObject.RuntimeType);
+                        var typeId = Format.GetActivatorType(injectionObject.RuntimeType);
                         injectionObject.RuntimeType.SetValue(typeId, p);
                         return injectionObject;
                     }));
@@ -35,7 +34,7 @@ namespace Build.Tests.Classes
                     dependencyObjects.Add(dependencyObject);
                     foreach (var injectionObject in injectionObjects)
                     {
-                        string typeId = Format.GetRuntimeTypeParameter(injectionObject.RuntimeType);
+                        string typeId = Format.GetActivatorType(injectionObject.RuntimeType);
                         object value = injectionObject.RuntimeType.GetValue(typeId);
                         dependencyObject.RuntimeType.SetValue(typeId, value);
                     }

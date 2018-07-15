@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Build.Tests.Classes
 {
@@ -22,7 +20,7 @@ namespace Build.Tests.Classes
             {
                 var p = runtimeTypes[i];
                 var value = p.Evaluate(type, attribute, i);
-                var id = Format.GetRuntimeTypeParameter(p);
+                var id = Format.GetActivatorType(p);
                 var propertyInfo = (PropertyInfo)instance.GetValue(id);
                 propertyInfo.SetValue(obj, value);
             }
@@ -41,7 +39,7 @@ namespace Build.Tests.Classes
             {
                 var p = runtimeTypes[i];
                 var value = p.GetValue(instance.Attribute, instance.Id);
-                var id = Format.GetRuntimeTypeParameter(p);
+                var id = Format.GetActivatorType(p);
                 var propertyInfo = (PropertyInfo)instance.GetValue(id);
                 propertyInfo.SetValue(obj, value);
             }

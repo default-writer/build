@@ -42,7 +42,7 @@ namespace Build.Tests.UnitTests19
             container.RegisterType<B>(func1);
             container.RegisterType<LazyFactory<A>>(func2);
             container.RegisterType<C3>();
-            Assert.Throws<TargetInvocationException>(() => container.CreateInstance<C3>());
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<C3>());
         }
 
         [Fact]
@@ -116,7 +116,7 @@ namespace Build.Tests.UnitTests19
             container.RegisterType<B>(func1);
             container.RegisterType<LazyFactory<A>>(func2);
             container.RegisterType<C3>();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<C3>(container.GetInstance((Type)null, null), container.GetInstance<B>()));
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<C3>(container.GetInstance((Type)null, (Type[])null), container.GetInstance<B>()));
         }
 
         [Fact]
@@ -140,7 +140,7 @@ namespace Build.Tests.UnitTests19
             container.RegisterType<B>(func1);
             container.RegisterType<LazyFactory<A>>(func2);
             container.RegisterType<C3>();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance((Type)null));
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance((Type)null, Array.Empty<object>()));
         }
 
         [Fact]

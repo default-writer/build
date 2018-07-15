@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using Xunit;
 
 namespace Build.Tests.Fail_TestSet2
@@ -35,6 +37,42 @@ namespace Build.Tests.Fail_TestSet2
         }
 
         [Fact]
+        public static void Fail_TestSet2_Method12()
+        {
+            //Fail_TestSet2
+            var container = new Container();
+            container.RegisterType<ErrorStruct>();
+            container.RegisterType<ErrorSqlDataRepository>();
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance(typeof(ErrorSqlDataRepository), typeof(ErrorStruct)));
+        }
+
+        [Fact]
+        public static void Fail_TestSet2_Method13()
+        {
+            //Fail_TestSet2
+            var binaryFmt = new BinaryFormatter();
+            var ms = new MemoryStream();
+            var ex = new TypeRegistrationException();
+            binaryFmt.Serialize(ms, ex);
+            ms.Position = 0;
+            ex = (TypeRegistrationException)binaryFmt.Deserialize(ms);
+            Assert.NotNull(ex);
+        }
+
+        [Fact]
+        public static void Fail_TestSet2_Method14()
+        {
+            //Fail_TestSet2
+            var binaryFmt = new BinaryFormatter();
+            var ms = new MemoryStream();
+            var ex = new TypeInstantiationException();
+            binaryFmt.Serialize(ms, ex);
+            ms.Position = 0;
+            ex = (TypeInstantiationException)binaryFmt.Deserialize(ms);
+            Assert.NotNull(ex);
+        }
+
+        [Fact]
         public static void Fail_TestSet2_Method2()
         {
             //Fail_TestSet2
@@ -67,7 +105,8 @@ namespace Build.Tests.Fail_TestSet2
             //Fail_TestSet2
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
             container.RegisterType<SqlDataRepository>();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<SqlDataRepository>(new int?()));
+            var sql = container.CreateInstance<SqlDataRepository>(new int?());
+            Assert.NotNull(sql);
         }
 
         [Fact]

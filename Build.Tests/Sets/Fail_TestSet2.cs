@@ -1,8 +1,42 @@
+using System;
+
 namespace Build.Tests.Fail_TestSet2
 {
     public interface IPersonRepository
     {
         Person GetPerson(int personId);
+    }
+
+    public struct ErrorStruct
+    {
+        public int PersonId;
+
+        static ErrorStruct() => throw new NotImplementedException();
+
+        public static bool operator !=(ErrorStruct left, ErrorStruct right) => !(left == right);
+
+        public static bool operator ==(ErrorStruct left, ErrorStruct right) => left.Equals(right);
+
+        public override bool Equals(object obj) => throw new NotImplementedException();
+
+        public override int GetHashCode() => throw new NotImplementedException();
+    }
+
+    public class ErrorSqlDataRepository : IPersonRepository
+    {
+        [Dependency("Build.Tests.Fail_TestSet2.IPersonRepository")]
+        public ErrorSqlDataRepository(ErrorStruct person)
+        {
+            PersonId = person.PersonId;
+        }
+
+        public ErrorSqlDataRepository()
+        {
+        }
+
+        public int PersonId { get; }
+
+        public Person GetPerson(int personId) => new Person(this);
     }
 
     public class Person

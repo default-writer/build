@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -34,7 +33,7 @@ namespace Build
         {
             var id = Regex.Replace(typeId, @"\s", "");
             var func = Regex.Match(id, @"([^()]+)(?:\((.*)\)){0,1}$");
-            var constructor = id == func.Groups[1].Value ? Format.GetConstructorWithParameters(id, args) : id;
+            var constructor = id == func.Groups[1].Value ? Format.GetConstructor(id, args) : id;
             var cached = Cache.Where((p) => p.Value == constructor).Select((p) => p.Key);
             var cachedCount = cached.Count();
             if (cachedCount > 0)

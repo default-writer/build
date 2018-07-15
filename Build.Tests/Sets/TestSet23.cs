@@ -1,7 +1,5 @@
 ﻿namespace Build.Tests.TestSet23
 {
-    using Classes;
-
     public struct D
     {
     }

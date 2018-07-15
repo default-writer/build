@@ -1,20 +1,10 @@
-﻿using System;
-
-namespace Build
+﻿namespace Build
 {
-    public static class ObjectArray
+    static class Array
     {
-        public static object[] Empty() => TypeHolder<object>.EmptyArray;
-    }
+        public static T[] Empty<T>() => TypeHolder<T>.EmptyArray;
 
-    public static class StringArray
-    {
-        public static string[] Empty() => TypeHolder<string>.EmptyArray;
-    }
-
-    public static class TypeArray
-    {
-        public static Type[] Empty() => TypeHolder<Type>.EmptyArray;
+        public static T[] Empty<T>(int count) => TypeHolder<T>.GetEmptyArray(count);
     }
 
     static class TypeHolder<T>
@@ -22,5 +12,7 @@ namespace Build
         static TypeHolder() => EmptyArray = new T[0];
 
         public static T[] EmptyArray { get; }
+
+        public static T[] GetEmptyArray(int count) => new T[count];
     }
 }

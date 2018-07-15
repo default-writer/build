@@ -195,7 +195,7 @@ namespace Build
         public object CreateInstance()
         {
             var parameters = ReadParameters();
-            var result = CreateReferenceType(ObjectArray.Empty());
+            var result = CreateReferenceType(Array.Empty<object>());
             WriteParameters(parameters);
             return result;
         }
@@ -211,7 +211,7 @@ namespace Build
             if (ActivatorType.IsValueType && ActivatorType.IsPrimitive)
                 return Value;
             var parameters = ReadParameters();
-            var result = CreateReferenceType(args ?? ObjectArray.Empty());
+            var result = CreateReferenceType(args);
             WriteParameters(parameters);
             return result;
         }
@@ -225,21 +225,7 @@ namespace Build
         public object CreateInstance(string[] args)
         {
             var parameters = ReadParameters();
-            var result = CreateReferenceType(args ?? StringArray.Empty());
-            WriteParameters(parameters);
-            return result;
-        }
-
-        /// <summary>
-        /// Creates the instance.
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        /// <returns></returns>
-        /// <exception cref="TypeInstantiationException"></exception>
-        public object CreateInstance(Type[] args)
-        {
-            var parameters = ReadParameters();
-            var result = CreateReferenceType(args ?? TypeArray.Empty());
+            var result = CreateReferenceType(args);
             WriteParameters(parameters);
             return result;
         }
@@ -251,9 +237,16 @@ namespace Build
         /// <exception cref="TypeInstantiationException"></exception>
         public object CreateValueInstance()
         {
-            if (ActivatorType.IsPrimitive)
-                return Value;
-            return Activator.CreateInstance(this);
+            try
+            {
+                if (ActivatorType.IsPrimitive)
+                    return Value;
+                return Activator.CreateInstance(this);
+            }
+            catch (Exception ex)
+            {
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated", Id), ex);
+            }
         }
 
         /// <summary>
@@ -317,13 +310,6 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public bool RegisterConstructorParameters(Type[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && TryWriteParameters(args);
-
-        /// <summary>
-        /// Registers the specified arguments match search criteria.
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        /// <returns></returns>
         public bool RegisterConstructorParameters(object[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && WriteParameters(args);
 
         /// <summary>
@@ -331,7 +317,7 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public bool RegisterConstructorParameters(string[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && TryWriteParameters(args);
+        public bool RegisterConstructorParameters(string[] args) => (args.Length == 0 || args.Length == _runtimeTypes.Count) && TryWriteParameters(args);
 
         /// <summary>
         /// Registers type full name as assignable type
@@ -369,19 +355,6 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
-        public bool TryWriteParameters(Type[] args)
-        {
-            for (int i = 0; i < args.Length; i++)
-                if (args[i] != null && !_runtimeTypes[i].ContainsTypeDefinition(args[i].ToString()))
-                    return false;
-            return true;
-        }
-
-        /// <summary>
-        /// Registers the parameters.
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
         public bool TryWriteParameters(string[] args)
         {
             for (int i = 0; i < args.Length; i++)
@@ -399,7 +372,7 @@ namespace Build
         {
             for (int i = 0; i < args.Length; i++)
             {
-                if (args[i] != null && !_runtimeTypes[i].ActivatorType.IsAssignableFrom(Format.GetParameterType(args[i])))
+                if (args[i] != null && !_runtimeTypes[i].ActivatorType.IsAssignableFrom(Format.GetType(args[i])))
                     return false;
                 _runtimeTypes[i].SetValue(Attribute, Id, args[i]);
             }
@@ -417,9 +390,16 @@ namespace Build
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructor available)", TypeFullName));
             if (!RegisterConstructorParameters(args))
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (parameter type mismatch)", TypeFullName));
-            if (args == null || args.Length == 0)
-                return Evaluate(this, Attribute, null);
-            return Activator.CreateInstance(this);
+            try
+            {
+                if (args == null || args.Length == 0)
+                    return Evaluate(this, Attribute, null);
+                return Activator.CreateInstance(this);
+            }
+            catch (Exception ex)
+            {
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated", Id), ex);
+            }
         }
 
         /// <summary>
@@ -433,25 +413,16 @@ namespace Build
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructor available)", TypeFullName));
             if (!RegisterConstructorParameters(args))
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (parameter type mismatch)", TypeFullName));
-            if (args == null || args.Length == 0)
-                return Evaluate(this, Attribute, null);
-            return Activator.CreateInstance(this);
-        }
-
-        /// <summary>
-        /// Creates reference type
-        /// </summary>
-        /// <param name="args">Parameter passed in to type activator</param>
-        /// <returns>Returns instance of a reference type</returns>
-        object CreateReferenceType(Type[] args)
-        {
-            if (!IsInitialized)
-                throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructor available)", TypeFullName));
-            if (!RegisterConstructorParameters(args))
-                throw new TypeInstantiationException(string.Format("{0} is not instantiated (parameter type mismatch)", TypeFullName));
-            if (args == null || args.Length == 0)
-                return Evaluate(this, Attribute, null);
-            return Activator.CreateInstance(this);
+            try
+            {
+                if (args == null || args.Length == 0)
+                    return Evaluate(this, Attribute, null);
+                return Activator.CreateInstance(this);
+            }
+            catch (Exception ex)
+            {
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated", Id), ex);
+            }
         }
 
         /// <summary>
@@ -460,12 +431,7 @@ namespace Build
         /// <param name="attribute">The attribute.</param>
         /// <param name="i">The i.</param>
         /// <returns></returns>
-        object EvaluateAttribute(IRuntimeAttribute attribute, int? i)
-        {
-            if (i.HasValue && attribute is IInjectionAttribute injection && injection.CheckBounds(i.Value))
-                return injection.GetObject(i.Value);
-            return GetValue(attribute, Id);
-        }
+        object EvaluateAttribute(IRuntimeAttribute attribute, int? i) => i.HasValue && attribute is IInjectionAttribute injection && injection.CheckBounds(i.Value) ? injection.GetObject(i.Value) : GetValue(attribute, Id);
 
         /// <summary>
         /// Evaluates the instance.
@@ -474,7 +440,17 @@ namespace Build
         /// <param name="attribute">The runtime attrubute.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        object EvaluateInstance(IRuntimeType type, IRuntimeAttribute attribute) => Activator.CreateInstance(this, type, attribute);
+        object EvaluateInstance(IRuntimeType type, IRuntimeAttribute attribute)
+        {
+            try
+            {
+                return Activator.CreateInstance(this, type, attribute);
+            }
+            catch (Exception ex)
+            {
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated", Id), ex);
+            }
+        }
 
         /// <summary>
         /// Evaluates the singleton.
@@ -497,17 +473,24 @@ namespace Build
         /// </summary>
         object GetDefaultValue()
         {
-            if (ActivatorType.IsValueType)
+            try
             {
-                if (ActivatorType.IsEnum)
+                if (ActivatorType.IsValueType)
                 {
-                    var enums = Enum.GetValues(ActivatorType);
-                    if (enums.Length > 0)
-                        return enums.GetValue(0);
+                    if (ActivatorType.IsEnum)
+                    {
+                        var enums = Enum.GetValues(ActivatorType);
+                        if (enums.Length > 0)
+                            return enums.GetValue(0);
+                    }
+                    return Activator.CreateValueInstance(this);
                 }
-                return Activator.CreateValueInstance(this);
+                return default;
             }
-            return default;
+            catch (Exception ex)
+            {
+                throw new TypeInstantiationException(string.Format("{0} is not instantiated", Id), ex);
+            }
         }
 
         /// <summary>
@@ -519,6 +502,6 @@ namespace Build
         /// <summary>
         /// Updates runtime type id
         /// </summary>
-        void UpdateTypeId() => Id = Format.GetConstructorWithParameters(TypeFullName, _runtimeTypes.Select(p => p.Type));
+        void UpdateTypeId() => Id = Format.GetConstructor(TypeFullName, _runtimeTypes.Select(p => p.Type));
     }
 }
