@@ -47,10 +47,10 @@ Container.CreateInstance(System.Type, System.Type[])
 ```
 
 ```c#
-Container.CreateInstance&lt;T&gt;() 
-Container.CreateInstance&lt;T&gt;(object[]) 
-Container.CreateInstance&lt;T&gt;(string[]) 
-Container.CreateInstance&lt;T&gt;(System.Type[])
+Container.CreateInstance<T>() 
+Container.CreateInstance<T>(object[]) 
+Container.CreateInstance<T>(string[]) 
+Container.CreateInstance<T>(System.Type[])
 ```
 
 ```c#
@@ -82,10 +82,10 @@ Container.RegisterType(System.Type, System.Type[])
 ```
 
 ```c#
-Container.RegisterType&lt;T&gt;()
-Container.RegisterType&lt;T&gt;(object[])
-Container.RegisterType&lt;T&gt;(string[])
-Container.RegisterType&lt;T&gt;(System.Type[])
+Container.RegisterType<T>()
+Container.RegisterType<T>(object[])
+Container.RegisterType<T>(string[])
+Container.RegisterType<T>(System.Type[])
 ```
 
 ## Features
