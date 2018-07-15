@@ -26,6 +26,68 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 - [Build](https://github.com/hack2root/build/wiki)
 
+## v1.0.0.19
+
+- Added API functions
+- All CreateInstance, GetInstance, RegisterType now have the same semantics
+- Exposed public Container API to IContainer
+
+```c#
+Container.CreateInstance(string)
+Container.CreateInstance(string, object[])
+Container.CreateInstance(string, string[])
+Container.CreateInstance(string, System.Type[])
+```
+
+```c#
+Container.CreateInstance(System.Type) 
+Container.CreateInstance(System.Type, object[])
+Container.CreateInstance(System.Type, string[])
+Container.CreateInstance(System.Type, System.Type[])
+```
+
+```c#
+Container.CreateInstance&lt;T&gt;() 
+Container.CreateInstance&lt;T&gt;(object[]) 
+Container.CreateInstance&lt;T&gt;(string[]) 
+Container.CreateInstance&lt;T&gt;(System.Type[])
+```
+
+```c#
+Container.GetInstance(string) 
+Container.GetInstance(string, object[]) 
+Container.GetInstance(string, string[]) 
+Container.GetInstance(string, System.Type[])
+```
+
+```c#
+Container.GetInstance(System.Type)
+Container.GetInstance(System.Type, object[])
+Container.GetInstance(System.Type, string[])
+Container.GetInstance(System.Type, System.Type[])
+```
+
+```c#
+Container.RegisterType(string) 
+Container.RegisterType(string, object[]) 
+Container.RegisterType(string, string[]) 
+Container.RegisterType(string, System.Type[])
+```
+
+```c#
+Container.RegisterType(System.Type) 
+Container.RegisterType(System.Type, object[]) 
+Container.RegisterType(System.Type, string[]) 
+Container.RegisterType(System.Type, System.Type[]) 
+```
+
+```c#
+Container.RegisterType&lt;T&gt;()
+Container.RegisterType&lt;T&gt;(object[])
+Container.RegisterType&lt;T&gt;(string[])
+Container.RegisterType&lt;T&gt;(System.Type[])
+```
+
 ## v1.0.0.18
 - Added API functions
 
