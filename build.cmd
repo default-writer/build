@@ -31,6 +31,10 @@ setlocal EnableDelayedExpansion
   set LV_GIT_HEAD_SHA=
   for /f %%c in ('git rev-parse HEAD') do set "LV_GIT_HEAD_SHA=%%c"
 
+  echo\
+  echo\ git head commit %LV_GIT_HEAD_SHA%
+  echo\
+
   set LocalDotNet_PackagesDir=%~dp0packages
   if exist "%LocalDotNet_PackagesDir%" rmdir /s /q "%LocalDotNet_PackagesDir%"
   if exist "%LocalDotNet_PackagesDir%" (
@@ -51,6 +55,8 @@ setlocal EnableDelayedExpansion
   call .myget\_MyGet.cmd %BuildConfiguration% %BuildVersion%
   set OutputDirectory=%~dp0.muget\myget
   call :remove_directory "%OutputDirectory%" || exit /b 1
+
+  git clean -xdf
 
 endlocal&  exit /b %errorlevel%
 
