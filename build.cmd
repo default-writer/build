@@ -56,8 +56,6 @@ setlocal EnableDelayedExpansion
   set OutputDirectory=%~dp0.muget\myget
   call :remove_directory "%OutputDirectory%" || exit /b 1
 
-  git clean -xdf
-
 endlocal&  exit /b %errorlevel%
 
 :print_error_message
