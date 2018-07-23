@@ -5,7 +5,7 @@
 setlocal EnableDelayedExpansion
   set errorlevel=
   set BuildConfiguration=Release
-  set /p BuildVersion=<"%~dp0.\config\BuildVersion.txt"
+  set /p BuildVersion=<"%~dp0\.config\BuildVersion.txt"
 
   REM Check that git is on path.
   where.exe /Q git.exe || (
@@ -36,14 +36,14 @@ setlocal EnableDelayedExpansion
   echo/==================
   echo/ Building %BuildVersion% %BuildConfiguration% version of NuGet packages.
   echo/==================
-  call _NuGet.cmd %BuildConfiguration% %BuildVersion%
+  call .nuget\_NuGet.cmd %BuildConfiguration% %BuildVersion%
   set OutputDirectory=%~dp0.nuget\nuget
   call :remove_directory "%OutputDirectory%" || exit /b 1
 
   echo/==================
   echo/ Building %BuildVersion% %BuildConfiguration% version of MyGet packages.
   echo/==================
-  call _MyGet.cmd %BuildConfiguration% %BuildVersion%
+  call .myget\_MyGet.cmd %BuildConfiguration% %BuildVersion%
   set OutputDirectory=%~dp0.muget\myget
   call :remove_directory "%OutputDirectory%" || exit /b 1
 
