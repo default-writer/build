@@ -14,6 +14,8 @@ setlocal EnableDelayedExpansion
     exit /b 1
   )
 
+  call taskkill /IM dotnet
+
   set /a count = 0
   for /f %%l in ('git clean -xdn') do set /a count += 1
   for /f %%l in ('git status --porcelain') do set /a count += 1
@@ -50,6 +52,8 @@ setlocal EnableDelayedExpansion
   set OutputDirectory=%~dp0.nuget\nuget
   call :remove_directory "%OutputDirectory%" || exit /b 1
 
+  call taskkill /IM dotnet
+
   set /a count = 0
   for /f %%l in ('git clean -xdn') do set /a count += 1
   for /f %%l in ('git status --porcelain') do set /a count += 1
@@ -67,6 +71,8 @@ setlocal EnableDelayedExpansion
   call .myget\_MyGet.cmd %BuildConfiguration% %BuildVersion%
   set OutputDirectory=%~dp0.myget\myget
   call :remove_directory "%OutputDirectory%" || exit /b 1
+
+  call taskkill /IM dotnet
 
   set /a count = 0
   for /f %%l in ('git clean -xdn') do set /a count += 1
