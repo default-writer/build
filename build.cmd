@@ -32,7 +32,6 @@ setlocal EnableDelayedExpansion
   set LV_GIT_HEAD_SHA=
   for /f %%c in ('git rev-parse HEAD') do set "LV_GIT_HEAD_SHA=%%c"
 
-  echo\
   echo/==================
   echo/ %LV_GIT_HEAD_SHA%
   echo/==================
