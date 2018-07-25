@@ -14,7 +14,7 @@ setlocal EnableDelayedExpansion
     exit /b 1
   )
 
-  call taskkill /IM dotnet
+  call taskkill /IM dotnet.exe /F > nul
 
   set /a count = 0
   for /f %%l in ('git clean -xdn') do set /a count += 1
@@ -52,7 +52,7 @@ setlocal EnableDelayedExpansion
   set OutputDirectory=%~dp0.nuget\nuget
   call :remove_directory "%OutputDirectory%" || exit /b 1
 
-  call taskkill /IM dotnet
+  call taskkill /IM dotnet.exe /F > nul
 
   set /a count = 0
   for /f %%l in ('git clean -xdn') do set /a count += 1

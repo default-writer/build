@@ -11,5 +11,6 @@ setlocal
 
 endlocal
 
-pskill dotnet.exe
+call taskkill /IM dotnet.exe /F > nul
+
 powershell -command "rm -recurse -force .sonarqube"
