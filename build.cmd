@@ -54,13 +54,6 @@ setlocal EnableDelayedExpansion
 
   call taskkill /IM dotnet.exe /F > nul
 
-  set /a count = 0
-  for /f %%l in ('git clean -xdn') do set /a count += 1
-  for /f %%l in ('git status --porcelain') do set /a count += 1
-  if %count% neq 0 (
-    git clean -xdf
-  )
-
   echo/==================
   echo/ %LV_GIT_HEAD_SHA%
   echo/==================
@@ -73,13 +66,6 @@ setlocal EnableDelayedExpansion
   call :remove_directory "%OutputDirectory%" || exit /b 1
 
   call taskkill /IM dotnet
-
-  set /a count = 0
-  for /f %%l in ('git clean -xdn') do set /a count += 1
-  for /f %%l in ('git status --porcelain') do set /a count += 1
-  if %count% neq 0 (
-    git clean -xdf
-  )
 
 endlocal&  exit /b %errorlevel%
 
