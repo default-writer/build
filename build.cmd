@@ -3,6 +3,7 @@
 
 :main
 setlocal EnableDelayedExpansion
+
   set errorlevel=
   set BuildConfiguration=Release
   set /p BuildVersion=<"%~dp0\.config\BuildVersion.txt"
@@ -32,9 +33,10 @@ setlocal EnableDelayedExpansion
   for /f %%c in ('git rev-parse HEAD') do set "LV_GIT_HEAD_SHA=%%c"
 
   echo\
-  echo\ git head commit %LV_GIT_HEAD_SHA%
-  echo\
-
+  echo/==================
+  echo/ %LV_GIT_HEAD_SHA%
+  echo/==================
+ 
   set LocalDotNet_PackagesDir=%~dp0packages
   if exist "%LocalDotNet_PackagesDir%" rmdir /s /q "%LocalDotNet_PackagesDir%"
   if exist "%LocalDotNet_PackagesDir%" (
@@ -43,11 +45,19 @@ setlocal EnableDelayedExpansion
   )
 
   echo/==================
+  echo/ %LV_GIT_HEAD_SHA%
+  echo/==================
+
+  echo/==================
   echo/ Building %BuildVersion% %BuildConfiguration% version of NuGet packages.
   echo/==================
   call .nuget\_NuGet.cmd %BuildConfiguration% %BuildVersion%
   set OutputDirectory=%~dp0.nuget\nuget
   call :remove_directory "%OutputDirectory%" || exit /b 1
+
+  echo/==================
+  echo/ %LV_GIT_HEAD_SHA%
+  echo/==================
 
   echo/==================
   echo/ Building %BuildVersion% %BuildConfiguration% version of MyGet packages.
