@@ -50,6 +50,13 @@ setlocal EnableDelayedExpansion
   set OutputDirectory=%~dp0.nuget\nuget
   call :remove_directory "%OutputDirectory%" || exit /b 1
 
+  set /a count = 0
+  for /f %%l in ('git clean -xdn') do set /a count += 1
+  for /f %%l in ('git status --porcelain') do set /a count += 1
+  if %count% neq 0 (
+    git clean -xdf
+  )
+
   echo/==================
   echo/ %LV_GIT_HEAD_SHA%
   echo/==================
@@ -58,8 +65,15 @@ setlocal EnableDelayedExpansion
   echo/ Building %BuildVersion% %BuildConfiguration% version of MyGet packages.
   echo/==================
   call .myget\_MyGet.cmd %BuildConfiguration% %BuildVersion%
-  set OutputDirectory=%~dp0.muget\myget
+  set OutputDirectory=%~dp0.myget\myget
   call :remove_directory "%OutputDirectory%" || exit /b 1
+
+  set /a count = 0
+  for /f %%l in ('git clean -xdn') do set /a count += 1
+  for /f %%l in ('git status --porcelain') do set /a count += 1
+  if %count% neq 0 (
+    git clean -xdf
+  )
 
 endlocal&  exit /b %errorlevel%
 
