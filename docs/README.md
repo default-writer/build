@@ -631,9 +631,7 @@ public class ServiceDataRepository : IPersonRepository
 
 ## Goal 
 
-The goal of development of this framework is to build automation of complex types initialization.
-Build can use declarative approach to define dependencies between types and their requirements.
-Constructor injection uses type resolution to resolve devendencies
+.NET Dependency Injection framework is framework to build automation of complex types. Build can use declarative approach to define dependencies between types and their requirements. Constructor injection uses type resolution to resolve dependencies
 
 ## Examples
 
