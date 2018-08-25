@@ -9,9 +9,7 @@
 
     static class TypeHolder<T>
     {
-        static TypeHolder() => EmptyArray = new T[0];
-
-        public static T[] EmptyArray { get; }
+        public static T[] EmptyArray { get; } = Array.Empty<T>(0);
 
         public static T[] GetEmptyArray(int count) => new T[count];
     }

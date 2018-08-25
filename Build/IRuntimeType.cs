@@ -132,13 +132,6 @@ namespace Build
         object GetValue(IRuntimeAttribute attribute, string typeId);
 
         /// <summary>
-        /// Gets the value from the runtime type.
-        /// </summary>
-        /// <param name="typeId">Id</param>
-        /// <value>Value</value>
-        object GetValue(string typeId);
-
-        /// <summary>
         /// Registers the parameters.
         /// </summary>
         /// <param name="args">The arguments.</param>
@@ -171,12 +164,5 @@ namespace Build
         /// <param name="typeId">Id</param>
         /// <param name="value">Value</param>
         void SetValue(IRuntimeAttribute attribute, string typeId, object value);
-
-        /// <summary>
-        /// Sets the value to the runtime type.
-        /// </summary>
-        /// <param name="typeId">Id</param>
-        /// <param name="value">Value</param>
-        void SetValue(string typeId, object value);
     }
 }

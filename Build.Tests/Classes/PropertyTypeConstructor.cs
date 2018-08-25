@@ -27,17 +27,11 @@ namespace Build.Tests.Classes
                     {
                         var injectionObject = new TypeInjectionObject(runtimeTypeActivator, p.GetAttribute<PropertyInjectionAttribute>(p.PropertyType), p.PropertyType, defaultTypeInstantiation);
                         var typeId = Format.GetActivatorType(injectionObject.RuntimeType);
-                        injectionObject.RuntimeType.SetValue(typeId, p);
+                        PropertyCache.SetPropertyInfo(typeId, p);
                         return injectionObject;
                     }));
                     var dependencyObject = new TypeDependencyObject(runtimeTypeActivator, runtimeAttribute, injectionObjects, constructorType, defaultTypeInstantiation);
                     dependencyObjects.Add(dependencyObject);
-                    foreach (var injectionObject in injectionObjects)
-                    {
-                        string typeId = Format.GetActivatorType(injectionObject.RuntimeType);
-                        object value = injectionObject.RuntimeType.GetValue(typeId);
-                        dependencyObject.RuntimeType.SetValue(typeId, value);
-                    }
                 }
             }
             return dependencyObjects;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Build
 {
@@ -10,11 +11,6 @@ namespace Build
     /// <seealso cref="Build.IRuntimeType"/>
     class RuntimeType : IRuntimeType
     {
-        /// <summary>
-        /// The raw values
-        /// </summary>
-        readonly IDictionary<string, object> _objects = new Dictionary<string, object>();
-
         /// <summary>
         /// Gets the runtime types.
         /// </summary>
@@ -152,23 +148,6 @@ namespace Build
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="System.Object"/>.
-        /// </summary>
-        /// <value>The <see cref="System.Object"/>.</value>
-        /// <param name="typeId">Object id.</param>
-        /// <returns></returns>
-        object this[string typeId]
-        {
-            get
-            {
-                if (!_objects.ContainsKey(typeId))
-                    return default;
-                return _objects[typeId];
-            }
-            set => _objects[typeId] = value;
-        }
-
-        /// <summary>
         /// Adds the parameter.
         /// </summary>
         /// <param name="parameterRuntimeType">Type of the parameter runtime.</param>
@@ -285,13 +264,6 @@ namespace Build
         public object GetValue(IRuntimeAttribute attribute, string typeId) => this[attribute, typeId];
 
         /// <summary>
-        /// Gets the value from the runtime type.
-        /// </summary>
-        /// <param name="typeId">Id</param>
-        /// <value>Value</value>
-        public object GetValue(string typeId) => this[typeId];
-
-        /// <summary>
         /// Gets the parameters;
         /// </summary>
         /// <returns></returns>
@@ -310,14 +282,14 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public bool RegisterConstructorParameters(object[] args) => (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && WriteParameters(args);
+        public bool RegisterConstructorParameters(object[] args) => args != null && (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && WriteParameters(args);
 
         /// <summary>
         /// Registers the specified arguments match search criteria.
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public bool RegisterConstructorParameters(string[] args) => (args.Length == 0 || args.Length == _runtimeTypes.Count) && TryWriteParameters(args);
+        public bool RegisterConstructorParameters(string[] args) => args != null && (args.Length == 0 || args.Length == _runtimeTypes.Count) && TryWriteParameters(args);
 
         /// <summary>
         /// Registers type full name as assignable type
@@ -344,13 +316,6 @@ namespace Build
         public void SetValue(IRuntimeAttribute attribute, string typeId, object value) => this[attribute, typeId] = value;
 
         /// <summary>
-        /// Sets the value to the runtime type.
-        /// </summary>
-        /// <param name="typeId">Id</param>
-        /// <param name="value">Value</param>
-        public void SetValue(string typeId, object value) => this[typeId] = value;
-
-        /// <summary>
         /// Registers the parameters.
         /// </summary>
         /// <param name="args">The arguments.</param>
@@ -358,7 +323,7 @@ namespace Build
         public bool TryWriteParameters(string[] args)
         {
             for (int i = 0; i < args.Length; i++)
-                if (args[i] != null && !_runtimeTypes[i].ContainsTypeDefinition(args[i]))
+                if (!_runtimeTypes[i].ContainsTypeDefinition(args[i]))
                     return false;
             return true;
         }
@@ -392,7 +357,7 @@ namespace Build
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (parameter type mismatch)", TypeFullName));
             try
             {
-                if (args == null || args.Length == 0)
+                if (args.Length == 0)
                     return Evaluate(this, Attribute, null);
                 return Activator.CreateInstance(this);
             }
@@ -415,7 +380,7 @@ namespace Build
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (parameter type mismatch)", TypeFullName));
             try
             {
-                if (args == null || args.Length == 0)
+                if (args.Length == 0)
                     return Evaluate(this, Attribute, null);
                 return Activator.CreateInstance(this);
             }

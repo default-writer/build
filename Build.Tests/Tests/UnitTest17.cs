@@ -45,10 +45,34 @@ namespace Build.Tests.TestSet17
             //TestSet7
             var container = new Container();
             container.RegisterType<Type>();
+            var value = PropertyCache.GetPropertyInfo("");
+            Assert.Null(value);
+        }
+
+        [Fact]
+        public static void TestSet17_Method5()
+        {
+            //TestSet7
+            var container = new Container();
+            container.RegisterType<Type>();
             var typeActivator = new TypeActivator();
             var runtimeType = new RuntimeType(typeActivator, new InjectionAttribute("Build.Tests.TestSet17.Type"), typeof(Type), true);
-            var value = runtimeType.GetValue("");
-            Assert.Null(value);
+            runtimeType.SetRuntimeInstance(RuntimeInstance.CreateInstance);
+            runtimeType.AddConstructorParameter(((TypeBuilder)container.Builder).CanRegister(runtimeType.ActivatorType), new RuntimeType(typeActivator, new InjectionAttribute(typeof(Type)), typeof(Type), true));
+            Assert.Throws<TypeInstantiationException>(() => runtimeType.CreateInstance((object[])null));
+        }
+
+        [Fact]
+        public static void TestSet17_Method6()
+        {
+            //TestSet7
+            var container = new Container();
+            container.RegisterType<Type>();
+            var typeActivator = new TypeActivator();
+            var runtimeType = new RuntimeType(typeActivator, new InjectionAttribute("Build.Tests.TestSet17.Type"), typeof(Type), true);
+            runtimeType.SetRuntimeInstance(RuntimeInstance.CreateInstance);
+            runtimeType.AddConstructorParameter(((TypeBuilder)container.Builder).CanRegister(runtimeType.ActivatorType), new RuntimeType(typeActivator, new InjectionAttribute(typeof(Type)), typeof(Type), true));
+            Assert.Throws<TypeInstantiationException>(() => runtimeType.CreateInstance((string[])null));
         }
     }
 }

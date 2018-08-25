@@ -21,7 +21,7 @@ namespace Build.Tests.Classes
                 var p = runtimeTypes[i];
                 var value = p.Evaluate(type, attribute, i);
                 var id = Format.GetActivatorType(p);
-                var propertyInfo = (PropertyInfo)instance.GetValue(id);
+                var propertyInfo = PropertyCache.GetPropertyInfo(id);
                 propertyInfo.SetValue(obj, value);
             }
             return obj;
@@ -40,7 +40,7 @@ namespace Build.Tests.Classes
                 var p = runtimeTypes[i];
                 var value = p.GetValue(instance.Attribute, instance.Id);
                 var id = Format.GetActivatorType(p);
-                var propertyInfo = (PropertyInfo)instance.GetValue(id);
+                var propertyInfo = PropertyCache.GetPropertyInfo(id);
                 propertyInfo.SetValue(obj, value);
             }
             return obj;
