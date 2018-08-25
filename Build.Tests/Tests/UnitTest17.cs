@@ -45,16 +45,6 @@ namespace Build.Tests.TestSet17
             //TestSet7
             var container = new Container();
             container.RegisterType<Type>();
-            var value = PropertyCache.GetPropertyInfo("");
-            Assert.Null(value);
-        }
-
-        [Fact]
-        public static void TestSet17_Method5()
-        {
-            //TestSet7
-            var container = new Container();
-            container.RegisterType<Type>();
             var typeActivator = new TypeActivator();
             var runtimeType = new RuntimeType(typeActivator, new InjectionAttribute("Build.Tests.TestSet17.Type"), typeof(Type), true);
             runtimeType.SetRuntimeInstance(RuntimeInstance.CreateInstance);
@@ -63,7 +53,7 @@ namespace Build.Tests.TestSet17
         }
 
         [Fact]
-        public static void TestSet17_Method6()
+        public static void TestSet17_Method5()
         {
             //TestSet7
             var container = new Container();

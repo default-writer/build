@@ -18,10 +18,9 @@ namespace Build.Tests.Classes
             var runtimeTypes = instance.RuntimeTypes.ToArray();
             for (int i = 0; i < runtimeTypes.Length; i++)
             {
-                var p = runtimeTypes[i];
-                var value = p.Evaluate(type, attribute, i);
-                var id = Format.GetActivatorType(p);
-                var propertyInfo = PropertyCache.GetPropertyInfo(id);
+                var runtimeType = runtimeTypes[i];
+                var value = runtimeType.Evaluate(type, attribute, i);
+                var propertyInfo = PropertyCache.GetPropertyInfo(runtimeType);
                 propertyInfo.SetValue(obj, value);
             }
             return obj;
@@ -37,10 +36,9 @@ namespace Build.Tests.Classes
             var runtimeTypes = instance.RuntimeTypes.ToArray();
             for (int i = 0; i < runtimeTypes.Length; i++)
             {
-                var p = runtimeTypes[i];
-                var value = p.GetValue(instance.Attribute, instance.Id);
-                var id = Format.GetActivatorType(p);
-                var propertyInfo = PropertyCache.GetPropertyInfo(id);
+                var runtimeType = runtimeTypes[i];
+                var value = runtimeType.GetValue(instance.Attribute, instance.Id);
+                var propertyInfo = PropertyCache.GetPropertyInfo(runtimeType);
                 propertyInfo.SetValue(obj, value);
             }
             return obj;

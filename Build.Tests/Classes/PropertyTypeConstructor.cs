@@ -26,8 +26,7 @@ namespace Build.Tests.Classes
                     injectionObjects.AddRange(properties.Select((p) =>
                     {
                         var injectionObject = new TypeInjectionObject(runtimeTypeActivator, p.GetAttribute<PropertyInjectionAttribute>(p.PropertyType), p.PropertyType, defaultTypeInstantiation);
-                        var typeId = Format.GetActivatorType(injectionObject.RuntimeType);
-                        PropertyCache.SetPropertyInfo(typeId, p);
+                        PropertyCache.SetPropertyInfo(injectionObject.RuntimeType, p);
                         return injectionObject;
                     }));
                     var dependencyObject = new TypeDependencyObject(runtimeTypeActivator, runtimeAttribute, injectionObjects, constructorType, defaultTypeInstantiation);

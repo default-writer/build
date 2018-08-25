@@ -13,20 +13,15 @@ namespace Build
         /// <summary>
         /// Gets the property from the runtime type.
         /// </summary>
-        /// <param name="typeId">Id</param>
+        /// <param name="runtimeType">Id</param>
         /// <value>Value</value>
-        public static PropertyInfo GetPropertyInfo(string typeId)
-        {
-            if (!_objects.ContainsKey(typeId))
-                return default;
-            return _objects[typeId];
-        }
+        public static PropertyInfo GetPropertyInfo(IRuntimeType runtimeType) => _objects[Format.GetActivatorType(runtimeType)];
 
         /// <summary>
         /// Sets the property to the runtime type.
         /// </summary>
-        /// <param name="typeId">Id</param>
+        /// <param name="runtimeType">Id</param>
         /// <param name="value">Value</param>
-        public static void SetPropertyInfo(string typeId, PropertyInfo value) => _objects[typeId] = value;
+        public static void SetPropertyInfo(IRuntimeType runtimeType, PropertyInfo value) => _objects[Format.GetActivatorType(runtimeType)] = value;
     }
 }
