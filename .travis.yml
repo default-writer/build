@@ -1,8 +1,9 @@
 notifications:
   slack: build-core:9zFwG1mZVRxt2cNeW1HO3vv2
 language: csharp
-dist: trusty
+dist: xenial
 mono: none
+sudo: required
 dotnet: 2.2
 script:
   - dotnet restore
