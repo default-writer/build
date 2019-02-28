@@ -5,7 +5,6 @@ dist: trusty
 mono: none
 dotnet: 2.2
 script:
-  - apt-get install -y dpkg
   - dotnet restore
   - dotnet build
   - dotnet test --no-build Build.Tests
