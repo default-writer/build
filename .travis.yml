@@ -3,10 +3,9 @@ notifications:
 language: csharp
 dist: trusty
 mono: none
-sudo: required
 dotnet: 2.2
 script:
-  - sudo apt-get install -y dpkg
+  - apt-get install -y dpkg
   - dotnet restore
   - dotnet build
   - dotnet test --no-build Build.Tests
