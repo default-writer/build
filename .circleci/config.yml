@@ -2,7 +2,7 @@
 jobs:
   build:
     docker:
-      - image: microsoft/dotnet:2.1.300-preview2-sdk-alpine
+      - image: microsoft/dotnet:2.2.104-sdk-alpine3.8
     steps:
       - checkout
       - run: find .
