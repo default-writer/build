@@ -1,13 +1,15 @@
 notifications:
   slack: build-core:9zFwG1mZVRxt2cNeW1HO3vv2
-
 language: csharp
 dist: trusty
 mono: none
+sudo: required
 dotnet: 2.2
-
 script:
   - sudo apt-get install -y dpkg
   - dotnet restore
   - dotnet build
   - dotnet test --no-build Build.Tests
+global:
+  - DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
+  - DOTNET_CLI_TELEMETRY_OPTOUT=1
