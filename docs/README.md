@@ -26,7 +26,7 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 - [Build](https://github.com/hack2root/build/wiki)
 
-## v1.0.0.26
+## v1.0.0.27
 
 Build.DependencyInjection.Abstractions(dependency_injection_abstractions):
 
