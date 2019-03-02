@@ -26,6 +26,20 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 - [Build](https://github.com/hack2root/build/wiki)
 
+## v1.0.0.25
+
+Build.DependencyInjection(dependency_injection_build)
+
+- Added support for .NET Core 3 preview 2 (3.0.100-preview-010184)
+- Added support for .NET Core 2.0
+- Added Build.DependencyInjection.Abstractions (v1.0.0.25)
+
+Build.DependencyInjection.Abstractions:
+
+- Added support for .NET Core 3 preview 2 (3.0.100-preview-010184)
+- Added support for .NET Standart 1.5/1.6
+- Added support for .NET Core 1.0/1.1/2.0/2.1
+
 ## v1.0.0.19
 
 - Added API functions

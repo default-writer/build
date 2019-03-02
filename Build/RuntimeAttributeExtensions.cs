@@ -11,7 +11,9 @@ namespace Build
         /// <typeparam name="T">Attribute, IRuntimeAttruibute type implementation</typeparam>
         /// <param name="p">Reflection member info</param>
         /// <returns></returns>
-        public static T GetAttribute<T>(this MemberInfo p, Type type) where T : RuntimeAttribute => p.GetCustomAttribute<T>() ?? (T)Activator.CreateInstance(typeof(T), type);
+        public static T GetAttribute<T>(this MemberInfo p, Type type) 
+            where T : Attribute => 
+            p.GetCustomAttribute<T>() ?? (T)Activator.CreateInstance(typeof(T), type);
 
         /// <summary>
         /// Returns runtime attribute
@@ -19,6 +21,8 @@ namespace Build
         /// <typeparam name="T">Attribute, IRuntimeAttruibute type implementation</typeparam>
         /// <param name="p">Reflection member info</param>
         /// <returns></returns>
-        public static T GetAttribute<T>(this ParameterInfo p, Type type) where T : RuntimeAttribute => p.GetCustomAttribute<T>() ?? (T)Activator.CreateInstance(typeof(T), type);
+        public static T GetAttribute<T>(this ParameterInfo p, Type type) 
+            where T : Attribute => 
+            p.GetCustomAttribute<T>() ?? (T)Activator.CreateInstance(typeof(T), type);
     }
 }

@@ -8,52 +8,11 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <licenseUrl>https://github.com/hack2root/build/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://hack2root.github.io/build/</projectUrl>
-    <description>.NET Core 2.1 Dependency Injection framework</description>
+    <description>.NET Core 3.0 Dependency Injection Framework</description>
     <releaseNotes>Features:
-      - Added API functions
-      - All CreateInstance, GetInstance, RegisterType now have the same semantics
-      - Exposed public Container API to IContainer
-
-Container.CreateInstance(string)
-Container.CreateInstance(string, object[])
-Container.CreateInstance(string, string[])
-Container.CreateInstance(string, System.Type[])
-
-Container.CreateInstance(System.Type) 
-Container.CreateInstance(System.Type, object[])
-Container.CreateInstance(System.Type, string[])
-Container.CreateInstance(System.Type, System.Type[])
-
-Container.CreateInstance&lt;T&gt;() 
-Container.CreateInstance&lt;T&gt;(object[]) 
-Container.CreateInstance&lt;T&gt;(string[]) 
-Container.CreateInstance&lt;T&gt;(System.Type[])
-
-Container.GetInstance(string) 
-Container.GetInstance(string, object[]) 
-Container.GetInstance(string, string[]) 
-Container.GetInstance(string, System.Type[])
-
-Container.GetInstance(System.Type)
-Container.GetInstance(System.Type, object[])
-Container.GetInstance(System.Type, string[])
-Container.GetInstance(System.Type, System.Type[])
-
-Container.RegisterType(string) 
-Container.RegisterType(string, object[]) 
-Container.RegisterType(string, string[]) 
-Container.RegisterType(string, System.Type[])
-
-Container.RegisterType(System.Type) 
-Container.RegisterType(System.Type, object[]) 
-Container.RegisterType(System.Type, string[]) 
-Container.RegisterType(System.Type, System.Type[]) 
-
-Container.RegisterType&lt;T&gt;()
-Container.RegisterType&lt;T&gt;(object[])
-Container.RegisterType&lt;T&gt;(string[])
-Container.RegisterType&lt;T&gt;(System.Type[])
-
+      - Added support for .NET Core 3 preview 2 (3.0.100-preview-010184)
+      - Added support for .NET Standart 1.5/1.6
+      - Added support for .NET Core 1.0/1.1/2.0/2.1
     </releaseNotes>
     <copyright>Artur Mustafin (hack2root)</copyright>
     <tags>Dependency Injection</tags>

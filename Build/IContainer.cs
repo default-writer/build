@@ -4,6 +4,26 @@ using System.Reflection;
 
 namespace Build
 {
+    public interface IBuilder
+    {
+        bool CanRegister(Type type);
+
+        void RegisterType(Type type);
+        void RegisterType(Type type, bool v);
+        void RegisterType(Type type, params object[] args);
+        void RegisterType(string type);
+        void RegisterType(string type, bool v);
+        void RegisterType(string type, params object[] args);
+        bool IsNotNull(object[] args);
+        bool IsLocked { get; }
+        IEnumerable<string> RuntimeAliasedTypes { get; }
+        IEnumerable<string> RuntimeNonAliasedTypes { get; }
+        IEnumerable<string> RuntimeTypeAliases { get; }
+        IEnumerable<string> RuntimeTypes { get; }
+        object CreateInstance(Type type, object[] args);
+        object CreateInstance(string type, object[] args);
+    }
+
     /// <summary>
     /// Public interface for type container
     /// </summary>

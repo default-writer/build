@@ -28,7 +28,16 @@ namespace Build
         /// <param name="typeFilter">Type filter</param>
         /// <param name="typeParser">Type parser</param>
         /// <param name="typeResolver">Type resolver</param>
-        public Container(ITypeActivator typeActivator, ITypeConstructor typeConstructor, ITypeFilter typeFilter, ITypeParser typeParser, ITypeResolver typeResolver) => TypeBuilder = new TypeBuilder(typeActivator, typeConstructor, typeFilter, typeParser, typeResolver);
+        public Container(
+            
+            ITypeActivator typeActivator, 
+            ITypeConstructor typeConstructor, 
+            ITypeFilter typeFilter, 
+            ITypeParser typeParser, 
+            ITypeResolver typeResolver, 
+            ITypeDependencyAttributeProvider typeDependencyAttributeProvider = null, 
+            ITypeInjectionAttributeProvider typeInjectionAttributeProvider = null) => 
+                TypeBuilder = new TypeBuilder(typeActivator, typeConstructor, typeFilter, typeParser, typeResolver, typeDependencyAttributeProvider ?? new TypeDependencyAttributeProvider(), typeInjectionAttributeProvider ?? new TypeInjectionAttributeProvider());
 
         /// <summary>
         /// Type builder
@@ -77,7 +86,7 @@ namespace Build
         /// </summary>
         /// <typeparam name="T">Type identifier</typeparam>
         /// <returns>Returns instance of identified type</returns>
-        public T CreateInstance<T>() => (T)TypeBuilder.CreateInstance(typeof(T), Array.Empty<object>());
+        public T CreateInstance<T>() => (T)TypeBuilder.CreateInstance(typeof(T), ArrayExtensions.ToArray<object>());
 
         /// <summary>
         /// Creates an object
@@ -131,7 +140,7 @@ namespace Build
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>Returns instance of identified type</returns>
-        public object CreateInstance(Type type) => TypeBuilder.CreateInstance(type, Array.Empty<object>());
+        public object CreateInstance(Type type) => TypeBuilder.CreateInstance(type, ArrayExtensions.ToArray<object>());
 
         /// <summary>
         /// Creates an object identified as instance of type T
@@ -154,7 +163,7 @@ namespace Build
         /// </summary>
         /// <param name="typeFullName">Type identifier with/without parameters 'id(args)' or 'id'</param>
         /// <returns>Returns instance of identified type</returns>
-        public object CreateInstance(string typeFullName) => TypeBuilder.CreateInstance(typeFullName, Array.Empty<object>());
+        public object CreateInstance(string typeFullName) => TypeBuilder.CreateInstance(typeFullName, ArrayExtensions.ToArray<object>());
 
         /// <summary>
         /// Creates an object identified as instance of type T
@@ -169,7 +178,7 @@ namespace Build
         /// </summary>
         /// <param name="typeFullName">Type identifier</param>
         /// <returns>Returns instance of identified type</returns>
-        public object GetInstance(string typeFullName) => TypeBuilder.GetInstance(typeFullName, Array.Empty<object>());
+        public object GetInstance(string typeFullName) => TypeBuilder.GetInstance(typeFullName, ArrayExtensions.ToArray<object>());
 
         /// <summary>
         /// Creates an object
@@ -208,7 +217,7 @@ namespace Build
         /// </summary>
         /// <param name="type">Type identifier</param>
         /// <returns>Returns instance of identified type</returns>
-        public object GetInstance(Type type) => TypeBuilder.GetInstance(type, Array.Empty<object>());
+        public object GetInstance(Type type) => TypeBuilder.GetInstance(type, ArrayExtensions.ToArray<object>());
 
         /// <summary>
         /// Creates an object
@@ -240,7 +249,7 @@ namespace Build
         {
             if (TypeBuilder.IsLocked)
                 throw new TypeRegistrationException(string.Format("{0} is not registered (container locked)", nameof(assembly)));
-            var exclusionList = new List<string>(exclusionTypes ?? Array.Empty<string>()) { "<PrivateImplementationDetails>" };
+            var exclusionList = new List<string>(exclusionTypes ?? ArrayExtensions.ToArray<string>()) { "<PrivateImplementationDetails>" };
             bool match;
             foreach (var type in assembly.GetTypes())
             {
@@ -292,13 +301,13 @@ namespace Build
         /// Registers type
         /// </summary>
         /// <param name="type">Type identifier</param>
-        public void RegisterType(Type type) => TypeBuilder.RegisterType(type, Array.Empty<object>());
+        public void RegisterType(Type type) => TypeBuilder.RegisterType(type, ArrayExtensions.ToArray<object>());
 
         /// <summary>
         /// Registers type
         /// </summary>
         /// <param name="typeId">Type identifier</param>
-        public void RegisterType(string typeId) => TypeBuilder.RegisterType(typeId, Array.Empty<object>());
+        public void RegisterType(string typeId) => TypeBuilder.RegisterType(typeId, ArrayExtensions.ToArray<object>());
 
         /// <summary>
         /// Registers type
@@ -335,7 +344,7 @@ namespace Build
         /// Registers identified type T
         /// </summary>
         /// <typeparam name="T">Type identifier</typeparam>
-        public void RegisterType<T>() => TypeBuilder.RegisterType(typeof(T), Array.Empty<object>());
+        public void RegisterType<T>() => TypeBuilder.RegisterType(typeof(T), ArrayExtensions.ToArray<object>());
 
         /// <summary>
         /// Resets information about type registration. Also, resets freezed containers

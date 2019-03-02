@@ -1,4 +1,7 @@
-﻿namespace Build
+﻿using System;
+using System.Collections.Generic;
+
+namespace Build
 {
     public interface ITypeBuilder
     {
@@ -6,5 +9,8 @@
         ITypeFilter Filter { get; }
         ITypeParser Parser { get; }
         ITypeResolver Resolver { get; }
+
+        void Reset();
+        void Unlock();
     }
 }

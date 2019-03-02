@@ -5,11 +5,14 @@
 setlocal enabledelayedexpansion
   set errorlevel=
 
-  set BuildConfiguration=%~1
-  if "%BuildConfiguration%"=="" set BuildConfiguration=Release
+  set BuildConfiguration=Release
 
-  set BuildVersion=%~2
-  if "%BuildVersion%"=="" set /p BuildVersion=<"%~dp0..\.config\BuildVersion.txt"
+  set /p BuildVersion=<"%~dp0..\.config\BuildVersion.txt"
+
+  set BuildSpec=
+  set BuildSpec=%1
+
+  if "%BuildSpec%"=="" endlocal& exit /b %errorlevel%
 
   set OutputDirectory=%~dp0nuget
   call :remove_directory "%OutputDirectory%" || exit /b 1
@@ -40,7 +43,7 @@ endlocal& exit /b %errorlevel%
 
 :build
 setlocal
-  cd /d %~dp0..\Build
+  cd /d %~dp0..\Build.Abstractions
   echo/
   echo/ ========== NuGet ==========
   echo/   Building %cd%
@@ -73,7 +76,7 @@ setlocal
 :build_nuget
 setlocal
   cd /d %~dp0..\
-  for /f "tokens=* usebackq" %%f in (`dir /B .nuget\*.nuspec`) do (
+  for %%f in (%BuildSpec%) do (
     nuget pack .nuget\%%f -Properties Configuration=Release;BuildVersion=%BuildVersion%;GitHeadSha=%GitHeadSha% -OutputDirectory "%OutputDirectory%"
   )
   if "%NUGET_ACCESSTOKEN%" == "" (
@@ -86,7 +89,7 @@ setlocal
     for /f "tokens=* usebackq" %%f in (`dir /B %OutputDirectory%\*.nupkg`) do (
       echo/ 
       echo/ ========== NuGet ==========
-     echo/ Uploading NuGet package %OutputDirectory%\%%f
+      echo/ Uploading NuGet package %OutputDirectory%\%%f
       echo/ ========== NuGet ==========
       dotnet nuget push %OutputDirectory%\%%f -k %NUGET_ACCESSTOKEN% -s https://api.nuget.org/v3/index.json                                   
     )
@@ -102,7 +105,7 @@ setlocal
   echo/   Building %cd%
   echo/ ========== NuGet ==========
   echo/ > build.log
-  for %%v in (net45 net451 net452 net46 net461 net462 net47 net471 net472 netstandard2.0 netcoreapp2.1 netcoreapp3.0) do (
+  for %%v in (net45 net451 net452 net46 net461 net462 net47 net471 net472 netstandard1.5 netstandard1.6 netstandard2.0 netcoreapp1.0 netcoreapp1.1 netcoreapp2.0 netcoreapp2.1 netcoreapp3.0) do (
     dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" >> build.log                             
   )
   exit /b 0

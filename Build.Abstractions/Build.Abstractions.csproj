@@ -5,17 +5,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>
-      <!-- netstandard1.0; -->
-      <!-- netstandard1.1; -->
-      <!-- netstandard1.2; -->
-      <!-- netstandard1.3; -->
-      <!-- netstandard1.4; -->
-      <!-- netstandard1.5; -->
-      <!-- netstandard1.6; -->
-      <!-- netcoreapp1.0; -->
-      <!-- netcoreapp1.1; -->
-      <!-- netcoreapp2.0; -->
-      netcoreapp2.1;
       <!-- net20; -->
       <!-- net35; -->
       <!-- net40; -->
@@ -28,7 +17,12 @@
       net47;
       net471;
       net472;
-      netcoreapp2.0;
+      netstandard1.5; 
+      netstandard1.6; 
+      netstandard2.0;
+      netcoreapp1.0; 
+      netcoreapp1.1; 
+      netcoreapp2.0; 
       netcoreapp2.1;
       netcoreapp3.0;
     </TargetFrameworks>
@@ -40,8 +34,10 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Artur Mustafin (hack2root)</Authors>
     <Company>Artur Mustafin (hack2root)</Company>
-    <Description>.NET Core 3.0 Dependency Injection framework 
-Commit SHA: $(CommitHash)</Description>
+    <Description>
+      .NET Core 3.0 Dependency Injection framework
+      Commit SHA: $(CommitHash)
+    </Description>
     <Copyright>Artur Mustafin (hack2root)</Copyright>
     <PackageLicenseUrl>https://github.com/hack2root/build/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://hack2root.github.io/build/</PackageProjectUrl>
@@ -53,7 +49,7 @@ Commit SHA: $(CommitHash)</Description>
       - Added support for .NET Core 3 preview 2 (3.0.100-preview-010184)
     </PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageId>Build.DependencyInjection</PackageId>
+    <PackageId>Build.DependencyInjection.Abstractions</PackageId>
     <Version>$(BuildVersion)</Version>
     <AssemblyVersion>$(BuildVersion)</AssemblyVersion>
     <FileVersion>$(BuildVersion)</FileVersion>
@@ -75,9 +71,5 @@ Commit SHA: $(CommitHash)</Description>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Build.DependencyInjection.Abstractions" Version="1.0.0.25" />
-  </ItemGroup>
 
 </Project>

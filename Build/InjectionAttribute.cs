@@ -11,7 +11,7 @@ namespace Build
     [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class InjectionAttribute : RuntimeAttribute, IInjectionAttribute
     {
-        readonly object[] _arguments = Array.Empty<object>();
+        readonly object[] _arguments;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
@@ -61,13 +61,13 @@ namespace Build
         /// </summary>
         /// <param name="index">Value index in parameters array</param>
         /// <returns>Returns true if selected index is within parameters array bounds</returns>
-        public bool CheckBounds(int index) => index < _arguments.Length;
+        public bool CheckBounds(int index) => index < (_arguments?.Length ?? 0);
 
         /// <summary>
         /// Gets injected object parameters
         /// </summary>
         /// <param name="index">Value index in parameters array</param>
         /// <returns>Returns value in array at specified index</returns>
-        public object GetObject(int index) => _arguments[index];
+        public object GetObject(int index) => _arguments?[index];
     }
 }

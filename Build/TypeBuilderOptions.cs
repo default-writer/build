@@ -6,6 +6,16 @@
     public sealed class TypeBuilderOptions
     {
         /// <summary>
+        /// Extracts metadata from DependencyAttribute attribue
+        /// </summary>
+        public ITypeDependencyAttributeProvider DependencyAttributeProvider { get; set; } = new TypeDependencyAttributeProvider();
+
+        /// <summary>
+        /// Extracts metadata from InjectionAttribute attribute
+        /// </summary>
+        public ITypeInjectionAttributeProvider InjectionAttributeProvider { get; set; } = new TypeInjectionAttributeProvider();
+
+        /// <summary>
         /// Creates an instance of the specified runtime type
         /// </summary>
         public ITypeActivator Activator { get; set; } = new TypeActivator();

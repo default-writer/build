@@ -9,7 +9,7 @@ namespace Build.Tests.Classes
     /// </summary>
     public sealed class InterfaceThisTypeConstructor : ITypeConstructor
     {
-        public IEnumerable<ITypeDependencyObject> GetDependencyObjects(ITypeActivator runtimeTypeActivator, Type type, bool defaultTypeInstantiation)
+        public IEnumerable<ITypeDependencyObject> GetDependencyObjects(ITypeActivator runtimeTypeActivator, Type type, bool defaultTypeInstantiation, ITypeDependencyAttributeProvider typeDependencyAttributeProvider = null, ITypeInjectionAttributeProvider typeInjectionAttributeProvider = null)
         {
             var dependencyObjects = new List<ITypeDependencyObject>();
             foreach (var constructorInfo in type.GetMethods())

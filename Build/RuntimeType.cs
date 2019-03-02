@@ -174,7 +174,7 @@ namespace Build
         public object CreateInstance()
         {
             var parameters = ReadParameters();
-            var result = CreateReferenceType(Array.Empty<object>());
+            var result = CreateReferenceType(ArrayExtensions.ToArray<object>());
             WriteParameters(parameters);
             return result;
         }
@@ -305,7 +305,7 @@ namespace Build
         /// Sets the runtime instance.
         /// </summary>
         /// <value>The runtime instance.</value>
-        public void SetRuntimeInstance(RuntimeInstance runtimeInstance) => _runtimeInstance = _runtimeInstance | runtimeInstance;
+        public void SetRuntimeInstance(RuntimeInstance runtimeInstance) => _runtimeInstance |= runtimeInstance;
 
         /// <summary>
         /// Sets the value to the specified attribute.
