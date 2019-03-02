@@ -8,14 +8,14 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <licenseUrl>https://github.com/hack2root/build/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://hack2root.github.io/build/</projectUrl>
-    <description>.NET Core 2.1 Dependency Injection framework</description>
+    <description>.NET Core 3.0 Dependency Injection Framework</description>
     <releaseNotes>Features:
       - Added support for .NET Core 3 preview 2 (3.0.100-preview-010184)
-      - Added support for .NET Standart 1.5/1.6
-      - Added support for .NET Core 1.0/1.1/2.0
+      - Removed support for .NET Standart 1.5/1.6
+      - Removed support for .NET Core 1.0/1.1
     </releaseNotes>
     <copyright>Artur Mustafin (hack2root)</copyright>
-    <tags>Dependency Injection</tags>
+    <tags>Dependency Injection Abstractions</tags>
     <repository type="GitHub" url="https://github.com/hack2root/build.git" />
     <dependencies>
       <group targetFramework=".NETFramework4.5" />
@@ -27,8 +27,10 @@
       <group targetFramework=".NETFramework4.7" />
       <group targetFramework=".NETFramework4.7.1" />
       <group targetFramework=".NETFramework4.7.2" />
-      <group targetFramework=".NETCoreApp2.1" />
       <group targetFramework=".NETStandard2.0" />
+      <group targetFramework=".NETCoreApp2.0" />
+      <group targetFramework=".NETCoreApp2.1" />
+      <group targetFramework=".NETCoreApp3.0" />
     </dependencies>
   </metadata>
   <files>
@@ -41,7 +43,9 @@
     <file src="..\Build\bin\Release\net47\Build.dll" target="lib\net47\Build.dll" />
     <file src="..\Build\bin\Release\net471\Build.dll" target="lib\net471\Build.dll" />
     <file src="..\Build\bin\Release\net472\Build.dll" target="lib\net472\Build.dll" />
-    <file src="..\Build\bin\Release\netcoreapp2.1\Build.dll" target="lib\netcoreapp2.1\Build.dll" />
     <file src="..\Build\bin\Release\netstandard2.0\Build.dll" target="lib\netstandard2.0\Build.dll" />
+    <file src="..\Build\bin\Release\netcoreapp2.0\Build.dll" target="lib\netcoreapp2.0\Build.dll" />
+    <file src="..\Build\bin\Release\netcoreapp2.1\Build.dll" target="lib\netcoreapp2.1\Build.dll" />
+    <file src="..\Build\bin\Release\netcoreapp3.0\Build.dll" target="lib\netcoreapp3.0\Build.dll" />
   </files>
 </package>

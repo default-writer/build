@@ -1,1 +1,0 @@
-& ./_NuGet-cli Build.DependencyInjection.Abstractions.nuspec

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>Build.DependencyInjection.Abstractions</id>
+    <id>dependency_injection_build_abstractions</id>
     <version>$BuildVersion$</version>
     <authors>Artur Mustafin (hack2root)</authors>
     <owners>Artur Mustafin (hack2root)</owners>

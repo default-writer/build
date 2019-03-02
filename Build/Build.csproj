@@ -5,9 +5,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>
-      <!-- net20; -->
-      <!-- net35; -->
-      <!-- net40; -->
       net45;
       net451;
       net452;

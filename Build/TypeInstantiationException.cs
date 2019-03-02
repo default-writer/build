@@ -1,5 +1,5 @@
 using System;
-using System.Runtime.Serialization;
+//using System.Runtime.Serialization;
 
 namespace Build
 {
@@ -7,7 +7,7 @@ namespace Build
     /// Exception for type instantiation
     /// </summary>
     /// <seealso cref="System.Exception"/>
-    [Serializable]
+    //[Serializable]
     public sealed class TypeInstantiationException : Exception
     {
         /// <summary>
@@ -48,8 +48,8 @@ namespace Build
         /// The <see cref="T:System.Runtime.Serialization.StreamingContext"></see> that contains
         /// contextual information about the source or destination.
         /// </param>
-        TypeInstantiationException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
+        //TypeInstantiationException(SerializationInfo info, StreamingContext context) : base(info, context)
+        //{
+        //}
     }
 }

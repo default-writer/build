@@ -29,7 +29,7 @@ setlocal enabledelayedexpansion
 
   set procedures=
   set procedures=%procedures% build
-  rem set procedures=%procedures% build_test
+  set procedures=%procedures% build_test
   rem set procedures=%procedures% build_test_coverage
   set procedures=%procedures% build_nuget
 
@@ -86,6 +86,7 @@ setlocal
     echo/ ========== NuGet ==========
   )
   if not "%NUGET_ACCESSTOKEN%" == "" (
+    del /f /s /q %OutputDirectory%\*.symbols.nupkg
     for /f "tokens=* usebackq" %%f in (`dir /B %OutputDirectory%\*.nupkg`) do (
       echo/ 
       echo/ ========== NuGet ==========

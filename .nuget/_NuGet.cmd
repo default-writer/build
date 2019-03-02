@@ -83,6 +83,7 @@ setlocal
     echo/ ========== NuGet ==========
   )
   if not "%NUGET_ACCESSTOKEN%" == "" (
+    del /f /s /q %OutputDirectory%\*.symbols.nupkg
     for /f "tokens=* usebackq" %%f in (`dir /B %OutputDirectory%\*.nupkg`) do (
       echo/ 
       echo/ ========== NuGet ==========
