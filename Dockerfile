@@ -1,5 +1,8 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-preview2-alpine3.8 AS build
 WORKDIR /app
+RUN apk update && \
+    apk upgrade && \
+    apk add git
 
 # copy csproj and restore as distinct layers
 COPY *.sln .
@@ -13,4 +16,4 @@ COPY . .
 WORKDIR /app/Build
 RUN dotnet build
 
-ENTRYPOINT [“tail”, “-f”, “/dev/null”]
+#ENTRYPOINT [“tail”, “-f”, “/dev/null”]
