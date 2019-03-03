@@ -2,10 +2,12 @@
 & ./NuGet-dotnet-install
 & cd ..
 
-$DotNet_Version = [System.IO.File]::ReadAllText(".config/DotNetDotNetCliVersion.txt")
-$Tools_Path = Join-Path -Path Get-Location -ChildPath "./packages/tools"
-$DotNet_Path = Join-Path -Path Get-Location -ChildPath "./packages/dotnet/$DotNet_Version"
-$NuGet_Path = Join-Path -Path Get-Location -ChildPath "./packages/nuget"
+$CurrentDir = Convert-Path .
+$DotNetCliVersionFile = Join-Path -Path $CurrentDir -ChildPath ".config/DotNetCliVersion.txt"
+$DotNet_Version = [System.IO.File]::ReadAllText($DotNetCliVersionFile)
+$Tools_Path = Join-Path -Path $CurrentDir -ChildPath  "./packages/tools"
+$DotNet_Path = Join-Path -Path $CurrentDir -ChildPath "./packages/dotnet/$DotNet_Version"
+$NuGet_Path = Join-Path -Path $CurrentDir -ChildPath  "./packages/nuget"
 
 Set-Item -Path Env:PATH -Value ("$DotNet_Path;$NuGet_Path;$Tools_Path;" + $Env:PATH)
 
