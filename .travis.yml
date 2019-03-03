@@ -4,11 +4,12 @@ language: csharp
 dist: xenial
 mono: none
 sudo: required
-dotnet: 2.2
+services:
+  - docker
 script:
-  - dotnet restore
-  - dotnet build
-  - dotnet test --no-build Build.Tests
+  - docker build -t build-core-sdk:3.0.100-preview2-alpine3.8 .
+  - docker run --rm -it --name build-core-sdk:3.0.100-preview2-alpine3.8
+  - docker exec -it build-core-sdk dotnet test --logger:trx
 global:
   - DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
   - DOTNET_CLI_TELEMETRY_OPTOUT=1
