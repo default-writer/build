@@ -24,4 +24,4 @@ cache:
 build_script:
     - ps: ./docker-clean.ps1
     - ps: ./docker-init.ps1
-    - ps: ./coverage.ps1
+    #- ps: ./coverage.ps1

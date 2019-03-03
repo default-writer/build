@@ -1,3 +1,4 @@
+Get-Host | Select-Object Version
 $container = "dot-net-sdk-3.0.100-preview2"
 $image = "dot-net-sdk-3.0.100-preview2:latest"
 & docker --version
