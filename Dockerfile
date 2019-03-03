@@ -14,3 +14,4 @@ WORKDIR /app/Build
 RUN dotnet build
 
 WORKDIR /app/Build.Tests
+RUN dotnet test --logger:trx
