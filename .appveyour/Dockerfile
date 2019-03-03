@@ -11,7 +11,7 @@ RUN dotnet restore
 # copy everything else and build app
 COPY . .
 WORKDIR /app/Build
-RUN dotnet build
+RUN echo. & dotnet build
 
 WORKDIR /app/Build.Tests
 ENTRYPOINT ["dotnet","test","--logger:trx"]
