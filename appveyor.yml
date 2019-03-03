@@ -22,5 +22,6 @@ cache:
     - packages -> **\packages.config
 
 build_script:
-    - dotnet restore
+    - docker build -t build-core-sdk-3.0.100-preview2-alpine3.8:latest .
+    - docker run --rm -it --name build-core-sdk-3.0.100-preview2-alpine3.8 build-core-sdk-3.0.100-preview2-alpine3.8:latest
     - ps: ./coverage.ps1
