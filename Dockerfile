@@ -1,4 +1,4 @@
-FROM microsoft/microsoft/3.0.100-preview2-alpine3.8 AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-preview2-alpine3.8 AS build
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
