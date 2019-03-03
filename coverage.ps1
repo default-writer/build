@@ -1,3 +1,6 @@
+& cd .nuget 
+& ./NuGet-dotnet-install
+& cd ..
 if(![System.IO.File]::Exists("packages/tools/dotnet-sonarscanner.exe")) {
   # file with path $path doesn't exist
   dotnet tool install --tool-path packages/tools dotnet-sonarscanner
