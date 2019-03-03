@@ -5,19 +5,20 @@
 $CurrentDir = Convert-Path .
 $DotNetCliVersionFile = Join-Path -Path $CurrentDir -ChildPath ".config/DotNetCliVersion.txt"
 $DotNet_Version = [System.IO.File]::ReadAllText($DotNetCliVersionFile)
-$Tools_Path = Join-Path -Path $CurrentDir -ChildPath  "./packages/tools"
-$DotNet_Path = Join-Path -Path $CurrentDir -ChildPath "./packages/dotnet/$DotNet_Version"
-$NuGet_Path = Join-Path -Path $CurrentDir -ChildPath  "./packages/nuget"
+$Tools_Path = Join-Path -Path $CurrentDir -ChildPath  "packages/tools"
+$DotNet_Path = Join-Path -Path $CurrentDir -ChildPath "packages/dotnet/" + $DotNet_Version
+$NuGet_Path = Join-Path -Path $CurrentDir -ChildPath  "packages/nuget"
+$SonarScanner = Join-Path -Path $CurrentDir -ChildPath "packages/tools/dotnet-sonarscanner.exe"
 
 Set-Item -Path Env:PATH -Value ("$DotNet_Path;$NuGet_Path;$Tools_Path;" + $Env:PATH)
 
-if(![System.IO.File]::Exists("packages/tools/dotnet-sonarscanner.exe")) {
+if(![System.IO.File]::Exists($SonarScanner)) {
   # file with path $path doesn't exist
   dotnet tool install --tool-path packages/tools dotnet-sonarscanner
 } else {
   dotnet tool update --tool-path packages/tools dotnet-sonarscanner
 }
-if(![System.IO.File]::Exists("packages/tools/csmacnz.Coveralls.exe")) {
+if(![System.IO.File]::Exists($SonarScanner)) {
   # file with path $path doesn't exist
   dotnet tool install --tool-path packages/tools coveralls.net
 } else {
