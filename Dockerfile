@@ -12,12 +12,4 @@ COPY . .
 WORKDIR /app/Build
 RUN dotnet build
 
-
-#FROM build AS testrunner
-#WORKDIR /app/Build.Tests
-#ENTRYPOINT ["dotnet", "test", "--logger:trx"]
-
-
-#FROM build AS test
-#WORKDIR /app/Build.Tests
-#RUN dotnet test
+ENTRYPOINT [“tail”, “-f”, “/dev/null”]
