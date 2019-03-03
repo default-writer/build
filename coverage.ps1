@@ -3,9 +3,9 @@
 & cd ..
 
 $DotNet_Version = [System.IO.File]::ReadAllText(".config/DotNetDotNetCliVersion.txt")
-$Tools_Path = Join-Path -Path $MyInvocation.MyCommand.Path -ChildPath "packages/tools"
-$DotNet_Path = Join-Path -Path $MyInvocation.MyCommand.Path -ChildPath "packages/dotnet/$DotNet_Version"
-$NuGet_Path = Join-Path -Path $MyInvocation.MyCommand.Path -ChildPath "packages/nuget"
+$Tools_Path = Join-Path -Path Get-Location -ChildPath "./packages/tools"
+$DotNet_Path = Join-Path -Path Get-Location -ChildPath "./packages/dotnet/$DotNet_Version"
+$NuGet_Path = Join-Path -Path Get-Location -ChildPath "./packages/nuget"
 
 Set-Item -Path Env:PATH -Value ("$DotNet_Path;$NuGet_Path;$Tools_Path;" + $Env:PATH)
 
