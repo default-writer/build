@@ -46,6 +46,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "appveyour", "appveyour", "{
 		appveyor.yml = appveyor.yml
 		coverage.ps1 = coverage.ps1
 		docker-init.ps1 = docker-init.ps1
+		.appveyour\Dockerfile = .appveyour\Dockerfile
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "aws", "aws", "{E51C5E93-F354-4AF0-AAD0-E699D0C045AB}"

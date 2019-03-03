@@ -23,6 +23,4 @@ cache:
 
 build_script:
     - ps: ./docker-init.ps1
-    - docker build -t build-core-sdk-3.0.100-preview2-alpine3.8:latest .
-    - docker run --rm -it --name build-core-sdk-3.0.100-preview2-alpine3.8 build-core-sdk-3.0.100-preview2-alpine3.8:latest
     - ps: ./coverage.ps1
