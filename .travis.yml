@@ -9,4 +9,4 @@ services:
 script:
   - docker build -t build-core-sdk-3.0.100-preview2-alpine3.8:latest .
   - docker run --rm -it --name build-core-sdk-3.0.100-preview2-alpine3.8 build-core-sdk-3.0.100-preview2-alpine3.8:latest
-  - docker exec -it build-core-sdk-3.0.100-preview2-alpine3.8 dotnet test --logger:trx
+  - docker exec -it build-core-sdk-3.0.100-preview2-alpine3.8:latest dotnet test --logger:trx
