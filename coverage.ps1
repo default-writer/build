@@ -6,7 +6,7 @@ $CurrentDir = Convert-Path .
 $DotNetCliVersionFile = Join-Path -Path $CurrentDir -ChildPath ".config/DotNetCliVersion.txt"
 $DotNet_Version = [System.IO.File]::ReadAllText($DotNetCliVersionFile)
 $Tools_Path = Join-Path -Path $CurrentDir -ChildPath  "packages/tools"
-$DotNet_Path = Join-Path -Path $CurrentDir -ChildPath "packages/dotnet/" + $DotNet_Version
+$DotNet_Path = Join-Path -Path $CurrentDir -ChildPath "packages/dotnet/$DotNet_Version"
 $NuGet_Path = Join-Path -Path $CurrentDir -ChildPath  "packages/nuget"
 $SonarScanner = Join-Path -Path $CurrentDir -ChildPath "packages/tools/dotnet-sonarscanner.exe"
 
