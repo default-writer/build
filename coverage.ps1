@@ -34,8 +34,8 @@ if(![System.IO.File]::Exists($SonarScanner)) {
 & dotnet test --configuration Release --no-build Build.Tests /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 & dotnet-sonarscanner end /d:sonar.login="$env:SONARCLOUDTOKEN"
 
-& nuget install xunit.runner.console -OutputDirectory packages/tools -Version 2.3.1
-& nuget install OpenCover -OutputDirectory packages/tools -Version 4.6.166
+& nuget.exe install xunit.runner.console -OutputDirectory packages/tools -Version 2.3.1
+& nuget.exe install OpenCover -OutputDirectory packages/tools -Version 4.6.166
 & OpenCover.Console -register:user -target:dotnet.exe "-targetargs:""xunit.runner.console.2.3.1/tools/netcoreapp3.0/xunit.console.dll"" ""Build.Tests/bin/Release/netcoreapp3.0/Build.Tests.dll"" -noshadow -appveyor" -filter:"+[Build*]*" -oldStyle -output:opencoverCoverage.xml
 & csmacnz.Coveralls --opencover -i opencoverCoverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
 #& csmacnz.Coveralls --opencover -i Build.Tests/coverage.opencover.xml
