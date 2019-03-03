@@ -12,5 +12,3 @@ RUN dotnet restore
 COPY . .
 WORKDIR /app/Build
 RUN dotnet build
-
-ENTRYPOINT [“dotnet”, “test”]
