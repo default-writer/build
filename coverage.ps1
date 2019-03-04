@@ -57,7 +57,7 @@ $OPENCOVER = Join-Path -Path $OpenCover_Path -ChildPath "OpenCover.Console.exe"
   -hideskipped:File `
   -output:"Build.Tests/opencover.xml" `
   -oldStyle `
-  -filter:"+[Build*]* -[Build.Tests*]*" `
+  -filter:"+[Build*]* -[Build.Tests*]* -[Build*]*AttributeProvider*" `
   -searchdirs:"Build.Tests/bin/Release/netcoreapp3.0" `
   -register:user
 
