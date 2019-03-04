@@ -1,5 +1,10 @@
 notifications:
-  slack: build-core:9zFwG1mZVRxt2cNeW1HO3vv2
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/ee95cb9156cd15993a00
+    #on_success: always  # options: [always|never|change] default: always
+    #on_failure: always  # options: [always|never|change] default: always
+    #on_start: always    # options: [always|never|change] default: always
 language: csharp
 dist: xenial
 mono: none
