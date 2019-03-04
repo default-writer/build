@@ -35,7 +35,7 @@ Prerequisites:
 
 ## v1.0.0.27
 
-Build.DependencyInjection.Abstractions(dependency_injection_abstractions):
+Build.DependencyInjection.Abstractions(dependency_injection_build_abstractions):
 
 - Added support for .NET Core 3 preview 2 (3.0.100-preview-010184)
 - Removed support for .NET Standart 1.5/1.6
