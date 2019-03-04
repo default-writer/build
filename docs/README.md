@@ -16,7 +16,7 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 ## Channels
 
-[#slack](https://join.slack.com/t/build-core/shared_invite/enQtMzY3NjQ2Nzc5MzAyLWE3MmFkOWFlNmY4NWJlMjU2YmVkNDNmNTI2YjUwMGIzNWY1MjAyNzU0NTUzNDU4MmViOGQxYTkwZDkwNTBjMTI)
+[![gitter](https://badges.gitter.im/hack2root/build.svg)](https://gitter.im/hack2root/build?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## Repository
 
