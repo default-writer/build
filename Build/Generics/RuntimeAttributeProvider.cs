@@ -14,13 +14,13 @@ namespace Build.Generics
         IRuntimeAttributeProvider<T, ICustomAttributeProvider>
         where T : Attribute, IRuntimeAttribute
     {
-        public virtual T GetAttribute(Module prop, Type type, bool inherit = false) => p.GetAttribute<T>(type, inherit);
-        public virtual T GetAttribute(Assembly prop, Type type, bool inherit = false) => p.GetAttribute<T>(type, inherit);
-        public virtual T GetAttribute(ParameterInfo prop, Type type, bool inherit = false) => p.GetAttribute<T>(type, inherit);
-        public virtual T GetAttribute(PropertyInfo prop, Type type, bool inherit = false) => p.GetAttribute<T>(type, inherit);
-        public virtual T GetAttribute(MethodInfo prop, Type type, bool inherit = false) => p.GetAttribute<T>(type, inherit);
-        public virtual T GetAttribute(ConstructorInfo prop, Type type, bool inherit = false) => p.GetAttribute<T>(type, inherit);
-        public virtual T GetAttribute(MemberInfo prop, Type type, bool inherit = false) => p.GetAttribute<T>(type, inherit);
+        public virtual T GetAttribute(Module prop, Type type, bool inherit = false) => prop.GetAttribute<T>(type, inherit);
+        public virtual T GetAttribute(Assembly prop, Type type, bool inherit = false) => prop.GetAttribute<T>(type, inherit);
+        public virtual T GetAttribute(ParameterInfo prop, Type type, bool inherit = false) => prop.GetAttribute<T>(type, inherit);
+        public virtual T GetAttribute(PropertyInfo prop, Type type, bool inherit = false) => prop.GetAttribute<T>(type, inherit);
+        public virtual T GetAttribute(MethodInfo prop, Type type, bool inherit = false) => prop.GetAttribute<T>(type, inherit);
+        public virtual T GetAttribute(ConstructorInfo prop, Type type, bool inherit = false) => prop.GetAttribute<T>(type, inherit);
+        public virtual T GetAttribute(MemberInfo prop, Type type, bool inherit = false) => prop.GetAttribute<T>(type, inherit);
         public virtual T GetAttribute(ICustomAttributeProvider p, Type type, bool inherit = false) => p.GetAttribute<T>(typeof(T), inherit);
     }
 }
