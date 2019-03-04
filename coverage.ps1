@@ -21,24 +21,19 @@ Set-Item -Path Env:PATH -Value ("$($DotNet_Path);$($NuGet_Path);$($Tools_Path);$
 Echo $Env:PATH
 
 if(![System.IO.File]::Exists($(Join-Path -Path $CurrentDir -ChildPath "packages/tools/dotnet-sonarscanner.exe"))) {
-  # file with path $path doesn't exist
   dotnet tool install --tool-path packages/tools dotnet-sonarscanner
 } else {
   dotnet tool update --tool-path packages/tools dotnet-sonarscanner
 }
 if(![System.IO.File]::Exists($(Join-Path -Path $CurrentDir -ChildPath "packages/tools/csmacnz.Coveralls.exe"))) {
-  # file with path $path doesn't exist
   dotnet tool install --tool-path packages/tools coveralls.net
 } else {
   dotnet tool update --tool-path packages/tools coveralls.net
 }
 
-#& dotnet add Build.Tests package OpenCover
-#& dotnet add Build.Tests package coverlet.msbuild
-#& dotnet add Build.Tests package xunit
-#& dotnet add Build.Tests package xunit.analyzers
-#& dotnet add Build.Tests package xunit.runner.console
-#& dotnet add Build.Tests package xunit.runner.visualstudio
+# This is MUST be included in project to work with SonarScanner
+& dotnet add Build.Tests package OpenCover
+& dotnet add Build.Tests package coverlet.msbuild
 
 & dotnet restore
 
@@ -47,6 +42,7 @@ if(![System.IO.File]::Exists($(Join-Path -Path $CurrentDir -ChildPath "packages/
 & dotnet test --configuration Release --no-build Build.Tests /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 & dotnet-sonarscanner end /d:sonar.login="$env:SONARCLOUDTOKEN"
 
+# Do NOT upload to Coveralls
 #& csmacnz.Coveralls --opencover -i Build.Tests/coverage.opencover.xml
 
 & dotnet add Build.Tests package --package-directory packages/.packages OpenCover --version $OpenCover_Version
@@ -65,4 +61,5 @@ $OPENCOVER = Join-Path -Path $OpenCover_Path -ChildPath "OpenCover.Console.exe"
   -searchdirs:"Build.Tests/bin/Release/netcoreapp3.0" `
   -register:user
 
-& csmacnz.Coveralls --opencover -i "Build.Tests/opencover.xml"
+# Upload to coveralls FILERED sources
+& csmacnz.Coveralls --opencover -i "Build.Tests/opencover.xml"  --useRelativePaths
