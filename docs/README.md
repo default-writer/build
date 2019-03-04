@@ -26,6 +26,13 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 - [Build](https://github.com/hack2root/build/wiki)
 
+## Build
+
+Prerequisites:
+
+- .NET Core 3 SDK, [3.0.100-preview-010184 or later](https://github.com/dotnet/core-sdk/blob/master/README.md#installers-and-binaries)
+- VS2019 Preview 3 or later
+
 ## v1.0.0.27
 
 Build.DependencyInjection.Abstractions(dependency_injection_abstractions):
