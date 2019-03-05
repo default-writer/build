@@ -32,8 +32,8 @@ if(![System.IO.File]::Exists($(Join-Path -Path $CurrentDir -ChildPath "packages/
 }
 
 # This is MUST be included in project to work with SonarScanner
-& dotnet add Build.Tests package OpenCover
-& dotnet add Build.Tests package coverlet.msbuild
+& dotnet add Build.Tests package OpenCover -Version $OpenCover_Version
+& dotnet add Build.Tests package coverlet.msbuild -Version $CoverletMsbuild_Version
 
 & dotnet restore
 
