@@ -20,6 +20,10 @@ Set-Item -Path Env:PATH -Value ("$($DotNet_Path);$($NuGet_Path);$($Tools_Path);$
 
 Echo $Env:PATH
 
+# This is MUST be included in project to work with SonarScanner
+& dotnet add Build.Tests package OpenCover -Version $($OpenCover_Version)
+& dotnet add Build.Tests package coverlet.msbuild -Version $($CoverletMsbuild_Version)
+
 if(![System.IO.File]::Exists($(Join-Path -Path $CurrentDir -ChildPath "packages/tools/dotnet-sonarscanner.exe"))) {
   dotnet tool install --tool-path packages/tools dotnet-sonarscanner
 } else {
@@ -30,10 +34,6 @@ if(![System.IO.File]::Exists($(Join-Path -Path $CurrentDir -ChildPath "packages/
 } else {
   dotnet tool update --tool-path packages/tools coveralls.net
 }
-
-# This is MUST be included in project to work with SonarScanner
-& dotnet add Build.Tests package OpenCover -Version $OpenCover_Version
-& dotnet add Build.Tests package coverlet.msbuild -Version $CoverletMsbuild_Version
 
 & dotnet restore
 
