@@ -22,4 +22,6 @@ cache:
     - packages -> **\packages.config
 
 build_script:
+    - ps: ./docker-clean
+    - ps: ./docker-init
     - ps: ./coverage
