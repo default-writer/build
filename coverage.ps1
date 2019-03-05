@@ -20,10 +20,6 @@ Set-Item -Path Env:PATH -Value ("$($DotNet_Path);$($NuGet_Path);$($Tools_Path);$
 
 Echo $Env:PATH
 
-# This is MUST be included in project to work with SonarScanner
-& dotnet add Build.Tests package OpenCover -Version $($OpenCover_Version)
-& dotnet add Build.Tests package coverlet.msbuild -Version $($CoverletMsbuild_Version)
-
 if(![System.IO.File]::Exists($(Join-Path -Path $CurrentDir -ChildPath "packages/tools/dotnet-sonarscanner.exe"))) {
   dotnet tool install --tool-path packages/tools dotnet-sonarscanner
 } else {
@@ -35,11 +31,15 @@ if(![System.IO.File]::Exists($(Join-Path -Path $CurrentDir -ChildPath "packages/
   dotnet tool update --tool-path packages/tools coveralls.net
 }
 
+# This is MUST be included in project to work with SonarScanner
+& dotnet add Build.Tests package OpenCover -Version $($OpenCover_Version)
+& dotnet add Build.Tests package coverlet.msbuild -Version $($CoverletMsbuild_Version)
+
 & dotnet restore
 
 & dotnet-sonarscanner begin /o:"hack2root-github" /d:sonar.login="$env:SONARCLOUDTOKEN" /k:"build-core" /d:sonar.host.url="https://sonarcloud.io" /n:"build" /v:"1.0" /d:sonar.cs.opencover.reportsPaths="Build.Tests/coverage.opencover.xml" /d:sonar.coverage.inclusions="**/*.cs" /d:sonar.coverage.exclusions="**/Interface*.cs,**/*Test*.cs,**/*Exception*.cs,**/*Attribute*.cs,**/Middleware/*.cs,/Pages/*.cs,**/Program.cs,**/Startup.cs,**/sample/*,**/aspnetcore/*,**/wwwroot/*,**/xunit/*,**/*.js,**/coverage.opencover.xml" /d:sonar.sourceEncoding="UTF-8" /d:sonar.language=cs
-& dotnet build --configuration Release
-& dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -v:n
+& dotnet build --configuration Debug
+& dotnet test --configuration Debug /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -v:n
 & dotnet-sonarscanner end /d:sonar.login="$env:SONARCLOUDTOKEN"
 
 # Do NOT upload to Coveralls
