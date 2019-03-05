@@ -8,7 +8,7 @@ $DotNet_Version = [System.IO.File]::ReadAllText($(Join-Path -Path $CurrentDir -C
 
 $OpenCover_Version = "4.7.922"
 $XUnitRunnerConsole_Version = "2.4.1"
-$CoverletMsbuild_Version = "2.5.1"
+$CoverletMsbuild_Version = "2.6.0"
 
 $Tools_Path = Join-Path -Path $CurrentDir -ChildPath  "packages/tools"
 $DotNet_Path = Join-Path -Path $CurrentDir -ChildPath "packages/dotnet/$($DotNet_Version)"
