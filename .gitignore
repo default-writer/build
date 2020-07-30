@@ -334,3 +334,5 @@ ASALocalRun/
 .mfractor/
 *.xml
 /.sonarqube
+*.feature.cs
+userid
