@@ -21,7 +21,7 @@ namespace DotnetcoreTutorial.src.steps
      [Then(@"testable outcome")]
       public void ThenTestableOutcome(){
           Console.WriteLine("Then some outcome");
-          Assert.IsTrue(true,"expected true but fund false");
+          Assert.IsTrue(true,"expected true but found false");
       }
   }
 }
