@@ -122,14 +122,27 @@ endlocal&  exit /b %errorlevel%
   exit /b 0
 
 :dotnet_build
-    call :remove_directory bin                                                                                              || exit /b 1
-    call :remove_directory obj                                                                                              || exit /b 1
-    echo/
-    echo/ ========== NuGet ==========
-    echo/  Building %cd%
-    echo/ ========== NuGet ==========
-    echo/ > build.log
-    for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp2.1 netcoreapp3.1) do (
-        dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log
+  call :remove_directory bin                                                                                              || exit /b 1
+  call :remove_directory obj                                                                                              || exit /b 1
+  echo/
+  echo/ ========== NuGet ==========
+  echo/  Building %cd%
+  echo/ ========== NuGet ==========
+  echo/ > build.log
+  set /a count = 0
+  for /f "tokens=1* delims=, " %%l in ('tasklist') do (
+    if "%%l" == "dotnet.exe" (
+      set /a count += 1
     )
-    exit /b 0
+  )
+  if %count% neq 0 (
+    call taskkill /IM dotnet.exe /F > nul
+  )  
+  echo/
+  echo/ ========== NuGet ==========
+  for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp2.1 netcoreapp3.1) do (
+    echo/  Building %%v
+    dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log                             
+  )
+  echo/ ========== NuGet ==========
+  exit /b 0

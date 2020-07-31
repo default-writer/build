@@ -36,8 +36,8 @@ setlocal enabledelayedexpansion
 
   set procedures=
   set procedures=%procedures% build
-  rem set procedures=%procedures% build_test
-  rem set procedures=%procedures% build_test_coverage
+  REM set procedures=%procedures% build_test
+  REM set procedures=%procedures% build_test_coverage
   set procedures=%procedures% build_nuget
 
   for %%p in (%procedures%) do (
@@ -51,10 +51,6 @@ endlocal& exit /b %errorlevel%
 :build
 setlocal
   cd /d %~dp0..\Build
-  echo/
-  echo/ ========== NuGet ==========
-  echo/  Building %cd%
-  echo/ ========== NuGet ==========
   call :dotnet_pack
   exit /b %errorlevel%
 
@@ -75,7 +71,7 @@ setlocal
   dotnet.exe build --verbosity normal -c %BuildConfiguration% > build.log                                                 || exit /b 1
   echo/
   echo/ ========== NuGet ==========
-  echo/   Testing %cd%
+  echo/  Testing %cd%
   echo/ ========== NuGet ==========
   dotnet.exe test --no-build -c %BuildConfiguration%                                                                      || exit /b 1
   exit /b %errorlevel%
@@ -83,6 +79,7 @@ setlocal
 :build_nuget
 setlocal
   cd /d %~dp0..\
+  call :dotnet_build
   for /f "tokens=* usebackq" %%f in (`dir /B .nuget\*.nuspec`) do (
     nuget pack .nuget\%%f -Properties Configuration=Release;BuildVersion=%BuildVersion%;GitHeadSha=%GitHeadSha% -OutputDirectory "%OutputDirectory%"
   )
@@ -131,10 +128,14 @@ setlocal
   echo/  Building %cd%
   echo/ ========== NuGet ==========
   echo/ > build.log
+  echo/
+  echo/ ========== NuGet ==========
   for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp2.1 netcoreapp3.1) do (
+    echo/  Building %%v
     dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log                             
   )
-  exit /b 0
+  echo/ ========== NuGet ==========
+  exit /b 1
 
 :dotnet_pack
 setlocal
@@ -144,9 +145,11 @@ setlocal
   echo/ ========== NuGet ==========
   dotnet.exe restore --no-cache --packages "%~dp0..\packages\.packages"                                                   || exit /b 1
   call :dotnet_build                                                                                                      || exit /b 1
-
+  echo/
+  echo/ ========== NuGet ==========
+  echo/  Publishing %cd%
+  echo/ ========== NuGet ==========
   dotnet.exe publish -c %BuildConfiguration%                                                                              || exit /b 1
-   
   echo/
   echo/ ========== NuGet ==========
   echo/  Packing %cd%

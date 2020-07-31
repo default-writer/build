@@ -66,17 +66,21 @@ endlocal& exit /b %errorlevel%
   exit /b 0
 
 :dotnet_build
-    call :remove_directory bin                                                                                              || exit /b 1
-    call :remove_directory obj                                                                                              || exit /b 1
-    echo/
-    echo/ ========== NuGet ==========
-    echo/  Building %cd%
-    echo/ ========== NuGet ==========
-    echo/ > build.log
-    for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp2.1 netcoreapp3.1) do (
-        dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log
-    )
-    exit /b 0
+  call :remove_directory bin                                                                                              || exit /b 1
+  call :remove_directory obj                                                                                              || exit /b 1
+  echo/
+  echo/ ========== NuGet ==========
+  echo/  Building %cd%
+  echo/ ========== NuGet ==========
+  echo/ > build.log
+  echo/
+  echo/ ========== NuGet ==========
+  for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp2.1 netcoreapp3.1) do (
+    echo/  Building %%v
+    dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log                             
+  )
+  echo/ ========== NuGet ==========
+  exit /b 0
 
 :exit
 
@@ -136,10 +140,6 @@ REM endlocal& exit /b %errorlevel%
 REM :build
 REM setlocal
 REM   cd /d %~dp0Build.Abstractions
-REM   echo/
-REM   echo/ ========== NuGet ==========
-REM   echo/  Building %cd%
-REM   echo/ ========== NuGet ==========
 REM   call :dotnet_pack
 REM   exit /b %errorlevel%
 
@@ -160,7 +160,7 @@ REM   echo/ ========== NuGet ==========
 REM   dotnet.exe build --verbosity normal -c %BuildConfiguration% > build.log                                                 || exit /b 1
 REM   echo/
 REM   echo/ ========== NuGet ==========
-REM   echo/   Testing %cd%
+REM   echo/  Testing %cd%
 REM   echo/ ========== NuGet ==========
 REM   dotnet.exe test --no-build -c %BuildConfiguration%                                                                      || exit /b 1
 REM   exit /b %errorlevel%
