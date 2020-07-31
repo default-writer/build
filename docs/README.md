@@ -30,14 +30,18 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 Prerequisites:
 
-- .NET Core 3.1 SDK, [3.1.302 or later](https://github.com/dotnet/core-sdk/blob/master/README.md#installers-and-binaries)
+- .NET Core 3.1 SDK, [3.1.302](https://github.com/dotnet/core-sdk/blob/master/README.md#installers-and-binaries)
 - VS2019 16.4 or later
+
+## v1.0.0.28
+
+- Added support for .NET Core 3.1 (3.1.302)
 
 ## v1.0.0.27
 
 Build.DependencyInjection.Abstractions(dependency_injection_build_abstractions):
 
-- Added support for .NET Core 3 preview 2 (3.0.100-preview-010184)
+- Added support for .NET Core 3.1 (3.1.302)
 - Removed support for .NET Standart 1.5/1.6
 - Removed support for .NET Core 1.0/1.1
 

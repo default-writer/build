@@ -29,7 +29,7 @@
     <Authors>Artur Mustafin (hack2root)</Authors>
     <Company>Artur Mustafin (hack2root)</Company>
     <Description>
-      .NET Core 3.0 Dependency Injection framework
+      .NET Core 3.1 Dependency Injection framework
       Commit SHA: $(CommitHash)
     </Description>
     <Copyright>Artur Mustafin (hack2root)</Copyright>
@@ -40,7 +40,7 @@
     <PackageTags>Dependency Injection</PackageTags>
     <PackageReleaseNotes>
       Features:
-      - Added support for .NET Core 3.1
+      - Added support for .NET Core 3.1 (3.1.302)
     </PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>Build.DependencyInjection.Abstractions</PackageId>

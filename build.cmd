@@ -14,7 +14,15 @@ setlocal EnableDelayedExpansion
     exit /b 1
   )
 
-  call taskkill /IM dotnet.exe /F > nul
+  set /a count = 0
+  for /f "tokens=1* delims=, " %%l in ('tasklist') do (
+    if "%%l" == "dotnet.exe" (
+      set /a count += 1
+    )
+  )
+  if %count% neq 0 (
+    call taskkill /IM dotnet.exe /F > nul
+  )
 
   set /a count = 0
   for /f %%l in ('git clean -xdn') do set /a count += 1
@@ -52,7 +60,15 @@ setlocal EnableDelayedExpansion
   set OutputDirectory=%~dp0.nuget\nuget
   call :remove_directory "%OutputDirectory%" || exit /b 1
 
-  call taskkill /IM dotnet.exe /F > nul
+  set /a count = 0
+  for /f "tokens=1* delims=, " %%l in ('tasklist') do (
+    if "%%l" == "dotnet.exe" (
+      set /a count += 1
+    )
+  )
+  if %count% neq 0 (
+    call taskkill /IM dotnet.exe /F > nul
+  )
 
   echo/==================
   echo/ %LV_GIT_HEAD_SHA%
@@ -65,7 +81,15 @@ setlocal EnableDelayedExpansion
   set OutputDirectory=%~dp0.myget\myget
   call :remove_directory "%OutputDirectory%" || exit /b 1
 
-  call taskkill /IM dotnet
+  set /a count = 0
+  for /f "tokens=1* delims=, " %%l in ('tasklist') do (
+    if "%%l" == "dotnet.exe" (
+      set /a count += 1
+    )
+  )
+  if %count% neq 0 (
+    call taskkill /IM dotnet.exe /F > nul
+  )
 
 endlocal&  exit /b %errorlevel%
 

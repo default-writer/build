@@ -31,7 +31,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Artur Mustafin (hack2root)</Authors>
     <Company>Artur Mustafin (hack2root)</Company>
-    <Description>.NET Core 3.0 Dependency Injection framework 
+    <Description>.NET Core 3.1 Dependency Injection framework 
 Commit SHA: $(CommitHash)</Description>
     <Copyright>Artur Mustafin (hack2root)</Copyright>
     <PackageLicenseUrl>https://github.com/hack2root/build/blob/master/LICENSE</PackageLicenseUrl>
@@ -41,7 +41,7 @@ Commit SHA: $(CommitHash)</Description>
     <PackageTags>Dependency Injection</PackageTags>
     <PackageReleaseNotes>
       Features:
-      - Added support for .NET Core 3 preview 2 (3.0.100-preview-010184)
+      - Added support for .NET Core 3.1 (3.1.302)
     </PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>Build.DependencyInjection</PackageId>
