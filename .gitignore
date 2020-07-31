@@ -336,3 +336,4 @@ ASALocalRun/
 /.sonarqube
 *.feature.cs
 userid
+.local
