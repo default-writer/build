@@ -1,6 +1,8 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1.302-alpine3.12 AS build
 WORKDIR /app
 
+RUN apk --no-cache add curl
+
 # copy csproj and restore as distinct layers
 COPY *.sln .
 COPY Build.Abstractions/*.csproj ./Build.Abstractions/
