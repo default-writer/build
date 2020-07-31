@@ -7,7 +7,7 @@ setlocal enabledelayedexpansion
 
   set BuildConfiguration=Release
 
-  set BuildSolution=Github.Build.sln
+  set BuildSolution=.github/Build.sln
   
   set LV_GIT_HEAD_SHA=
   for /f %%c in ('git rev-parse HEAD') do set "LV_GIT_HEAD_SHA=%%c"
