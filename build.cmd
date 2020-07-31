@@ -6,8 +6,19 @@ setlocal EnableDelayedExpansion
 
   set errorlevel=
   set BuildConfiguration=Release
-  set /p BuildVersion=<"%~dp0\.config\BuildVersion.txt"
 
+  set BuildSolution=Build.sln
+
+  set /p BuildVersion=<"%~dp0.config\BuildVersion.txt"
+
+  echo/ ==================
+  echo/  %LV_GIT_HEAD_SHA%
+  echo/ ==================
+
+  echo/ ==================
+  echo/  Building %BuildVersion% %BuildConfiguration% version of NuGet packages.
+  echo/ ==================
+  
   REM Check that git is on path.
   where.exe /Q git.exe || (
     echo ERROR: git.exe is not in the path.
@@ -49,13 +60,13 @@ setlocal EnableDelayedExpansion
     exit /b 1
   )
 
-  echo/==================
-  echo/ %LV_GIT_HEAD_SHA%
-  echo/==================
+  echo/ ==================
+  echo/  %LV_GIT_HEAD_SHA%
+  echo/ ==================
 
-  echo/==================
-  echo/ Building %BuildVersion% %BuildConfiguration% version of NuGet packages.
-  echo/==================
+  echo/ ==================
+  echo/  Building %BuildVersion% %BuildConfiguration% version of NuGet packages.
+  echo/ ==================
   call .nuget\_NuGet.cmd %BuildConfiguration% %BuildVersion%
   set OutputDirectory=%~dp0.nuget\nuget
   call :remove_directory "%OutputDirectory%" || exit /b 1
@@ -70,13 +81,13 @@ setlocal EnableDelayedExpansion
     call taskkill /IM dotnet.exe /F > nul
   )
 
-  echo/==================
-  echo/ %LV_GIT_HEAD_SHA%
-  echo/==================
+  echo/ ==================
+  echo/  %LV_GIT_HEAD_SHA%
+  echo/ ==================
 
-  echo/==================
-  echo/ Building %BuildVersion% %BuildConfiguration% version of MyGet packages.
-  echo/==================
+  echo/ ==================
+  echo/  Building %BuildVersion% %BuildConfiguration% version of MyGet packages.
+  echo/ ==================
   call .myget\_MyGet.cmd %BuildConfiguration% %BuildVersion%
   set OutputDirectory=%~dp0.myget\myget
   call :remove_directory "%OutputDirectory%" || exit /b 1

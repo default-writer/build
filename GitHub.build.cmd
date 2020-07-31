@@ -6,10 +6,27 @@ setlocal enabledelayedexpansion
   set errorlevel=
 
   set BuildConfiguration=Release
+
   set BuildSolution=Github.Build.sln
+  
+  set LV_GIT_HEAD_SHA=
+  for /f %%c in ('git rev-parse HEAD') do set "LV_GIT_HEAD_SHA=%%c"
+
+  set GitHeadSha=
+  if defined LV_GIT_HEAD_SHA (
+    set "GitHeadSha=%LV_GIT_HEAD_SHA%"
+  )
 
   set /p BuildVersion=<"%~dp0.config\BuildVersion.txt"
 
+  echo/ ==================
+  echo/  %LV_GIT_HEAD_SHA%
+  echo/ ==================
+
+  echo/ ==================
+  echo/  Building %BuildVersion% %BuildConfiguration% version of NuGet packages.
+  echo/ ==================
+  
   set BuildSpec=
   set BuildSpec=Build.DependencyInjection.%BuildVersion%.nupkg
 
@@ -37,8 +54,9 @@ endlocal& exit /b %errorlevel%
     echo/ ========== NuGet ==========
     echo/   Building %cd%
     echo/ ========== NuGet ==========
+    echo/ > build.log
     for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp2.1 netcoreapp3.1) do (
-        dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution%
+        dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log
     )
     exit /b 0
 
@@ -51,8 +69,18 @@ REM   set errorlevel=
 
 REM   set BuildConfiguration=Release
 
+REM   set BuildSolution=Build.sln
+
 REM   set /p BuildVersion=<"%~dp0.config\BuildVersion.txt"
 
+REM   echo/ ==================
+REM   echo/  %LV_GIT_HEAD_SHA%
+REM   echo/ ==================
+
+REM   echo/ ==================
+REM   echo/  Building %BuildVersion% %BuildConfiguration% version of NuGet packages.
+REM   echo/ ==================
+  
 REM   set BuildSpec=
 REM   set BuildSpec=%1
 
@@ -151,7 +179,7 @@ REM   echo/   Building %cd%
 REM   echo/ ========== NuGet ==========
 REM   echo/ > build.log
 REM   for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp2.1 netcoreapp3.1) do (
-REM     dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" >> build.log                             
+REM     dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log                             
 REM   )
 REM   exit /b 0
 

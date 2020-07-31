@@ -6,7 +6,7 @@
     <authors>Artur Mustafin (hack2root)</authors>
     <owners>Artur Mustafin (hack2root)</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <licenseUrl>https://github.com/hack2root/build/blob/master/LICENSE</licenseUrl>
+    <license>https://github.com/hack2root/build/blob/master/LICENSE</license>
     <projectUrl>https://hack2root.github.io/build/</projectUrl>
     <description>.NET Core 2.1 Dependency Injection framework</description>
     <releaseNotes>Features:
