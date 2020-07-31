@@ -2,7 +2,7 @@ using TechTalk.SpecFlow;
 using System;
 using NUnit.Framework;
  
-namespace DotnetcoreTutorial.src.steps
+namespace DotnetcoreTutorialSteps
 {
  
   [Binding]
