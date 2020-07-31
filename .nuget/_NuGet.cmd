@@ -103,7 +103,7 @@ setlocal
   echo/   Building %cd%
   echo/ ========== NuGet ==========
   echo/ > build.log
-  for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 netstandard2.0 netcoreapp2.1 netcoreapp3.0) do (
+  for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp2.1 netcoreapp3.1) do (
     dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" >> build.log                             
   )
   exit /b 0

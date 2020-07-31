@@ -53,13 +53,13 @@ if(![System.IO.File]::Exists($(Join-Path -Path $CurrentDir -ChildPath "packages/
 #
 #& $OPENCOVER `
 #  -target:"$($DOTNET)" `
-#  -targetargs:"test -f netcoreapp3.0 -c Release Build.Tests/Build.Tests.csproj" `
+#  -targetargs:"test -f netcoreapp3.1 -c Release Build.Tests/Build.Tests.csproj" `
 #  -mergeoutput `
 #  -hideskipped:File `
 #  -output:"Build.Tests/opencover.xml" `
 #  -oldStyle `
 #  -filter:"+[Build*]* -[Build.Tests*]* -[Build*]*AttributeProvider*" `
-#  -searchdirs:"Build.Tests/bin/Release/netcoreapp3.0" `
+#  -searchdirs:"Build.Tests/bin/Release/netcoreapp3.1" `
 #  -register:user
 #
 # Upload to coveralls FILERED sources
