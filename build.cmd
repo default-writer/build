@@ -11,6 +11,9 @@ setlocal EnableDelayedExpansion
 
   set /p BuildVersion=<"%~dp0.config\BuildVersion.txt"
 
+  set LV_GIT_HEAD_SHA=
+  for /f %%c in ('git rev-parse HEAD') do set "LV_GIT_HEAD_SHA=%%c"
+
   echo/ ==================
   echo/  %LV_GIT_HEAD_SHA%
   echo/ ==================
@@ -67,8 +70,9 @@ setlocal EnableDelayedExpansion
   echo/ ==================
   echo/  Building %BuildVersion% %BuildConfiguration% version of NuGet packages.
   echo/ ==================
+
   call .nuget\_NuGet.cmd %BuildConfiguration% %BuildVersion%
-  set OutputDirectory=%~dp0.nuget\nuget
+  set OutputDirectory=%~dp0..\.nuget\nuget
   call :remove_directory "%OutputDirectory%" || exit /b 1
 
   set /a count = 0
@@ -81,13 +85,6 @@ setlocal EnableDelayedExpansion
     call taskkill /IM dotnet.exe /F > nul
   )
 
-  echo/ ==================
-  echo/  %LV_GIT_HEAD_SHA%
-  echo/ ==================
-
-  echo/ ==================
-  echo/  Building %BuildVersion% %BuildConfiguration% version of MyGet packages.
-  echo/ ==================
   call .myget\_MyGet.cmd %BuildConfiguration% %BuildVersion%
   set OutputDirectory=%~dp0.myget\myget
   call :remove_directory "%OutputDirectory%" || exit /b 1
