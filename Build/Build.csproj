@@ -8,7 +8,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>
-      net45;
       net451;
       net452;
       net46;
