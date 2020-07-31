@@ -40,7 +40,7 @@
     <PackageTags>Dependency Injection</PackageTags>
     <PackageReleaseNotes>
       Features:
-      - Added support for .NET Core 3 preview 2 (3.0.100-preview-010184)
+      - Added support for .NET Core 3.1
     </PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>Build.DependencyInjection.Abstractions</PackageId>
