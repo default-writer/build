@@ -1,4 +1,4 @@
-﻿version: 2
+﻿version: 2.1
 notify:
   webhooks:
     - url: https://webhooks.gitter.im/e/dcb2d72c9dad83a95777
@@ -12,3 +12,13 @@ jobs:
       - run: dotnet restore
       - run: dotnet build
       - run: dotnet test --no-build Build.Tests
+      - sonarcloud/scan
+
+orbs:
+  sonarcloud: sonarsource/sonarcloud@1.0.1
+
+workflows:
+  main:
+    jobs:
+      - build:
+          context: SonarCloud
