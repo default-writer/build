@@ -5,9 +5,9 @@ notify:
 jobs:
   build:
     docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:3.1.302-alpine3.12
+      - image: cimg/base:2020.01
     steps:
-      - run: apk --no-cache add curl unzip
+      - run: ./build.sh
       - checkout
       - run: find .
       - run: dotnet restore
