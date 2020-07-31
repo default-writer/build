@@ -47,18 +47,38 @@ REM   dotnet nuget add source https://nuget.pkg.github.com/hack2root/index.json 
 
 endlocal& exit /b %errorlevel%
 
+:print_error_message
+  echo/
+  echo/  [ERROR] %*
+  echo/
+  exit /b %errorlevel%
+
+:remove_directory
+  if "%~1" == "" (
+    call :print_error_message Directory name was not specified.
+    exit /b 1
+  )
+  if exist "%~1" rmdir /s /q "%~1"
+  if exist "%~1" (
+    call :print_error_message Failed to remove directory "%~1".
+    exit /b 1
+  )
+  exit /b 0
+
 :dotnet_build
     call :remove_directory bin                                                                                              || exit /b 1
     call :remove_directory obj                                                                                              || exit /b 1
     echo/
     echo/ ========== NuGet ==========
-    echo/   Building %cd%
+    echo/  Building %cd%
     echo/ ========== NuGet ==========
     echo/ > build.log
     for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp2.1 netcoreapp3.1) do (
         dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log
     )
     exit /b 0
+
+:exit
 
 REM @echo off
 REM @if defined _echo echo on
@@ -118,7 +138,7 @@ REM setlocal
 REM   cd /d %~dp0Build.Abstractions
 REM   echo/
 REM   echo/ ========== NuGet ==========
-REM   echo/   Building %cd%
+REM   echo/  Building %cd%
 REM   echo/ ========== NuGet ==========
 REM   call :dotnet_pack
 REM   exit /b %errorlevel%
@@ -135,7 +155,7 @@ REM   echo/ ========== NuGet ==========
 REM   dotnet.exe restore --no-cache --packages "%~dp0packages\.packages"                                                   || exit /b 1
 REM   echo/
 REM   echo/ ========== NuGet ==========
-REM   echo/   Building %cd%
+REM   echo/  Building %cd%
 REM   echo/ ========== NuGet ==========
 REM   dotnet.exe build --verbosity normal -c %BuildConfiguration% > build.log                                                 || exit /b 1
 REM   echo/
@@ -175,7 +195,7 @@ REM   call :remove_directory bin                                                
 REM   call :remove_directory obj                                                                                              || exit /b 1
 REM   echo/
 REM   echo/ ========== NuGet ==========
-REM   echo/   Building %cd%
+REM   echo/  Building %cd%
 REM   echo/ ========== NuGet ==========
 REM   echo/ > build.log
 REM   for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp2.1 netcoreapp3.1) do (
@@ -216,22 +236,3 @@ REM   cd /d %~dp0
 REM   dotnet.exe restore --no-cache --packages "%~dp0packages\.packages"                                                   || exit /b 1
 REM   call coverage                                                                                                           || exit /b 1
 REM   exit /b %errorlevel%
-
-:print_error_message
-  echo/
-  echo/  [ERROR] %*
-  echo/
-  exit /b %errorlevel%
-
-:remove_directory
-  if "%~1" == "" (
-    call :print_error_message Directory name was not specified.
-    exit /b 1
-  )
-  if exist "%~1" rmdir /s /q "%~1"
-  if exist "%~1" (
-    call :print_error_message Failed to remove directory "%~1".
-    exit /b 1
-  )
-  exit /b 0
-:exit

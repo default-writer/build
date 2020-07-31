@@ -52,7 +52,7 @@ setlocal
   cd /d %~dp0..\Build
   echo/
   echo/ ========== MyGet ==========
-  echo/   Building %cd%
+  echo/  Building %cd%
   echo/ ========== MyGet ==========
   call :dotnet_pack
   exit /b %errorlevel%
@@ -69,7 +69,7 @@ setlocal
   dotnet.exe restore --no-cache --packages "%~dp0..\packages\.packages"                                                   || exit /b 1
   echo/
   echo/ ========== MyGet ==========
-  echo/   Building %cd%
+  echo/  Building %cd%
   echo/ ========== MyGet ==========
   dotnet.exe build  --verbosity normal -c %BuildConfiguration% > build.log                                                || exit /b 1
   echo/
@@ -108,7 +108,7 @@ setlocal
   call :remove_directory obj                                                                                              || exit /b 1
   echo/
   echo/ ========== MyGet ==========
-  echo/   Building %cd%
+  echo/  Building %cd%
   echo/ ========== MyGet ==========
   echo/ > build.log
   for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp2.1 netcoreapp3.1) do (

@@ -11,6 +11,9 @@ setlocal EnableDelayedExpansion
 
   set /p BuildVersion=<"%~dp0.config\BuildVersion.txt"
 
+  set LV_GIT_HEAD_SHA=
+  for /f %%c in ('git rev-parse HEAD') do set "LV_GIT_HEAD_SHA=%%c"
+
   echo/ ==================
   echo/  %LV_GIT_HEAD_SHA%
   echo/ ==================
@@ -67,6 +70,9 @@ setlocal EnableDelayedExpansion
   echo/ ==================
   echo/  Building %BuildVersion% %BuildConfiguration% version of NuGet packages.
   echo/ ==================
+
+  call :dotnet_build
+
   call .nuget\_NuGet.cmd %BuildConfiguration% %BuildVersion%
   set OutputDirectory=%~dp0.nuget\nuget
   call :remove_directory "%OutputDirectory%" || exit /b 1
@@ -81,13 +87,6 @@ setlocal EnableDelayedExpansion
     call taskkill /IM dotnet.exe /F > nul
   )
 
-  echo/ ==================
-  echo/  %LV_GIT_HEAD_SHA%
-  echo/ ==================
-
-  echo/ ==================
-  echo/  Building %BuildVersion% %BuildConfiguration% version of MyGet packages.
-  echo/ ==================
   call .myget\_MyGet.cmd %BuildConfiguration% %BuildVersion%
   set OutputDirectory=%~dp0.myget\myget
   call :remove_directory "%OutputDirectory%" || exit /b 1
@@ -121,3 +120,16 @@ endlocal&  exit /b %errorlevel%
     exit /b 1
   )
   exit /b 0
+
+:dotnet_build
+    call :remove_directory bin                                                                                              || exit /b 1
+    call :remove_directory obj                                                                                              || exit /b 1
+    echo/
+    echo/ ========== NuGet ==========
+    echo/  Building %cd%
+    echo/ ========== NuGet ==========
+    echo/ > build.log
+    for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp2.1 netcoreapp3.1) do (
+        dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log
+    )
+    exit /b 0
