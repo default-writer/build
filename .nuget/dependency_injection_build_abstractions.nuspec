@@ -8,11 +8,9 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <licenseUrl>https://github.com/hack2root/build/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://hack2root.github.io/build/</projectUrl>
-    <description>.NET Core 3.0 Dependency Injection Framework Abstractions</description>
+    <description>.NET Core 3.1 Dependency Injection framework Abstractions</description>
     <releaseNotes>Features:
-      - Added support for .NET Core 3 preview 2 (3.0.100-preview-010184)
-      - Removed support for .NET Standart 1.5/1.6
-      - Removed support for .NET Core 1.0/1.1
+      - Added support for .NET Core 3.1 (3.1.302)
     </releaseNotes>
     <copyright>Artur Mustafin (hack2root)</copyright>
     <tags>Dependency Injection Abstractions</tags>
@@ -47,5 +45,6 @@
     <file src="..\Build.Abstractions\bin\Release\netcoreapp2.0\Build.Abstractions.dll" target="lib\netcoreapp2.0\Build.Abstractions.dll" />
     <file src="..\Build.Abstractions\bin\Release\netcoreapp2.1\Build.Abstractions.dll" target="lib\netcoreapp2.1\Build.Abstractions.dll" />
     <file src="..\Build.Abstractions\bin\Release\netcoreapp3.0\Build.Abstractions.dll" target="lib\netcoreapp3.0\Build.Abstractions.dll" />
+    <file src="..\Build.Abstractions\bin\Release\netcoreapp3.1\Build.Abstractions.dll" target="lib\netcoreapp3.1\Build.Abstractions.dll" />
   </files>
 </package>

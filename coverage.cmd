@@ -11,6 +11,14 @@ setlocal
 
 endlocal
 
-call taskkill /IM dotnet.exe /F > nul
+set /a count = 0
+for /f "tokens=1* delims=, " %%l in ('tasklist') do (
+  if "%%l" == "dotnet.exe" (
+    set /a count += 1
+  )
+)
+if %count% neq 0 (
+  call taskkill /IM dotnet.exe /F > nul
+)
 
 powershell -command "rm -recurse -force .sonarqube"
