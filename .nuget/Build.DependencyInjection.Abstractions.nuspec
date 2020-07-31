@@ -16,7 +16,6 @@
     <tags>Dependency Injection Abstractions</tags>
     <repository type="GitHub" url="https://github.com/hack2root/build.git" />
     <dependencies>
-      <group targetFramework=".NETFramework4.5" />
       <group targetFramework=".NETFramework4.5.1" />
       <group targetFramework=".NETFramework4.5.2" />
       <group targetFramework=".NETFramework4.6" />
@@ -32,7 +31,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Build.Abstractions\bin\Release\net45\Build.Abstractions.dll" target="lib\net45\Build.Abstractions.dll" />
     <file src="..\Build.Abstractions\bin\Release\net451\Build.Abstractions.dll" target="lib\net451\Build.Abstractions.dll" />
     <file src="..\Build.Abstractions\bin\Release\net452\Build.Abstractions.dll" target="lib\net452\Build.Abstractions.dll" />
     <file src="..\Build.Abstractions\bin\Release\net46\Build.Abstractions.dll" target="lib\net46\Build.Abstractions.dll" />
