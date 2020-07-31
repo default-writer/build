@@ -1,10 +1,11 @@
 Feature: title
- In order to achievement
- As a type of user
- I want goal
- So that reason
  
-Scenario: title
+Scenario: title1
+ Given precondition
+  When action
+  Then testable outcome
+
+Scenario: title2
  Given precondition
   When action
   Then testable outcome
