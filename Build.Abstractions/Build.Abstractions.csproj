@@ -18,11 +18,12 @@
       netcoreapp2.0;
       netcoreapp2.1;
       netcoreapp3.0;
+      netcoreapp3.1;
     </TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Platforms>AnyCPU</Platforms>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Artur Mustafin (hack2root)</Authors>
@@ -39,7 +40,7 @@
     <PackageTags>Dependency Injection</PackageTags>
     <PackageReleaseNotes>
       Features:
-      - Added support for .NET Core 3 preview 2 (3.0.100-preview-010184)
+      - Added support for .NET Core 3.1
     </PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>Build.DependencyInjection.Abstractions</PackageId>

@@ -5,6 +5,6 @@
 		}
 	],
 	"settings": {
-		"dotnet-test-explorer.testProjectPath": "Build.Tests"
+		"dotnet-test-explorer.testProjectPath": "Build.Behave"
 	}
 }
