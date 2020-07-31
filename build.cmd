@@ -74,7 +74,7 @@ setlocal EnableDelayedExpansion
   call :dotnet_build
 
   call .nuget\_NuGet.cmd %BuildConfiguration% %BuildVersion%
-  set OutputDirectory=%~dp0.nuget\nuget
+  set OutputDirectory=%~dp0..\.nuget\nuget
   call :remove_directory "%OutputDirectory%" || exit /b 1
 
   set /a count = 0

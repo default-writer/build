@@ -150,7 +150,7 @@ REM   call :remove_directory bin                                                
 REM   call :remove_directory obj                                                                                              || exit /b 1
 REM   echo/
 REM   echo/ ========== NuGet ==========
-REM   echo/   Restoring %cd%
+REM   echo/  Restoring %cd%
 REM   echo/ ========== NuGet ==========
 REM   dotnet.exe restore --no-cache --packages "%~dp0packages\.packages"                                                   || exit /b 1
 REM   echo/
@@ -207,7 +207,7 @@ REM :dotnet_pack
 REM setlocal
 REM   echo/
 REM   echo/ ========== NuGet ==========
-REM   echo/   Restoring %cd%
+REM   echo/  Restoring %cd%
 REM   echo/ ========== NuGet ==========
 REM   dotnet.exe restore --no-cache --packages "%~dp0packages\.packages"                                                   || exit /b 1
 REM   call :dotnet_build                                                                                                      || exit /b 1
@@ -216,7 +216,7 @@ REM   dotnet.exe publish -c %BuildConfiguration%                                
    
 REM   echo/
 REM   echo/ ========== NuGet ==========
-REM   echo/   Packing %cd%
+REM   echo/  Packing %cd%
 REM   echo/ ========== NuGet ==========
 REM   set MsBuildArgs=
 REM   set "MsBuildArgs=%MsBuildArgs% --no-build"

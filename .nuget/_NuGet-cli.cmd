@@ -68,7 +68,7 @@ setlocal
   call :remove_directory obj                                                                                              || exit /b 1
   echo/
   echo/ ========== NuGet ==========
-  echo/   Restoring %cd%
+  echo/  Restoring %cd%
   echo/ ========== NuGet ==========
   dotnet.exe restore --no-cache --packages "%~dp0..\packages\.packages"                                                   || exit /b 1
   echo/
@@ -108,6 +108,24 @@ setlocal
   call :remove_directory %~dp0..\packages\.packages
   exit /b 0
 
+:print_error_message
+  echo/
+  echo/  [ERROR] %*
+  echo/
+  exit /b %errorlevel%
+
+:remove_directory
+  if "%~1" == "" (
+    call :print_error_message Directory name was not specified.
+    exit /b 1
+  )
+  if exist "%~1" rmdir /s /q "%~1"
+  if exist "%~1" (
+    call :print_error_message Failed to remove directory "%~1".
+    exit /b 1
+  )
+  exit /b 0
+
 :dotnet_build
   call :remove_directory bin                                                                                              || exit /b 1
   call :remove_directory obj                                                                                              || exit /b 1
@@ -125,7 +143,7 @@ setlocal
 setlocal
   echo/
   echo/ ========== NuGet ==========
-  echo/   Restoring %cd%
+  echo/  Restoring %cd%
   echo/ ========== NuGet ==========
   dotnet.exe restore --no-cache --packages "%~dp0..\packages\.packages"                                                   || exit /b 1
   call :dotnet_build                                                                                                      || exit /b 1
@@ -134,7 +152,7 @@ setlocal
    
   echo/
   echo/ ========== NuGet ==========
-  echo/   Packing %cd%
+  echo/  Packing %cd%
   echo/ ========== NuGet ==========
   set MsBuildArgs=
   set "MsBuildArgs=%MsBuildArgs% --no-build"
@@ -155,21 +173,4 @@ setlocal
   call coverage                                                                                                           || exit /b 1
   exit /b %errorlevel%
 
-:print_error_message
-  echo/
-  echo/  [ERROR] %*
-  echo/
-  exit /b %errorlevel%
-
-:remove_directory
-  if "%~1" == "" (
-    call :print_error_message Directory name was not specified.
-    exit /b 1
-  )
-  if exist "%~1" rmdir /s /q "%~1"
-  if exist "%~1" (
-    call :print_error_message Failed to remove directory "%~1".
-    exit /b 1
-  )
-  exit /b 0
 :exit

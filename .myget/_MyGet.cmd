@@ -64,7 +64,7 @@ setlocal
   call :remove_directory obj                                                                                              || exit /b 1
   echo/
   echo/ ========== MyGet ==========
-  echo/   Restoring %cd%
+  echo/  Restoring %cd%
   echo/ ========== MyGet ==========
   dotnet.exe restore --no-cache --packages "%~dp0..\packages\.packages"                                                   || exit /b 1
   echo/
@@ -103,34 +103,6 @@ setlocal
   call :remove_directory %~dp0..\packages\.packages
   exit /b 0
 
-:dotnet_build
-  call :remove_directory bin                                                                                              || exit /b 1
-  call :remove_directory obj                                                                                              || exit /b 1
-  echo/
-  echo/ ========== MyGet ==========
-  echo/  Building %cd%
-  echo/ ========== MyGet ==========
-  echo/ > build.log
-  for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp2.1 netcoreapp3.1) do (
-    dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log
-  )
-  exit /b 0
-
-:dotnet_pack
-setlocal
-  echo/
-  echo/ ========== MyGet ==========
-  echo/   Restoring %cd%
-  echo/ ========== MyGet ==========
-  dotnet.exe restore --no-cache --packages "%~dp0..\packages\.packages"                                                   || exit /b 1
-  call :dotnet_build                                                                                                      || exit /b 1
-  echo/
-  echo/ ========== MyGet ==========
-  echo/   Publishing %cd%
-  echo/ ========== MyGet ==========
-  dotnet.exe publish -c %BuildConfiguration%                                                                              || exit /b 1
-  exit /b 0
-
 :print_error_message
   echo/
   echo/  [ERROR] %*
@@ -148,4 +120,33 @@ setlocal
     exit /b 1
   )
   exit /b 0
+
+:dotnet_build
+  call :remove_directory bin                                                                                              || exit /b 1
+  call :remove_directory obj                                                                                              || exit /b 1
+  echo/
+  echo/ ========== MyGet ==========
+  echo/  Building %cd%
+  echo/ ========== MyGet ==========
+  echo/ > build.log
+  for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp2.1 netcoreapp3.1) do (
+    dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log
+  )
+  exit /b 0
+
+:dotnet_pack
+setlocal
+  echo/
+  echo/ ========== MyGet ==========
+  echo/  Restoring %cd%
+  echo/ ========== MyGet ==========
+  dotnet.exe restore --no-cache --packages "%~dp0..\packages\.packages"                                                   || exit /b 1
+  call :dotnet_build                                                                                                      || exit /b 1
+  echo/
+  echo/ ========== MyGet ==========
+  echo/  Publishing %cd%
+  echo/ ========== MyGet ==========
+  dotnet.exe publish -c %BuildConfiguration%                                                                              || exit /b 1
+  exit /b 0
+
 :exit
