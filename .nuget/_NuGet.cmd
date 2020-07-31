@@ -50,6 +50,7 @@ endlocal& exit /b %errorlevel%
 
 :build
 setlocal
+  call :dotnet_build
   cd /d %~dp0..\Build
   call :dotnet_pack
   exit /b %errorlevel%
@@ -135,7 +136,7 @@ setlocal
     dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log                             
   )
   echo/ ========== NuGet ==========
-  exit /b 1
+  exit /b 0
 
 :dotnet_pack
 setlocal
@@ -144,7 +145,6 @@ setlocal
   echo/  Restoring %cd%
   echo/ ========== NuGet ==========
   dotnet.exe restore --no-cache --packages "%~dp0..\packages\.packages"                                                   || exit /b 1
-  call :dotnet_build                                                                                                      || exit /b 1
   echo/
   echo/ ========== NuGet ==========
   echo/  Publishing %cd%
@@ -155,7 +155,6 @@ setlocal
   echo/  Packing %cd%
   echo/ ========== NuGet ==========
   set MsBuildArgs=
-  set "MsBuildArgs=%MsBuildArgs% --no-build"
   set "MsBuildArgs=%MsBuildArgs% -c %BuildConfiguration%"
   set "MsBuildArgs=%MsBuildArgs% --output "%OutputDirectory%""
   set "MsBuildArgs=%MsBuildArgs% --include-symbols --include-source"

@@ -142,7 +142,6 @@ setlocal
   echo/  Restoring %cd%
   echo/ ========== MyGet ==========
   dotnet.exe restore --no-cache --packages "%~dp0..\packages\.packages"                                                   || exit /b 1
-  call :dotnet_build                                                                                                      || exit /b 1
   echo/
   echo/ ========== MyGet ==========
   echo/  Publishing %cd%
