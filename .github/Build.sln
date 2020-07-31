@@ -3,12 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28621.142
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Build", "Build\Build.csproj", "{9E5550A9-29B5-445A-B6C8-70E4C210AEE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Build", "..\Build\Build.csproj", "{9E5550A9-29B5-445A-B6C8-70E4C210AEE8}"
 EndProject
-## Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Build.Tests", "Build.Tests\Build.Tests.csproj", "{08DFF287-D590-48D1-8000-F138CEC5FB57}"
-## EndProject
-## Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Build.Behave", "Build.Behave\Build.Behave.csproj", "{5916D748-4688-4511-BF29-98811F1743D8}"
-## EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "circle", "circle", "{77701C22-8214-414B-9204-C38AEF64B6DE}"
 	ProjectSection(SolutionItems) = preProject
 		.circleci\config.yml = .circleci\config.yml
@@ -57,7 +53,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "aws", "aws", "{E51C5E93-F35
 		.aws\webhook.js = .aws\webhook.js
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Build.Abstractions", "Build.Abstractions\Build.Abstractions.csproj", "{B8086CB3-54A4-40B7-B4BC-6DA7DEC8CB78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Build.Abstractions", "..\Build.Abstractions\Build.Abstractions.csproj", "{B8086CB3-54A4-40B7-B4BC-6DA7DEC8CB78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,18 +65,10 @@ Global
 		{9E5550A9-29B5-445A-B6C8-70E4C210AEE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E5550A9-29B5-445A-B6C8-70E4C210AEE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E5550A9-29B5-445A-B6C8-70E4C210AEE8}.Release|Any CPU.Build.0 = Release|Any CPU
-		## {08DFF287-D590-48D1-8000-F138CEC5FB57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		## {08DFF287-D590-48D1-8000-F138CEC5FB57}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		## {08DFF287-D590-48D1-8000-F138CEC5FB57}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		## {08DFF287-D590-48D1-8000-F138CEC5FB57}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B8086CB3-54A4-40B7-B4BC-6DA7DEC8CB78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B8086CB3-54A4-40B7-B4BC-6DA7DEC8CB78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8086CB3-54A4-40B7-B4BC-6DA7DEC8CB78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8086CB3-54A4-40B7-B4BC-6DA7DEC8CB78}.Release|Any CPU.Build.0 = Release|Any CPU
-		## {5916D748-4688-4511-BF29-98811F1743D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		## {5916D748-4688-4511-BF29-98811F1743D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		## {5916D748-4688-4511-BF29-98811F1743D8}.Release|Any CPU.Build.0 = Release|Any CPU
-		## {5916D748-4688-4511-BF29-98811F1743D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
