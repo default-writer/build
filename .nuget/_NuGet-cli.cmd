@@ -6,9 +6,19 @@ setlocal enabledelayedexpansion
   set errorlevel=
 
   set BuildConfiguration=Release
+  
+  set BuildSolution=Build.sln
 
-  set /p BuildVersion=<"%~dp0..\.config\BuildVersion.txt"
+  set /p BuildVersion=<"%~dp0.config\BuildVersion.txt"
 
+  echo/ ==================
+  echo/  %LV_GIT_HEAD_SHA%
+  echo/ ==================
+
+  echo/ ==================
+  echo/  Building %BuildVersion% %BuildConfiguration% version of NuGet packages.
+  echo/ ==================
+  
   set BuildSpec=
   set BuildSpec=%1
 
@@ -107,7 +117,7 @@ setlocal
   echo/ ========== NuGet ==========
   echo/ > build.log
   for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp2.1 netcoreapp3.1) do (
-    dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" >> build.log                             
+    dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log                             
   )
   exit /b 0
 
