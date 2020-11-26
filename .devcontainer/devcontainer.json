@@ -15,7 +15,23 @@
 	},
 
 	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": []
+	"extensions": [
+        /* Git */
+        "mhutchie.git-graph",
+        "eamodio.gitlens",
+        "donjayamanne.githistory",
+        /* Testing */
+        "stevejpurves.cucumber",
+        /* Microsoft */
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-vscode.azure-account",
+        "ms-vsliveshare.vsliveshare-pack",
+        "ms-vscode.vscode-node-azure-pack",
+        "ms-vscode.powershell",
+        "ms-dotnettools.csharp",
+        "ms-azuretools.vscode-docker"
+    ]
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
