@@ -1,7 +1,8 @@
 using System.Linq;
 using Xunit;
+using Build;
 
-namespace Build.Tests.Fail_TestSet7
+namespace Fail_TestSet7
 {
     public static class UnitTest
     {

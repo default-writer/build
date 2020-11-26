@@ -1,6 +1,7 @@
 ﻿using System;
+using Build;
 
-namespace Build.Tests.Fail_TestSet1
+namespace Fail_TestSet1
 {
     public interface IPersonRepository
     {
@@ -16,7 +17,7 @@ namespace Build.Tests.Fail_TestSet1
 
     public class ErrorServiceDataRepository2 : IPersonRepository
     {
-        public ErrorServiceDataRepository2([Injection("Build.Tests.Fail_TestSet1.Other2")]IPersonRepository repository)
+        public ErrorServiceDataRepository2([Injection("Fail_TestSet1.Other2")]IPersonRepository repository)
         {
             throw new NotImplementedException();
         }
@@ -93,7 +94,7 @@ namespace Build.Tests.Fail_TestSet1
 
     public class ServiceDataRepository : IPersonRepository
     {
-        public ServiceDataRepository([Injection("Build.Tests.Fail_TestSet1.Other")]IPersonRepository repository)
+        public ServiceDataRepository([Injection("Fail_TestSet1.Other")]IPersonRepository repository)
         {
             Repository = repository;
         }
@@ -114,7 +115,7 @@ namespace Build.Tests.Fail_TestSet1
 
     public class ServiceDataRepository2 : IPersonRepository
     {
-        public ServiceDataRepository2([Injection("Build.Tests.Fail_TestSet1.Other2")]IPersonRepository repository)
+        public ServiceDataRepository2([Injection("Fail_TestSet1.Other2")]IPersonRepository repository)
         {
             Repository = repository;
         }
@@ -130,7 +131,7 @@ namespace Build.Tests.Fail_TestSet1
 
     public abstract class ServiceDataRepository3 : IPersonRepository
     {
-        protected ServiceDataRepository3([Injection("Build.Tests.Fail_TestSet1.Other2", typeof(PrivateConstructorServiceDataRepository))]IPersonRepository repository)
+        protected ServiceDataRepository3([Injection("Fail_TestSet1.Other2", typeof(PrivateConstructorServiceDataRepository))]IPersonRepository repository)
         {
             Repository = repository;
         }
@@ -146,7 +147,7 @@ namespace Build.Tests.Fail_TestSet1
 
     public class ServiceDataRepository4 : IPersonRepository
     {
-        public ServiceDataRepository4([Injection("Build.Tests.Fail_TestSet1.Other4")]IPersonRepository repository)
+        public ServiceDataRepository4([Injection("Fail_TestSet1.Other4")]IPersonRepository repository)
         {
             Repository = repository;
         }
@@ -162,7 +163,7 @@ namespace Build.Tests.Fail_TestSet1
 
     public class ServiceDataRepository5 : IPersonRepository
     {
-        public ServiceDataRepository5([Injection("Build.Tests.Fail_TestSet1.Other5")]IPersonRepository repository)
+        public ServiceDataRepository5([Injection("Fail_TestSet1.Other5")]IPersonRepository repository)
         {
             Repository = repository;
         }

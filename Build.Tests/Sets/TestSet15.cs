@@ -1,6 +1,7 @@
 ﻿using System;
+using Build;
 
-namespace Build.Tests.TestSet15
+namespace TestSet15
 {
     public enum Database
     {

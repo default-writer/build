@@ -2,8 +2,9 @@ using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Xunit;
+using Build;
 
-namespace Build.Tests.Fail_TestSet2
+namespace Fail_TestSet2
 {
     public static class UnitTest
     {

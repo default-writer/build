@@ -1,4 +1,4 @@
-@echo off
+﻿@echo off
 @if defined _echo echo on
 
 :main
@@ -35,7 +35,7 @@ setlocal enabledelayedexpansion
   set OutputDirectory=%~dp0nuget
 
   REM Step 1: Authenticate (if this is the first time)
-REM   dotnet nuget add source https://nuget.pkg.github.com/hack2root/index.json -n github -u hack2root -p GH_TOKEN
+REM   dotnet nuget add source https://nuget.pkg.github.com/funcelot/index.json -n github -u funcelot -p GH_TOKEN
 
   call :dotnet_build
 

@@ -1,4 +1,6 @@
-﻿namespace Build.Tests.TestSet23
+﻿using Build;
+
+namespace TestSet23
 {
     public struct D
     {

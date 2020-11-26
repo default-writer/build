@@ -1,4 +1,6 @@
-﻿namespace Build.Tests.TestSet16
+﻿using Build;
+
+namespace TestSet16
 {
     public enum Database
     {
@@ -64,8 +66,8 @@
         }
 
         public WebServiceDataRepository(
-            [Injection("Build.Tests.TestSet16.ServiceDataRepository", 2020)]IPersonRepository repositoryA,
-            [Injection("Build.Tests.TestSet16.SqlDataRepository", 2021)]IPersonRepository repositoryB)
+            [Injection("TestSet16.ServiceDataRepository", 2020)]IPersonRepository repositoryA,
+            [Injection("TestSet16.SqlDataRepository", 2021)]IPersonRepository repositoryB)
         {
             RepositoryA = repositoryA;
             RepositoryB = repositoryB;
@@ -92,8 +94,8 @@
         }
 
         public WebServiceDataRepository2(
-            [Injection("Build.Tests.TestSet16.SqlDataRepository", 2020)]IPersonRepository repositoryA,
-            [Injection("Build.Tests.TestSet16.ServiceDataRepository", 2021)]IPersonRepository repositoryB)
+            [Injection("TestSet16.SqlDataRepository", 2020)]IPersonRepository repositoryA,
+            [Injection("TestSet16.ServiceDataRepository", 2021)]IPersonRepository repositoryB)
         {
             RepositoryA = repositoryA;
             RepositoryB = repositoryB;

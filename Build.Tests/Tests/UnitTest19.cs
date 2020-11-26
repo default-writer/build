@@ -1,8 +1,9 @@
-using System;
+﻿using System;
 using System.Reflection;
 using Xunit;
+using Build;
 
-namespace Build.Tests.UnitTests19
+namespace UnitTests19
 {
     using TestSet19;
 
@@ -86,7 +87,7 @@ namespace Build.Tests.UnitTests19
             container.RegisterType<B>(func1);
             container.RegisterType<LazyFactory<A>>(func2);
             container.RegisterType<C3>();
-            var class1 = container.CreateInstance<C3>(container.GetInstance("Build.Tests.TestSet19.LazyFactory`1[Build.Tests.TestSet19.A]"), container.GetInstance<B>());
+            var class1 = container.CreateInstance<C3>(container.GetInstance("TestSet19.LazyFactory`1[TestSet19.A]"), container.GetInstance<B>());
             Assert.NotNull(class1.B);
         }
 

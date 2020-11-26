@@ -1,4 +1,4 @@
-# Middleware activation with a third-party container in ASP.NET Core
+﻿# Middleware activation with a third-party container in ASP.NET Core
 
 By [Luke Latham](https://github.com/guardrex)
 
@@ -11,7 +11,7 @@ The sample app demonstrates middleware activation by an `IMiddlewareFactory` imp
 The sample's middleware implementation records the value provided by a query string parameter (`key`). The middleware uses an injected database context (a scoped service) to record the query string value in an in-memory database.
 
 > [!NOTE]
-> The sample app uses [Build](https://github.com/hack2root/build) purely for demonstration purposes. Use of Build isn't an endorsement. Middleware activation approaches described in the Build documentation and GitHub issues are recommended by the maintainers of Build. For more information, see the [Build documentation](https://build.experimentalcommunity.org/) and [Build GitHub repository](https://github.com/hack2root/Build).
+> The sample app uses [Build](https://github.com/funcelot/build) purely for demonstration purposes. Use of Build isn't an endorsement. Middleware activation approaches described in the Build documentation and GitHub issues are recommended by the maintainers of Build. For more information, see the [Build documentation](https://build.experimentalcommunity.org/) and [Build GitHub repository](https://github.com/funcelot/Build).
 
 ## IMiddlewareFactory
 
@@ -49,5 +49,5 @@ The middleware is registered in the request processing pipeline in `Startup.Conf
 
 * [Middleware](xref:fundamentals/middleware/index)
 * [Factory-based middleware activation](xref:fundamentals/middleware/extensibility)
-* [Build GitHub repository](https://github.com/hack2root/build)
+* [Build GitHub repository](https://github.com/funcelot/build)
 * [Build documentation](https://build.experimentalcommunity.org)

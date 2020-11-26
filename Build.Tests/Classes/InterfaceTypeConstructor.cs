@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Build;
 
-namespace Build.Tests.Classes
+namespace Classes
 {
     /// <summary>
     /// The fun part: use a "magic" method to describe type dependencies

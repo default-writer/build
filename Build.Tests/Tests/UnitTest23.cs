@@ -1,6 +1,7 @@
-using Xunit;
+﻿using Xunit;
+using Build;
 
-namespace Build.Tests.TestSet23
+namespace TestSet23
 {
     using Classes;
 
@@ -46,7 +47,7 @@ namespace Build.Tests.TestSet23
             var aobj = new A();
             var bobj = new B();
             container.RegisterType<C>(aobj, bobj);
-            var c = (C)container.CreateInstance("Build.Tests.TestSet23.C(Build.Tests.TestSet23.A,Build.Tests.TestSet23.B)");
+            var c = (C)container.CreateInstance("TestSet23.C(TestSet23.A,TestSet23.B)");
             Assert.Equal(aobj, c.A);
         }
 
@@ -62,7 +63,7 @@ namespace Build.Tests.TestSet23
             var aobj = new A();
             var bobj = new B();
             container.RegisterType<C>(aobj, bobj);
-            var c = (C)container.CreateInstance("Build.Tests.TestSet23.C(Build.Tests.TestSet23.A,Build.Tests.TestSet23.B)");
+            var c = (C)container.CreateInstance("TestSet23.C(TestSet23.A,TestSet23.B)");
             Assert.Equal(bobj, c.B);
         }
 

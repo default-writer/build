@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Build;
 
-namespace Build.Tests.Classes
+namespace Classes
 {
     public sealed class InterfaceTypeParser : ITypeParser
     {

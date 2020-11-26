@@ -1,4 +1,6 @@
-﻿namespace Build.Tests.Fail_TestSet7
+﻿using Build;
+
+namespace Fail_TestSet7
 {
     public interface IOtherRepository : IPersonRepository
     {
@@ -35,7 +37,7 @@
 
     public class ServiceDataRepository : IPersonRepository
     {
-        public ServiceDataRepository([Injection("Build.Tests.Fail_TestSet7.IOtherRepository", 2018)]IPersonRepository repository)
+        public ServiceDataRepository([Injection("Fail_TestSet7.IOtherRepository", 2018)]IPersonRepository repository)
         {
             Repository = repository;
         }
@@ -51,7 +53,7 @@
 
     public class SqlDataRepository : IPersonRepository
     {
-        [Dependency("Build.Tests.Fail_TestSet7.IOtherRepository")]
+        [Dependency("Fail_TestSet7.IOtherRepository")]
         public SqlDataRepository(int personId)
         {
         }

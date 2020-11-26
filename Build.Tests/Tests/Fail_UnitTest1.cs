@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using Xunit;
+using Build;
 
-namespace Build.Tests.Fail_TestSet1
+namespace Fail_TestSet1
 {
     public static class UnitTest
     {
@@ -63,7 +64,7 @@ namespace Build.Tests.Fail_TestSet1
             //Fail_TestSet1
             var container = new Container();
             container.RegisterType<ServiceDataRepository2>();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository2>("Build.Tests.Fail_TestSet1.Other2"));
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository2>("Fail_TestSet1.Other2"));
         }
 
         [Fact]
@@ -434,7 +435,7 @@ namespace Build.Tests.Fail_TestSet1
             var container = new Container();
             IdType instance = null;
             container.RegisterType<ErrorClass>(instance);
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet1.ErrorClass(Build.Tests.TestSet1.IdType)", (IdType)null));
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("TestSet1.ErrorClass(TestSet1.IdType)", (IdType)null));
         }
 
         [Fact]
@@ -480,7 +481,7 @@ namespace Build.Tests.Fail_TestSet1
             //Fail_TestSet1
             var container = new Container();
             container.RegisterType<ServiceDataRepository2>();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository2>("Build.Tests.Fail_TestSet1.Other"));
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance<ServiceDataRepository2>("Fail_TestSet1.Other"));
         }
     }
 }

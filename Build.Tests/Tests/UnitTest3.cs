@@ -1,7 +1,8 @@
-using System.Linq;
+﻿using System.Linq;
 using Xunit;
+using Build;
 
-namespace Build.Tests.TestSet3
+namespace TestSet3
 {
     public static class UnitTest
     {
@@ -67,7 +68,7 @@ namespace Build.Tests.TestSet3
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var instance = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)");
+            var instance = (ServiceDataRepository)container.CreateInstance("TestSet3.ServiceDataRepository(TestSet3.IPersonRepository)");
             Assert.NotNull(instance);
         }
 
@@ -78,7 +79,7 @@ namespace Build.Tests.TestSet3
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(System.Int32)"));
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("TestSet3.ServiceDataRepository(System.Int32)"));
         }
 
         [Fact]
@@ -88,7 +89,7 @@ namespace Build.Tests.TestSet3
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var instance = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet3.SqlDataRepository(System.Int32)");
+            var instance = (SqlDataRepository)container.CreateInstance("TestSet3.SqlDataRepository(System.Int32)");
             Assert.NotNull(instance);
         }
 
@@ -99,7 +100,7 @@ namespace Build.Tests.TestSet3
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var instance = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet3.SqlDataRepository(System.Int32)", 123);
+            var instance = (SqlDataRepository)container.CreateInstance("TestSet3.SqlDataRepository(System.Int32)", 123);
             Assert.Equal(123, instance.PersonId);
         }
 
@@ -110,8 +111,8 @@ namespace Build.Tests.TestSet3
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var instance1 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet3.SqlDataRepository(System.Int32)", 123);
-            var instance2 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet3.SqlDataRepository(System.Int32)");
+            var instance1 = (SqlDataRepository)container.CreateInstance("TestSet3.SqlDataRepository(System.Int32)", 123);
+            var instance2 = (SqlDataRepository)container.CreateInstance("TestSet3.SqlDataRepository(System.Int32)");
             Assert.True(instance1.PersonId == 123 && instance2.PersonId == 0);
         }
 
@@ -123,7 +124,7 @@ namespace Build.Tests.TestSet3
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             // Build.Tests.TestSet3.ServiceDataRepository parameters match
-            var instances = container.RuntimeTypes.Where(p => p == "Build.Tests.TestSet3.ServiceDataRepository(System.Int32)").Select(p => container.CreateInstance(p, default(int)));
+            var instances = container.RuntimeTypes.Where(p => p == "TestSet3.ServiceDataRepository(System.Int32)").Select(p => container.CreateInstance(p, default(int)));
             Assert.True(instances.All(p => p != null));
         }
 
@@ -278,7 +279,7 @@ namespace Build.Tests.TestSet3
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             // Build.Tests.TestSet3.ServiceDataRepository parameters do not match
-            var instances = container.RuntimeTypes.Where(p => p != "Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)").Select(p => container.CreateInstance(p, default(int)));
+            var instances = container.RuntimeTypes.Where(p => p != "TestSet3.ServiceDataRepository(TestSet3.IPersonRepository)").Select(p => container.CreateInstance(p, default(int)));
             Assert.Throws<TypeInstantiationException>(() => instances.All(p => p != null));
         }
 
@@ -330,8 +331,8 @@ namespace Build.Tests.TestSet3
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var srv1 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)");
-            var srv2 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)");
+            var srv1 = (ServiceDataRepository)container.CreateInstance("TestSet3.ServiceDataRepository(TestSet3.IPersonRepository)");
+            var srv2 = (ServiceDataRepository)container.CreateInstance("TestSet3.ServiceDataRepository(TestSet3.IPersonRepository)");
             Assert.True(srv1.Repository != null && srv2.Repository == srv1.Repository);
         }
 
@@ -342,8 +343,8 @@ namespace Build.Tests.TestSet3
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var srv1 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)");
-            var srv2 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)");
+            var srv1 = (ServiceDataRepository)container.CreateInstance("TestSet3.ServiceDataRepository(TestSet3.IPersonRepository)");
+            var srv2 = (ServiceDataRepository)container.CreateInstance("TestSet3.ServiceDataRepository(TestSet3.IPersonRepository)");
             Assert.True(srv2.Repository != null && srv1.Repository == srv2.Repository);
         }
 
@@ -354,8 +355,8 @@ namespace Build.Tests.TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var srv1 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)");
-            var srv2 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)");
+            var srv1 = (ServiceDataRepository)container.CreateInstance("TestSet3.ServiceDataRepository(TestSet3.IPersonRepository)");
+            var srv2 = (ServiceDataRepository)container.CreateInstance("TestSet3.ServiceDataRepository(TestSet3.IPersonRepository)");
             Assert.True(srv1.Repository != null && srv2.Repository == srv1.Repository);
         }
 
@@ -366,8 +367,8 @@ namespace Build.Tests.TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var srv1 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)");
-            var srv2 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)");
+            var srv1 = (ServiceDataRepository)container.CreateInstance("TestSet3.ServiceDataRepository(TestSet3.IPersonRepository)");
+            var srv2 = (ServiceDataRepository)container.CreateInstance("TestSet3.ServiceDataRepository(TestSet3.IPersonRepository)");
             Assert.True(srv2.Repository != null && srv1.Repository == srv2.Repository);
         }
 
@@ -389,8 +390,8 @@ namespace Build.Tests.TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var srv1 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)", (IPersonRepository)null);
-            var srv2 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)");
+            var srv1 = (ServiceDataRepository)container.CreateInstance("TestSet3.ServiceDataRepository(TestSet3.IPersonRepository)", (IPersonRepository)null);
+            var srv2 = (ServiceDataRepository)container.CreateInstance("TestSet3.ServiceDataRepository(TestSet3.IPersonRepository)");
             Assert.False(srv2.Repository != null && srv1.Repository == srv2.Repository);
         }
 
@@ -401,8 +402,8 @@ namespace Build.Tests.TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var srv1 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)");
-            var srv2 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)", (IPersonRepository)null);
+            var srv1 = (ServiceDataRepository)container.CreateInstance("TestSet3.ServiceDataRepository(TestSet3.IPersonRepository)");
+            var srv2 = (ServiceDataRepository)container.CreateInstance("TestSet3.ServiceDataRepository(TestSet3.IPersonRepository)", (IPersonRepository)null);
             Assert.False(srv2.Repository != null && srv1.Repository == srv2.Repository);
         }
 
@@ -413,8 +414,8 @@ namespace Build.Tests.TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var srv1 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)");
-            var srv2 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)", (IPersonRepository)null);
+            var srv1 = (ServiceDataRepository)container.CreateInstance("TestSet3.ServiceDataRepository(TestSet3.IPersonRepository)");
+            var srv2 = (ServiceDataRepository)container.CreateInstance("TestSet3.ServiceDataRepository(TestSet3.IPersonRepository)", (IPersonRepository)null);
             Assert.True(srv1.Repository != null && srv2.Repository != srv1.Repository);
         }
 
@@ -425,8 +426,8 @@ namespace Build.Tests.TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var srv1 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)", (IPersonRepository)null);
-            var srv2 = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet3.ServiceDataRepository(Build.Tests.TestSet3.IPersonRepository)");
+            var srv1 = (ServiceDataRepository)container.CreateInstance("TestSet3.ServiceDataRepository(TestSet3.IPersonRepository)", (IPersonRepository)null);
+            var srv2 = (ServiceDataRepository)container.CreateInstance("TestSet3.ServiceDataRepository(TestSet3.IPersonRepository)");
             Assert.True(srv2.Repository != null && srv1.Repository != srv2.Repository);
         }
 

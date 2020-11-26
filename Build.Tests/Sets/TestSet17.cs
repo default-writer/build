@@ -1,4 +1,6 @@
-﻿namespace Build.Tests.TestSet17
+﻿using Build;
+
+namespace TestSet17
 {
     public class SubType
     {

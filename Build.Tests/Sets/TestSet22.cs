@@ -1,4 +1,6 @@
-﻿namespace Build.Tests.TestSet22
+﻿using Build;
+
+namespace TestSet22
 {
     using Classes;
     using TestSet;

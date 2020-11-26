@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using Xunit;
+using Build;
 
-namespace Build.Tests.TestSet21
+namespace TestSet21
 {
     using Classes;
 
@@ -29,7 +30,7 @@ namespace Build.Tests.TestSet21
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
             container.RegisterType<IInterfaceRuleSet3>();
-            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository(Build.Tests.TestSet21.ServiceDataRepository)");
+            var sql = (WebServiceDataRepository)container.CreateInstance("TestSet21.WebServiceDataRepository(TestSet21.ServiceDataRepository)");
             Assert.Equal(0, sql.RepositoryId);
         }
 
@@ -41,7 +42,7 @@ namespace Build.Tests.TestSet21
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
             container.RegisterType<IInterfaceRuleSet4>();
-            var sql = (WebServiceDataRepository2)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository2(Build.Tests.TestSet21.IPersonRepository,Build.Tests.TestSet21.IPersonRepository)");
+            var sql = (WebServiceDataRepository2)container.CreateInstance("TestSet21.WebServiceDataRepository2(TestSet21.IPersonRepository,TestSet21.IPersonRepository)");
             Assert.Equal(2021, ((ServiceDataRepository)sql.RepositoryB).RepositoryId);
         }
 
@@ -53,7 +54,7 @@ namespace Build.Tests.TestSet21
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
             container.RegisterType<IInterfaceRuleSet4>();
-            var sql = (WebServiceDataRepository2)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository2(Build.Tests.TestSet21.IPersonRepository,Build.Tests.TestSet21.ServiceDataRepository)");
+            var sql = (WebServiceDataRepository2)container.CreateInstance("TestSet21.WebServiceDataRepository2(TestSet21.IPersonRepository,TestSet21.ServiceDataRepository)");
             Assert.Equal(2021, ((ServiceDataRepository)sql.RepositoryB).RepositoryId);
         }
 
@@ -65,7 +66,7 @@ namespace Build.Tests.TestSet21
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
             container.RegisterType<IInterfaceRuleSet4>();
-            Assert.Throws<TypeInstantiationException>(() => (WebServiceDataRepository2)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository2(Build.Tests.TestSet21.IPersonRepository,Build.Tests.TestSet21.SqlDataRepository)"));
+            Assert.Throws<TypeInstantiationException>(() => (WebServiceDataRepository2)container.CreateInstance("TestSet21.WebServiceDataRepository2(TestSet21.IPersonRepository,TestSet21.SqlDataRepository)"));
         }
 
         [Fact]
@@ -74,7 +75,7 @@ namespace Build.Tests.TestSet21
             //TestSet21
             var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
-            var sql = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(System.Int32)", 2018);
+            var sql = (SqlDataRepository)container.CreateInstance("TestSet21.SqlDataRepository(System.Int32)", 2018);
             Assert.NotNull(sql);
         }
 
@@ -86,7 +87,7 @@ namespace Build.Tests.TestSet21
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
             container.RegisterType<IInterfaceRuleSet4>();
-            Assert.Throws<TypeInstantiationException>(() => (WebServiceDataRepository2)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository2(Build.Tests.TestSet21.ServiceDataRepository,Build.Tests.TestSet21.ServiceDataRepository)"));
+            Assert.Throws<TypeInstantiationException>(() => (WebServiceDataRepository2)container.CreateInstance("TestSet21.WebServiceDataRepository2(TestSet21.ServiceDataRepository,TestSet21.ServiceDataRepository)"));
         }
 
         [Fact]
@@ -97,7 +98,7 @@ namespace Build.Tests.TestSet21
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
             container.RegisterType<IInterfaceRuleSet4>();
-            Assert.Throws<TypeInstantiationException>(() => (WebServiceDataRepository2)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository2(Build.Tests.TestSet21.SqlDataRepository,Build.Tests.TestSet21.SqlDataRepository)"));
+            Assert.Throws<TypeInstantiationException>(() => (WebServiceDataRepository2)container.CreateInstance("TestSet21.WebServiceDataRepository2(TestSet21.SqlDataRepository,TestSet21.SqlDataRepository)"));
         }
 
         [Fact]
@@ -108,7 +109,7 @@ namespace Build.Tests.TestSet21
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
             container.RegisterType<IInterfaceRuleSet4>();
-            Assert.Throws<TypeInstantiationException>(() => (WebServiceDataRepository2)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository2(Build.Tests.TestSet21.ServiceDataRepository,Build.Tests.TestSet21.SqlDataRepository)"));
+            Assert.Throws<TypeInstantiationException>(() => (WebServiceDataRepository2)container.CreateInstance("TestSet21.WebServiceDataRepository2(TestSet21.ServiceDataRepository,TestSet21.SqlDataRepository)"));
         }
 
         [Fact]
@@ -119,7 +120,7 @@ namespace Build.Tests.TestSet21
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
             container.RegisterType<IInterfaceRuleSet4>();
-            var sql = (WebServiceDataRepository2)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository2(Build.Tests.TestSet21.SqlDataRepository,Build.Tests.TestSet21.ServiceDataRepository)");
+            var sql = (WebServiceDataRepository2)container.CreateInstance("TestSet21.WebServiceDataRepository2(TestSet21.SqlDataRepository,TestSet21.ServiceDataRepository)");
             Assert.Equal(2020, ((SqlDataRepository)sql.RepositoryA).RepositoryId);
         }
 
@@ -131,7 +132,7 @@ namespace Build.Tests.TestSet21
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
             container.RegisterType<IInterfaceRuleSet4>();
-            var sql = (WebServiceDataRepository2)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository2(Build.Tests.TestSet21.SqlDataRepository,Build.Tests.TestSet21.ServiceDataRepository)");
+            var sql = (WebServiceDataRepository2)container.CreateInstance("TestSet21.WebServiceDataRepository2(TestSet21.SqlDataRepository,TestSet21.ServiceDataRepository)");
             Assert.Equal(2021, ((ServiceDataRepository)sql.RepositoryB).RepositoryId);
         }
 
@@ -140,7 +141,7 @@ namespace Build.Tests.TestSet21
         {
             var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet>();
-            var type1 = container.CreateInstance("Build.Tests.TestSet21.Type1(Build.Tests.TestSet21.Arg1,Build.Tests.TestSet21.Arg2)");
+            var type1 = container.CreateInstance("TestSet21.Type1(TestSet21.Arg1,TestSet21.Arg2)");
             Assert.NotNull(type1);
         }
 
@@ -151,7 +152,7 @@ namespace Build.Tests.TestSet21
             var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
-            var sql = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.ServiceDataRepository(Build.Tests.TestSet21.SqlDataRepository)");
+            var sql = (ServiceDataRepository)container.CreateInstance("TestSet21.ServiceDataRepository(TestSet21.SqlDataRepository)");
             Assert.NotNull(sql.Repository);
         }
 
@@ -170,7 +171,7 @@ namespace Build.Tests.TestSet21
             var container = new Container(typeBuilderOptions);
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
-            var sql = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.ServiceDataRepository(Build.Tests.TestSet21.SqlDataRepository)");
+            var sql = (ServiceDataRepository)container.CreateInstance("TestSet21.ServiceDataRepository(TestSet21.SqlDataRepository)");
             Assert.NotNull(sql.Repository);
         }
 
@@ -181,7 +182,7 @@ namespace Build.Tests.TestSet21
             var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
-            var srv = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.ServiceDataRepository(Build.Tests.TestSet21.IPersonRepository)");
+            var srv = (ServiceDataRepository)container.CreateInstance("TestSet21.ServiceDataRepository(TestSet21.IPersonRepository)");
             Assert.NotNull(srv);
         }
 
@@ -272,9 +273,9 @@ namespace Build.Tests.TestSet21
             var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2_ValueType>();
             container.RegisterType<IInterfaceRuleSet2>();
-            var sql1 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(System.Int32)", 2020);
+            var sql1 = (SqlDataRepository)container.CreateInstance("TestSet21.SqlDataRepository(System.Int32)", 2020);
             container.RegisterType<IInterfaceRuleSet2_Overwrite>();
-            var sql2 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(Build.Tests.TestSet21.IValueType)");
+            var sql2 = (SqlDataRepository)container.CreateInstance("TestSet21.SqlDataRepository(TestSet21.IValueType)");
             Assert.Equal(sql1.RepositoryId, sql2.RepositoryId);
         }
 
@@ -285,7 +286,7 @@ namespace Build.Tests.TestSet21
             var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2_ValueType>();
             container.RegisterType<IInterfaceRuleSet2>();
-            var sql = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(System.Int32)");
+            var sql = (SqlDataRepository)container.CreateInstance("TestSet21.SqlDataRepository(System.Int32)");
             Assert.NotNull(sql);
         }
 
@@ -296,9 +297,9 @@ namespace Build.Tests.TestSet21
             var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2_ValueType>();
             container.RegisterType<IInterfaceRuleSet2>();
-            var sql1 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(Build.Tests.TestSet21.IValueType)");
+            var sql1 = (SqlDataRepository)container.CreateInstance("TestSet21.SqlDataRepository(TestSet21.IValueType)");
             container.RegisterType<IInterfaceRuleSet2_Overwrite>();
-            var sql2 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(Build.Tests.TestSet21.IValueType)");
+            var sql2 = (SqlDataRepository)container.CreateInstance("TestSet21.SqlDataRepository(TestSet21.IValueType)");
             Assert.NotEqual(sql1.RepositoryId, sql2.RepositoryId);
         }
 
@@ -310,7 +311,7 @@ namespace Build.Tests.TestSet21
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
             container.RegisterType<IInterfaceRuleSet3>();
-            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository(Build.Tests.TestSet21.IPersonRepository)");
+            var sql = (WebServiceDataRepository)container.CreateInstance("TestSet21.WebServiceDataRepository(TestSet21.IPersonRepository)");
             Assert.Equal(2019, ((ServiceDataRepository)sql.RepositoryC).RepositoryId);
         }
 
@@ -333,7 +334,7 @@ namespace Build.Tests.TestSet21
             container.RegisterType<IInterfaceRuleSet2>();
             // If your type have multiple constructors available, you must specify type with parameters for the build
             // unless you are using a default constructor
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository"));
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("TestSet21.SqlDataRepository"));
         }
 
         [Fact]
@@ -354,7 +355,7 @@ namespace Build.Tests.TestSet21
             container.RegisterType<IInterfaceRuleSet2>();
             // If your type have multiple constructors available, you must specify type with parameters for the build
             // unless you are using a default constructor
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository"));
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("TestSet21.SqlDataRepository"));
         }
 
         [Fact]
@@ -372,8 +373,8 @@ namespace Build.Tests.TestSet21
         {
             var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet>();
-            var type1 = container.CreateInstance("Build.Tests.TestSet21.Type1(Build.Tests.TestSet21.Arg1,Build.Tests.TestSet21.Arg2)");
-            var type2 = container.CreateInstance("Build.Tests.TestSet21.Type1(Build.Tests.TestSet21.Arg1,Build.Tests.TestSet21.Arg2)");
+            var type1 = container.CreateInstance("TestSet21.Type1(TestSet21.Arg1,TestSet21.Arg2)");
+            var type2 = container.CreateInstance("TestSet21.Type1(TestSet21.Arg1,TestSet21.Arg2)");
             Assert.Equal(type1, type2);
         }
 
@@ -382,8 +383,8 @@ namespace Build.Tests.TestSet21
         {
             var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet_CreateInstance>();
-            var type1 = container.CreateInstance("Build.Tests.TestSet21.Type1(Build.Tests.TestSet21.Arg1,Build.Tests.TestSet21.Arg2)");
-            var type2 = container.CreateInstance("Build.Tests.TestSet21.Type1(Build.Tests.TestSet21.Arg1,Build.Tests.TestSet21.Arg2)");
+            var type1 = container.CreateInstance("TestSet21.Type1(TestSet21.Arg1,TestSet21.Arg2)");
+            var type2 = container.CreateInstance("TestSet21.Type1(TestSet21.Arg1,TestSet21.Arg2)");
             Assert.NotEqual(type1, type2);
         }
 
@@ -392,7 +393,7 @@ namespace Build.Tests.TestSet21
         {
             var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet_Enum>();
-            var type = container.CreateInstance("Build.Tests.TestSet21.Type2(Build.Tests.TestSet21.Interface)");
+            var type = container.CreateInstance("TestSet21.Type2(TestSet21.Interface)");
             Assert.NotNull(type);
         }
 
@@ -401,7 +402,7 @@ namespace Build.Tests.TestSet21
         {
             var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet_Enum2>();
-            var type = container.CreateInstance("Build.Tests.TestSet21.Type3(Build.Tests.TestSet21.Interface2)");
+            var type = container.CreateInstance("TestSet21.Type3(TestSet21.Interface2)");
             Assert.NotNull(type);
         }
 
@@ -410,7 +411,7 @@ namespace Build.Tests.TestSet21
         {
             var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet_Enum>();
-            var type = container.CreateInstance("Build.Tests.TestSet21.Type2(Build.Tests.TestSet21.Interface2)");
+            var type = container.CreateInstance("TestSet21.Type2(TestSet21.Interface2)");
             Assert.NotNull(type);
         }
 
@@ -421,7 +422,7 @@ namespace Build.Tests.TestSet21
             var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
-            var srv = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.ServiceDataRepository(Build.Tests.TestSet21.IPersonRepository)");
+            var srv = (ServiceDataRepository)container.CreateInstance("TestSet21.ServiceDataRepository(TestSet21.IPersonRepository)");
             var sqlRepository = srv.Repository as SqlDataRepository;
             Assert.Equal(2018, sqlRepository.RepositoryId);
         }
@@ -438,7 +439,7 @@ namespace Build.Tests.TestSet21
                 UseValueTypes = false
             });
             container.RegisterType<IInterfaceRuleSet_Enum>();
-            var type = (Type2)container.CreateInstance("Build.Tests.TestSet21.Type2(Build.Tests.TestSet21.Interface2)");
+            var type = (Type2)container.CreateInstance("TestSet21.Type2(TestSet21.Interface2)");
             Assert.Equal(-1, (int)type.Interface2);
         }
 
@@ -456,7 +457,7 @@ namespace Build.Tests.TestSet21
             });
             container.RegisterType<IInterfaceThisRuleSet1>();
             container.RegisterType<IInterfaceThisRuleSet2>();
-            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository(Build.Tests.TestSet21.ServiceDataRepository)");
+            var sql = (WebServiceDataRepository)container.CreateInstance("TestSet21.WebServiceDataRepository(TestSet21.ServiceDataRepository)");
             Assert.Equal(2019, ((ServiceDataRepository)sql.RepositoryC).RepositoryId);
         }
 
@@ -475,9 +476,9 @@ namespace Build.Tests.TestSet21
             var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2_ValueType>();
             container.RegisterType<IInterfaceRuleSet2>();
-            var sql1 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(Build.Tests.TestSet21.ValueType)");
+            var sql1 = (SqlDataRepository)container.CreateInstance("TestSet21.SqlDataRepository(TestSet21.ValueType)");
             container.RegisterType<IInterfaceRuleSet2_Overwrite>();
-            var sql2 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(Build.Tests.TestSet21.ValueType)");
+            var sql2 = (SqlDataRepository)container.CreateInstance("TestSet21.SqlDataRepository(TestSet21.ValueType)");
             Assert.NotEqual(sql1.RepositoryId, sql2.RepositoryId);
         }
 
@@ -487,7 +488,7 @@ namespace Build.Tests.TestSet21
             //TestSet21
             var container = new Container(new TypeActivator(), new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
             container.RegisterType<IInterfaceRuleSet2>();
-            var sql = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet21.SqlDataRepository(System.Int32)", 2018);
+            var sql = (SqlDataRepository)container.CreateInstance("TestSet21.SqlDataRepository(System.Int32)", 2018);
             Assert.Equal(2018, sql.RepositoryId);
         }
 
@@ -499,7 +500,7 @@ namespace Build.Tests.TestSet21
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
             container.RegisterType<IInterfaceRuleSet3>();
-            var sql = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.ServiceDataRepository(Build.Tests.TestSet21.SqlDataRepository)");
+            var sql = (ServiceDataRepository)container.CreateInstance("TestSet21.ServiceDataRepository(TestSet21.SqlDataRepository)");
             Assert.Equal(2018, ((SqlDataRepository)sql.Repository).RepositoryId);
         }
 
@@ -511,7 +512,7 @@ namespace Build.Tests.TestSet21
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
             container.RegisterType<IInterfaceRuleSet3>();
-            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository(Build.Tests.TestSet21.ServiceDataRepository)");
+            var sql = (WebServiceDataRepository)container.CreateInstance("TestSet21.WebServiceDataRepository(TestSet21.ServiceDataRepository)");
             Assert.Equal(2019, ((ServiceDataRepository)sql.RepositoryC).RepositoryId);
         }
 
@@ -523,7 +524,7 @@ namespace Build.Tests.TestSet21
             container.RegisterType<IInterfaceRuleSet2>();
             container.RegisterType<IInterfaceRuleSet1>();
             container.RegisterType<IInterfaceRuleSet3>();
-            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository(Build.Tests.TestSet21.IPersonRepository,Build.Tests.TestSet21.IPersonRepository)");
+            var sql = (WebServiceDataRepository)container.CreateInstance("TestSet21.WebServiceDataRepository(TestSet21.IPersonRepository,TestSet21.IPersonRepository)");
             Assert.Equal(2020, ((ServiceDataRepository)sql.RepositoryA).RepositoryId);
         }
 
@@ -536,7 +537,7 @@ namespace Build.Tests.TestSet21
             container.RegisterType<IInterfaceRuleSet2_Overwrite>();
             container.RegisterType<IInterfaceRuleSet1>();
             container.RegisterType<IInterfaceRuleSet3>();
-            var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet21.WebServiceDataRepository(Build.Tests.TestSet21.IPersonRepository,Build.Tests.TestSet21.IPersonRepository)");
+            var sql = (WebServiceDataRepository)container.CreateInstance("TestSet21.WebServiceDataRepository(TestSet21.IPersonRepository,TestSet21.IPersonRepository)");
             Assert.Equal(2021, ((SqlDataRepository)sql.RepositoryB).RepositoryId);
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
+using Build;
 
-namespace Build.Tests.Classes
+namespace Classes
 {
     public sealed class InterfaceTypeFilter : ITypeFilter
     {

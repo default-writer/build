@@ -1,6 +1,7 @@
-using Xunit;
+﻿using Xunit;
+using Build;
 
-namespace Build.Tests.TestSet8
+namespace TestSet8
 {
     public static class UnitTest
     {
