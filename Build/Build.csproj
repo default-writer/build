@@ -67,7 +67,7 @@ Commit SHA: $(CommitHash)</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Build.DependencyInjection.Abstractions" Version="1.0.0.31" />
+    <ProjectReference Include="..\Build.Abstractions\Build.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>
