@@ -1,30 +1,30 @@
-Welcome to the build wiki!
+﻿Welcome to the build wiki!
 
 # .NET Dependency Injection framework
 
-[![build-core MyGet Build Status](https://www.myget.org/BuildSource/Badge/build-core?identifier=d1f39e87-090d-417a-9184-a1d45284a300)](https://www.myget.org/feed/Packages/build-core) [![VSTS](https://hack2root.visualstudio.com/_apis/public/build/definitions/6ec45376-8260-482c-906f-4bf4d4e8e451/4/badge)](https://hack2root.visualstudio.com/build) [![CircleCI](https://img.shields.io/circleci/project/github/hack2root/build.svg)](https://circleci.com/gh/hack2root/build) [![Build status](https://ci.appveyor.com/api/projects/status/k9d5256ualhy2skp/branch/master?svg=true)](https://ci.appveyor.com/project/hack2root/build/branch/master) [![Amazon AWS](https://codebuild.us-east-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiYU5ZMHd1WVdNdWZzdzlrTS96VEhJMnEvSFlQK2UxelZhWWMwa3hYclVmcjNGM05IaW5xcFdqY3JnNVJxUitnbkxCRWVPOGpYa1REU1czNmhNdUFmZzVjPSIsIml2UGFyYW1ldGVyU3BlYyI6IkUxaWd1YnRBUGpxTHBNY0MiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)](https://us-east-2.console.aws.amazon.com/codebuild/home?region=us-east-2#/projects/build/view) [![Travis CI](https://travis-ci.org/hack2root/build.svg?branch=master)](https://travis-ci.org/hack2root/build) [![CodeFactor](https://www.codefactor.io/repository/github/hack2root/build/badge)](https://www.codefactor.io/repository/github/hack2root/build)
+[![build-core MyGet Build Status](https://www.myget.org/BuildSource/Badge/build-core?identifier=d1f39e87-090d-417a-9184-a1d45284a300)](https://www.myget.org/feed/Packages/build-core) [![VSTS](https://funcelot.visualstudio.com/_apis/public/build/definitions/6ec45376-8260-482c-906f-4bf4d4e8e451/4/badge)](https://funcelot.visualstudio.com/build) [![CircleCI](https://img.shields.io/circleci/project/github/funcelot/build.svg)](https://circleci.com/gh/funcelot/build) [![Build status](https://ci.appveyor.com/api/projects/status/k9d5256ualhy2skp/branch/master?svg=true)](https://ci.appveyor.com/project/funcelot/build/branch/master) [![Amazon AWS](https://codebuild.us-east-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiYU5ZMHd1WVdNdWZzdzlrTS96VEhJMnEvSFlQK2UxelZhWWMwa3hYclVmcjNGM05IaW5xcFdqY3JnNVJxUitnbkxCRWVPOGpYa1REU1czNmhNdUFmZzVjPSIsIml2UGFyYW1ldGVyU3BlYyI6IkUxaWd1YnRBUGpxTHBNY0MiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)](https://us-east-2.console.aws.amazon.com/codebuild/home?region=us-east-2#/projects/build/view) [![Travis CI](https://travis-ci.org/funcelot/build.svg?branch=master)](https://travis-ci.org/funcelot/build) [![CodeFactor](https://www.codefactor.io/repository/github/funcelot/build/badge)](https://www.codefactor.io/repository/github/funcelot/build)
 
 ## Maintainability
 
-[![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=build-core) [![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=build-core) [![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=alert_status)](https://sonarcloud.io/dashboard?id=build-core) [![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=ncloc)](https://sonarcloud.io/dashboard?id=build-core) [![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=coverage)](https://sonarcloud.io/dashboard?id=build-core) [![Coverage Status](https://coveralls.io/repos/github/hack2root/build/badge.svg?branch=master)](https://coveralls.io/github/hack2root/build?branch=master)
+[![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=build-core) [![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=build-core) [![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=alert_status)](https://sonarcloud.io/dashboard?id=build-core) [![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=ncloc)](https://sonarcloud.io/dashboard?id=build-core) [![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=coverage)](https://sonarcloud.io/dashboard?id=build-core) [![Coverage Status](https://coveralls.io/repos/github/funcelot/build/badge.svg?branch=master)](https://coveralls.io/github/funcelot/build?branch=master)
 
 ## Community
 
 Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3NjQ2Nzc5MzAyLWE3MmFkOWFlNmY4NWJlMjU2YmVkNDNmNTI2YjUwMGIzNWY1MjAyNzU0NTUzNDU4MmViOGQxYTkwZDkwNTBjMTI) [#slack](https://join.slack.com/t/build-core/shared_invite/enQtMzY3NjQ2Nzc5MzAyLWE3MmFkOWFlNmY4NWJlMjU2YmVkNDNmNTI2YjUwMGIzNWY1MjAyNzU0NTUzNDU4MmViOGQxYTkwZDkwNTBjMTI)
 
-[![CodeFactor](https://www.codefactor.io/repository/github/hack2root/build/badge)](https://www.codefactor.io/repository/github/hack2root/build) [![NuGet version](https://img.shields.io/nuget/v/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build) [![NuGet version](https://img.shields.io/nuget/v/Build.DependencyInjection.svg)](https://www.nuget.org/packages/Build.DependencyInjection) [![NuGet downloads](https://img.shields.io/nuget/dt/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build) [![NuGet downloads](https://img.shields.io/nuget/dt/Build.DependencyInjection.svg)](https://www.nuget.org/packages/Build.DependencyInjection) [![Discord](https://img.shields.io/discord/446426366616010763.svg)](https://discord.gg/uqrmTY4) 
+[![CodeFactor](https://www.codefactor.io/repository/github/funcelot/build/badge)](https://www.codefactor.io/repository/github/funcelot/build) [![NuGet version](https://img.shields.io/nuget/v/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build) [![NuGet version](https://img.shields.io/nuget/v/Build.DependencyInjection.svg)](https://www.nuget.org/packages/Build.DependencyInjection) [![NuGet downloads](https://img.shields.io/nuget/dt/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build) [![NuGet downloads](https://img.shields.io/nuget/dt/Build.DependencyInjection.svg)](https://www.nuget.org/packages/Build.DependencyInjection) [![Discord](https://img.shields.io/discord/446426366616010763.svg)](https://discord.gg/uqrmTY4) 
 
 ## Channels
 
-[![gitter](https://badges.gitter.im/hack2root/build.svg)](https://gitter.im/hack2root/build?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![gitter](https://badges.gitter.im/funcelot/build.svg)](https://gitter.im/funcelot/build?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## Repository
 
-[build](https://github.com/hack2root/build)
+[build](https://github.com/funcelot/build)
 
 ## Docs 
 
-- [Build](https://github.com/hack2root/build/wiki)
+- [Build](https://github.com/funcelot/build/wiki)
 
 ## Build
 
@@ -130,11 +130,11 @@ Container.RegisterType<T>(System.Type[])
 ## v1.0.0.16
 
 - Added ```TypeBuilderOptions``` class
-- Added [sample](https://github.com/hack2root/build/tree/master/Build.Tests/Classes/PropertyTypeConstructor.cs) implementation of property-based type dependency injector
+- Added [sample](https://github.com/funcelot/build/tree/master/Build.Tests/Classes/PropertyTypeConstructor.cs) implementation of property-based type dependency injector
 
 ## v1.0.0.15
 
-- Added [ASP.NET Core 2.1 middleware extensibility](https://github.com/hack2root/build/blob/master/aspnetcore/fundamentals/middleware/extensibility-third-party-container-build/sample/)
+- Added [ASP.NET Core 2.1 middleware extensibility](https://github.com/funcelot/build/blob/master/aspnetcore/fundamentals/middleware/extensibility-third-party-container-build/sample/)
 - Added ```System.Func<T>``` type initialization
 - Added ```TypeBuilder.GetInstance(...)``` methods
 
@@ -151,7 +151,7 @@ var container = new Container();
 var type = new Type();
 System.Func<Type> func = () => type;
 container.RegisterType<Lazy<Type>>(func);
-var factory = (IFactory<Type>)container.CreateInstance("Build.Tests.TestSet18.Lazy`1[Build.Tests.TestSet18.Type]");
+var factory = (IFactory<Type>)container.CreateInstance("TestSet18.Lazy`1[TestSet18.Type]");
 Assert.Equal(type, factory.GetInstance());
 ```
 
@@ -251,7 +251,7 @@ Usage:
 ```c#
 var container = new Container(new InterfaceTypeConstructor(), new InterfaceTypeFilter(), new InterfaceTypeParser(), new InterfaceTypeResolver());
 container.RegisterType<IInterfaceRuleSet>();
-var type1 = container.CreateInstance("Build.Tests.TestSet21.Type1(Build.Tests.TestSet21.Arg1,Build.Tests.TestSet21.Arg2)");
+var type1 = container.CreateInstance("TestSet21.Type1(TestSet21.Arg1,TestSet21.Arg2)");
 Assert.NotNull(type1);
 ```
 
@@ -275,14 +275,14 @@ Usage:
 var container = new Container(false, true);
 container.RegisterType<ServiceDataRepository>();
 container.RegisterType<WebServiceDataRepository>();
-Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)"));
+Assert.Throws<TypeInstantiationException>(() => container.CreateInstance("TestSet15.WebServiceDataRepository(TestSet15.SqlDataRepository)"));
 ```
 
 ```c#
 /// Automatic type resolution enabled
 var container = new Container(true, false);
 container.RegisterType<WebServiceDataRepository>();
-var sql = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet15.WebServiceDataRepository(Build.Tests.TestSet15.SqlDataRepository)");
+var sql = (WebServiceDataRepository)container.CreateInstance("TestSet15.WebServiceDataRepository(TestSet15.SqlDataRepository)");
 Assert.Equal(2019, ((SqlDataRepository)sql.Repository).PersonId);
 ```
 
@@ -349,7 +349,7 @@ Definition:
 ```c#
 public class ServiceDataRepository2 : IPersonRepository
 {
-    public ServiceDataRepository2([Injection("Build.Tests.Fail_TestSet1.Other2")]IPersonRepository repository)
+    public ServiceDataRepository2([Injection("Fail_TestSet1.Other2")]IPersonRepository repository)
     {
         Repository = repository;
     }
@@ -378,8 +378,8 @@ public class ServiceDataRepository2 : IPersonRepository
 Usage:
 
 ```c#
-var instance1 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet3.SqlDataRepository(System.Int32)", 123);
-var instance2 = (SqlDataRepository)container.CreateInstance("Build.Tests.TestSet3.SqlDataRepository(System.Int32)");
+var instance1 = (SqlDataRepository)container.CreateInstance("TestSet3.SqlDataRepository(System.Int32)", 123);
+var instance2 = (SqlDataRepository)container.CreateInstance("TestSet3.SqlDataRepository(System.Int32)");
 Assert.Equal(0, instance2.PersonId);
 ```
 
@@ -443,7 +443,7 @@ Usage:
 
 ```c#
 container.RegisterType<PrivateSqlDataRepository>();
-var srv1 = container.CreateInstance("Build.Tests.TestSet1.PrivateSqlDataRepository");
+var srv1 = container.CreateInstance("TestSet1.PrivateSqlDataRepository");
 Assert.NotNull(srv1);
 ```
 
@@ -484,7 +484,7 @@ Usage:
 ```c#
 // ServiceDataRepository depends upon SqlDataRepository
 container.RegisterType<ServiceDataRepository>();
-var sql = (ServiceDataRepository)container.CreateInstance("Build.Tests.TestSet16.ServiceDataRepository(Build.Tests.TestSet16.SqlDataRepository)");
+var sql = (ServiceDataRepository)container.CreateInstance("TestSet16.ServiceDataRepository(TestSet16.SqlDataRepository)");
 Assert.NotNull(sql.Repository);
 ```
 
@@ -536,13 +536,13 @@ public class ServiceDataRepository : IPersonRepository
 Usage:
 
 ```c#
-var sql1 = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet16.WebServiceDataRepository(Build.Tests.TestSet16.ServiceDataRepository)");
+var sql1 = (WebServiceDataRepository)container.CreateInstance("TestSet16.WebServiceDataRepository(TestSet16.ServiceDataRepository)");
 Assert.Equal(2019, ((ServiceDataRepository)sql1.RepositoryA).RepositoryId);
 
-var sql2 = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet16.WebServiceDataRepository(Build.Tests.TestSet16.IPersonRepository, Build.Tests.TestSet16.IPersonRepository)");
+var sql2 = (WebServiceDataRepository)container.CreateInstance("TestSet16.WebServiceDataRepository(TestSet16.IPersonRepository,TestSet16.IPersonRepository)");
 Assert.Equal(2020, ((ServiceDataRepository)sql2.RepositoryA).RepositoryId);
 
-var sql3 = (WebServiceDataRepository)container.CreateInstance("Build.Tests.TestSet16.WebServiceDataRepository(Build.Tests.TestSet16.IPersonRepository, Build.Tests.TestSet16.IPersonRepository)");
+var sql3 = (WebServiceDataRepository)container.CreateInstance("TestSet16.WebServiceDataRepository(TestSet16.IPersonRepository,TestSet16.IPersonRepository)");
 Assert.Equal(2021, ((SqlDataRepository)sql3.RepositoryB).RepositoryId);
 ```
 
@@ -559,8 +559,8 @@ public class WebServiceDataRepository : IPersonRepository
     }
 
     public WebServiceDataRepository(
-        [Injection("Build.Tests.TestSet16.ServiceDataRepository", 2020)]IPersonRepository repositoryA,
-        [Injection("Build.Tests.TestSet16.SqlDataRepository", 2021)]IPersonRepository repositoryB)
+        [Injection("TestSet16.ServiceDataRepository", 2020)]IPersonRepository repositoryA,
+        [Injection("TestSet16.SqlDataRepository", 2021)]IPersonRepository repositoryB)
     {
         RepositoryA = repositoryA;
         RepositoryB = repositoryB;
@@ -742,8 +742,8 @@ public class ServiceDataRepository : IPersonRepository
 
 ## Continious Integration
 
-[CircleCI](https://circleci.com/gh/hack2root/build)
-[TravisCI](https://travis-ci.org/hack2root/build)
+[CircleCI](https://circleci.com/gh/funcelot/build)
+[TravisCI](https://travis-ci.org/funcelot/build)
 
 ## Academic papers:
 

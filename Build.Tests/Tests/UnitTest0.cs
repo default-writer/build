@@ -1,8 +1,10 @@
-using System;
+﻿using System;
 using System.Reflection;
 using Xunit;
-
-namespace Build.Tests.TestSet0
+using Build;
+using TypeFilter = Build.TypeFilter;
+using Container = Build.Container;
+namespace TestSet0
 {
     public static class UnitTest
     {

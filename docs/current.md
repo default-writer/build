@@ -1,18 +1,18 @@
-Welcome to the build wiki!
+﻿Welcome to the build wiki!
 
-# .NET Core 3.1 Dependency Injection framework
+# .NET 5 Dependency Injection framework
 
-[![build-core MyGet Build Status](https://www.myget.org/BuildSource/Badge/build-core?identifier=d1f39e87-090d-417a-9184-a1d45284a300)](https://www.myget.org/feed/Packages/build-core) [![VSTS](https://hack2root.visualstudio.com/_apis/public/build/definitions/6ec45376-8260-482c-906f-4bf4d4e8e451/4/badge)](https://hack2root.visualstudio.com/build) [![CircleCI](https://img.shields.io/circleci/project/github/hack2root/build.svg)](https://circleci.com/gh/hack2root/build) [![Build status](https://ci.appveyor.com/api/projects/status/k9d5256ualhy2skp/branch/master?svg=true)](https://ci.appveyor.com/project/hack2root/build/branch/master) [![Amazon AWS](https://codebuild.us-east-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiYU5ZMHd1WVdNdWZzdzlrTS96VEhJMnEvSFlQK2UxelZhWWMwa3hYclVmcjNGM05IaW5xcFdqY3JnNVJxUitnbkxCRWVPOGpYa1REU1czNmhNdUFmZzVjPSIsIml2UGFyYW1ldGVyU3BlYyI6IkUxaWd1YnRBUGpxTHBNY0MiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)](https://us-east-2.console.aws.amazon.com/codebuild/home?region=us-east-2#/projects/build/view) [![Travis CI](https://travis-ci.org/hack2root/build.svg?branch=master)](https://travis-ci.org/hack2root/build) [![CodeFactor](https://www.codefactor.io/repository/github/hack2root/build/badge)](https://www.codefactor.io/repository/github/hack2root/build)
+[![build-core MyGet Build Status](https://www.myget.org/BuildSource/Badge/build-core?identifier=d1f39e87-090d-417a-9184-a1d45284a300)](https://www.myget.org/feed/Packages/build-core) [![VSTS](https://funcelot.visualstudio.com/_apis/public/build/definitions/6ec45376-8260-482c-906f-4bf4d4e8e451/4/badge)](https://funcelot.visualstudio.com/build) [![CircleCI](https://img.shields.io/circleci/project/github/funcelot/build.svg)](https://circleci.com/gh/funcelot/build) [![Build status](https://ci.appveyor.com/api/projects/status/k9d5256ualhy2skp/branch/master?svg=true)](https://ci.appveyor.com/project/funcelot/build/branch/master) [![Amazon AWS](https://codebuild.us-east-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiYU5ZMHd1WVdNdWZzdzlrTS96VEhJMnEvSFlQK2UxelZhWWMwa3hYclVmcjNGM05IaW5xcFdqY3JnNVJxUitnbkxCRWVPOGpYa1REU1czNmhNdUFmZzVjPSIsIml2UGFyYW1ldGVyU3BlYyI6IkUxaWd1YnRBUGpxTHBNY0MiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)](https://us-east-2.console.aws.amazon.com/codebuild/home?region=us-east-2#/projects/build/view) [![Travis CI](https://travis-ci.org/funcelot/build.svg?branch=master)](https://travis-ci.org/funcelot/build) [![CodeFactor](https://www.codefactor.io/repository/github/funcelot/build/badge)](https://www.codefactor.io/repository/github/funcelot/build)
 
 ## Maintainability
 
-[![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=build-core) [![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=build-core) [![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=alert_status)](https://sonarcloud.io/dashboard?id=build-core) [![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=ncloc)](https://sonarcloud.io/dashboard?id=build-core) [![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=coverage)](https://sonarcloud.io/dashboard?id=build-core) [![Coverage Status](https://coveralls.io/repos/github/hack2root/build/badge.svg?branch=master)](https://coveralls.io/github/hack2root/build?branch=master)
+[![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=build-core) [![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=build-core) [![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=alert_status)](https://sonarcloud.io/dashboard?id=build-core) [![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=ncloc)](https://sonarcloud.io/dashboard?id=build-core) [![build](https://sonarcloud.io/api/project_badges/measure?project=build-core&metric=coverage)](https://sonarcloud.io/dashboard?id=build-core) [![Coverage Status](https://coveralls.io/repos/github/funcelot/build/badge.svg?branch=master)](https://coveralls.io/github/funcelot/build?branch=master)
 
 ## Community
 
 Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3NjQ2Nzc5MzAyLWE3MmFkOWFlNmY4NWJlMjU2YmVkNDNmNTI2YjUwMGIzNWY1MjAyNzU0NTUzNDU4MmViOGQxYTkwZDkwNTBjMTI) [#slack](https://join.slack.com/t/build-core/shared_invite/enQtMzY3NjQ2Nzc5MzAyLWE3MmFkOWFlNmY4NWJlMjU2YmVkNDNmNTI2YjUwMGIzNWY1MjAyNzU0NTUzNDU4MmViOGQxYTkwZDkwNTBjMTI)
 
-[![CodeFactor](https://www.codefactor.io/repository/github/hack2root/build/badge)](https://www.codefactor.io/repository/github/hack2root/build) [![NuGet version](https://img.shields.io/nuget/v/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build) [![NuGet version](https://img.shields.io/nuget/v/Build.DependencyInjection.svg)](https://www.nuget.org/packages/Build.DependencyInjection) [![NuGet downloads](https://img.shields.io/nuget/dt/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build) [![NuGet downloads](https://img.shields.io/nuget/dt/Build.DependencyInjection.svg)](https://www.nuget.org/packages/Build.DependencyInjection) [![Discord](https://img.shields.io/discord/446426366616010763.svg)](https://discord.gg/uqrmTY4) 
+[![CodeFactor](https://www.codefactor.io/repository/github/funcelot/build/badge)](https://www.codefactor.io/repository/github/funcelot/build) [![NuGet version](https://img.shields.io/nuget/v/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build) [![NuGet version](https://img.shields.io/nuget/v/Build.DependencyInjection.svg)](https://www.nuget.org/packages/Build.DependencyInjection) [![NuGet downloads](https://img.shields.io/nuget/dt/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build) [![NuGet downloads](https://img.shields.io/nuget/dt/Build.DependencyInjection.svg)](https://www.nuget.org/packages/Build.DependencyInjection) [![Discord](https://img.shields.io/discord/446426366616010763.svg)](https://discord.gg/uqrmTY4) 
 
 ## Channels
 
@@ -20,11 +20,11 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 ## Repository
 
-[build](https://github.com/hack2root/build)
+[build](https://github.com/funcelot/build)
 
 ## Docs 
 
-- [Build](https://github.com/hack2root/build/wiki)
+- [Build](https://github.com/funcelot/build/wiki)
 
 ## v1.0.0.19
 
@@ -106,8 +106,8 @@ Constructor injection uses type resolution to resolve devendencies
 
 ## Continious Integration
 
-[CircleCI](https://circleci.com/gh/hack2root/build)
-[TravisCI](https://travis-ci.org/hack2root/build)
+[CircleCI](https://circleci.com/gh/funcelot/build)
+[TravisCI](https://travis-ci.org/funcelot/build)
 
 ## Academic papers:
 

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using Build;
 
-namespace Build.Tests.Classes
+namespace Classes
 {
     class PropertyTypeActivator : ITypeActivator
     {

@@ -1,4 +1,6 @@
-﻿namespace Build.Tests.TestSet
+﻿using Build;
+
+namespace TestSet
 {
     public class A
     {

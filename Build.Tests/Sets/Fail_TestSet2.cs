@@ -1,6 +1,7 @@
-using System;
+﻿using System;
+using Build;
 
-namespace Build.Tests.Fail_TestSet2
+namespace Fail_TestSet2
 {
     public interface IPersonRepository
     {
@@ -24,7 +25,7 @@ namespace Build.Tests.Fail_TestSet2
 
     public class ErrorSqlDataRepository : IPersonRepository
     {
-        [Dependency("Build.Tests.Fail_TestSet2.IPersonRepository")]
+        [Dependency("Fail_TestSet2.IPersonRepository")]
         public ErrorSqlDataRepository(ErrorStruct person)
         {
             PersonId = person.PersonId;
@@ -51,7 +52,7 @@ namespace Build.Tests.Fail_TestSet2
 
     public class ServiceDataRepository : IPersonRepository
     {
-        public ServiceDataRepository([Injection("Build.Tests.Fail_TestSet2.IPersonRepository")]int repositoryId) => RepositoryId = repositoryId;
+        public ServiceDataRepository([Injection("Fail_TestSet2.IPersonRepository")]int repositoryId) => RepositoryId = repositoryId;
 
         public IPersonRepository Repository { get; }
         public int RepositoryId { get; }
@@ -65,7 +66,7 @@ namespace Build.Tests.Fail_TestSet2
 
     public class SqlDataRepository : IPersonRepository
     {
-        [Dependency("Build.Tests.Fail_TestSet2.IPersonRepository")]
+        [Dependency("Fail_TestSet2.IPersonRepository")]
         public SqlDataRepository(int personId)
         {
             PersonId = personId;

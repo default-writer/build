@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
+using Build;
 
-namespace Build.Tests.Classes
+namespace Classes
 {
     public sealed class InterfaceTypeFilter : ITypeFilter
     {
@@ -9,7 +11,7 @@ namespace Build.Tests.Classes
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns><c>true</c> if this instance can create the specified type; otherwise, <c>false</c>.</returns>
-        public bool CanCreate(Type type) => type != null && type.IsClass && !type.IsAbstract && !IsSpecialType(type);
+        public bool CanCreate(Type type, bool useValueTypes = false) => type != null && type.IsClass && !type.IsAbstract && !IsSpecialType(type, useValueTypes);
 
         /// <summary>
         /// Determines whether this instance can register the specified type.
@@ -18,7 +20,7 @@ namespace Build.Tests.Classes
         /// <returns>
         /// <c>true</c> if this instance can register the specified type; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanRegister(Type type) => type != null && type.IsInterface && type.GetCustomAttributes(typeof(InterfaceAttribute), false).Length != 0;
+        public bool CanRegister(Type type, bool useValueTypes = false) => type != null && type.IsInterface && type.GetCustomAttributes(typeof(InterfaceAttribute), false).Length != 0;
 
         /// <summary>
         /// Determines whether this instance can register the specified type.
@@ -27,9 +29,10 @@ namespace Build.Tests.Classes
         /// <returns>
         /// <c>true</c> if this instance can register the specified type; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanRegisterParameter(Type type) =>
-            type != null &&
-            ((type.IsInterface && type.GetCustomAttributes(typeof(InterfaceAttribute), false).Length != 0) || (type.IsValueType) || (type.IsEnum));
+        public bool CanRegisterParameter(Type type, bool useValueTypes = false) =>
+            type == null ? false : 
+            (useValueTypes && (type.IsValueType || type.IsEnum))
+            || (!useValueTypes && type.IsInterface && type.GetCustomAttributes(typeof(InterfaceAttribute), false).Length != 0);
 
         /// <summary>
         /// Checks type compatibility
@@ -44,6 +47,12 @@ namespace Build.Tests.Classes
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns><c>true</c> if [is special type] [the specified type]; otherwise, <c>false</c>.</returns>
-        static bool IsSpecialType(Type type) => typeof(Type).IsAssignableFrom(type) || typeof(Attribute).IsAssignableFrom(type) || typeof(MarshalByRefObject).IsAssignableFrom(type);
+        static bool IsSpecialType(Type type, bool useValueTypes = false) => typeof(IntPtr).IsAssignableFrom(type)
+            || typeof(Type).IsAssignableFrom(type)
+            || typeof(Attribute).IsAssignableFrom(type)
+            || typeof(MarshalByRefObject).IsAssignableFrom(type)
+            || typeof(Exception).IsAssignableFrom(type)
+            || (typeof(Func<>).Name == type.Name)
+            || (!useValueTypes && typeof(object).Assembly.ExportedTypes.Contains(type));
     }
 }

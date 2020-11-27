@@ -1,4 +1,6 @@
-﻿namespace Build.Tests.Fail_TestSet6
+﻿using Build;
+
+namespace Fail_TestSet6
 {
     public interface IOtherRepository
     {

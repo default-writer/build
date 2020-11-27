@@ -1,6 +1,7 @@
-using Xunit;
+﻿using Xunit;
+using Build;
 
-namespace Build.Tests.Fail_TestSet3
+namespace Fail_TestSet3
 {
     public static class UnitTest
     {

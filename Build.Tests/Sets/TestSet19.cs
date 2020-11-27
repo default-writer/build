@@ -1,6 +1,7 @@
-using System;
+﻿using System;
+using Build;
 
-namespace Build.Tests.TestSet19
+namespace TestSet19
 {
     public interface IFactory<T>
     {

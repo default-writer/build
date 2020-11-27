@@ -1,4 +1,6 @@
-﻿namespace Build.Tests.TestSet5
+﻿using Build;
+
+namespace TestSet5
 {
     public interface IPersonRepository
     {

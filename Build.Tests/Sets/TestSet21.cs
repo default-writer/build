@@ -1,4 +1,6 @@
-﻿namespace Build.Tests.TestSet21
+﻿using Build;
+
+namespace TestSet21
 {
     using Classes;
 
@@ -66,7 +68,7 @@
     [Interface]
     interface IInterfaceRuleSet2
     {
-        SqlDataRepository Rule([InterfaceInjection("Build.Tests.TestSet21.ValueType", 2019)]IValueType valueType);
+        SqlDataRepository Rule([InterfaceInjection("TestSet21.ValueType", 2019)]IValueType valueType);
 
         SqlDataRepository Rule(int value);
     }
@@ -75,7 +77,7 @@
     interface IInterfaceRuleSet2_Overwrite
     {
         SqlDataRepository Rule(
-            [InterfaceInjection("Build.Tests.TestSet21.ValueType", 2020)]IValueType valueType);
+            [InterfaceInjection("TestSet21.ValueType", 2020)]IValueType valueType);
 
         SqlDataRepository Rule(int value);
     }
@@ -94,8 +96,8 @@
         WebServiceDataRepository Rule([InterfaceInjection(typeof(ServiceDataRepository), 2019)]IPersonRepository repository);
 
         WebServiceDataRepository Rule(
-            [InterfaceInjection("Build.Tests.TestSet21.ServiceDataRepository", 2020)]IPersonRepository repositoryA,
-            [InterfaceInjection("Build.Tests.TestSet21.SqlDataRepository", 2021)]IPersonRepository repositoryB);
+            [InterfaceInjection("TestSet21.ServiceDataRepository", 2020)]IPersonRepository repositoryA,
+            [InterfaceInjection("TestSet21.SqlDataRepository", 2021)]IPersonRepository repositoryB);
     }
 
     [Interface]
@@ -106,8 +108,8 @@
         WebServiceDataRepository2 Rule([InterfaceInjection(typeof(ServiceDataRepository), 2019)]IPersonRepository repository);
 
         WebServiceDataRepository2 Rule(
-            [InterfaceInjection("Build.Tests.TestSet21.SqlDataRepository", 2020)]IPersonRepository repositoryA,
-            [InterfaceInjection("Build.Tests.TestSet21.ServiceDataRepository", 2021)]IPersonRepository repositoryB);
+            [InterfaceInjection("TestSet21.SqlDataRepository", 2020)]IPersonRepository repositoryA,
+            [InterfaceInjection("TestSet21.ServiceDataRepository", 2021)]IPersonRepository repositoryB);
     }
 
     [Interface]
@@ -131,8 +133,8 @@
         { get; }
 
         WebServiceDataRepository this[
-            [InterfaceInjection("Build.Tests.TestSet21.ServiceDataRepository", 2020)]IPersonRepository repositoryA,
-            [InterfaceInjection("Build.Tests.TestSet21.SqlDataRepository", 2021)]IPersonRepository repositoryB]
+            [InterfaceInjection("TestSet21.ServiceDataRepository", 2020)]IPersonRepository repositoryA,
+            [InterfaceInjection("TestSet21.SqlDataRepository", 2021)]IPersonRepository repositoryB]
         { get; }
     }
 

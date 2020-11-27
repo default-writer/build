@@ -1,4 +1,6 @@
-﻿namespace Build.Tests.Fail_TestSet4
+﻿using Build;
+
+namespace Fail_TestSet4
 {
     public interface IOtherRepository
     {
@@ -95,7 +97,7 @@
 
     public class ServiceDataRepository6 : IPersonRepository
     {
-        [Dependency("Build.Tests.Fail_TestSet4.SqlDataRepository6")]
+        [Dependency("Fail_TestSet4.SqlDataRepository6")]
         public ServiceDataRepository6(object repository)
         {
         }
@@ -127,8 +129,8 @@
         {
         }
 
-        [Dependency("Build.Tests.Fail_TestSet4.SqlDataRepository")]
-        public SqlDataRepository([Injection("Build.Tests.Fail_TestSet4.ServiceDataRepository")]ServiceDataRepository repository, int value)
+        [Dependency("Fail_TestSet4.SqlDataRepository")]
+        public SqlDataRepository([Injection("Fail_TestSet4.ServiceDataRepository")]ServiceDataRepository repository, int value)
         {
         }
 
@@ -145,8 +147,8 @@
         {
         }
 
-        [Dependency("Build.Tests.Fail_TestSet4.SqlDataRepository2")]
-        public SqlDataRepository2([Injection("Build.Tests.Fail_TestSet4.ServiceDataRepository2")]ServiceDataRepository repository, int value)
+        [Dependency("Fail_TestSet4.SqlDataRepository2")]
+        public SqlDataRepository2([Injection("Fail_TestSet4.ServiceDataRepository2")]ServiceDataRepository repository, int value)
         {
         }
 
@@ -163,8 +165,8 @@
         {
         }
 
-        [Dependency("Build.Tests.Fail_TestSet4.SqlDataRepository3")]
-        public SqlDataRepository3([Injection("Build.Tests.Fail_TestSet4.ServiceDataRepository3")]ServiceDataRepository repository, int value)
+        [Dependency("Fail_TestSet4.SqlDataRepository3")]
+        public SqlDataRepository3([Injection("Fail_TestSet4.ServiceDataRepository3")]ServiceDataRepository repository, int value)
         {
         }
 
@@ -181,7 +183,7 @@
         {
         }
 
-        [Dependency("Build.Tests.Fail_TestSet4.ServiceDataRepository4")]
+        [Dependency("Fail_TestSet4.ServiceDataRepository4")]
         public SqlDataRepository4(object repository, int value)
         {
         }
@@ -199,7 +201,7 @@
         {
         }
 
-        public SqlDataRepository5([Injection("Build.Tests.Fail_TestSet4.ServiceDataRepository5")]object repository, int value)
+        public SqlDataRepository5([Injection("Fail_TestSet4.ServiceDataRepository5")]object repository, int value)
         {
         }
 
@@ -216,7 +218,7 @@
         {
         }
 
-        //[Dependency("Build.Tests.Fail_TestSet4.SqlDataRepository")]
+        //[Dependency("Fail_TestSet4.SqlDataRepository")]
         public SqlDataRepository6([Injection(typeof(ServiceDataRepository6))]object repository, int value)
         {
         }
@@ -230,7 +232,7 @@
 
     public class SqlDataRepository7 : IPersonRepository
     {
-        [Dependency("Build.Tests.Fail_TestSet4.ServiceDataRepository7")]
+        [Dependency("Fail_TestSet4.ServiceDataRepository7")]
         public SqlDataRepository7(object repository, int value)
         {
         }

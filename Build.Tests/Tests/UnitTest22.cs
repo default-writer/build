@@ -1,6 +1,7 @@
 using Xunit;
+using Build;
 
-namespace Build.Tests.TestSet22
+namespace TestSet22
 {
     using Classes;
     using TestSet;

@@ -1,8 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Xunit;
+using Build;
 
-namespace Build.Tests.TestSet20
+namespace TestSet20
 {
     public static class UnitTest
     {
