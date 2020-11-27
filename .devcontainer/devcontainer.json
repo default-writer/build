@@ -30,6 +30,7 @@
         "ms-vscode.vscode-node-azure-pack",
         "ms-vscode.powershell",
         "ms-dotnettools.csharp",
+        "ms-dotnettools.vscode-dotnet-runtime",
         "ms-azuretools.vscode-docker"
     ],
 
