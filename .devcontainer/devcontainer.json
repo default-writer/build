@@ -21,7 +21,9 @@
         "eamodio.gitlens",
         "donjayamanne.githistory",
         /* Testing */
+        "hbenl.vscode-test-explorer",
         "stevejpurves.cucumber",
+        "derivitec-ltd.vscode-dotnet-adapter",
         /* Microsoft */
         "ms-python.python",
         "ms-python.vscode-pylance",

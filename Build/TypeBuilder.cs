@@ -233,7 +233,7 @@ namespace Build
         /// <returns>
         /// <c>true</c> if this instance can register the specified type; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanRegister(Type type) => (UseValueTypes || !type.IsValueType) && !type.IsSpecialName && Filter.CanRegister(type);
+        public bool CanRegister(Type type, bool useValueTypes=false) => (UseValueTypes || !type.IsValueType) && !type.IsSpecialName && Filter.CanRegister(type, this.UseValueTypes);
 
         /// <summary>
         /// Creates the instance.
@@ -488,7 +488,7 @@ namespace Build
                 throw new TypeRegistrationException(string.Format("{0} is null (type name required)", nameof(type)));
             if (IsLocked)
                 throw new TypeRegistrationException(string.Format("{0} is not registered (container locked)", type));
-            if (!CanRegister(type))
+            if (!CanRegister(type, UseValueTypes))
                 throw new TypeRegistrationException(string.Format("{0} is not registered (not an allowed type)", type));
             RegisterTypeParameters(type, args);
         }
@@ -811,7 +811,7 @@ namespace Build
         /// <exception cref="TypeRegistrationException"></exception>
         void RegisterConstructor(Type type)
         {
-            if (!type.IsValueType || UseValueTypes)
+            if (CanRegister(type))
             {
                 var constructorEnumerator = Constructor.GetDependencyObjects(Activator, type, UseDefaultTypeInstantiation, DependencyAttributeExtractor, InjectionAttributeExtractor).GetEnumerator();
                 if (!constructorEnumerator.MoveNext())
@@ -958,7 +958,10 @@ namespace Build
             if (result != null)
             {
                 var constructorFullName = dependencyObject.TypeIdentity;
-                result.Attribute.RegisterReferenceAttrubute(constructorFullName, injectionObject.InjectionAttribute, UseDefaultTypeAttributeOverwrite);
+                if (result.Attribute.GetReferenceAttribute(constructorFullName) != null)
+                {
+                    result.Attribute.RegisterReferenceAttrubute(constructorFullName, injectionObject.InjectionAttribute, UseDefaultTypeAttributeOverwrite);
+                }
                 constructor.AddConstructorParameter(CanRegister(result.ActivatorType), result);
             }
         }

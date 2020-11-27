@@ -7,7 +7,6 @@ namespace Build
     public interface IBuilder
     {
         bool CanRegister(Type type);
-
         void RegisterType(Type type);
         void RegisterType(Type type, bool v);
         void RegisterType(Type type, params object[] args);

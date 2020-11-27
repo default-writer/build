@@ -1563,11 +1563,11 @@ namespace UnitTests18
             try
             {
                 container.RegisterType(typeof(Func<EmptyClass>), (string[])null);
-                Assert.True(true);
+                Assert.True(false);
             }
             catch
             {
-                Assert.True(false);
+                Assert.True(true);
             }
         }
 
