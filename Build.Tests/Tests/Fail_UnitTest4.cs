@@ -69,7 +69,7 @@ namespace Fail_TestSet4
         }
 
         [Fact]
-        public static void TestSet4_Method10()
+        public static void Method10()
         {
             //TestSet1
             var container = new Container();
@@ -77,7 +77,7 @@ namespace Fail_TestSet4
         }
 
         [Fact]
-        public static void TestSet4_Method11()
+        public static void Method11()
         {
             //TestSet1
             var container = new Container();
@@ -85,7 +85,7 @@ namespace Fail_TestSet4
         }
 
         [Fact]
-        public static void TestSet4_Method6()
+        public static void Method6()
         {
             //TestSet1
             var container = new Container();
@@ -93,7 +93,7 @@ namespace Fail_TestSet4
         }
 
         [Fact]
-        public static void TestSet4_Method7()
+        public static void Method7()
         {
             //TestSet1
             var container = new Container();
@@ -101,7 +101,7 @@ namespace Fail_TestSet4
         }
 
         [Fact]
-        public static void TestSet4_Method8()
+        public static void Method8()
         {
             //TestSet1
             var container = new Container();
@@ -109,7 +109,7 @@ namespace Fail_TestSet4
         }
 
         [Fact]
-        public static void TestSet4_Method9()
+        public static void Method9()
         {
             //TestSet1
             var container = new Container();

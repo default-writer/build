@@ -6,7 +6,7 @@ namespace TestSet15
     public static class UnitTest
     {
         [Fact]
-        public static void TestSet15_Method1()
+        public static void Method1()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
@@ -16,7 +16,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method10()
+        public static void Method10()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
@@ -28,7 +28,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method11()
+        public static void Method11()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
@@ -38,7 +38,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method12()
+        public static void Method12()
         {
             //TestSet15
             var container = new Container();
@@ -48,7 +48,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method13()
+        public static void Method13()
         {
             //TestSet15
             var container = new Container();
@@ -59,7 +59,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method14()
+        public static void Method14()
         {
             //TestSet15
             var container = new Container();
@@ -70,7 +70,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method15()
+        public static void Method15()
         {
             //TestSet15
             var container = new Container();
@@ -80,7 +80,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method16()
+        public static void Method16()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
@@ -92,7 +92,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method17()
+        public static void Method17()
         {
             //TestSet15
             var container = new Container();
@@ -104,7 +104,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method18()
+        public static void Method18()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
@@ -116,7 +116,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method19()
+        public static void Method19()
         {
             //TestSet15
             var container = new Container();
@@ -128,7 +128,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method2()
+        public static void Method2()
         {
             //TestSet15
             var container = new Container();
@@ -138,7 +138,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method20()
+        public static void Method20()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeInstantiation = false });
@@ -148,7 +148,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method21()
+        public static void Method21()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
@@ -159,7 +159,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method22()
+        public static void Method22()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false, UseDefaultTypeInstantiation = false });
@@ -170,7 +170,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method23()
+        public static void Method23()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions());
@@ -180,7 +180,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method24()
+        public static void Method24()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
@@ -189,7 +189,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method25()
+        public static void Method25()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
@@ -201,7 +201,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method26()
+        public static void Method26()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
@@ -213,7 +213,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method27()
+        public static void Method27()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
@@ -224,7 +224,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method28()
+        public static void Method28()
         {
             //TestSet15
             var container = new Container();
@@ -235,7 +235,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method29()
+        public static void Method29()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
@@ -248,7 +248,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method3()
+        public static void Method3()
         {
             //TestSet15
             var container = new Container();
@@ -259,7 +259,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method30()
+        public static void Method30()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false, UseValueTypes = false });
@@ -272,7 +272,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method31()
+        public static void Method31()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false, UseValueTypes = false });
@@ -285,7 +285,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method32()
+        public static void Method32()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
@@ -298,7 +298,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method33()
+        public static void Method33()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
@@ -311,7 +311,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method34()
+        public static void Method34()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
@@ -324,7 +324,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method35()
+        public static void Method35()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
@@ -337,7 +337,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method36()
+        public static void Method36()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
@@ -349,7 +349,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method38()
+        public static void Method38()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
@@ -361,7 +361,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method39()
+        public static void Method39()
         {
             //TestSet15
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
@@ -373,7 +373,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method4()
+        public static void Method4()
         {
             //TestSet15
             var container = new Container();
@@ -384,7 +384,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method5()
+        public static void Method5()
         {
             //TestSet15
             var container = new Container();
@@ -396,7 +396,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method6()
+        public static void Method6()
         {
             //TestSet15
             var container = new Container();
@@ -408,7 +408,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method7()
+        public static void Method7()
         {
             //TestSet15
             var container = new Container();
@@ -421,7 +421,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method8()
+        public static void Method8()
         {
             //TestSet15
             var container = new Container();
@@ -434,7 +434,7 @@ namespace TestSet15
         }
 
         [Fact]
-        public static void TestSet15_Method9()
+        public static void Method9()
         {
             //TestSet15
             var container = new Container();

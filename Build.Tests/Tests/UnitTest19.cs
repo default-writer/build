@@ -9,7 +9,7 @@ namespace UnitTests19
     public static class UnitTests
     {
         [Fact]
-        public static void TestSet19_Method1()
+        public static void Method1()
         {
             //TestSet19
             var container = new Container();
@@ -17,7 +17,7 @@ namespace UnitTests19
         }
 
         [Fact]
-        public static void TestSet19_Method10()
+        public static void Method10()
         {
             //TestSet19
             var container = new Container();
@@ -32,7 +32,7 @@ namespace UnitTests19
         }
 
         [Fact]
-        public static void TestSet19_Method11()
+        public static void Method11()
         {
             //TestSet19
             var container = new Container();
@@ -46,7 +46,7 @@ namespace UnitTests19
         }
 
         [Fact]
-        public static void TestSet19_Method12()
+        public static void Method12()
         {
             //TestSet19
             var container = new Container();
@@ -61,7 +61,7 @@ namespace UnitTests19
         }
 
         [Fact]
-        public static void TestSet19_Method13()
+        public static void Method13()
         {
             //TestSet19
             var container = new Container();
@@ -76,7 +76,7 @@ namespace UnitTests19
         }
 
         [Fact]
-        public static void TestSet19_Method14()
+        public static void Method14()
         {
             //TestSet19
             var container = new Container();
@@ -91,7 +91,7 @@ namespace UnitTests19
         }
 
         [Fact]
-        public static void TestSet19_Method15()
+        public static void Method15()
         {
             //TestSet19
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -106,7 +106,7 @@ namespace UnitTests19
         }
 
         [Fact]
-        public static void TestSet19_Method16()
+        public static void Method16()
         {
             //TestSet19
             var container = new Container();
@@ -120,7 +120,7 @@ namespace UnitTests19
         }
 
         [Fact]
-        public static void TestSet19_Method17()
+        public static void Method17()
         {
             //TestSet19
             var container = new Container();
@@ -130,7 +130,7 @@ namespace UnitTests19
         }
 
         [Fact]
-        public static void TestSet19_Method18()
+        public static void Method18()
         {
             //TestSet19
             var container = new Container();
@@ -144,7 +144,7 @@ namespace UnitTests19
         }
 
         [Fact]
-        public static void TestSet19_Method2()
+        public static void Method2()
         {
             //TestSet19
             var container = new Container();
@@ -154,7 +154,7 @@ namespace UnitTests19
         }
 
         [Fact]
-        public static void TestSet19_Method3()
+        public static void Method3()
         {
             //TestSet19
             var container = new Container();
@@ -165,7 +165,7 @@ namespace UnitTests19
         }
 
         [Fact]
-        public static void TestSet19_Method4()
+        public static void Method4()
         {
             //TestSet19
             var container = new Container();
@@ -175,7 +175,7 @@ namespace UnitTests19
         }
 
         [Fact]
-        public static void TestSet19_Method5()
+        public static void Method5()
         {
             //TestSet19
             var container = new Container();
@@ -185,7 +185,7 @@ namespace UnitTests19
         }
 
         [Fact]
-        public static void TestSet19_Method6()
+        public static void Method6()
         {
             //TestSet19
             var container = new Container();
@@ -198,7 +198,7 @@ namespace UnitTests19
         }
 
         [Fact]
-        public static void TestSet19_Method7()
+        public static void Method7()
         {
             //TestSet19
             var container = new Container();
@@ -210,7 +210,7 @@ namespace UnitTests19
         }
 
         [Fact]
-        public static void TestSet19_Method8()
+        public static void Method8()
         {
             //TestSet19
             var container = new Container();
@@ -222,7 +222,7 @@ namespace UnitTests19
         }
 
         [Fact]
-        public static void TestSet19_Method9()
+        public static void Method9()
         {
             //TestSet19
             var container = new Container();

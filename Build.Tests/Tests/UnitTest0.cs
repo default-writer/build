@@ -9,7 +9,7 @@ namespace TestSet0
     public static class UnitTest
     {
         [Fact]
-        public static void TestSet0_Method0_1()
+        public static void Method0_1()
         {
             //TestSet0
             var container = new Container(new TypeActivator(), new TypeConstructor(), new TypeFilter(), new TypeParser(), new TypeResolver());
@@ -17,7 +17,7 @@ namespace TestSet0
         }
 
         [Fact]
-        public static void TestSet0_Method0_2()
+        public static void Method0_2()
         {
             //TestSet0
             var container = new Container(new TypeActivator(), new TypeConstructor(), new TypeFilter(), new TypeParser(), new TypeResolver());
@@ -25,7 +25,7 @@ namespace TestSet0
         }
 
         [Fact]
-        public static void TestSet0_Method0_3()
+        public static void Method0_3()
         {
             //TestSet0
             var container = new Container(new TypeActivator(), new TypeConstructor(), new TypeFilter(), new TypeParser(), new TypeResolver());
@@ -33,7 +33,7 @@ namespace TestSet0
         }
 
         [Fact]
-        public static void TestSet0_Method0_4()
+        public static void Method0_4()
         {
             //TestSet0
             var container = new Container(new TypeActivator(), new TypeConstructor(), new TypeFilter(), new TypeParser(), new TypeResolver());
@@ -41,35 +41,35 @@ namespace TestSet0
         }
 
         [Fact]
-        public static void TestSet0_Method0_5()
+        public static void Method0_5()
         {
             //TestSet0
             Assert.Throws<ArgumentNullException>(() => new Container(new TypeActivator(), null, new TypeFilter(), new TypeParser(), new TypeResolver()));
         }
 
         [Fact]
-        public static void TestSet0_Method0_6()
+        public static void Method0_6()
         {
             //TestSet0
             Assert.Throws<ArgumentNullException>(() => new Container(new TypeActivator(), new TypeConstructor(), null, new TypeParser(), new TypeResolver()));
         }
 
         [Fact]
-        public static void TestSet0_Method0_7()
+        public static void Method0_7()
         {
             //TestSet0
             Assert.Throws<ArgumentNullException>(() => new Container(new TypeActivator(), new TypeConstructor(), new TypeFilter(), null, new TypeResolver()));
         }
 
         [Fact]
-        public static void TestSet0_Method0_8()
+        public static void Method0_8()
         {
             //TestSet0
             Assert.Throws<ArgumentNullException>(() => new Container(new TypeActivator(), new TypeConstructor(), new TypeFilter(), new TypeParser(), null));
         }
 
         [Fact]
-        public static void TestSet0_Method1()
+        public static void Method1()
         {
             //TestSet0
             var container = new Container();
@@ -87,7 +87,7 @@ namespace TestSet0
         }
 
         [Fact]
-        public static void TestSet0_Method2()
+        public static void Method2()
         {
             //TestSet0
             var container = new Container();
@@ -98,7 +98,7 @@ namespace TestSet0
         }
 
         [Fact]
-        public static void TestSet0_Method3()
+        public static void Method3()
         {
             //TestSet0
             var container = new Container();
@@ -108,7 +108,7 @@ namespace TestSet0
         }
 
         [Fact]
-        public static void TestSet0_Method4()
+        public static void Method4()
         {
             //TestSet0
             var container = new Container();
