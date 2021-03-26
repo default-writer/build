@@ -1,7 +1,5 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:5.0.100-alpine3.12 AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /app
-
-RUN apk --no-cache add curl
 
 # copy csproj and restore as distinct layers
 COPY *.sln .
