@@ -42,7 +42,7 @@ Commit SHA: $(CommitHash)</Description>
     <PackageTags>Dependency Injection</PackageTags>
     <PackageReleaseNotes>
       Features:
-      - Added support for .NET 5 (5.0.100)
+      - Added support for .NET 5 (5.0.201)
     </PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>Build.DependencyInjection</PackageId>
