@@ -7,6 +7,7 @@ COPY Build.Abstractions/*.csproj ./Build.Abstractions/
 COPY Build/*.csproj ./Build/
 COPY Build.Tests/*.csproj ./Build.Tests/
 COPY Build.Behave/*.csproj ./Build.Behave/
+COPY Build.Console/*.csproj ./Build.Console/
 RUN dotnet restore
 
 # copy everything else and build app
