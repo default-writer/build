@@ -3,7 +3,11 @@ pipeline {
   stages {
     stage('restore') {
       steps {
-        pwsh(script: './docker-init.ps1', returnStdout: true)
+        sh '''container = "dot-net-sdk-5.0.100"
+image = "dot-net-sdk-5.0.100:latest"
+docker --version
+docker build -f Dockerfile -t $image . 
+docker run --rm -it --name $container $image'''
       }
     }
 
