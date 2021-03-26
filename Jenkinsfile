@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('restore') {
+    stage('build/run') {
       steps {
         sh '''container="dot-net-sdk-5.0.201"
 image="dot-net-sdk-5.0.201:latest"
