@@ -132,14 +132,14 @@ namespace Build
         object GetValue(IRuntimeAttribute attribute, string typeId);
 
         /// <summary>
-        /// Registers the parameters.
+        /// Registers parameters.
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
         bool RegisterConstructorParameters(object[] args);
 
         /// <summary>
-        /// Registers the parameters.
+        /// Registers parameters.
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
