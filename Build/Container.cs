@@ -355,5 +355,109 @@ namespace Build
         /// Unlocks the container. Flushes all pre-computed registered type invariants for lookup table speed up
         /// </summary>
         public void Unlock() => TypeBuilder.Unlock();
+
+        /// <summary>
+        /// Creates an object identified as instance of type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <returns>Returns instance of identified type</returns>
+        public T CreateInstance<T>(ParameterSource[] parameterSources = null, params object[] args) => (T)TypeBuilder.CreateInstance(typeof(T), args, parameterSources);
+
+        /// <summary>
+        /// Creates an object identified as instance of type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <returns>Returns instance of identified type</returns>
+        public T CreateInstance<T>(ParameterSource[] parameterSources = null) => (T)TypeBuilder.CreateInstance(typeof(T), ArrayExtensions.ToArray<object>(), parameterSources);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">Type identifier</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object CreateInstance(Type type, ParameterSource[] parameterSources = null, params object[] args) => TypeBuilder.CreateInstance(type, args, parameterSources);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">Type identifier</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object CreateInstance( Type type, ParameterSource[] parameterSources = null, params string[] args) => TypeBuilder.CreateInstance(type, args, parameterSources);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">Type identifier</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object CreateInstance(Type type, ParameterSource[] parameterSources = null, params Type[] args) => TypeBuilder.CreateInstance(type, args, parameterSources);
+
+        /// <summary>
+        /// Creates an object from identifed type with parameters
+        /// </summary>
+        /// <param name="typeFullName">Type identifier with/without parameters 'id(args)' or 'id'</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object CreateInstance(string typeFullName, ParameterSource[] parameterSources = null, params object[] args) => TypeBuilder.CreateInstance(typeFullName, args, parameterSources);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="typeId">Type identifier</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object CreateInstance(string typeId, ParameterSource[] parameterSources = null, params string[] args) => TypeBuilder.CreateInstance(typeId, args, parameterSources);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="typeId">Type identifier</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object CreateInstance(string typeId, ParameterSource[] parameterSources = null, params Type[] args) => TypeBuilder.CreateInstance(typeId, args, parameterSources);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object CreateInstance(Type type, ParameterSource[] parameterSources = null) => TypeBuilder.CreateInstance(type, ArrayExtensions.ToArray<object>(), parameterSources);
+
+        /// <summary>
+        /// Creates an object identified as instance of type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public T CreateInstance<T>(ParameterSource[] parameterSources = null, params string[] args) => (T)TypeBuilder.CreateInstance(typeof(T), args, parameterSources);
+
+        /// <summary>
+        /// Creates an object identified as instance of type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public T CreateInstance<T>(ParameterSource[] parameterSources = null, params Type[] args) => (T)TypeBuilder.CreateInstance(typeof(T), args, parameterSources);
+
+        /// <summary>
+        /// Creates an object from identifed type with parameters
+        /// </summary>
+        /// <param name="typeFullName">Type identifier with/without parameters 'id(args)' or 'id'</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object CreateInstance(string typeFullName, ParameterSource[] parameterSources = null) => TypeBuilder.CreateInstance(typeFullName, ArrayExtensions.ToArray<object>(), parameterSources);
     }
 }

@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Build
 {
-    public interface IBuilder
+    interface IBuilder
     {
         bool CanRegister(Type type);
         void RegisterType(Type type);
@@ -24,9 +24,9 @@ namespace Build
     }
 
     /// <summary>
-    /// Public interface for type container
+    /// interface for type container
     /// </summary>
-    public interface IContainer
+    interface IContainer
     {
         /// <summary>
         /// Type builder
@@ -321,5 +321,97 @@ namespace Build
         /// Unlocks the container. Flushes all pre-computed registered type invariants for lookup table speed up
         /// </summary>
         void Unlock();
+
+        /// <summary>
+        /// Creates an object identified as instance of type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <returns>Returns instance of identified type</returns>
+        T CreateInstance<T>(ParameterSource[] parameterSources, params object[] args);
+        /// <summary>
+        /// Creates an object identified as instance of type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <returns>Returns instance of identified type</returns>
+        T CreateInstance<T>(ParameterSource[] parameterSources);
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">Type identifier</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        object CreateInstance(Type type, ParameterSource[] parameterSources, params object[] args);
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">Type identifier</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        object CreateInstance(Type type, ParameterSource[] parameterSources, params string[] args);
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">Type identifier</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        object CreateInstance(Type type, ParameterSource[] parameterSources, params Type[] args);
+        /// <summary>
+        /// Creates an object from identifed type with parameters
+        /// </summary>
+        /// <param name="typeFullName">Type identifier with/without parameters 'id(args)' or 'id'</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        object CreateInstance(string typeFullName, ParameterSource[] parameterSources, params object[] args);
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="typeId">Type identifier</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        object CreateInstance(string typeId, ParameterSource[] parameterSources, params string[] args);
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <returns>Returns instance of identified type</returns>
+        object CreateInstance(string typeId, ParameterSource[] parameterSources, params Type[] args);
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <returns>Returns instance of identified type</returns>
+        object CreateInstance(Type type, ParameterSource[] parameterSources);
+        /// <summary>
+        /// Creates an object identified as instance of type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        T CreateInstance<T>(ParameterSource[] parameterSources, params string[] args);
+        /// <summary>
+        /// Creates an object identified as instance of type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        T CreateInstance<T>(ParameterSource[] parameterSources, params Type[] args);
+        /// <summary>
+        /// Creates an object from identifed type with parameters
+        /// </summary>
+        /// <param name="typeFullName">Type identifier with/without parameters 'id(args)' or 'id'</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <returns>Returns instance of identified type</returns>
+        object CreateInstance(string typeFullName, ParameterSource[] parameterSources);    
     }
 }

@@ -13,11 +13,14 @@ namespace Fail_TestSet5
 
     public class NoSqlDataRepository
     {
+        public IOtherRepository Repository { get; }
+
         public NoSqlDataRepository([Injection(typeof(OtherRepository), 2018)]IOtherRepository other)
         {
+            Repository = other;
         }
 
-        public Person GetPerson(int personId)
+        public static Person GetPerson()
         {
             // get the data from SQL DB and return Person instance.
             return new Person(null);
@@ -29,17 +32,20 @@ namespace Fail_TestSet5
         [Dependency(RuntimeInstance.Exclude)]
         public OtherRepository(int param) : base(null)
         {
+            Parameter = param;
         }
+
+        public int Parameter { get; }
     }
 
     public class Person
     {
-        readonly IPersonRepository _personRepository;
-
         public Person(IPersonRepository personRepository)
         {
-            _personRepository = personRepository;
+            Repository = personRepository;
         }
+
+        public IPersonRepository Repository { get; }
     }
 
     public class ServiceDataRepository : IPersonRepository
@@ -63,7 +69,10 @@ namespace Fail_TestSet5
     {
         public SqlDataRepository([Injection(typeof(SqlDataRepository))]ServiceDataRepository repository)
         {
+            Repository = repository;
         }
+
+        public ServiceDataRepository Repository { get; }
 
         public Person GetPerson(int personId)
         {

@@ -53,11 +53,6 @@
     <PackageReference Include="SpecFlow.NUnit.Runners" Version="3.5.5" />
     <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.5.5" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Build.Abstractions\" />
-    <Folder Include="Build\" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Build.Abstractions\ITypeFilter.cs">
       <Link>Build.Abstractions\ITypeFilter.cs</Link>
@@ -84,9 +79,12 @@
       <Link>Build.Abstractions\IDependencyAttribute.cs</Link>
     </Compile>
     <Compile Include="..\Build.Abstractions\ITypeObject.cs">
-      <Link>Build.Abstractions\ITypeObject.cs</Link>
+		<Link>Build.Abstractions\ITypeObject.cs</Link>
     </Compile>
-    <Compile Include="..\Build.Abstractions\RuntimeInstance.cs">
+	<Compile Include="..\Build.Abstractions\ParameterSource.cs">
+	    <Link>Build.Abstractions\ParameterSource.cs</Link>
+	</Compile>
+	<Compile Include="..\Build.Abstractions\RuntimeInstance.cs">
       <Link>Build.Abstractions\RuntimeInstance.cs</Link>
     </Compile>
     <Compile Include="..\Build.Abstractions\IRuntimeType.cs">

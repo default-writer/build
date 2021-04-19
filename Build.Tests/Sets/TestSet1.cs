@@ -14,6 +14,19 @@ namespace TestSet1
         public Person(IPersonRepository personRepository) => _personRepository = personRepository;
     }
 
+
+    public class PersonRepository
+    {
+        private int _personId;
+
+        public PersonRepository([Injection(typeof(int), 2021)] int personId)
+        {
+            _personId = personId;
+        }
+
+        public int GetPersonId() => _personId;
+    }
+
     public class PrivateSqlDataRepository : IPersonRepository
     {
         public PrivateSqlDataRepository()

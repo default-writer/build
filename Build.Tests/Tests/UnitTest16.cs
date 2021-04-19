@@ -74,6 +74,74 @@ namespace TestSet16
         }
 
         [Fact]
+        public static void Method14_1()
+        {
+            //TestSet16
+            var container = new Container();
+            container.RegisterType<WebServiceDataRepository>();
+            var sql = (WebServiceDataRepository)container.CreateInstance("TestSet16.WebServiceDataRepository(TestSet16.IPersonRepository,TestSet16.IPersonRepository)");
+            Assert.Equal(2020, ((ServiceDataRepository)sql.RepositoryA).RepositoryId);
+        }
+
+        [Fact]
+        public static void Method14_2_1()
+        {
+            //TestSet16
+            var container = new Container();
+            container.RegisterType<ServiceDataRepository>(1);
+            container.RegisterType<WebServiceDataRepository2>();
+            var sql = (WebServiceDataRepository2)container.CreateInstance("TestSet16.WebServiceDataRepository2(TestSet16.IPersonRepository,TestSet16.IPersonRepository)", new object[] { new SqlDataRepository(2019), null });
+            Assert.Equal(2019, ((SqlDataRepository)sql.RepositoryA).RepositoryId);
+        }
+
+        [Fact]
+        public static void Method14_2_2_1()
+        {
+            //TestSet16
+            var container = new Container();
+            container.RegisterType<ServiceDataRepository>(1);
+            container.RegisterType<WebServiceDataRepository2>();
+            var sql = (WebServiceDataRepository2)container.CreateInstance("TestSet16.WebServiceDataRepository2(TestSet16.IPersonRepository,TestSet16.IPersonRepository)", new ParameterSource[] { ParameterSource.Default, ParameterSource.Instance }, new object[] { new SqlDataRepository(2019), null });
+            Assert.Equal(1, ((ServiceDataRepository)sql.RepositoryB).RepositoryId);
+        }
+
+        [Fact]
+        public static void Method14_2_2_2()
+        {
+            //TestSet16
+            var container = new Container();
+            container.RegisterType<ServiceDataRepository>(1);
+            container.RegisterType<WebServiceDataRepository2>();
+            var sql = (WebServiceDataRepository2)container.CreateInstance("TestSet16.WebServiceDataRepository2(TestSet16.IPersonRepository,TestSet16.IPersonRepository)", new ParameterSource[] { ParameterSource.Default, ParameterSource.Default }, new object[] { new SqlDataRepository(2019), null });
+            Assert.Equal(default, (ServiceDataRepository)sql.RepositoryB);
+        }
+
+
+        [Fact]
+        public static void Method14_3_1()
+        {
+            //TestSet16
+            var container = new Container();
+            //container.RegisterType<SqlDataRepository>();
+            //container.RegisterType<ServiceDataRepository2>();
+            container.RegisterType<WebServiceDataRepository2>();
+            var sql = (WebServiceDataRepository2)container.CreateInstance("TestSet16.WebServiceDataRepository2(TestSet16.IPersonRepository,TestSet16.IPersonRepository)", new ParameterSource[] { ParameterSource.Default, ParameterSource.Default }, new object[] { new SqlDataRepository(2019), null });
+            Assert.Equal(2019, ((SqlDataRepository)sql.RepositoryA).RepositoryId);
+        }
+
+
+        [Fact]
+        public static void Method14_3_2()
+        {
+            //TestSet16
+            var container = new Container();
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<WebServiceDataRepository2>();
+            var sql = (WebServiceDataRepository2)container.CreateInstance("TestSet16.WebServiceDataRepository2(TestSet16.IPersonRepository,TestSet16.IPersonRepository)", new ParameterSource[] { ParameterSource.Instance, ParameterSource.Default });
+            Assert.Equal(0, ((SqlDataRepository)sql.RepositoryA).RepositoryId);
+        }
+
+        [Fact]
         public static void Method15()
         {
             //TestSet16

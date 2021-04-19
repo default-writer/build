@@ -875,8 +875,8 @@ namespace UnitTests18
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
-            Func<EmptyClass> func = () => null;
-            container.RegisterType(typeof(Factory3<EmptyClass>), (object)(func));
+            static EmptyClass func() => null;
+            container.RegisterType(typeof(Factory3<EmptyClass>), (object)(Func<EmptyClass>)func);
             var factory = (Factory3<EmptyClass>)container.CreateInstance("TestSet18.Factory3`1[TestSet18.EmptyClass](System.Func`1[TestSet18.EmptyClass])");
             Assert.NotNull(factory);
         }
@@ -886,7 +886,7 @@ namespace UnitTests18
         {
             //TestSet18
             var container = new Container();
-            object obj = new object();
+            object obj = new();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType(typeof(Factory2<EmptyClass>), new object[] { obj }));
         }
 
@@ -917,8 +917,8 @@ namespace UnitTests18
         {
             //TestSet18
             var container = new Container();
-            Func<EmptyClass> func = () => null;
-            container.RegisterType(typeof(Factory2<EmptyClass>), (object)func);
+            static EmptyClass func() => null;
+            container.RegisterType(typeof(Factory2<EmptyClass>), (object)(Func<EmptyClass>)func);
             var factory = (Factory2<EmptyClass>)container.CreateInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")");
             Assert.NotNull(factory.Func);
         }

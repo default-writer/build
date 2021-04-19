@@ -404,8 +404,9 @@ namespace TestSet1
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             container.RegisterType<PrivateSqlDataRepository>(1);
-            var sql2 = (PrivateSqlDataRepository)container.CreateInstance("TestSet1.PrivateSqlDataRepository(System.Int32)", 2);
+            var type = container.CreateInstance("TestSet1.PrivateSqlDataRepository(System.Int32)", 2);
             var sql = (PrivateSqlDataRepository)container.CreateInstance("TestSet1.PrivateSqlDataRepository(System.Int32)");
+            Assert.True(type != null && type.GetType() == typeof(PrivateSqlDataRepository));
             Assert.Equal(1, sql.PersonId);
         }
 
@@ -417,8 +418,9 @@ namespace TestSet1
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             container.RegisterType<PrivateSqlDataRepository>(1);
-            var sql2 = (PrivateSqlDataRepository)container.CreateInstance("TestSet1.PrivateSqlDataRepository(System.Int32)", 2);
+            var type = container.CreateInstance("TestSet1.PrivateSqlDataRepository(System.Int32)", 2);
             var sql = (PrivateSqlDataRepository)container.GetInstance("TestSet1.PrivateSqlDataRepository(System.Int32)");
+            Assert.True(type != null && type.GetType() == typeof(PrivateSqlDataRepository));
             Assert.Equal(1, sql.PersonId);
         }
 
@@ -430,8 +432,9 @@ namespace TestSet1
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             container.RegisterType<PrivateSqlDataRepository>(2);
-            var sql2 = (PrivateSqlDataRepository)container.CreateInstance("TestSet1.PrivateSqlDataRepository(System.Int32)", 2);
+            var type = container.CreateInstance("TestSet1.PrivateSqlDataRepository(System.Int32)", 2);
             var sql = (PrivateSqlDataRepository)container.GetInstance("TestSet1.PrivateSqlDataRepository", 1);
+            Assert.True(type != null && type.GetType() == typeof(PrivateSqlDataRepository));
             Assert.Equal(2, sql.PersonId);
         }
 
@@ -443,8 +446,9 @@ namespace TestSet1
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             container.RegisterType<PrivateSqlDataRepository>(2);
-            var sql2 = (PrivateSqlDataRepository)container.CreateInstance("TestSet1.PrivateSqlDataRepository(System.Int32)", 2);
+            var type = container.CreateInstance("TestSet1.PrivateSqlDataRepository(System.Int32)", 2);
             var sql = (PrivateSqlDataRepository)container.CreateInstance("TestSet1.PrivateSqlDataRepository", 1);
+            Assert.True(type != null && type.GetType() == typeof(PrivateSqlDataRepository));
             Assert.Equal(1, sql.PersonId);
         }
 
@@ -576,6 +580,86 @@ namespace TestSet1
             container.RegisterType<PrivateSqlDataRepository>();
             string name = null;
             Assert.Throws<TypeInstantiationException>(() => (PrivateSqlDataRepository)container.CreateInstance(name, System.Array.Empty<object>()));
+        }
+
+        [Fact]
+        public static void TestSet1_Method0()
+        {
+            //TestSet1
+            var container = new Container();
+            container.RegisterType<PersonRepository>(1);
+            var instance = (PersonRepository)container.CreateInstance(typeof(PersonRepository), new ParameterSource[] { ParameterSource.Instance });
+            Assert.True(instance.GetPersonId() == 2021);
+        }
+
+        [Fact]
+        public static void TestSet1_Method1()
+        {
+            //TestSet1
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeInstantiation = false });
+            container.RegisterType<PersonRepository>(1);
+            var instance = (PersonRepository)container.CreateInstance(typeof(PersonRepository), new ParameterSource[] { ParameterSource.Instance });
+            Assert.True(instance.GetPersonId() == 2021);
+        }
+
+        [Fact]
+        public static void TestSet1_Method2()
+        {
+            //TestSet1
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeInstantiation = true });
+            container.RegisterType<PersonRepository>(1);
+            var instance = (PersonRepository)container.CreateInstance(typeof(PersonRepository), new ParameterSource[] { ParameterSource.Instance });
+            Assert.True(instance.GetPersonId() == 2021);
+        }
+
+        [Fact]
+        public static void TestSet1_Method3()
+        {
+            //TestSet1
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeInstantiation = true, UseDefaultTypeResolution = true });
+            container.RegisterType<PersonRepository>(1);
+            var instance = (PersonRepository)container.CreateInstance(typeof(PersonRepository), new ParameterSource[] { ParameterSource.Instance });
+            Assert.True(instance.GetPersonId() == 2021);
+        }
+
+        [Fact]
+        public static void TestSet1_Method4()
+        {
+            //TestSet1
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeInstantiation = true, UseDefaultTypeResolution = false });
+            container.RegisterType<PersonRepository>(1);
+            var instance = (PersonRepository)container.CreateInstance(typeof(PersonRepository), new ParameterSource[] { ParameterSource.Instance });
+            Assert.True(instance.GetPersonId() == 2021);
+        }
+
+        [Fact]
+        public static void TestSet1_Method5()
+        {
+            //TestSet1
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeInstantiation = false, UseDefaultTypeResolution = true });
+            container.RegisterType<PersonRepository>(1);
+            var instance = (PersonRepository)container.CreateInstance(typeof(PersonRepository), new ParameterSource[] { ParameterSource.Instance });
+            Assert.True(instance.GetPersonId() == 2021);
+        }
+
+        [Fact]
+        public static void TestSet1_Method6()
+        {
+            //TestSet1
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeInstantiation = false, UseDefaultTypeResolution = false });
+            container.RegisterType<PersonRepository>(1);
+            var instance = (PersonRepository)container.CreateInstance(typeof(PersonRepository), new ParameterSource[] { ParameterSource.Instance });
+            Assert.True(instance.GetPersonId() == 2021);
+        }
+
+        [Fact]
+        public static void TestSet1_Method7()
+        {
+            //TestSet1
+            var container = new Container();
+            container.RegisterType<PersonRepository>(1);
+            var instance = (PersonRepository)container.CreateInstance(typeof(PersonRepository), new ParameterSource[] { ParameterSource.Default });
+            Assert.True(instance.GetPersonId() == 1);
         }
     }
 }

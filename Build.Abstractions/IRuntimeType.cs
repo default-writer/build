@@ -96,9 +96,10 @@ namespace Build
         /// Creates the instance.
         /// </summary>
         /// <param name="args">The arguments.</param>
+        /// <param name="parameterSources">Parameter sources</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        object CreateInstance(object[] args);
+        object CreateInstance(object[] args, ParameterSource[] parameterSources = null);
 
         /// <summary>
         /// Creates the instance.
@@ -135,8 +136,9 @@ namespace Build
         /// Registers parameters.
         /// </summary>
         /// <param name="args">The arguments.</param>
+        /// <param name="parameterSources">Parameter sources</param>
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
-        bool RegisterConstructorParameters(object[] args);
+        bool RegisterConstructorParameters(object[] args, ParameterSource[] parameterSources = null);
 
         /// <summary>
         /// Registers parameters.
