@@ -661,5 +661,15 @@ namespace TestSet1
             var instance = (PersonRepository)container.CreateInstance(typeof(PersonRepository), new ParameterSource[] { ParameterSource.Default });
             Assert.True(instance.GetPersonId() == 1);
         }
+
+        [Fact]
+        public static void TestSet1_Method8()
+        {
+            //TestSet1
+            var container = new Container();
+            container.RegisterType<PersonRepository>(1);
+            var instance = (PersonRepository)container.CreateInstance(typeof(PersonRepository));
+            Assert.True(instance.GetPersonId() == 1);
+        }
     }
 }
