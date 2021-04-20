@@ -2,7 +2,7 @@
 
 namespace Build.Console
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {
