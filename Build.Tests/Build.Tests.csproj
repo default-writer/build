@@ -7,8 +7,9 @@
   <Import Project="$(MSBuildThisFileDirectory)../common.props" />
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <IsPackable>false</IsPackable>
+    <TargetFrameworks>
+		net5.0;
+	</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -24,13 +25,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="coverlet.msbuild" Version="2.9.0">
+    <PackageReference Include="coverlet.collector" Version="3.0.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.msbuild" Version="3.0.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="dotnet-xunit" Version="2.3.1" />
+    <PackageReference Include="Microsoft.CodeCoverage" Version="16.9.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+    <PackageReference Include="Microsoft.TestPlatform" Version="16.9.4" />
+    <PackageReference Include="Microsoft.TestPlatform.Portable" Version="16.9.4" />
+    <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="16.9.4" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.3" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.3" />
     <PackageReference Include="OpenCover" Version="4.7.922" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.analyzers" Version="0.10.0" />
@@ -43,15 +54,15 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="nunit" Version="3.12.0" />
+    <PackageReference Include="nunit" Version="3.13.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="xunit.runner.console" Version="2.4.1" />
-    <PackageReference Include="SpecFlow" Version="3.5.5" />
+    <PackageReference Include="SpecFlow" Version="3.7.38" />
     <!-- <PackageReference Include="SpecFlow.MsTest" Version="3.3.57" /> -->
-    <PackageReference Include="SpecFlow.NUnit" Version="3.5.5" />
-    <PackageReference Include="SpecFlow.NUnit.Runners" Version="3.5.5" />
-    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.5.5" />
+    <PackageReference Include="SpecFlow.NUnit" Version="3.7.38" />
+    <PackageReference Include="SpecFlow.NUnit.Runners" Version="3.7.38" />
+    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.7.38" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Build.Abstractions\ITypeFilter.cs">
