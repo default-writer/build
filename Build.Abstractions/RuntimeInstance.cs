@@ -5,6 +5,7 @@ namespace Build
     /// <summary>
     /// Runtime instance
     /// </summary>
+    [Flags]
     public enum RuntimeInstance
     {
         Default = 0x0,

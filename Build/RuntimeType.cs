@@ -45,21 +45,9 @@ namespace Build
         /// <exception cref="ArgumentNullException">attribute</exception>
         public RuntimeType(ITypeActivator typeActivator, IRuntimeAttribute attribute, Type type, bool defaultTypeInstantiation)
         {
-            if (typeActivator == null)
-            {
-                throw new ArgumentNullException(nameof(typeActivator));
-            }
-            if (attribute == null)
-            {
-                throw new ArgumentNullException(nameof(attribute));
-            }
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
-            Activator = typeActivator;
-            Attribute = attribute;
-            ActivatorType = type;
+            Activator = typeActivator ?? throw new ArgumentNullException(nameof(typeActivator));
+            Attribute = attribute ?? throw new ArgumentNullException(nameof(attribute));
+            ActivatorType = type ?? throw new ArgumentNullException(nameof(type));
             Type = type.ToString();
             UseDefaultTypeInstantiation = defaultTypeInstantiation;
             UpdateTypeId();

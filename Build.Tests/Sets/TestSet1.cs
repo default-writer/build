@@ -17,7 +17,7 @@ namespace TestSet1
 
     public class PersonRepository
     {
-        private int _personId;
+        private readonly int _personId;
 
         public PersonRepository([Injection(typeof(int), 2021)] int personId)
         {
