@@ -14,7 +14,7 @@ namespace TestSet20
 
     public class Class2
     {
-        [Dependency(Flags.Singleton)]
+        [Dependency(Options.Singleton)]
         public Class2(Func<Class1> func)
         {
             Func = func;
@@ -25,7 +25,7 @@ namespace TestSet20
 
     public class Class3
     {
-        [Dependency(Flags.CreateInstance)]
+        [Dependency(Options.CreateInstance)]
         public Class3(Func<Class1> func) => Func = func;
 
         public Func<Class1> Func { get; }

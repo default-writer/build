@@ -513,7 +513,7 @@ namespace Build
             if (runtimeTypes.Length == 1)
             {
                 var runtimeType = runtimeTypes[0];
-                runtimeType.SetRuntimeInstance(Flags.GetInstance);
+                runtimeType.SetRuntimeInstance(Options.GetInstance);
                 runtimeType.RegisterConstructorParameters(args.Length == 0 ? ArrayExtensions.ToArray<object>(runtimeType.Count) : args);
                 return;
             }
@@ -844,7 +844,7 @@ namespace Build
             {
                 var result = this[typeFullName, constructor];
                 if (result != null && !constructor.ActivatorType.IsPrimitive)
-                    result.SetRuntimeInstance(constructorAttribute.Flags);
+                    result.SetRuntimeInstance(constructorAttribute.Options);
             }
         }
 
@@ -898,7 +898,7 @@ namespace Build
         void RegisterConstructorParameters(Type type, object[] args)
         {
             var runtimeType = GetRuntimeType(type, args);
-            runtimeType.SetRuntimeInstance(Flags.GetInstance);
+            runtimeType.SetRuntimeInstance(Options.GetInstance);
             runtimeType.RegisterConstructorParameters(args);
         }
 
@@ -912,7 +912,7 @@ namespace Build
         void RegisterConstructorParameters(Type type, string[] args)
         {
             var runtimeType = GetRuntimeType(type, args);
-            runtimeType.SetRuntimeInstance(Flags.GetInstance);
+            runtimeType.SetRuntimeInstance(Options.GetInstance);
             runtimeType.RegisterConstructorParameters(args);
         }
 
@@ -949,7 +949,7 @@ namespace Build
         void RegisterPrimitiveType(Type type, object value)
         {
             var runtimeType = Parser.FindRuntimeTypes(type.ToString(), ArrayExtensions.ToArray<string>(), Types.Values).FirstOrDefault();
-            runtimeType.SetRuntimeInstance(Flags.GetInstance);
+            runtimeType.SetRuntimeInstance(Options.GetInstance);
             runtimeType.SetValue(runtimeType.Attribute, runtimeType.Id, value);
         }
 

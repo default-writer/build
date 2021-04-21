@@ -156,8 +156,8 @@ namespace Build
         /// <summary>
         /// Sets the runtime instance type
         /// </summary>
-        /// <param name="flags"></param>
-        void SetRuntimeInstance(Flags flags);
+        /// <param name="options"></param>
+        void SetRuntimeInstance(Options options);
 
         /// <summary>
         /// Sets the value to the specified attribute.

@@ -190,14 +190,14 @@ Example:
 [Interface]
 interface IInterfaceRuleSet2
 {
-    [InterfaceDependency(Flags.Singleton)]
+    [InterfaceDependency(Options.Singleton)]
     SqlDataRepository Rule(int repositoryId);
 }
 
 [Interface]
 interface IInterfaceRuleSet2_Overwrite
 {
-    [InterfaceDependency(Flags.Singleton)]
+    [InterfaceDependency(Options.Singleton)]
     SqlDataRepository Rule(int repositoryId);
 }
 ```
@@ -493,7 +493,7 @@ Definition:
 ```c#
 public class SqlDataRepository : IPersonRepository
 {
-    [Dependency(Flags.Singleton)]
+    [Dependency(Options.Singleton)]
     public SqlDataRepository(int repositoryId) => RepositoryId = repositoryId;
 
     public int RepositoryId { get; }

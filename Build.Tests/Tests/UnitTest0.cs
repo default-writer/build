@@ -94,7 +94,7 @@ namespace TestSet0
             var constructors = typeof(DefaultSqlDataRepository).GetConstructors();
             var constructorParameters = constructors[0].GetParameters();
             var injectionAttribute = (constructorParameters[0]).GetCustomAttribute<InjectionAttribute>();
-            Assert.Equal(Flags.Exclude, injectionAttribute.Flags);
+            Assert.Equal(Options.Exclude, injectionAttribute.Options);
         }
 
         [Fact]
@@ -104,7 +104,7 @@ namespace TestSet0
             var container = new Container();
             var constructors = typeof(DefaultSqlDataRepository).GetConstructors();
             var dependencyAttribute = (constructors[0]).GetCustomAttribute<DependencyAttribute>();
-            Assert.Equal(Flags.CreateInstance, dependencyAttribute.Flags);
+            Assert.Equal(Options.CreateInstance, dependencyAttribute.Options);
         }
 
         [Fact]

@@ -63,7 +63,7 @@ namespace TestSet16
 
     public class SqlDataRepository : IPersonRepository
     {
-        [Dependency(Flags.Singleton)]
+        [Dependency(Options.Singleton)]
         public SqlDataRepository(int repositoryId) => RepositoryId = repositoryId;
 
         public int RepositoryId { get; }

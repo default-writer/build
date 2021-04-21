@@ -35,7 +35,7 @@ namespace TestSet12
 
     public class SqlDataRepository : IPersonRepository
     {
-        [Dependency(Flags.Singleton)]
+        [Dependency(Options.Singleton)]
         public SqlDataRepository()
         {
         }

@@ -6,7 +6,7 @@ namespace Build
         /// Gets the runtime instance.
         /// </summary>
         /// <value>The runtime instance.</value>
-        Flags Flags { get; }
+        Options Options { get; }
 
         /// <summary>
         /// Gets the full name of the type.

@@ -6,7 +6,7 @@ namespace Build
     /// Runtime instance
     /// </summary>
     [Flags]
-    public enum Flags
+    public enum Options
 
     {
         None = 0x0,

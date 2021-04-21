@@ -42,7 +42,7 @@ namespace Fail_TestSet1
 
     public class Other2 : IPersonRepository
     {
-        [Dependency(Flags.Exclude)]
+        [Dependency(Options.Exclude)]
         public Other2(Type type)
         {
         }
@@ -55,7 +55,7 @@ namespace Fail_TestSet1
 
     public abstract class Other5 : IPersonRepository
     {
-        [Dependency(Flags.Exclude)]
+        [Dependency(Options.Exclude)]
         protected Other5(Type type)
         {
         }

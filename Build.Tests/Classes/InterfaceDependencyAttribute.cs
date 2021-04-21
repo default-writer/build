@@ -15,21 +15,21 @@ namespace Classes
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
         /// <param name="typeFullName">Full name of the type.</param>
-        /// <param name="flags">The runtime instance.</param>
-        public InterfaceDependencyAttribute(string typeFullName, Flags flags) : base(typeFullName) => Flags = flags;
+        /// <param name="options">The runtime instance.</param>
+        public InterfaceDependencyAttribute(string typeFullName, Options options) : base(typeFullName) => Options = options;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <param name="flags">The runtime instance.</param>
-        public InterfaceDependencyAttribute(Type type, Flags flags) : base(type) => Flags = flags;
+        /// <param name="options">The runtime instance.</param>
+        public InterfaceDependencyAttribute(Type type, Options options) : base(type) => Options = options;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
-        /// <param name="flags">The runtime instance.</param>
-        public InterfaceDependencyAttribute(Flags flags) => Flags = flags;
+        /// <param name="options">The runtime instance.</param>
+        public InterfaceDependencyAttribute(Options options) => Options = options;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
@@ -58,6 +58,6 @@ namespace Classes
         /// Gets the runtime instance.
         /// </summary>
         /// <value>The runtime instance.</value>
-        public override Flags Flags { get; } = Flags.CreateInstance;
+        public override Options Options { get; } = Options.CreateInstance;
     }
 }

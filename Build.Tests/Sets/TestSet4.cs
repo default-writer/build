@@ -40,7 +40,7 @@ namespace TestSet4
         {
         }
 
-        [Dependency(typeof(SqlDataRepository), Flags.Singleton)]
+        [Dependency(typeof(SqlDataRepository), Options.Singleton)]
         public SqlDataRepository(int personId)
         {
         }

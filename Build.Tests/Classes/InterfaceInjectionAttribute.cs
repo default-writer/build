@@ -59,7 +59,7 @@ namespace Classes
         /// Gets the runtime instance.
         /// </summary>
         /// <value>The runtime instance.</value>
-        public override Flags Flags => Flags.Exclude;
+        public override Options Options => Options.Exclude;
 
         /// <summary>
         /// Checks that selected index is within parameters array bounds

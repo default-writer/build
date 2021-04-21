@@ -95,8 +95,8 @@
 	<Compile Include="..\Build.Abstractions\ParameterSource.cs">
 	    <Link>Build.Abstractions\ParameterSource.cs</Link>
 	</Compile>
-	<Compile Include="..\Build.Abstractions\Flags.cs">
-      <Link>Build.Abstractions\Flags.cs</Link>
+	<Compile Include="..\Build.Abstractions\Options.cs">
+      <Link>Build.Abstractions\Options.cs</Link>
     </Compile>
     <Compile Include="..\Build.Abstractions\IRuntimeType.cs">
       <Link>Build.Abstractions\IRuntimeType.cs</Link>
