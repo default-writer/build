@@ -1,6 +1,4 @@
-﻿using Build;
-
-namespace TestSet14
+﻿namespace TestSet14
 {
     public interface IPersonRepository
     {

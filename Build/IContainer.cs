@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Build
 {
-    interface IBuilder
+    internal interface IBuilder
     {
         bool CanRegister(Type type);
         void RegisterType(Type type);
@@ -26,7 +26,7 @@ namespace Build
     /// <summary>
     /// interface for type container
     /// </summary>
-    interface IContainer
+    internal interface IContainer
     {
         /// <summary>
         /// Type builder

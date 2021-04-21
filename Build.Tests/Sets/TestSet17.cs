@@ -1,6 +1,4 @@
-﻿using Build;
-
-namespace TestSet17
+﻿namespace TestSet17
 {
     public class SubType
     {

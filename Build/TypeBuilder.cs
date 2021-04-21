@@ -337,7 +337,7 @@ namespace Build
         /// <param name="typeFullName">The identifier.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        public object GetInstance(string typeFullName) => GetInstance(typeFullName, ArrayExtensions.ToArray<object>());
+        public object GetInstance(string typeFullName) => GetInstance(typeFullName, ArrayExtensions.Empty<object>());
 
         /// <summary>
         /// Creates the instance.
@@ -354,7 +354,7 @@ namespace Build
         /// <param name="type">The identifier.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        public object GetInstance(Type type) => GetInstance(ToString(type), ArrayExtensions.ToArray<object>());
+        public object GetInstance(Type type) => GetInstance(ToString(type), ArrayExtensions.Empty<object>());
 
         /// <summary>
         /// Creates the instance.
@@ -509,7 +509,7 @@ namespace Build
                 throw new TypeRegistrationException(string.Format("{0} is null (type name required)", nameof(typeId)));
             if (IsLocked)
                 throw new TypeRegistrationException(string.Format("{0} is not registered (container locked)", typeId));
-            var runtimeTypes = Parser.FindRuntimeTypes(typeId, ArrayExtensions.ToArray<string>(), Types.Values).ToArray();
+            var runtimeTypes = Parser.FindRuntimeTypes(typeId, ArrayExtensions.Empty<string>(), Types.Values).ToArray();
             if (runtimeTypes.Length == 1)
             {
                 var runtimeType = runtimeTypes[0];
@@ -948,7 +948,7 @@ namespace Build
         /// <exception cref="TypeInstantiationException"></exception>
         void RegisterPrimitiveType(Type type, object value)
         {
-            var runtimeType = Parser.FindRuntimeTypes(type.ToString(), ArrayExtensions.ToArray<string>(), Types.Values).FirstOrDefault();
+            var runtimeType = Parser.FindRuntimeTypes(type.ToString(), ArrayExtensions.Empty<string>(), Types.Values).FirstOrDefault();
             runtimeType.SetRuntimeInstance(Options.GetInstance);
             runtimeType.SetValue(runtimeType.Attribute, runtimeType.Id, value);
         }

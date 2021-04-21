@@ -1,6 +1,4 @@
-﻿using Build;
-
-namespace TestSet23
+﻿namespace TestSet23
 {
     public struct D
     {

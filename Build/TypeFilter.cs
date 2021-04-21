@@ -39,7 +39,7 @@ namespace Build
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns><c>true</c> if [is special type] [the specified type]; otherwise, <c>false</c>.</returns>
-        static bool IsSpecialType(Type type, bool useValueTypes = false) => typeof(IntPtr).IsAssignableFrom(type)
+        private static bool IsSpecialType(Type type, bool useValueTypes = false) => typeof(IntPtr).IsAssignableFrom(type)
             || typeof(Type).IsAssignableFrom(type)
             || typeof(Attribute).IsAssignableFrom(type)
             || typeof(MarshalByRefObject).IsAssignableFrom(type)

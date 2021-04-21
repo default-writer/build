@@ -140,7 +140,7 @@ namespace UnitTests19
             container.RegisterType<B>(func1);
             container.RegisterType<LazyFactory<A>>(func2);
             container.RegisterType<C3>();
-            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance((Type)null, Array.Empty<object>()));
+            Assert.Throws<TypeInstantiationException>(() => container.CreateInstance((Type)null, ArrayExtensions.Empty<object>()));
         }
 
         [Fact]

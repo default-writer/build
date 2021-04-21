@@ -1,6 +1,4 @@
-﻿using Build;
-
-namespace TestSet
+﻿namespace TestSet
 {
     public class A
     {

@@ -11,7 +11,7 @@ namespace Build
     [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class InjectionAttribute : RuntimeAttribute, IInjectionAttribute
     {
-        readonly object[] _arguments;
+        private readonly object[] _arguments;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.

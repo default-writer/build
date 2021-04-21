@@ -8,30 +8,27 @@ namespace Build
     /// Runtime information for type
     /// </summary>
     /// <seealso cref="Build.IRuntimeType"/>
-    class RuntimeType : IRuntimeType
+    internal class RuntimeType : IRuntimeType
     {
         /// <summary>
         /// Gets the runtime types.
         /// </summary>
         /// <value>The runtime types.</value>
-        readonly List<IRuntimeType> _runtimeTypes = new();
+        private readonly List<IRuntimeType> _runtimeTypes = new();
 
         /// <summary>
         /// Gets the assignable types.
         /// </summary>
         /// <value>The assignable types.</value>
-        readonly HashSet<string> _types = new();
+        private readonly HashSet<string> _types = new();
 
         /// <summary>
         /// The values
         /// </summary>
-        readonly IDictionary<IRuntimeAttribute, object> _values = new Dictionary<IRuntimeAttribute, object>();
-
-        bool _instance;
-
-        Options _options;
-
-        object _value;
+        private readonly IDictionary<IRuntimeAttribute, object> _values = new Dictionary<IRuntimeAttribute, object>();
+        private bool _instance;
+        private Options _options;
+        private object _value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RuntimeType"/> class.
@@ -115,7 +112,7 @@ namespace Build
         /// <summary>
         /// IRuntimeType activator
         /// </summary>
-        ITypeActivator Activator { get; }
+        private ITypeActivator Activator { get; }
 
         /// <summary>
         /// True if automatic type instantiation for reference types option enabled (does not throws
@@ -125,7 +122,7 @@ namespace Build
         /// If automatic type instantiation for reference types is enabled, type will defaults to
         /// null if not resolved and no exception will be thrown
         /// </remarks>
-        bool UseDefaultTypeInstantiation { get; }
+        private bool UseDefaultTypeInstantiation { get; }
 
         /// <summary>
         /// Gets or sets the <see cref="System.Object"/> with the specified attribute.
@@ -134,7 +131,7 @@ namespace Build
         /// <param name="attribute">The attribute.</param>
         /// <param name="typeFullName">Full name of the type.</param>
         /// <returns></returns>
-        object this[IRuntimeAttribute attribute, string typeFullName]
+        private object this[IRuntimeAttribute attribute, string typeFullName]
         {
             get
             {
@@ -173,7 +170,7 @@ namespace Build
         public object CreateInstance()
         {
             var parameters = ReadParametersInternal();
-            var result = CreateReferenceType(ArrayExtensions.ToArray<object>());
+            var result = CreateReferenceType(ArrayExtensions.Empty<object>());
             WriteParametersInternal(parameters);
             return result;
         }
@@ -270,7 +267,7 @@ namespace Build
         /// Gets the parameters;
         /// </summary>
         /// <returns></returns>
-        object[] ReadParametersInternal()
+        private object[] ReadParametersInternal()
         {
             object[] args = new object[_runtimeTypes.Count];
             for (int i = 0; i < _runtimeTypes.Count; i++)
@@ -326,7 +323,7 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
-        bool WriteParametersInternal(object[] args)
+        private bool WriteParametersInternal(object[] args)
         {
             for (int i = 0; i < args.Length; i++)
             {
@@ -342,7 +339,7 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
-        bool RegisterConstructorParametersInternal(string[] args)
+        private bool RegisterConstructorParametersInternal(string[] args)
         {
             if (args != null && args.Length == _runtimeTypes.Count)
             {
@@ -359,7 +356,7 @@ namespace Build
         /// <param name="args">The arguments.</param>
         /// <param name="parameterSources">Parameter sources</param>
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
-        bool RegisterConstructorParametersInternal(object[] args, ParameterSource[] parameterSources = null)
+        private bool RegisterConstructorParametersInternal(object[] args, ParameterSource[] parameterSources = null)
         {
             if (args!= null && args.Length == _runtimeTypes.Count)
             {
@@ -387,7 +384,7 @@ namespace Build
         /// <param name="args">Parameter passed in to type activator</param>
         /// <param name="parameterSources">Parameter sources</param>
         /// <returns>Returns instance of a reference type</returns>
-        object CreateReferenceType(object[] args, ParameterSource[] parameterSources = null)
+        private object CreateReferenceType(object[] args, ParameterSource[] parameterSources = null)
         {
             if (!IsInitialized)
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructor available)", TypeFullName));
@@ -410,7 +407,7 @@ namespace Build
         /// </summary>
         /// <param name="args">Parameter passed in to type activator</param>
         /// <returns>Returns instance of a reference type</returns>
-        object CreateReferenceType(string[] args)
+        private object CreateReferenceType(string[] args)
         {
             if (!IsInitialized)
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructor available)", TypeFullName));
@@ -434,7 +431,7 @@ namespace Build
         /// <param name="attribute">The attribute.</param>
         /// <param name="i">The i.</param>
         /// <returns></returns>
-        object EvaluateAttribute(IRuntimeAttribute attribute, int? i) => i.HasValue && attribute is IInjectionAttribute injection && injection.CheckBounds(i.Value) ? injection.GetObject(i.Value) : GetValue(attribute, Id);
+        private object EvaluateAttribute(IRuntimeAttribute attribute, int? i) => i.HasValue && attribute is IInjectionAttribute injection && injection.CheckBounds(i.Value) ? injection.GetObject(i.Value) : GetValue(attribute, Id);
 
         /// <summary>
         /// Evaluates the instance.
@@ -443,7 +440,7 @@ namespace Build
         /// <param name="attribute">The runtime attrubute.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        object EvaluateInstance(IRuntimeType type, IRuntimeAttribute attribute)
+        private object EvaluateInstance(IRuntimeType type, IRuntimeAttribute attribute)
         {
             try
             {
@@ -461,7 +458,7 @@ namespace Build
         /// <param name="type">The type.</param>
         /// <param name="attribute">The runtime attribute.</param>
         /// <returns></returns>
-        object EvaluateSingleton(IRuntimeType type, IRuntimeAttribute attribute)
+        private object EvaluateSingleton(IRuntimeType type, IRuntimeAttribute attribute)
         {
             if (!_instance)
             {
@@ -474,7 +471,7 @@ namespace Build
         /// <summary>
         /// Gets default value for type
         /// </summary>
-        object GetDefaultValue()
+        private object GetDefaultValue()
         {
             try
             {
@@ -500,11 +497,11 @@ namespace Build
         /// Checks whether type is not a value type and not yet initialized
         /// </summary>
         /// <returns></returns>
-        bool IsDefaultReferencedType() => !ActivatorType.IsValueType && _options == default;
+        private bool IsDefaultReferencedType() => !ActivatorType.IsValueType && _options == default;
 
         /// <summary>
         /// Updates runtime type id
         /// </summary>
-        void UpdateTypeId() => Id = Format.GetConstructor(TypeFullName, _runtimeTypes.Select(p => p.Type));
+        private void UpdateTypeId() => Id = Format.GetConstructor(TypeFullName, _runtimeTypes.Select(p => p.Type));
     }
 }

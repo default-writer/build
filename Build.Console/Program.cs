@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Build.Console
+﻿namespace Build.Console
 {
     static class Program
     {

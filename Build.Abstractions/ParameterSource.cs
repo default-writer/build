@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Build
+﻿namespace Build
 {    /// <summary>
      /// Parameter source runtime type
      /// </summary>

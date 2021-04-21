@@ -15,7 +15,7 @@ namespace Build
         /// Cache for RuntimeTtype.
         /// </summary>
         /// <value>The cache.</value>
-        IDictionary<IRuntimeType, string> Cache { get; } = new Dictionary<IRuntimeType, string>();
+        private IDictionary<IRuntimeType, string> Cache { get; } = new Dictionary<IRuntimeType, string>();
 
         /// <summary>
         /// Clears all precomputed registered type invariants
@@ -51,7 +51,7 @@ namespace Build
                 }
                 return types.Where((p) => p.MatchParameters(name, args, pars)).Select(CacheRuntimeType);
             }
-            return new IRuntimeType[0];
+            return ArrayExtensions.Empty<IRuntimeType>();
         }
     }
 }

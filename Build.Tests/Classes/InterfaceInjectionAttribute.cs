@@ -16,7 +16,7 @@ namespace Classes
         /// Gets the arguments.
         /// </summary>
         /// <value>The arguments.</value>
-        readonly object[] _arguments = Array.Empty<object>();
+        readonly object[] _arguments = ArrayExtensions.Empty<object>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.

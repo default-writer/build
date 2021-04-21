@@ -1,6 +1,4 @@
-﻿using Build;
-
-namespace Fail_TestSet6
+﻿namespace Fail_TestSet6
 {
     public interface IOtherRepository
     {

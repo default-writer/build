@@ -1,6 +1,4 @@
-﻿using Build;
-
-namespace TestSet22
+﻿namespace TestSet22
 {
     using Classes;
     using TestSet;

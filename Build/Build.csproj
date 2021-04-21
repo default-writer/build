@@ -12,8 +12,6 @@
   
   <PropertyGroup>
     <TargetFrameworks>
-		net451;
-		net452;
 		net46;
 		net461;
 		net462;
@@ -67,6 +65,10 @@ Commit SHA: $(CommitHash)</Description>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Build.Abstractions\Build.Abstractions.csproj" />
