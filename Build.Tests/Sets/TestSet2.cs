@@ -19,7 +19,7 @@ namespace TestSet2
 
     public class ServiceDataRepository : IPersonRepository
     {
-        [Dependency(RuntimeInstance.Singleton)]
+        [Dependency(Flags.Singleton)]
         public ServiceDataRepository([Injection(typeof(SqlDataRepository), 2018)]IPersonRepository repository)
         {
             Repository = repository;
@@ -36,7 +36,7 @@ namespace TestSet2
 
     public class SqlDataRepository : IPersonRepository
     {
-        [Dependency("Ho ho ho", RuntimeInstance.Exclude)]
+        [Dependency("Ho ho ho", Flags.Exclude)]
         public SqlDataRepository()
         {
         }

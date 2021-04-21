@@ -32,14 +32,14 @@ namespace TestSet21
     [Interface]
     interface IInterfaceRuleSet
     {
-        [InterfaceDependency(RuntimeInstance.Singleton)]
+        [InterfaceDependency(Flags.Singleton)]
         Type1 Rule(Arg1 arg1, Arg2 arg2);
     }
 
     [Interface]
     interface IInterfaceRuleSet_CreateInstance
     {
-        [InterfaceDependency(RuntimeInstance.CreateInstance)]
+        [InterfaceDependency(Flags.CreateInstance)]
         Type1 Rule(Arg1 arg1, Arg2 arg2);
     }
 

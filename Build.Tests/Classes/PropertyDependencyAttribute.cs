@@ -15,21 +15,21 @@ namespace Classes
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
         /// <param name="typeFullName">Full name of the type.</param>
-        /// <param name="runtimeInstance">The runtime instance.</param>
-        public PropertyDependencyAttribute(string typeFullName, RuntimeInstance runtimeInstance) : base(typeFullName) => RuntimeInstance = runtimeInstance;
+        /// <param name="flags">The runtime instance.</param>
+        public PropertyDependencyAttribute(string typeFullName, Flags flags) : base(typeFullName) => Flags = flags;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <param name="runtimeInstance">The runtime instance.</param>
-        public PropertyDependencyAttribute(Type type, RuntimeInstance runtimeInstance) : base(type) => RuntimeInstance = runtimeInstance;
+        /// <param name="flags">The runtime instance.</param>
+        public PropertyDependencyAttribute(Type type, Flags flags) : base(type) => Flags = flags;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
         /// </summary>
-        /// <param name="runtimeInstance">The runtime instance.</param>
-        public PropertyDependencyAttribute(RuntimeInstance runtimeInstance) => RuntimeInstance = runtimeInstance;
+        /// <param name="flags">The runtime instance.</param>
+        public PropertyDependencyAttribute(Flags flags) => Flags = flags;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyAttribute"/> class.
@@ -52,6 +52,6 @@ namespace Classes
         /// Gets the runtime instance.
         /// </summary>
         /// <value>The runtime instance.</value>
-        public override RuntimeInstance RuntimeInstance { get; } = RuntimeInstance.CreateInstance;
+        public override Flags Flags { get; } = Flags.CreateInstance;
     }
 }

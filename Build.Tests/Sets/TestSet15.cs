@@ -55,7 +55,7 @@ namespace TestSet15
 
     public class SqlDataRepository : IPersonRepository
     {
-        [Dependency(RuntimeInstance.Singleton)]
+        [Dependency(Flags.Singleton)]
         public SqlDataRepository(int personId)
         {
             PersonId = personId;

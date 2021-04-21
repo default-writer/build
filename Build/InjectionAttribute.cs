@@ -54,7 +54,7 @@ namespace Build
         /// Gets the runtime instance.
         /// </summary>
         /// <value>The runtime instance.</value>
-        public override RuntimeInstance RuntimeInstance => RuntimeInstance.Exclude;
+        public override Flags Flags => Flags.Exclude;
 
         /// <summary>
         /// Checks that selected index is within parameters array bounds

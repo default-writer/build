@@ -29,7 +29,7 @@ namespace Build
 
         bool _instance;
 
-        RuntimeInstance _runtimeInstance;
+        Flags _flags;
 
         object _value;
 
@@ -74,7 +74,7 @@ namespace Build
         /// <summary>
         /// True if parameters was initialized
         /// </summary>
-        public bool GetInstance => _runtimeInstance == (_runtimeInstance | RuntimeInstance.GetInstance);
+        public bool GetInstance => _flags == (_flags | Flags.GetInstance);
 
         /// <summary>
         /// Gets the identifier.
@@ -86,7 +86,7 @@ namespace Build
         /// Gets a value indicating whether this instance is initialized.
         /// </summary>
         /// <value><c>true</c> if this instance is initialized; otherwise, <c>false</c>.</value>
-        public bool IsInitialized => _runtimeInstance != default;
+        public bool IsInitialized => _flags != default;
 
         /// <summary>
         /// Gets the runtime parameters.
@@ -237,18 +237,18 @@ namespace Build
         /// <returns></returns>
         public object Evaluate(IRuntimeType type, IRuntimeAttribute attribute, int? i)
         {
-            switch (_runtimeInstance)
+            switch (_flags)
             {
-                case RuntimeInstance.Singleton:
-                case RuntimeInstance.Singleton | RuntimeInstance.GetInstance:
+                case Flags.Singleton:
+                case Flags.Singleton | Flags.GetInstance:
                     return EvaluateSingleton(type, i.HasValue ? Attribute.GetReferenceAttribute(type.Id) : Attribute);
 
-                case RuntimeInstance.CreateInstance:
-                case RuntimeInstance.CreateInstance | RuntimeInstance.GetInstance:
+                case Flags.CreateInstance:
+                case Flags.CreateInstance | Flags.GetInstance:
                     return EvaluateInstance(type, i.HasValue ? Attribute.GetReferenceAttribute(type.Id) : Attribute);
-                case RuntimeInstance.Exclude:
+                case Flags.Exclude:
                     break;
-                case RuntimeInstance.Default:
+                case Flags.None:
                     if (UseDefaultTypeInstantiation || !IsDefaultReferencedType())
                         return EvaluateAttribute(attribute, i);
                     break;
@@ -309,7 +309,7 @@ namespace Build
         /// Sets the runtime instance.
         /// </summary>
         /// <value>The runtime instance.</value>
-        public void SetRuntimeInstance(RuntimeInstance runtimeInstance) => _runtimeInstance |= runtimeInstance;
+        public void SetRuntimeInstance(Flags flags) => _flags |= flags;
 
         /// <summary>
         /// Sets the value to the specified attribute.
@@ -499,7 +499,7 @@ namespace Build
         /// Checks whether type is not a value type and not yet initialized
         /// </summary>
         /// <returns></returns>
-        bool IsDefaultReferencedType() => !ActivatorType.IsValueType && _runtimeInstance == default;
+        bool IsDefaultReferencedType() => !ActivatorType.IsValueType && _flags == default;
 
         /// <summary>
         /// Updates runtime type id

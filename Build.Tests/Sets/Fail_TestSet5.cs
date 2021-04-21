@@ -29,7 +29,7 @@ namespace Fail_TestSet5
 
     public class OtherRepository : NoSqlDataRepository, IOtherRepository
     {
-        [Dependency(RuntimeInstance.Exclude)]
+        [Dependency(Flags.Exclude)]
         public OtherRepository(int param) : base(null)
         {
             Parameter = param;
@@ -50,7 +50,7 @@ namespace Fail_TestSet5
 
     public class ServiceDataRepository : IPersonRepository
     {
-        [Dependency("Ho ho ho", RuntimeInstance.Exclude)]
+        [Dependency("Ho ho ho", Flags.Exclude)]
         public ServiceDataRepository([Injection("Ho ho ho")]ServiceDataRepository repository)
         {
             Repository = repository;

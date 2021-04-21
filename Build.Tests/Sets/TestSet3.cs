@@ -60,7 +60,7 @@ namespace TestSet3
         {
         }
 
-        [Dependency(RuntimeInstance.Singleton)]
+        [Dependency(Flags.Singleton)]
         public SqlDataRepository(int personId)
         {
             PersonId = personId;
