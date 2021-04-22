@@ -11,7 +11,9 @@ namespace Classes
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns><c>true</c> if this instance can create the specified type; otherwise, <c>false</c>.</returns>
+        #pragma warning disable CA1822
         public bool CanCreate(Type type, bool useValueTypes = false) => InterfaceTypeFilterExtensions.CanCreate(type, useValueTypes);
+        #pragma warning restore
 
         /// <summary>
         /// Determines whether this instance can register the specified type.
