@@ -35,11 +35,7 @@ namespace TestSet16
         public IPersonRepository Repository { get; }
         public int RepositoryId { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class ServiceDataRepository2 : IPersonRepository
@@ -54,11 +50,7 @@ namespace TestSet16
         public IPersonRepository Repository { get; }
         public int RepositoryId { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class SqlDataRepository : IPersonRepository
@@ -68,11 +60,7 @@ namespace TestSet16
 
         public int RepositoryId { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from SQL DB and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class WebServiceDataRepository : IPersonRepository
@@ -96,11 +84,7 @@ namespace TestSet16
         public IPersonRepository RepositoryB { get; }
         public int RepositoryId { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class WebServiceDataRepository2 : IPersonRepository
@@ -124,11 +108,7 @@ namespace TestSet16
         public IPersonRepository RepositoryB { get; }
         public int RepositoryId { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class WebServiceDataRepository3 : IPersonRepository
@@ -152,10 +132,6 @@ namespace TestSet16
         public IPersonRepository RepositoryB { get; }
         public int RepositoryId { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 }

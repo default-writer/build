@@ -28,11 +28,7 @@ namespace TestSet5
 
         public IPersonRepository Repository { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class SqlDataRepository : IPersonRepository
@@ -51,11 +47,6 @@ namespace TestSet5
         }
 
         public int Id { get {return _personId; } }
-
-        public Person GetPerson(int personId)
-        {
-            // get the data from SQL DB and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 }

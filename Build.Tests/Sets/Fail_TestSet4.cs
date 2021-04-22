@@ -35,11 +35,7 @@ namespace Fail_TestSet4
 
         public SqlDataRepository Repository { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class ServiceDataRepository2 : IPersonRepository
@@ -52,11 +48,7 @@ namespace Fail_TestSet4
 
         public object Repository { get; }
         
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class ServiceDataRepository3 : IPersonRepository
@@ -69,11 +61,7 @@ namespace Fail_TestSet4
 
         public SqlDataRepository3 Repository { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class ServiceDataRepository4 : IPersonRepository
@@ -86,11 +74,7 @@ namespace Fail_TestSet4
 
         public object Repository { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class ServiceDataRepository5 : IPersonRepository
@@ -103,11 +87,7 @@ namespace Fail_TestSet4
 
         public SqlDataRepository5 Repository { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class ServiceDataRepository6 : IPersonRepository
@@ -120,11 +100,7 @@ namespace Fail_TestSet4
 
         public object Repository { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class ServiceDataRepository7 : IPersonRepository
@@ -137,11 +113,7 @@ namespace Fail_TestSet4
 
         public object Repository { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class SqlDataRepository : IPersonRepository
@@ -161,12 +133,7 @@ namespace Fail_TestSet4
         }
 
         public int Value { get; }
-
-        public Person GetPerson(int personId)
-        {
-            // get the data from SQL DB and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class SqlDataRepository2 : IPersonRepository
@@ -185,12 +152,7 @@ namespace Fail_TestSet4
 
         public object Repository { get; }
         public int Value { get; }
-
-        public Person GetPerson(int personId)
-        {
-            // get the data from SQL DB and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class SqlDataRepository3 : IPersonRepository
@@ -211,11 +173,7 @@ namespace Fail_TestSet4
         public int Value { get; }
 
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from SQL DB and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class SqlDataRepository4 : IPersonRepository
@@ -236,11 +194,7 @@ namespace Fail_TestSet4
         public int Value { get; }
 
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from SQL DB and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class SqlDataRepository5 : IPersonRepository
@@ -262,11 +216,7 @@ namespace Fail_TestSet4
         public int Value { get; }
 
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from SQL DB and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class SqlDataRepository6 : IPersonRepository
@@ -300,10 +250,6 @@ namespace Fail_TestSet4
 
         public int Id { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from SQL DB and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 }
