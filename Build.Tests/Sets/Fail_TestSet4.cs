@@ -23,6 +23,8 @@ namespace Fail_TestSet4
         {
             _personRepository = personRepository;
         }
+
+        public IPersonRepository Repository { get { return _personRepository; } }
     }
 
     public class ServiceDataRepository : IPersonRepository

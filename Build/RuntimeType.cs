@@ -323,15 +323,14 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
-        private bool WriteParametersInternal(object[] args)
+        private void WriteParametersInternal(object[] args)
         {
             for (int i = 0; i < args.Length; i++)
             {
                 if (args[i] != null && !_runtimeTypes[i].ActivatorType.IsAssignableFrom(Format.GetType(args[i])))
-                    return false;
+                    return;
                 _runtimeTypes[i].SetValue(Attribute, Id, args[i]);
             }
-            return true;
         }
 
         /// <summary>

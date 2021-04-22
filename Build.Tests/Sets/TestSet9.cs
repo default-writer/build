@@ -15,6 +15,8 @@ namespace TestSet9
         {
             _personRepository = personRepository;
         }
+
+        public IPersonRepository Repository { get { return _personRepository; } }
     }
 
     public class ServiceDataRepository : IPersonRepository

@@ -13,7 +13,7 @@ namespace TestSet13
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
-            var srv2 = container.CreateInstance<ServiceDataRepository>();
+            container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv1);
         }
 
@@ -24,7 +24,7 @@ namespace TestSet13
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var srv1 = container.CreateInstance<ServiceDataRepository>();
+            container.CreateInstance<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv2);
         }
@@ -37,7 +37,7 @@ namespace TestSet13
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
-            var srv2 = container.CreateInstance<ServiceDataRepository>();
+            container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv1.Repository);
         }
 
@@ -48,7 +48,7 @@ namespace TestSet13
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var srv1 = container.CreateInstance<ServiceDataRepository>();
+            container.CreateInstance<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv2.Repository);
         }

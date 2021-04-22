@@ -33,6 +33,8 @@ namespace Fail_TestSet7
         {
             _personRepository = personRepository;
         }
+
+        public IPersonRepository Repository { get { return _personRepository; } }
     }
 
     public class ServiceDataRepository : IPersonRepository

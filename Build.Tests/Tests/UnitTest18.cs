@@ -164,7 +164,7 @@ namespace UnitTests18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
-            container.CreateInstance<IntPtrFactory>();
+            Assert.NotNull(container.CreateInstance<IntPtrFactory>());
         }
 
         [Fact]

@@ -21,6 +21,8 @@
         {
             _personRepository = personRepository;
         }
+
+        public IPersonRepository Repository { get { return _personRepository; } }
     }
 
     public class PublicDataRepository : IPersonRepository

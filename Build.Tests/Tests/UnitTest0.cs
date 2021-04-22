@@ -90,7 +90,6 @@ namespace TestSet0
         public static void Method2()
         {
             //TestSet0
-            var container = new Container();
             var constructors = typeof(DefaultSqlDataRepository).GetConstructors();
             var constructorParameters = constructors[0].GetParameters();
             var injectionAttribute = (constructorParameters[0]).GetCustomAttribute<InjectionAttribute>();
@@ -101,7 +100,6 @@ namespace TestSet0
         public static void Method3()
         {
             //TestSet0
-            var container = new Container();
             var constructors = typeof(DefaultSqlDataRepository).GetConstructors();
             var dependencyAttribute = (constructors[0]).GetCustomAttribute<DependencyAttribute>();
             Assert.Equal(Options.CreateInstance, dependencyAttribute.Options);
@@ -111,7 +109,6 @@ namespace TestSet0
         public static void Method4()
         {
             //TestSet0
-            var container = new Container();
             var dependencyAttributeType = typeof(DependencyAttribute);
             var dependencyAttribute = Activator.CreateInstance(dependencyAttributeType);
             Assert.NotNull(dependencyAttribute);

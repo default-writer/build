@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Serialization;
 
 namespace Build
 {
@@ -6,7 +7,7 @@ namespace Build
     /// Exception for type registration
     /// </summary>
     /// <seealso cref="System.Exception"/>
-
+    [Serializable]
     public sealed class TypeRegistrationException : Exception
     {
         /// <summary>
@@ -16,6 +17,8 @@ namespace Build
         {
         }
 
+        private TypeRegistrationException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeRegistrationException"/> class.
         /// </summary>
@@ -23,6 +26,7 @@ namespace Build
         public TypeRegistrationException(string message) : base(message)
         {
         }
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeRegistrationException"/> class.
@@ -34,6 +38,11 @@ namespace Build
         /// </param>
         public TypeRegistrationException(string message, Exception innerException) : base(message, innerException)
         {
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
         }
     }
 }
