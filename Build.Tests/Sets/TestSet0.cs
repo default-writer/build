@@ -62,7 +62,7 @@ namespace TestSet0
 
         public int PersonId { get; }
 
-        public Person GetPerson(int personId) => new Person(this);
+        public Person GetPerson(int personId) => new(this);
     }
 
     class PrivateSqlDataRepository : IPersonRepository

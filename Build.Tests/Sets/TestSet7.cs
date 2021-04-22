@@ -45,7 +45,7 @@ namespace TestSet7
 
     public class ServiceDataRepository2 : IPersonRepository
     {
-        public Person GetPerson(int personId) => new Person(this);
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class SqlDataRepository : IPersonRepository
@@ -55,9 +55,14 @@ namespace TestSet7
         {
         }
 
+        private readonly int _personId;
+
         public SqlDataRepository(int personId)
         {
+            _personId = personId;
         }
+
+        public int Id { get {return _personId; } }
 
         public Person GetPerson(int personId)
         {

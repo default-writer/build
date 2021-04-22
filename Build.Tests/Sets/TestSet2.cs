@@ -43,13 +43,17 @@ namespace TestSet2
         {
         }
 
+        private readonly int _personId;
+
         public SqlDataRepository(int personId)
         {
+            _personId = personId;
         }
+
+        public int Id { get {return _personId; } }
 
         public Person GetPerson(int personId)
         {
-            // get the data from SQL DB and return Person instance.
             return new Person(this);
         }
     }

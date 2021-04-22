@@ -37,15 +37,21 @@ namespace TestSet4
 
     public class SqlDataRepository : IPersonRepository
     {
+        private readonly int _personId;
+
         [Dependency("Ho ho ho")]
         public SqlDataRepository()
         {
         }
 
         [Dependency(typeof(SqlDataRepository), Options.Singleton)]
+
         public SqlDataRepository(int personId)
         {
+            _personId = personId;
         }
+
+        public int Id { get {return _personId; } }
 
         public Person GetPerson(int personId)
         {

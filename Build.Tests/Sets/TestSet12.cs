@@ -37,6 +37,8 @@ namespace TestSet12
 
     public class SqlDataRepository : IPersonRepository
     {
+        private readonly int _personId;
+
         [Dependency(Options.Singleton)]
         public SqlDataRepository()
         {
@@ -44,7 +46,10 @@ namespace TestSet12
 
         public SqlDataRepository(int personId)
         {
+            _personId = personId;
         }
+
+        public int Id { get {return _personId; } }
 
         public Person GetPerson(int personId)
         {

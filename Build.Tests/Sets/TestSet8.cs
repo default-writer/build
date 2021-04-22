@@ -37,6 +37,8 @@ namespace TestSet8
 
     public class SqlDataRepository : IPersonRepository
     {
+        private readonly int _personId;
+
         public SqlDataRepository()
         {
         }
@@ -44,7 +46,10 @@ namespace TestSet8
         [Dependency(typeof(SqlDataRepository))]
         public SqlDataRepository(int personId)
         {
+            _personId = personId;
         }
+
+        public int Id { get {return _personId; } }
 
         public Person GetPerson(int personId)
         {

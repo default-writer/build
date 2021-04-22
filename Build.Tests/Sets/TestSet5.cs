@@ -37,14 +37,20 @@ namespace TestSet5
 
     public class SqlDataRepository : IPersonRepository
     {
+        private readonly int _personId;
+
         public SqlDataRepository()
         {
         }
 
         [Dependency("Ho ho ho")]
+
         public SqlDataRepository(int personId)
         {
+            _personId = personId;
         }
+
+        public int Id { get {return _personId; } }
 
         public Person GetPerson(int personId)
         {
