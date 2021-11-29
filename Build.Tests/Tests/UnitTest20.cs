@@ -8,7 +8,7 @@ namespace TestSet20
     public static class UnitTest
     {
         [Fact]
-        public static void TestSet2_Method1()
+        public static void Method1()
         {
             //TestSet2
             var container = new Container();
@@ -19,7 +19,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method10()
+        public static void Method10()
         {
             //TestSet2
             var container = new Container();
@@ -32,7 +32,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method11()
+        public static void Method11()
         {
             //TestSet2
             var container = new Container(new TypeBuilderOptions() { UseValueTypes = false });
@@ -45,7 +45,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method12()
+        public static void Method12()
         {
             //TestSet2
             var container = new Container();
@@ -58,7 +58,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method13()
+        public static void Method13()
         {
             //TestSet2
             var container = new Container();
@@ -69,7 +69,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method14()
+        public static void Method14()
         {
             //TestSet2
             var container = new Container();
@@ -80,7 +80,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method15()
+        public static void Method15()
         {
             //TestSet2
             var container = new Container();
@@ -92,7 +92,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method16()
+        public static void Method16()
         {
             //TestSet2
             var container = new Container();
@@ -103,7 +103,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method17()
+        public static void Method17()
         {
             //TestSet2
             var container = new Container();
@@ -115,7 +115,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method18()
+        public static void Method18()
         {
             //TestSet2
             var container = new Container();
@@ -128,7 +128,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method19()
+        public static void Method19()
         {
             //TestSet2
             var container = new Container();
@@ -141,7 +141,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method2()
+        public static void Method2()
         {
             //TestSet2
             var container = new Container();
@@ -152,7 +152,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method20()
+        public static void Method20()
         {
             //TestSet2
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -164,7 +164,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method21()
+        public static void Method21()
         {
             //TestSet2
             var container = new Container();
@@ -176,7 +176,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method22()
+        public static void Method22()
         {
             //TestSet2
             var container = new Container();
@@ -190,7 +190,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method23()
+        public static void Method23()
         {
             //TestSet2
             var container = new Container();
@@ -203,7 +203,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method24()
+        public static void Method24()
         {
             //TestSet2
             var container = new Container();
@@ -216,7 +216,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method25()
+        public static void Method25()
         {
             //TestSet2
             var container = new Container();
@@ -234,7 +234,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method26()
+        public static void Method26()
         {
             //TestSet2
             var container = new Container();
@@ -247,7 +247,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method27()
+        public static void Method27()
         {
             //TestSet2
             var container = new Container();
@@ -261,7 +261,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method28()
+        public static void Method28()
         {
             //TestSet2
             var container = new Container();
@@ -273,7 +273,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method29()
+        public static void Method29()
         {
             //TestSet2
             var container = new Container();
@@ -284,7 +284,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method3()
+        public static void Method3()
         {
             //TestSet2
             var container = new Container();
@@ -295,7 +295,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method30()
+        public static void Method30()
         {
             //TestSet2
             var container = new Container();
@@ -308,7 +308,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method31()
+        public static void Method31()
         {
             //TestSet2
             var container = new Container();
@@ -320,7 +320,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method32()
+        public static void Method32()
         {
             var container = new Container();
             var builder = (TypeBuilder)container.Builder;
@@ -329,7 +329,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method33()
+        public static void Method33()
         {
             var container = new Container();
             container.RegisterType<Class2>();
@@ -338,7 +338,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method34()
+        public static void Method34()
         {
             //TestSet2
             var container = new Container();
@@ -353,7 +353,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method35()
+        public static void Method35()
         {
             //TestSet2
             var container = new Container();
@@ -363,7 +363,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method36()
+        public static void Method36()
         {
             //TestSet2
             var container = new Container();
@@ -372,7 +372,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method37()
+        public static void Method37()
         {
             var container = new Container();
             container.RegisterType<Class6>();
@@ -383,7 +383,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method38()
+        public static void Method38()
         {
             //TestSet2
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -395,7 +395,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method39()
+        public static void Method39()
         {
             //TestSet2
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -406,7 +406,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method4()
+        public static void Method4()
         {
             //TestSet2
             var container = new Container();
@@ -418,7 +418,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method40()
+        public static void Method40()
         {
             //TestSet2
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -429,7 +429,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method41()
+        public static void Method41()
         {
             //TestSet2
             var container = new Container();
@@ -443,7 +443,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method42()
+        public static void Method42()
         {
             //TestSet2
             var container = new Container();
@@ -456,7 +456,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method43()
+        public static void Method43()
         {
             //TestSet2
             var container = new Container();
@@ -470,7 +470,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method5()
+        public static void Method5()
         {
             //TestSet2
             var container = new Container();
@@ -482,7 +482,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method6()
+        public static void Method6()
         {
             //TestSet2
             var container = new Container();
@@ -495,7 +495,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method7()
+        public static void Method7()
         {
             //TestSet2
             var container = new Container();
@@ -507,7 +507,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method8()
+        public static void Method8()
         {
             var container = new Container();
             container.RegisterType<Class1>();
@@ -517,7 +517,7 @@ namespace TestSet20
         }
 
         [Fact]
-        public static void TestSet2_Method9()
+        public static void Method9()
         {
             var container = new Container();
             container.RegisterType<Class1>();

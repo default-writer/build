@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace Build
 {
@@ -9,30 +8,27 @@ namespace Build
     /// Runtime information for type
     /// </summary>
     /// <seealso cref="Build.IRuntimeType"/>
-    class RuntimeType : IRuntimeType
+    internal class RuntimeType : IRuntimeType
     {
         /// <summary>
         /// Gets the runtime types.
         /// </summary>
         /// <value>The runtime types.</value>
-        readonly List<IRuntimeType> _runtimeTypes = new List<IRuntimeType>();
+        private readonly List<IRuntimeType> _runtimeTypes = new();
 
         /// <summary>
         /// Gets the assignable types.
         /// </summary>
         /// <value>The assignable types.</value>
-        readonly HashSet<string> _types = new HashSet<string>();
+        private readonly HashSet<string> _types = new();
 
         /// <summary>
         /// The values
         /// </summary>
-        readonly IDictionary<IRuntimeAttribute, object> _values = new Dictionary<IRuntimeAttribute, object>();
-
-        bool _instance;
-
-        RuntimeInstance _runtimeInstance;
-
-        object _value;
+        private readonly IDictionary<IRuntimeAttribute, object> _values = new Dictionary<IRuntimeAttribute, object>();
+        private bool _instance;
+        private Options _options;
+        private object _value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RuntimeType"/> class.
@@ -47,9 +43,9 @@ namespace Build
         public RuntimeType(ITypeActivator typeActivator, IRuntimeAttribute attribute, Type type, bool defaultTypeInstantiation)
         {
             Activator = typeActivator ?? throw new ArgumentNullException(nameof(typeActivator));
-            Type = (type ?? throw new ArgumentNullException(nameof(type))).ToString();
-            ActivatorType = type ?? throw new ArgumentNullException(nameof(type));
             Attribute = attribute ?? throw new ArgumentNullException(nameof(attribute));
+            ActivatorType = type ?? throw new ArgumentNullException(nameof(type));
+            Type = type.ToString();
             UseDefaultTypeInstantiation = defaultTypeInstantiation;
             UpdateTypeId();
         }
@@ -75,7 +71,7 @@ namespace Build
         /// <summary>
         /// True if parameters was initialized
         /// </summary>
-        public bool GetInstance => _runtimeInstance == (_runtimeInstance | RuntimeInstance.GetInstance);
+        public bool GetInstance => _options == (_options | Options.GetInstance);
 
         /// <summary>
         /// Gets the identifier.
@@ -87,7 +83,7 @@ namespace Build
         /// Gets a value indicating whether this instance is initialized.
         /// </summary>
         /// <value><c>true</c> if this instance is initialized; otherwise, <c>false</c>.</value>
-        public bool IsInitialized => _runtimeInstance != RuntimeInstance.None;
+        public bool IsInitialized => _options != default;
 
         /// <summary>
         /// Gets the runtime parameters.
@@ -116,7 +112,7 @@ namespace Build
         /// <summary>
         /// IRuntimeType activator
         /// </summary>
-        ITypeActivator Activator { get; }
+        private ITypeActivator Activator { get; }
 
         /// <summary>
         /// True if automatic type instantiation for reference types option enabled (does not throws
@@ -126,7 +122,7 @@ namespace Build
         /// If automatic type instantiation for reference types is enabled, type will defaults to
         /// null if not resolved and no exception will be thrown
         /// </remarks>
-        bool UseDefaultTypeInstantiation { get; }
+        private bool UseDefaultTypeInstantiation { get; }
 
         /// <summary>
         /// Gets or sets the <see cref="System.Object"/> with the specified attribute.
@@ -135,7 +131,7 @@ namespace Build
         /// <param name="attribute">The attribute.</param>
         /// <param name="typeFullName">Full name of the type.</param>
         /// <returns></returns>
-        object this[IRuntimeAttribute attribute, string typeFullName]
+        private object this[IRuntimeAttribute attribute, string typeFullName]
         {
             get
             {
@@ -173,9 +169,9 @@ namespace Build
         /// <exception cref="TypeInstantiationException"></exception>
         public object CreateInstance()
         {
-            var parameters = ReadParameters();
-            var result = CreateReferenceType(ArrayExtensions.ToArray<object>());
-            WriteParameters(parameters);
+            var parameters = ReadParametersInternal();
+            var result = CreateReferenceType(ArrayExtensions.Empty<object>());
+            WriteParametersInternal(parameters);
             return result;
         }
 
@@ -183,15 +179,16 @@ namespace Build
         /// Creates the instance.
         /// </summary>
         /// <param name="args">The arguments.</param>
+        /// <param name="parameterSources">Parameter sources</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        public object CreateInstance(object[] args)
+        public object CreateInstance(object[] args, ParameterSource[] parameterSources = null)
         {
             if (ActivatorType.IsValueType && ActivatorType.IsPrimitive)
                 return Value;
-            var parameters = ReadParameters();
-            var result = CreateReferenceType(args);
-            WriteParameters(parameters);
+            var parameters = ReadParametersInternal();
+            var result = CreateReferenceType(args, parameterSources);
+            WriteParametersInternal(parameters);
             return result;
         }
 
@@ -203,9 +200,9 @@ namespace Build
         /// <exception cref="TypeInstantiationException"></exception>
         public object CreateInstance(string[] args)
         {
-            var parameters = ReadParameters();
+            var parameters = ReadParametersInternal();
             var result = CreateReferenceType(args);
-            WriteParameters(parameters);
+            WriteParametersInternal(parameters);
             return result;
         }
 
@@ -237,19 +234,22 @@ namespace Build
         /// <returns></returns>
         public object Evaluate(IRuntimeType type, IRuntimeAttribute attribute, int? i)
         {
-            switch (_runtimeInstance)
+            switch (_options)
             {
-                case RuntimeInstance.Singleton:
-                case RuntimeInstance.Singleton | RuntimeInstance.GetInstance:
+                case Options.Singleton:
+                case Options.Singleton | Options.GetInstance:
                     return EvaluateSingleton(type, i.HasValue ? Attribute.GetReferenceAttribute(type.Id) : Attribute);
 
-                case RuntimeInstance.CreateInstance:
-                case RuntimeInstance.CreateInstance | RuntimeInstance.GetInstance:
+                case Options.CreateInstance:
+                case Options.CreateInstance | Options.GetInstance:
                     return EvaluateInstance(type, i.HasValue ? Attribute.GetReferenceAttribute(type.Id) : Attribute);
-
-                case RuntimeInstance.None:
+                case Options.Exclude:
+                    break;
+                case Options.None:
                     if (UseDefaultTypeInstantiation || !IsDefaultReferencedType())
                         return EvaluateAttribute(attribute, i);
+                    break;
+                default:
                     break;
             }
             throw new TypeInstantiationException(string.Format("{0} is not instantiated (constructor not allowed)", TypeFullName));
@@ -267,7 +267,7 @@ namespace Build
         /// Gets the parameters;
         /// </summary>
         /// <returns></returns>
-        public object[] ReadParameters()
+        private object[] ReadParametersInternal()
         {
             object[] args = new object[_runtimeTypes.Count];
             for (int i = 0; i < _runtimeTypes.Count; i++)
@@ -281,15 +281,16 @@ namespace Build
         /// Registers the specified arguments match search criteria.
         /// </summary>
         /// <param name="args">The arguments.</param>
+        /// <param name="parameterSources">Parameter sources</param>
         /// <returns></returns>
-        public bool RegisterConstructorParameters(object[] args) => args != null && (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && WriteParameters(args);
+        public bool RegisterConstructorParameters(object[] args, ParameterSource[] parameterSources = null) => args != null && (args.Length == 0 || RuntimeTypes == null || args.Length == _runtimeTypes.Count) && RegisterConstructorParametersInternal(args, parameterSources);
 
         /// <summary>
         /// Registers the specified arguments match search criteria.
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public bool RegisterConstructorParameters(string[] args) => args != null && (args.Length == 0 || args.Length == _runtimeTypes.Count) && TryWriteParameters(args);
+        public bool RegisterConstructorParameters(string[] args) => args != null && (args.Length == 0 || args.Length == _runtimeTypes.Count) && RegisterConstructorParametersInternal(args);
 
         /// <summary>
         /// Registers type full name as assignable type
@@ -304,8 +305,9 @@ namespace Build
         /// <summary>
         /// Sets the runtime instance.
         /// </summary>
+        /// <param name="options"></param>
         /// <value>The runtime instance.</value>
-        public void SetRuntimeInstance(RuntimeInstance runtimeInstance) => _runtimeInstance |= runtimeInstance;
+        public void SetRuntimeInstance(Options options) => _options |= options;
 
         /// <summary>
         /// Sets the value to the specified attribute.
@@ -315,31 +317,62 @@ namespace Build
         /// <param name="value">Value</param>
         public void SetValue(IRuntimeAttribute attribute, string typeId, object value) => this[attribute, typeId] = value;
 
-        /// <summary>
-        /// Registers the parameters.
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
-        public bool TryWriteParameters(string[] args)
-        {
-            for (int i = 0; i < args.Length; i++)
-                if (!_runtimeTypes[i].ContainsTypeDefinition(args[i]))
-                    return false;
-            return true;
-        }
 
         /// <summary>
-        /// Registers the parameters.
+        /// Restores parameters.
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
-        public bool WriteParameters(object[] args)
+        private void WriteParametersInternal(object[] args)
         {
             for (int i = 0; i < args.Length; i++)
             {
                 if (args[i] != null && !_runtimeTypes[i].ActivatorType.IsAssignableFrom(Format.GetType(args[i])))
-                    return false;
+                    return;
                 _runtimeTypes[i].SetValue(Attribute, Id, args[i]);
+            }
+        }
+
+        /// <summary>
+        /// Tries to register parameters.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
+        private bool RegisterConstructorParametersInternal(string[] args)
+        {
+            if (args != null && args.Length == _runtimeTypes.Count)
+            {
+                for (int i = 0; i < args.Length; i++)
+                    if (!_runtimeTypes[i].ContainsTypeDefinition(args[i]))
+                        return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Registers parameters.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
+        private bool RegisterConstructorParametersInternal(object[] args, ParameterSource[] parameterSources = null)
+        {
+            if (args!= null && args.Length == _runtimeTypes.Count)
+            {
+                for (int i = 0; i < _runtimeTypes.Count; i++)
+                {
+                    if (args[i] != null && !_runtimeTypes[i].ActivatorType.IsAssignableFrom(Format.GetType(args[i])))
+                        return false;
+                    _runtimeTypes[i].SetValue(Attribute, Id, args[i]);
+                }
+            }
+            if (parameterSources != null && parameterSources.Length == _runtimeTypes.Count)
+            {
+                for (int i = 0; i < _runtimeTypes.Count; i++)
+                {
+                    if (parameterSources[i] == ParameterSource.Instance)
+                        _runtimeTypes[i].SetValue(Attribute, Id, _runtimeTypes[i].Evaluate(_runtimeTypes[i], _runtimeTypes[i].Attribute, i));
+                }
             }
             return true;
         }
@@ -348,12 +381,13 @@ namespace Build
         /// Creates reference type
         /// </summary>
         /// <param name="args">Parameter passed in to type activator</param>
+        /// <param name="parameterSources">Parameter sources</param>
         /// <returns>Returns instance of a reference type</returns>
-        object CreateReferenceType(object[] args)
+        private object CreateReferenceType(object[] args, ParameterSource[] parameterSources = null)
         {
             if (!IsInitialized)
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructor available)", TypeFullName));
-            if (!RegisterConstructorParameters(args))
+            if (!RegisterConstructorParameters(args, parameterSources))
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (parameter type mismatch)", TypeFullName));
             try
             {
@@ -372,7 +406,7 @@ namespace Build
         /// </summary>
         /// <param name="args">Parameter passed in to type activator</param>
         /// <returns>Returns instance of a reference type</returns>
-        object CreateReferenceType(string[] args)
+        private object CreateReferenceType(string[] args)
         {
             if (!IsInitialized)
                 throw new TypeInstantiationException(string.Format("{0} is not instantiated (no constructor available)", TypeFullName));
@@ -396,7 +430,7 @@ namespace Build
         /// <param name="attribute">The attribute.</param>
         /// <param name="i">The i.</param>
         /// <returns></returns>
-        object EvaluateAttribute(IRuntimeAttribute attribute, int? i) => i.HasValue && attribute is IInjectionAttribute injection && injection.CheckBounds(i.Value) ? injection.GetObject(i.Value) : GetValue(attribute, Id);
+        private object EvaluateAttribute(IRuntimeAttribute attribute, int? i) => i.HasValue && attribute is IInjectionAttribute injection && injection.CheckBounds(i.Value) ? injection.GetObject(i.Value) : GetValue(attribute, Id);
 
         /// <summary>
         /// Evaluates the instance.
@@ -405,7 +439,7 @@ namespace Build
         /// <param name="attribute">The runtime attrubute.</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        object EvaluateInstance(IRuntimeType type, IRuntimeAttribute attribute)
+        private object EvaluateInstance(IRuntimeType type, IRuntimeAttribute attribute)
         {
             try
             {
@@ -423,7 +457,7 @@ namespace Build
         /// <param name="type">The type.</param>
         /// <param name="attribute">The runtime attribute.</param>
         /// <returns></returns>
-        object EvaluateSingleton(IRuntimeType type, IRuntimeAttribute attribute)
+        private object EvaluateSingleton(IRuntimeType type, IRuntimeAttribute attribute)
         {
             if (!_instance)
             {
@@ -436,7 +470,7 @@ namespace Build
         /// <summary>
         /// Gets default value for type
         /// </summary>
-        object GetDefaultValue()
+        private object GetDefaultValue()
         {
             try
             {
@@ -462,11 +496,11 @@ namespace Build
         /// Checks whether type is not a value type and not yet initialized
         /// </summary>
         /// <returns></returns>
-        bool IsDefaultReferencedType() => !ActivatorType.IsValueType && _runtimeInstance == RuntimeInstance.None;
+        private bool IsDefaultReferencedType() => !ActivatorType.IsValueType && _options == default;
 
         /// <summary>
         /// Updates runtime type id
         /// </summary>
-        void UpdateTypeId() => Id = Format.GetConstructor(TypeFullName, _runtimeTypes.Select(p => p.Type));
+        private void UpdateTypeId() => Id = Format.GetConstructor(TypeFullName, _runtimeTypes.Select(p => p.Type));
     }
 }

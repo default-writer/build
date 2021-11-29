@@ -6,55 +6,55 @@ namespace TestSet13
     public static class UnitTest
     {
         [Fact]
-        public static void TestSet13_Method1()
+        public static void Method1()
         {
             //TestSet13
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
-            var srv2 = container.CreateInstance<ServiceDataRepository>();
+            container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv1);
         }
 
         [Fact]
-        public static void TestSet13_Method2()
+        public static void Method2()
         {
             //TestSet13
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var srv1 = container.CreateInstance<ServiceDataRepository>();
+            container.CreateInstance<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv2);
         }
 
         [Fact]
-        public static void TestSet13_Method3()
+        public static void Method3()
         {
             //TestSet13
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             var srv1 = container.CreateInstance<ServiceDataRepository>();
-            var srv2 = container.CreateInstance<ServiceDataRepository>();
+            container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv1.Repository);
         }
 
         [Fact]
-        public static void TestSet13_Method4()
+        public static void Method4()
         {
             //TestSet13
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var srv1 = container.CreateInstance<ServiceDataRepository>();
+            container.CreateInstance<ServiceDataRepository>();
             var srv2 = container.CreateInstance<ServiceDataRepository>();
             Assert.NotNull(srv2.Repository);
         }
 
         [Fact]
-        public static void TestSet13_Method5()
+        public static void Method5()
         {
             //TestSet13
             var container = new Container();
@@ -66,7 +66,7 @@ namespace TestSet13
         }
 
         [Fact]
-        public static void TestSet13_Method6()
+        public static void Method6()
         {
             //TestSet13
             var container = new Container();

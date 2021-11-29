@@ -6,7 +6,7 @@ namespace TestSet1
     public static class UnitTest
     {
         [Fact]
-        public static void TestSet1_Method1()
+        public static void Method1()
         {
             //TestSet1
             var container = new Container();
@@ -17,7 +17,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method10()
+        public static void Method10()
         {
             //TestSet1
             var container = new Container();
@@ -44,7 +44,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method11()
+        public static void Method11()
         {
             //TestSet1
             var container = new Container();
@@ -54,7 +54,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method12()
+        public static void Method12()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
@@ -79,7 +79,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method13()
+        public static void Method13()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
@@ -101,7 +101,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method14()
+        public static void Method14()
         {
             //TestSet1
             var typeConstructor = new TypeConstructor();
@@ -116,7 +116,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method15()
+        public static void Method15()
         {
             //TestSet1
             var typeConstructor = new TypeConstructor();
@@ -132,7 +132,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method16()
+        public static void Method16()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
@@ -157,7 +157,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method17()
+        public static void Method17()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false, UseDefaultTypeAttributeOverwrite = false });
@@ -181,7 +181,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method18()
+        public static void Method18()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false, UseDefaultTypeAttributeOverwrite = false });
@@ -202,7 +202,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method19()
+        public static void Method19()
         {
             //TestSet1
             var container = new Container();
@@ -229,7 +229,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method2()
+        public static void Method2()
         {
             //TestSet1
             var container = new Container();
@@ -240,7 +240,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method20()
+        public static void Method20()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -252,7 +252,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method21()
+        public static void Method21()
         {
             //TestSet1
             var container = new Container();
@@ -264,7 +264,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method22()
+        public static void Method22()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -275,7 +275,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method23()
+        public static void Method23()
         {
             //TestSet1
             var container = new Container();
@@ -286,7 +286,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method24()
+        public static void Method24()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
@@ -312,7 +312,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method25()
+        public static void Method25()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -324,7 +324,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method26()
+        public static void Method26()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -336,7 +336,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method27()
+        public static void Method27()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -348,7 +348,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method28()
+        public static void Method28()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -361,7 +361,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method29()
+        public static void Method29()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -374,7 +374,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method3()
+        public static void Method3()
         {
             //TestSet1
             var container = new Container();
@@ -385,7 +385,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method30()
+        public static void Method30()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -397,71 +397,75 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method31()
+        public static void Method31()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             container.RegisterType<PrivateSqlDataRepository>(1);
-            var sql2 = (PrivateSqlDataRepository)container.CreateInstance("TestSet1.PrivateSqlDataRepository(System.Int32)", 2);
+            var type = container.CreateInstance("TestSet1.PrivateSqlDataRepository(System.Int32)", 2);
             var sql = (PrivateSqlDataRepository)container.CreateInstance("TestSet1.PrivateSqlDataRepository(System.Int32)");
+            Assert.True(type != null && type.GetType() == typeof(PrivateSqlDataRepository));
             Assert.Equal(1, sql.PersonId);
         }
 
         [Fact]
-        public static void TestSet1_Method32()
+        public static void Method32()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             container.RegisterType<PrivateSqlDataRepository>(1);
-            var sql2 = (PrivateSqlDataRepository)container.CreateInstance("TestSet1.PrivateSqlDataRepository(System.Int32)", 2);
+            var type = container.CreateInstance("TestSet1.PrivateSqlDataRepository(System.Int32)", 2);
             var sql = (PrivateSqlDataRepository)container.GetInstance("TestSet1.PrivateSqlDataRepository(System.Int32)");
+            Assert.True(type != null && type.GetType() == typeof(PrivateSqlDataRepository));
             Assert.Equal(1, sql.PersonId);
         }
 
         [Fact]
-        public static void TestSet1_Method33()
+        public static void Method33()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
             container.RegisterType<PrivateSqlDataRepository>(2);
-            var sql2 = (PrivateSqlDataRepository)container.CreateInstance("TestSet1.PrivateSqlDataRepository(System.Int32)", 2);
+            var type = container.CreateInstance("TestSet1.PrivateSqlDataRepository(System.Int32)", 2);
+            var sql = (PrivateSqlDataRepository)container.GetInstance("TestSet1.PrivateSqlDataRepository", 1);
+            Assert.True(type != null && type.GetType() == typeof(PrivateSqlDataRepository));
+            Assert.Equal(2, sql.PersonId);
+        }
+
+        [Fact]
+        public static void Method34()
+        {
+            //TestSet1
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<PrivateSqlDataRepository>(2);
+            var type = container.CreateInstance("TestSet1.PrivateSqlDataRepository(System.Int32)", 2);
+            var sql = (PrivateSqlDataRepository)container.CreateInstance("TestSet1.PrivateSqlDataRepository", 1);
+            Assert.True(type != null && type.GetType() == typeof(PrivateSqlDataRepository));
+            Assert.Equal(1, sql.PersonId);
+        }
+
+        [Fact]
+        public static void Method35()
+        {
+            //TestSet1
+            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
+            container.RegisterType<SqlDataRepository>();
+            container.RegisterType<ServiceDataRepository>();
+            container.RegisterType<PrivateSqlDataRepository>(2);
             var sql = (PrivateSqlDataRepository)container.GetInstance("TestSet1.PrivateSqlDataRepository", 1);
             Assert.Equal(2, sql.PersonId);
         }
 
         [Fact]
-        public static void TestSet1_Method34()
-        {
-            //TestSet1
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
-            container.RegisterType<SqlDataRepository>();
-            container.RegisterType<ServiceDataRepository>();
-            container.RegisterType<PrivateSqlDataRepository>(2);
-            var sql2 = (PrivateSqlDataRepository)container.CreateInstance("TestSet1.PrivateSqlDataRepository(System.Int32)", 2);
-            var sql = (PrivateSqlDataRepository)container.CreateInstance("TestSet1.PrivateSqlDataRepository", 1);
-            Assert.Equal(1, sql.PersonId);
-        }
-
-        [Fact]
-        public static void TestSet1_Method35()
-        {
-            //TestSet1
-            var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
-            container.RegisterType<SqlDataRepository>();
-            container.RegisterType<ServiceDataRepository>();
-            container.RegisterType<PrivateSqlDataRepository>(2);
-            var sql = (PrivateSqlDataRepository)container.GetInstance("TestSet1.PrivateSqlDataRepository", 1);
-            Assert.Equal(2, sql.PersonId);
-        }
-
-        [Fact]
-        public static void TestSet1_Method36()
+        public static void Method36()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -473,7 +477,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method37()
+        public static void Method37()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -484,7 +488,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method38()
+        public static void Method38()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -496,7 +500,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method39()
+        public static void Method39()
         {
             //TestSet1
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -508,7 +512,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method4()
+        public static void Method4()
         {
             //TestSet1
             var container = new Container();
@@ -519,7 +523,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method5()
+        public static void Method5()
         {
             //TestSet1
             var container = new Container();
@@ -531,7 +535,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method6()
+        public static void Method6()
         {
             //TestSet1
             var container = new Container();
@@ -543,7 +547,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method7()
+        public static void Method7()
         {
             //TestSet1
             var container = new Container();
@@ -555,7 +559,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method8()
+        public static void Method8()
         {
             //TestSet1
             var container = new Container();
@@ -567,7 +571,7 @@ namespace TestSet1
         }
 
         [Fact]
-        public static void TestSet1_Method9()
+        public static void Method9()
         {
             //TestSet1
             var container = new Container();
@@ -576,6 +580,96 @@ namespace TestSet1
             container.RegisterType<PrivateSqlDataRepository>();
             string name = null;
             Assert.Throws<TypeInstantiationException>(() => (PrivateSqlDataRepository)container.CreateInstance(name, System.Array.Empty<object>()));
+        }
+
+        [Fact]
+        public static void TestSet1_Method0()
+        {
+            //TestSet1
+            var container = new Container();
+            container.RegisterType<PersonRepository>(1);
+            var instance = (PersonRepository)container.CreateInstance(typeof(PersonRepository), new ParameterSource[] { ParameterSource.Instance });
+            Assert.True(instance.GetPersonId() == 2021);
+        }
+
+        [Fact]
+        public static void TestSet1_Method1()
+        {
+            //TestSet1
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeInstantiation = false });
+            container.RegisterType<PersonRepository>(1);
+            var instance = (PersonRepository)container.CreateInstance(typeof(PersonRepository), new ParameterSource[] { ParameterSource.Instance });
+            Assert.True(instance.GetPersonId() == 2021);
+        }
+
+        [Fact]
+        public static void TestSet1_Method2()
+        {
+            //TestSet1
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeInstantiation = true });
+            container.RegisterType<PersonRepository>(1);
+            var instance = (PersonRepository)container.CreateInstance(typeof(PersonRepository), new ParameterSource[] { ParameterSource.Instance });
+            Assert.True(instance.GetPersonId() == 2021);
+        }
+
+        [Fact]
+        public static void TestSet1_Method3()
+        {
+            //TestSet1
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeInstantiation = true, UseDefaultTypeResolution = true });
+            container.RegisterType<PersonRepository>(1);
+            var instance = (PersonRepository)container.CreateInstance(typeof(PersonRepository), new ParameterSource[] { ParameterSource.Instance });
+            Assert.True(instance.GetPersonId() == 2021);
+        }
+
+        [Fact]
+        public static void TestSet1_Method4()
+        {
+            //TestSet1
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeInstantiation = true, UseDefaultTypeResolution = false });
+            container.RegisterType<PersonRepository>(1);
+            var instance = (PersonRepository)container.CreateInstance(typeof(PersonRepository), new ParameterSource[] { ParameterSource.Instance });
+            Assert.True(instance.GetPersonId() == 2021);
+        }
+
+        [Fact]
+        public static void TestSet1_Method5()
+        {
+            //TestSet1
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeInstantiation = false, UseDefaultTypeResolution = true });
+            container.RegisterType<PersonRepository>(1);
+            var instance = (PersonRepository)container.CreateInstance(typeof(PersonRepository), new ParameterSource[] { ParameterSource.Instance });
+            Assert.True(instance.GetPersonId() == 2021);
+        }
+
+        [Fact]
+        public static void TestSet1_Method6()
+        {
+            //TestSet1
+            var container = new Container(new TypeBuilderOptions { UseDefaultTypeInstantiation = false, UseDefaultTypeResolution = false });
+            container.RegisterType<PersonRepository>(1);
+            var instance = (PersonRepository)container.CreateInstance(typeof(PersonRepository), new ParameterSource[] { ParameterSource.Instance });
+            Assert.True(instance.GetPersonId() == 2021);
+        }
+
+        [Fact]
+        public static void TestSet1_Method7()
+        {
+            //TestSet1
+            var container = new Container();
+            container.RegisterType<PersonRepository>(1);
+            var instance = (PersonRepository)container.CreateInstance(typeof(PersonRepository), new ParameterSource[] { ParameterSource.Default });
+            Assert.True(instance.GetPersonId() == 1);
+        }
+
+        [Fact]
+        public static void TestSet1_Method8()
+        {
+            //TestSet1
+            var container = new Container();
+            container.RegisterType<PersonRepository>(1);
+            var instance = (PersonRepository)container.CreateInstance(typeof(PersonRepository));
+            Assert.True(instance.GetPersonId() == 1);
         }
     }
 }

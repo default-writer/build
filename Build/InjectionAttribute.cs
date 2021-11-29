@@ -11,7 +11,7 @@ namespace Build
     [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class InjectionAttribute : RuntimeAttribute, IInjectionAttribute
     {
-        readonly object[] _arguments;
+        private readonly object[] _arguments;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InjectionAttribute"/> class.
@@ -54,7 +54,7 @@ namespace Build
         /// Gets the runtime instance.
         /// </summary>
         /// <value>The runtime instance.</value>
-        public override RuntimeInstance RuntimeInstance => RuntimeInstance.Exclude;
+        public override Options Options => Options.Exclude;
 
         /// <summary>
         /// Checks that selected index is within parameters array bounds

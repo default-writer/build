@@ -36,14 +36,14 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public static IEnumerable<string> GetNames(object[] args) => args == null || args.Length == 0 ? ArrayExtensions.ToArray<string>() : args.Select(GetName);
+        public static IEnumerable<string> GetNames(object[] args) => args == null || args.Length == 0 ? ArrayExtensions.Empty<string>() : args.Select(GetName);
 
         /// <summary>
         /// Gets the full name of the parameters.
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public static IEnumerable<string> GetNames(string[] args) => args == null || args.Length == 0 ? ArrayExtensions.ToArray<string>() : args;
+        public static IEnumerable<string> GetNames(string[] args) => args == null || args.Length == 0 ? ArrayExtensions.Empty<string>() : args;
 
         /// <summary>
         /// Gets object full name
@@ -57,6 +57,6 @@ namespace Build
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns></returns>
-        public static IEnumerable<Type> GetTypes(object[] args) => args == null || args.Length == 0 ? ArrayExtensions.ToArray<Type>() : args.Select(GetType);
+        public static IEnumerable<Type> GetTypes(object[] args) => args == null || args.Length == 0 ? ArrayExtensions.Empty<Type>() : args.Select(GetType);
     }
 }

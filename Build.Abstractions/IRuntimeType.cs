@@ -96,9 +96,10 @@ namespace Build
         /// Creates the instance.
         /// </summary>
         /// <param name="args">The arguments.</param>
+        /// <param name="parameterSources">Parameter sources</param>
         /// <returns></returns>
         /// <exception cref="TypeInstantiationException"></exception>
-        object CreateInstance(object[] args);
+        object CreateInstance(object[] args, ParameterSource[] parameterSources = null);
 
         /// <summary>
         /// Creates the instance.
@@ -132,14 +133,15 @@ namespace Build
         object GetValue(IRuntimeAttribute attribute, string typeId);
 
         /// <summary>
-        /// Registers the parameters.
+        /// Registers parameters.
         /// </summary>
         /// <param name="args">The arguments.</param>
+        /// <param name="parameterSources">Parameter sources</param>
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
-        bool RegisterConstructorParameters(object[] args);
+        bool RegisterConstructorParameters(object[] args, ParameterSource[] parameterSources = null);
 
         /// <summary>
-        /// Registers the parameters.
+        /// Registers parameters.
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
@@ -154,8 +156,8 @@ namespace Build
         /// <summary>
         /// Sets the runtime instance type
         /// </summary>
-        /// <param name="runtimeInstance"></param>
-        void SetRuntimeInstance(RuntimeInstance runtimeInstance);
+        /// <param name="options"></param>
+        void SetRuntimeInstance(Options options);
 
         /// <summary>
         /// Sets the value to the specified attribute.

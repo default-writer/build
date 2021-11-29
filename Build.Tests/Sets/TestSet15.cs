@@ -35,6 +35,8 @@ namespace TestSet15
         {
             _personRepository = personRepository;
         }
+
+        public IPersonRepository Repository { get { return _personRepository; } }
     }
 
     public class ServiceDataRepository : IPersonRepository
@@ -46,16 +48,12 @@ namespace TestSet15
 
         public IPersonRepository Repository { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class SqlDataRepository : IPersonRepository
     {
-        [Dependency(RuntimeInstance.Singleton)]
+        [Dependency(Options.Singleton)]
         public SqlDataRepository(int personId)
         {
             PersonId = personId;
@@ -63,10 +61,7 @@ namespace TestSet15
 
         public int PersonId { get; }
 
-        public Person GetPerson(int personId)
-        {
-            throw new NotImplementedException();
-        }
+        public Person GetPerson(int personId) => throw new NotImplementedException();
     }
 
     public class WebServiceDataRepository : IPersonRepository
@@ -78,10 +73,6 @@ namespace TestSet15
 
         public IPersonRepository Repository { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 }

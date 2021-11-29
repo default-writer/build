@@ -3,12 +3,12 @@ using System.Reflection;
 
 namespace Build
 {
-    static class PropertyCache
+    internal static class PropertyCache
     {
         /// <summary>
         /// The raw values
         /// </summary>
-        static readonly IDictionary<string, PropertyInfo> _objects = new Dictionary<string, PropertyInfo>();
+        private static readonly IDictionary<string, PropertyInfo> _objects = new Dictionary<string, PropertyInfo>();
 
         /// <summary>
         /// Gets the property from the runtime type.

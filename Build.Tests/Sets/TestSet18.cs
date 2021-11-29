@@ -16,7 +16,7 @@ namespace TestSet18
 
         public static implicit operator T(ValueStruct<T> valueStruct) => valueStruct.Value;
 
-        public static implicit operator ValueStruct<T>(T value) => new ValueStruct<T>(value);
+        public static implicit operator ValueStruct<T>(T value) => new(value);
 
         public static bool operator !=(ValueStruct<T> left, ValueStruct<T> right) => !(left == right);
 
@@ -37,7 +37,7 @@ namespace TestSet18
 
         public ErrorValueClass(ValueClass<T> value) => Value = value.Value;
 
-        public static implicit operator ErrorValueClass<T>(T value) => new ErrorValueClass<T>(new ValueClass<T>(value));
+        public static implicit operator ErrorValueClass<T>(T value) => new(new ValueClass<T>(value));
 
         public static implicit operator T(ErrorValueClass<T> valueStruct) => valueStruct.Value;
     }
@@ -48,7 +48,7 @@ namespace TestSet18
 
         public ErrorValueStruct(ValueClass<T> value) => Value = value.Value;
 
-        public static implicit operator ErrorValueStruct<T>(T value) => new ErrorValueStruct<T>(new ValueClass<T>(value));
+        public static implicit operator ErrorValueStruct<T>(T value) => new(new ValueClass<T>(value));
 
         public static implicit operator T(ErrorValueStruct<T> valueStruct) => valueStruct.Value;
     }
@@ -120,6 +120,6 @@ namespace TestSet18
 
         public static implicit operator T(ValueClass<T> valueStruct) => valueStruct.Value;
 
-        public static implicit operator ValueClass<T>(T value) => new ValueClass<T>(value);
+        public static implicit operator ValueClass<T>(T value) => new(value);
     }
 }

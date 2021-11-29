@@ -4,10 +4,9 @@ using System.Reflection;
 
 namespace Build
 {
-    public interface IBuilder
+    internal interface IBuilder
     {
         bool CanRegister(Type type);
-
         void RegisterType(Type type);
         void RegisterType(Type type, bool v);
         void RegisterType(Type type, params object[] args);
@@ -25,9 +24,9 @@ namespace Build
     }
 
     /// <summary>
-    /// Public interface for type container
+    /// interface for type container
     /// </summary>
-    public interface IContainer
+    internal interface IContainer
     {
         /// <summary>
         /// Type builder
@@ -70,13 +69,6 @@ namespace Build
         /// <typeparam name="T">Type identifier</typeparam>
         /// <returns>Returns instance of identified type</returns>
         T CreateInstance<T>(params object[] args);
-
-        /// <summary>
-        /// Creates an object identified as instance of type T
-        /// </summary>
-        /// <typeparam name="T">Type identifier</typeparam>
-        /// <returns>Returns instance of identified type</returns>
-        T CreateInstance<T>();
 
         /// <summary>
         /// Creates an object
@@ -126,13 +118,6 @@ namespace Build
         object CreateInstance(string typeId, params Type[] args);
 
         /// <summary>
-        /// Creates an object
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>Returns instance of identified type</returns>
-        object CreateInstance(Type type);
-
-        /// <summary>
         /// Creates an object identified as instance of type T
         /// </summary>
         /// <typeparam name="T">Type identifier</typeparam>
@@ -149,11 +134,108 @@ namespace Build
         T CreateInstance<T>(params Type[] args);
 
         /// <summary>
+        /// Creates an object identified as instance of type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <returns>Returns instance of identified type</returns>
+        T CreateInstance<T>(ParameterSource[] parameterSources = null, params object[] args);
+
+        /// <summary>
+        /// Creates an object identified as instance of type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <returns>Returns instance of identified type</returns>
+        T CreateInstance<T>(ParameterSource[] parameterSources = null);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">Type identifier</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        object CreateInstance(Type type, ParameterSource[] parameterSources = null, params object[] args);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">Type identifier</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        object CreateInstance( Type type, ParameterSource[] parameterSources = null, params string[] args);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">Type identifier</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        object CreateInstance(Type type, ParameterSource[] parameterSources = null, params Type[] args);
+
+        /// <summary>
         /// Creates an object from identifed type with parameters
         /// </summary>
         /// <param name="typeFullName">Type identifier with/without parameters 'id(args)' or 'id'</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
         /// <returns>Returns instance of identified type</returns>
-        object CreateInstance(string typeFullName);
+        object CreateInstance(string typeFullName, ParameterSource[] parameterSources = null, params object[] args);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="typeId">Type identifier</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        object CreateInstance(string typeId, ParameterSource[] parameterSources = null, params string[] args);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="typeId">Type identifier</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        object CreateInstance(string typeId, ParameterSource[] parameterSources = null, params Type[] args);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <returns>Returns instance of identified type</returns>
+        object CreateInstance(Type type, ParameterSource[] parameterSources = null);
+
+        /// <summary>
+        /// Creates an object identified as instance of type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        T CreateInstance<T>(ParameterSource[] parameterSources = null, params string[] args);
+
+        /// <summary>
+        /// Creates an object identified as instance of type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        T CreateInstance<T>(ParameterSource[] parameterSources = null, params Type[] args);
+
+        /// <summary>
+        /// Creates an object from identifed type with parameters
+        /// </summary>
+        /// <param name="typeFullName">Type identifier with/without parameters 'id(args)' or 'id'</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <returns>Returns instance of identified type</returns>
+        object CreateInstance(string typeFullName, ParameterSource[] parameterSources = null);
 
         /// <summary>
         /// Creates an object identified as instance of type T
@@ -224,18 +306,6 @@ namespace Build
         /// <param name="args">Arguments to constuctor</param>
         /// <returns>Returns instance of identified type</returns>
         object GetInstance(Type type, params object[] args);
-
-        /// <summary>
-        /// Locks the container. Pre-computes all registered type invariants for lookup table speed up
-        /// </summary>
-        void Lock();
-
-        /// <summary>
-        /// Registers all supported types in assembly
-        /// </summary>
-        /// <param name="assembly">Assembly for add type identifiers</param>
-        /// <param name="exclusionTypes">List of assembly types to ignore</param>
-        void RegisterAssembly(Assembly assembly, IEnumerable<string> exclusionTypes);
 
         /// <summary>
         /// Registers identified type T
@@ -319,8 +389,20 @@ namespace Build
         void Reset();
 
         /// <summary>
+        /// Locks the container. Pre-computes all registered type invariants for lookup table speed up
+        /// </summary>
+        void Lock();
+
+        /// <summary>
         /// Unlocks the container. Flushes all pre-computed registered type invariants for lookup table speed up
         /// </summary>
         void Unlock();
-    }
+ 
+        /// <summary>
+        /// Registers all supported types in assembly
+        /// </summary>
+        /// <param name="assembly">Assembly for add type identifiers</param>
+        /// <param name="exclusionTypes">List of assembly types to ignore</param>
+        void RegisterAssembly(Assembly assembly, IEnumerable<string> exclusionTypes);
+   }
 }

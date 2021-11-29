@@ -82,13 +82,6 @@ namespace Build
         public T CreateInstance<T>(params object[] args) => (T)TypeBuilder.CreateInstance(typeof(T), args);
 
         /// <summary>
-        /// Creates an object identified as instance of type T
-        /// </summary>
-        /// <typeparam name="T">Type identifier</typeparam>
-        /// <returns>Returns instance of identified type</returns>
-        public T CreateInstance<T>() => (T)TypeBuilder.CreateInstance(typeof(T), ArrayExtensions.ToArray<object>());
-
-        /// <summary>
         /// Creates an object
         /// </summary>
         /// <param name="type">Type identifier</param>
@@ -136,13 +129,6 @@ namespace Build
         public object CreateInstance(string typeId, params Type[] args) => TypeBuilder.CreateInstance(typeId, args);
 
         /// <summary>
-        /// Creates an object
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>Returns instance of identified type</returns>
-        public object CreateInstance(Type type) => TypeBuilder.CreateInstance(type, ArrayExtensions.ToArray<object>());
-
-        /// <summary>
         /// Creates an object identified as instance of type T
         /// </summary>
         /// <typeparam name="T">Type identifier</typeparam>
@@ -159,11 +145,108 @@ namespace Build
         public T CreateInstance<T>(params Type[] args) => (T)TypeBuilder.CreateInstance(typeof(T), args);
 
         /// <summary>
+        /// Creates an object identified as instance of type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <returns>Returns instance of identified type</returns>
+        public T CreateInstance<T>(ParameterSource[] parameterSources = null, params object[] args) => (T)TypeBuilder.CreateInstance(typeof(T), args, parameterSources);
+
+        /// <summary>
+        /// Creates an object identified as instance of type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <returns>Returns instance of identified type</returns>
+        public T CreateInstance<T>(ParameterSource[] parameterSources = null) => (T)TypeBuilder.CreateInstance(typeof(T), ArrayExtensions.Empty<object>(), parameterSources);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">Type identifier</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object CreateInstance(Type type, ParameterSource[] parameterSources = null, params object[] args) => TypeBuilder.CreateInstance(type, args, parameterSources);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">Type identifier</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object CreateInstance( Type type, ParameterSource[] parameterSources = null, params string[] args) => TypeBuilder.CreateInstance(type, args, parameterSources);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">Type identifier</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object CreateInstance(Type type, ParameterSource[] parameterSources = null, params Type[] args) => TypeBuilder.CreateInstance(type, args, parameterSources);
+
+        /// <summary>
         /// Creates an object from identifed type with parameters
         /// </summary>
         /// <param name="typeFullName">Type identifier with/without parameters 'id(args)' or 'id'</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
         /// <returns>Returns instance of identified type</returns>
-        public object CreateInstance(string typeFullName) => TypeBuilder.CreateInstance(typeFullName, ArrayExtensions.ToArray<object>());
+        public object CreateInstance(string typeFullName, ParameterSource[] parameterSources = null, params object[] args) => TypeBuilder.CreateInstance(typeFullName, args, parameterSources);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="typeId">Type identifier</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object CreateInstance(string typeId, ParameterSource[] parameterSources = null, params string[] args) => TypeBuilder.CreateInstance(typeId, args, parameterSources);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="typeId">Type identifier</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object CreateInstance(string typeId, ParameterSource[] parameterSources = null, params Type[] args) => TypeBuilder.CreateInstance(typeId, args, parameterSources);
+
+        /// <summary>
+        /// Creates an object
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object CreateInstance(Type type, ParameterSource[] parameterSources = null) => TypeBuilder.CreateInstance(type, ArrayExtensions.Empty<object>(), parameterSources);
+
+        /// <summary>
+        /// Creates an object identified as instance of type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public T CreateInstance<T>(ParameterSource[] parameterSources = null, params string[] args) => (T)TypeBuilder.CreateInstance(typeof(T), args, parameterSources);
+
+        /// <summary>
+        /// Creates an object identified as instance of type T
+        /// </summary>
+        /// <typeparam name="T">Type identifier</typeparam>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <param name="args">Arguments to constuctor</param>
+        /// <returns>Returns instance of identified type</returns>
+        public T CreateInstance<T>(ParameterSource[] parameterSources = null, params Type[] args) => (T)TypeBuilder.CreateInstance(typeof(T), args, parameterSources);
+
+        /// <summary>
+        /// Creates an object from identifed type with parameters
+        /// </summary>
+        /// <param name="typeFullName">Type identifier with/without parameters 'id(args)' or 'id'</param>
+        /// <param name="parameterSources">Parameter sources</param>
+        /// <returns>Returns instance of identified type</returns>
+        public object CreateInstance(string typeFullName, ParameterSource[] parameterSources = null) => TypeBuilder.CreateInstance(typeFullName, ArrayExtensions.Empty<object>(), parameterSources);
 
         /// <summary>
         /// Creates an object identified as instance of type T
@@ -178,7 +261,7 @@ namespace Build
         /// </summary>
         /// <param name="typeFullName">Type identifier</param>
         /// <returns>Returns instance of identified type</returns>
-        public object GetInstance(string typeFullName) => TypeBuilder.GetInstance(typeFullName, ArrayExtensions.ToArray<object>());
+        public object GetInstance(string typeFullName) => TypeBuilder.GetInstance(typeFullName, ArrayExtensions.Empty<object>());
 
         /// <summary>
         /// Creates an object
@@ -217,7 +300,7 @@ namespace Build
         /// </summary>
         /// <param name="type">Type identifier</param>
         /// <returns>Returns instance of identified type</returns>
-        public object GetInstance(Type type) => TypeBuilder.GetInstance(type, ArrayExtensions.ToArray<object>());
+        public object GetInstance(Type type) => TypeBuilder.GetInstance(type, ArrayExtensions.Empty<object>());
 
         /// <summary>
         /// Creates an object
@@ -234,41 +317,6 @@ namespace Build
         /// <param name="args">Arguments to constuctor</param>
         /// <returns>Returns instance of identified type</returns>
         public object GetInstance(Type type, params object[] args) => TypeBuilder.GetInstance(type, args);
-
-        /// <summary>
-        /// Locks the container. Pre-computes all registered type invariants for lookup table speed up
-        /// </summary>
-        public void Lock() => TypeBuilder.Lock();
-
-        /// <summary>
-        /// Registers all supported types in assembly
-        /// </summary>
-        /// <param name="assembly">Assembly for add type identifiers</param>
-        /// <param name="exclusionTypes">List of assembly types to ignore</param>
-        public void RegisterAssembly(Assembly assembly, IEnumerable<string> exclusionTypes)
-        {
-            if (TypeBuilder.IsLocked)
-                throw new TypeRegistrationException(string.Format("{0} is not registered (container locked)", nameof(assembly)));
-            var exclusionList = new List<string>(exclusionTypes ?? ArrayExtensions.ToArray<string>()) { "<PrivateImplementationDetails>" };
-            bool match;
-            foreach (var type in assembly.GetTypes())
-            {
-                match = false;
-                for (int index = 0; index < exclusionList.Count; index++)
-                {
-                    var regex = string.Format("^{0}$", exclusionList[index]);
-                    if (Regex.IsMatch(type.ToString(), regex))
-                    {
-                        match = true;
-                        break;
-                    }
-                }
-                if (match)
-                    continue;
-                if (TypeBuilder.CanRegister(type))
-                    TypeBuilder.RegisterType(type);
-            }
-        }
 
         /// <summary>
         /// Registers identified type T
@@ -301,13 +349,13 @@ namespace Build
         /// Registers type
         /// </summary>
         /// <param name="type">Type identifier</param>
-        public void RegisterType(Type type) => TypeBuilder.RegisterType(type, ArrayExtensions.ToArray<object>());
+        public void RegisterType(Type type) => TypeBuilder.RegisterType(type, ArrayExtensions.Empty<object>());
 
         /// <summary>
         /// Registers type
         /// </summary>
         /// <param name="typeId">Type identifier</param>
-        public void RegisterType(string typeId) => TypeBuilder.RegisterType(typeId, ArrayExtensions.ToArray<object>());
+        public void RegisterType(string typeId) => TypeBuilder.RegisterType(typeId, ArrayExtensions.Empty<object>());
 
         /// <summary>
         /// Registers type
@@ -344,7 +392,7 @@ namespace Build
         /// Registers identified type T
         /// </summary>
         /// <typeparam name="T">Type identifier</typeparam>
-        public void RegisterType<T>() => TypeBuilder.RegisterType(typeof(T), ArrayExtensions.ToArray<object>());
+        public void RegisterType<T>() => TypeBuilder.RegisterType(typeof(T), ArrayExtensions.Empty<object>());
 
         /// <summary>
         /// Resets information about type registration. Also, resets freezed containers
@@ -352,8 +400,43 @@ namespace Build
         public void Reset() => TypeBuilder.Reset();
 
         /// <summary>
+        /// Locks the container. Pre-computes all registered type invariants for lookup table speed up
+        /// </summary>
+        public void Lock() => TypeBuilder.Lock();
+
+        /// <summary>
         /// Unlocks the container. Flushes all pre-computed registered type invariants for lookup table speed up
         /// </summary>
         public void Unlock() => TypeBuilder.Unlock();
+
+        /// <summary>
+        /// Registers all supported types in assembly
+        /// </summary>
+        /// <param name="assembly">Assembly for add type identifiers</param>
+        /// <param name="exclusionTypes">List of assembly types to ignore</param>
+        public void RegisterAssembly(Assembly assembly, IEnumerable<string> exclusionTypes)
+        {
+            if (TypeBuilder.IsLocked)
+                throw new TypeRegistrationException(string.Format("{0} is not registered (container locked)", nameof(assembly)));
+            var exclusionList = new List<string>(exclusionTypes ?? ArrayExtensions.Empty<string>()) { "<PrivateImplementationDetails>" };
+            bool match;
+            foreach (var type in assembly.GetTypes())
+            {
+                match = false;
+                for (int index = 0; index < exclusionList.Count; index++)
+                {
+                    var regex = string.Format("^{0}$", exclusionList[index]);
+                    if (Regex.IsMatch(type.ToString(), regex))
+                    {
+                        match = true;
+                        break;
+                    }
+                }
+                if (match)
+                    continue;
+                if (TypeBuilder.CanRegister(type))
+                    TypeBuilder.RegisterType(type);
+            }
+        }
     }
 }

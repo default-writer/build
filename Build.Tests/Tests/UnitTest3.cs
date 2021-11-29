@@ -7,7 +7,7 @@ namespace TestSet3
     public static class UnitTest
     {
         [Fact]
-        public static void TestSet3_Method1()
+        public static void Method1()
         {
             //TestSet3
             var container = new Container();
@@ -18,7 +18,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method10()
+        public static void Method10()
         {
             //TestSet3
             var container = new Container();
@@ -29,18 +29,18 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method11()
+        public static void Method11()
         {
             //TestSet3
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var instances = container.RuntimeNonAliasedTypes.Select(container.CreateInstance);
+            var instances = container.RuntimeNonAliasedTypes.Select((type) => container.CreateInstance(type));
             Assert.True(instances.All(p => p != null));
         }
 
         [Fact]
-        public static void TestSet3_Method12()
+        public static void Method12()
         {
             //TestSet3
             var container = new Container();
@@ -51,7 +51,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method13()
+        public static void Method13()
         {
             //TestSet3
             var container = new Container();
@@ -62,7 +62,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method14()
+        public static void Method14()
         {
             //TestSet3
             var container = new Container();
@@ -73,7 +73,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method15()
+        public static void Method15()
         {
             //TestSet3
             var container = new Container();
@@ -83,7 +83,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method16()
+        public static void Method16()
         {
             //TestSet3
             var container = new Container();
@@ -94,7 +94,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method17()
+        public static void Method17()
         {
             //TestSet3
             var container = new Container();
@@ -105,7 +105,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method18()
+        public static void Method18()
         {
             //TestSet3
             var container = new Container();
@@ -117,19 +117,19 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method19()
+        public static void Method19()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            // Build.Tests.TestSet3.ServiceDataRepository parameters match
+            // TestSet3.ServiceDataRepository parameters match
             var instances = container.RuntimeTypes.Where(p => p == "TestSet3.ServiceDataRepository(System.Int32)").Select(p => container.CreateInstance(p, default(int)));
-            Assert.True(instances.All(p => p != null));
+            Assert.False(instances.Any());
         }
 
         [Fact]
-        public static void TestSet3_Method2()
+        public static void Method2()
         {
             //TestSet3
             var container = new Container();
@@ -140,40 +140,40 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method20()
+        public static void Method20()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var instances = container.RuntimeAliasedTypes.Select(container.CreateInstance);
+            var instances = container.RuntimeAliasedTypes.Select((type) => container.CreateInstance(type));
             Assert.Throws<TypeInstantiationException>(() => instances.All(p => p != null));
         }
 
         [Fact]
-        public static void TestSet3_Method21()
+        public static void Method21()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var instances = container.RuntimeTypes.Select(container.CreateInstance);
+            var instances = container.RuntimeTypes.Select((type) => container.CreateInstance(type));
             Assert.Throws<TypeInstantiationException>(() => instances.All(p => p != null));
         }
 
         [Fact]
-        public static void TestSet3_Method22()
+        public static void Method22()
         {
             //TestSet3
             var container = new Container();
             container.RegisterType<SqlDataRepository>(0);
             container.RegisterType<ServiceDataRepository>();
-            var instances = container.RuntimeNonAliasedTypes.Select(container.CreateInstance);
+            var instances = container.RuntimeNonAliasedTypes.Select((type) => container.CreateInstance(type));
             Assert.True(instances.All(p => p != null));
         }
 
         [Fact]
-        public static void TestSet3_Method23()
+        public static void Method23()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -184,29 +184,29 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method24()
+        public static void Method24()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var instances = container.RuntimeAliasedTypes.Select(container.CreateInstance);
+            var instances = container.RuntimeAliasedTypes.Select((type) => container.CreateInstance(type));
             Assert.True(instances.All(p => p != null));
         }
 
         [Fact]
-        public static void TestSet3_Method25()
+        public static void Method25()
         {
             //TestSet3
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var instances = container.RuntimeAliasedTypes.Select(container.CreateInstance);
+            var instances = container.RuntimeAliasedTypes.Select((type) => container.CreateInstance(type));
             Assert.True(instances.All(p => p != null));
         }
 
         [Fact]
-        public static void TestSet3_Method26()
+        public static void Method26()
         {
             //TestSet3
             var container = new Container();
@@ -217,18 +217,18 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method27()
+        public static void Method27()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false, UseValueTypes = true });
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var instances = container.RuntimeTypes.Select(container.CreateInstance);
+            var instances = container.RuntimeTypes.Select((type) => container.CreateInstance(type));
             Assert.Throws<TypeInstantiationException>(() => instances.All(p => p != null));
         }
 
         [Fact]
-        public static void TestSet3_Method28()
+        public static void Method28()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -239,7 +239,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method29()
+        public static void Method29()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -250,7 +250,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method3()
+        public static void Method3()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -261,7 +261,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method30()
+        public static void Method30()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -272,19 +272,19 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method31()
+        public static void Method31()
         {
             //TestSet3
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            // Build.Tests.TestSet3.ServiceDataRepository parameters do not match
+            // TestSet3.ServiceDataRepository parameters do not match
             var instances = container.RuntimeTypes.Where(p => p != "TestSet3.ServiceDataRepository(TestSet3.IPersonRepository)").Select(p => container.CreateInstance(p, default(int)));
             Assert.Throws<TypeInstantiationException>(() => instances.All(p => p != null));
         }
 
         [Fact]
-        public static void TestSet3_Method32()
+        public static void Method32()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -294,7 +294,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method33()
+        public static void Method33()
         {
             //TestSet3
             var container = new Container();
@@ -305,7 +305,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method34()
+        public static void Method34()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false, UseValueTypes = false });
@@ -315,7 +315,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method35()
+        public static void Method35()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false, UseValueTypes = true });
@@ -325,7 +325,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method36()
+        public static void Method36()
         {
             //TestSet3
             var container = new Container();
@@ -337,7 +337,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method37()
+        public static void Method37()
         {
             //TestSet3
             var container = new Container();
@@ -349,7 +349,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method38()
+        public static void Method38()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -361,7 +361,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method39()
+        public static void Method39()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -373,7 +373,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method4()
+        public static void Method4()
         {
             //TestSet3
             var container = new Container();
@@ -384,7 +384,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method40()
+        public static void Method40()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -396,7 +396,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method41()
+        public static void Method41()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -408,7 +408,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method42()
+        public static void Method42()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -420,7 +420,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method43()
+        public static void Method43()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -432,18 +432,18 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method44()
+        public static void Method44()
         {
             //TestSet3
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var instances = container.RuntimeTypes.Select(container.CreateInstance);
+            var instances = container.RuntimeTypes.Select((type) => container.CreateInstance(type));
             Assert.True(instances.All(p => p != null));
         }
 
         [Fact]
-        public static void TestSet3_Method45()
+        public static void Method45()
         {
             //TestSet3
             var container = new Container();
@@ -454,7 +454,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method46()
+        public static void Method46()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -465,7 +465,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method47()
+        public static void Method47()
         {
             //TestSet3
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -476,7 +476,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method5()
+        public static void Method5()
         {
             //TestSet3
             var container = new Container();
@@ -488,7 +488,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method6()
+        public static void Method6()
         {
             //TestSet3
             var container = new Container();
@@ -500,7 +500,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method7()
+        public static void Method7()
         {
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
@@ -509,7 +509,7 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method8()
+        public static void Method8()
         {
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
@@ -519,12 +519,12 @@ namespace TestSet3
         }
 
         [Fact]
-        public static void TestSet3_Method9()
+        public static void Method9()
         {
             var container = new Container();
             container.RegisterType<SqlDataRepository>();
             container.RegisterType<ServiceDataRepository>();
-            var instances = container.RuntimeTypeAliases.Select(container.CreateInstance);
+            var instances = container.RuntimeTypeAliases.Select((type) => container.CreateInstance(type));
             Assert.True(instances.All(p => p != null));
         }
     }

@@ -15,11 +15,13 @@ namespace TestSet2
         {
             _personRepository = personRepository;
         }
+
+        public IPersonRepository Repository { get { return _personRepository; } }
     }
 
     public class ServiceDataRepository : IPersonRepository
     {
-        [Dependency(RuntimeInstance.Singleton)]
+        [Dependency(Options.Singleton)]
         public ServiceDataRepository([Injection(typeof(SqlDataRepository), 2018)]IPersonRepository repository)
         {
             Repository = repository;
@@ -27,28 +29,25 @@ namespace TestSet2
 
         public IPersonRepository Repository { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class SqlDataRepository : IPersonRepository
     {
-        [Dependency("Ho ho ho", RuntimeInstance.Exclude)]
+        [Dependency("Ho ho ho", Options.Exclude)]
         public SqlDataRepository()
         {
         }
 
+        private readonly int _personId;
+
         public SqlDataRepository(int personId)
         {
+            _personId = personId;
         }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from SQL DB and return Person instance.
-            return new Person(this);
-        }
+        public int Id { get {return _personId; } }
+
+        public Person GetPerson(int personId) => new(this);
     }
 }

@@ -1,6 +1,4 @@
-﻿using Build;
-
-namespace Fail_TestSet6
+﻿namespace Fail_TestSet6
 {
     public interface IOtherRepository
     {
@@ -23,6 +21,8 @@ namespace Fail_TestSet6
         {
             _personRepository = personRepository;
         }
+
+        public IPersonRepository Repository { get { return _personRepository; } }
     }
 
     public class PublicDataRepository : IPersonRepository
@@ -34,11 +34,7 @@ namespace Fail_TestSet6
 
         public IOtherRepository Repository { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from SQL DB and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class ServiceDataRepository : IPersonRepository
@@ -50,11 +46,7 @@ namespace Fail_TestSet6
 
         public IPersonRepository Repository { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class SqlDataRepository : IPersonRepository
@@ -66,10 +58,6 @@ namespace Fail_TestSet6
 
         public IPersonRepository Repository { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from SQL DB and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 }

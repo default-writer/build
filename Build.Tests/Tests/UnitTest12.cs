@@ -6,7 +6,7 @@ namespace TestSet12
     public static class UnitTest
     {
         [Fact]
-        public static void TestSet12_Method1()
+        public static void Method1()
         {
             //TestSet12
             var container = new Container();
@@ -17,7 +17,7 @@ namespace TestSet12
         }
 
         [Fact]
-        public static void TestSet12_Method10()
+        public static void Method10()
         {
             //TestSet12
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
@@ -26,7 +26,7 @@ namespace TestSet12
         }
 
         [Fact]
-        public static void TestSet12_Method11()
+        public static void Method11()
         {
             //TestSet12
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false });
@@ -43,7 +43,7 @@ namespace TestSet12
         }
 
         [Fact]
-        public static void TestSet12_Method2()
+        public static void Method2()
         {
             //TestSet12
             var container = new Container();
@@ -54,7 +54,7 @@ namespace TestSet12
         }
 
         [Fact]
-        public static void TestSet12_Method3()
+        public static void Method3()
         {
             //TestSet12
             var container = new Container();
@@ -65,7 +65,7 @@ namespace TestSet12
         }
 
         [Fact]
-        public static void TestSet12_Method4()
+        public static void Method4()
         {
             //TestSet12
             var container = new Container();
@@ -76,7 +76,7 @@ namespace TestSet12
         }
 
         [Fact]
-        public static void TestSet12_Method5()
+        public static void Method5()
         {
             //TestSet12
             var container = new Container();
@@ -88,7 +88,7 @@ namespace TestSet12
         }
 
         [Fact]
-        public static void TestSet12_Method6()
+        public static void Method6()
         {
             //TestSet12
             var container = new Container();
@@ -100,7 +100,7 @@ namespace TestSet12
         }
 
         [Fact]
-        public static void TestSet12_Method7()
+        public static void Method7()
         {
             //TestSet12
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false, UseDefaultTypeInstantiation = false, UseDefaultTypeAttributeOverwrite = false });
@@ -109,7 +109,7 @@ namespace TestSet12
         }
 
         [Fact]
-        public static void TestSet12_Method8()
+        public static void Method8()
         {
             //TestSet12
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeResolution = false, UseDefaultTypeAttributeOverwrite = false });
@@ -118,7 +118,7 @@ namespace TestSet12
         }
 
         [Fact]
-        public static void TestSet12_Method9()
+        public static void Method9()
         {
             //TestSet12
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeInstantiation = false, UseDefaultTypeAttributeOverwrite = false });

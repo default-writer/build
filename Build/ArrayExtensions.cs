@@ -1,7 +1,11 @@
-﻿namespace Build
+﻿using System;
+
+namespace Build
 {
-    static class ArrayExtensions
+    internal static class ArrayExtensions
     {
-        public static T[] ToArray<T>(int count = 0) => new T[count];
+        public static T[] ToArray<T>(int count) => new T[count];
+
+        public static T[] Empty<T>() => Array.Empty<T>();
     }
 }

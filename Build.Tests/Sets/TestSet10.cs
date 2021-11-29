@@ -1,6 +1,4 @@
-﻿using Build;
-
-namespace TestSet10
+﻿namespace TestSet10
 {
     public interface IPersonRepository
     {
@@ -15,6 +13,8 @@ namespace TestSet10
         {
             _personRepository = personRepository;
         }
+
+        public IPersonRepository Repository { get { return _personRepository; } }
     }
 
     public class ServiceDataRepository : IPersonRepository
@@ -26,19 +26,11 @@ namespace TestSet10
 
         public IPersonRepository Repository { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class SqlDataRepository : IPersonRepository
     {
-        public Person GetPerson(int personId)
-        {
-            // get the data from SQL DB and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 }

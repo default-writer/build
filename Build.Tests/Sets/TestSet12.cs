@@ -15,6 +15,8 @@ namespace TestSet12
         {
             _personRepository = personRepository;
         }
+
+        public IPersonRepository Repository { get { return _personRepository; } }
     }
 
     public class ServiceDataRepository : IPersonRepository
@@ -26,28 +28,25 @@ namespace TestSet12
 
         public IPersonRepository Repository { get; }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from Web service and return Person instance.
-            return new Person(this);
-        }
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class SqlDataRepository : IPersonRepository
     {
-        [Dependency(RuntimeInstance.Singleton)]
+        private readonly int _personId;
+
+        [Dependency(Options.Singleton)]
         public SqlDataRepository()
         {
         }
 
         public SqlDataRepository(int personId)
         {
+            _personId = personId;
         }
 
-        public Person GetPerson(int personId)
-        {
-            // get the data from SQL DB and return Person instance.
-            return new Person(this);
-        }
+        public int Id { get {return _personId; } }
+
+        public Person GetPerson(int personId) => new(this);
     }
 }

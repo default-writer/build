@@ -32,14 +32,14 @@ namespace TestSet21
     [Interface]
     interface IInterfaceRuleSet
     {
-        [InterfaceDependency(RuntimeInstance.Singleton)]
+        [InterfaceDependency(Options.Singleton)]
         Type1 Rule(Arg1 arg1, Arg2 arg2);
     }
 
     [Interface]
     interface IInterfaceRuleSet_CreateInstance
     {
-        [InterfaceDependency(RuntimeInstance.CreateInstance)]
+        [InterfaceDependency(Options.CreateInstance)]
         Type1 Rule(Arg1 arg1, Arg2 arg2);
     }
 
@@ -154,7 +154,7 @@ namespace TestSet21
         public IPersonRepository Repository { get; }
         public int RepositoryId { get; }
 
-        public Person GetPerson(int personId) => new Person(this);
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class SqlDataRepository : IPersonRepository
@@ -165,9 +165,7 @@ namespace TestSet21
 
         public int RepositoryId { get; }
 
-        public Person GetPerson(int personId) =>
-            // get the data from SQL DB and return Person instance.
-            new Person(this);
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class Type2
@@ -212,9 +210,7 @@ namespace TestSet21
         public IPersonRepository RepositoryC { get; }
         public int RepositoryId { get; }
 
-        public Person GetPerson(int personId) =>
-            // get the data from Web service and return Person instance.
-            new Person(this);
+        public Person GetPerson(int personId) => new(this);
     }
 
     public class WebServiceDataRepository2 : IPersonRepository
@@ -233,9 +229,7 @@ namespace TestSet21
         public IPersonRepository RepositoryB { get; }
         public int RepositoryId { get; }
 
-        public Person GetPerson(int personId) =>
-            // get the data from Web service and return Person instance.
-            new Person(this);
+        public Person GetPerson(int personId) => new(this);
     }
 
     class Arg1

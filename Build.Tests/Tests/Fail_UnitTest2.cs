@@ -1,6 +1,4 @@
 using System;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using Xunit;
 using Build;
 
@@ -45,32 +43,6 @@ namespace Fail_TestSet2
             container.RegisterType<ErrorStruct>();
             container.RegisterType<ErrorSqlDataRepository>();
             Assert.Throws<TypeInstantiationException>(() => container.CreateInstance(typeof(ErrorSqlDataRepository), typeof(ErrorStruct)));
-        }
-
-        [Fact]
-        public static void Fail_TestSet2_Method13()
-        {
-            //Fail_TestSet2
-            var binaryFmt = new BinaryFormatter();
-            var ms = new MemoryStream();
-            var ex = new TypeRegistrationException();
-            binaryFmt.Serialize(ms, ex);
-            ms.Position = 0;
-            ex = (TypeRegistrationException)binaryFmt.Deserialize(ms);
-            Assert.NotNull(ex);
-        }
-
-        [Fact]
-        public static void Fail_TestSet2_Method14()
-        {
-            //Fail_TestSet2
-            var binaryFmt = new BinaryFormatter();
-            var ms = new MemoryStream();
-            var ex = new TypeInstantiationException();
-            binaryFmt.Serialize(ms, ex);
-            ms.Position = 0;
-            ex = (TypeInstantiationException)binaryFmt.Deserialize(ms);
-            Assert.NotNull(ex);
         }
 
         [Fact]

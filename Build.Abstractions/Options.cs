@@ -6,9 +6,10 @@ namespace Build
     /// Runtime instance
     /// </summary>
     [Flags]
-    public enum RuntimeInstance
+    public enum Options
+
     {
-        None = 0,
+        None = 0x0,
         Exclude = 0x1,
         Singleton = 0x2,
         CreateInstance = 0x4,

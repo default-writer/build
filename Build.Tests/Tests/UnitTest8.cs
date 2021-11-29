@@ -6,7 +6,7 @@ namespace TestSet8
     public static class UnitTest
     {
         [Fact]
-        public static void TestSet8_Method1()
+        public static void Method1()
         {
             //TestSet8
             var container = new Container();
@@ -17,7 +17,7 @@ namespace TestSet8
         }
 
         [Fact]
-        public static void TestSet8_Method2()
+        public static void Method2()
         {
             //TestSet8
             var container = new Container();
@@ -28,7 +28,7 @@ namespace TestSet8
         }
 
         [Fact]
-        public static void TestSet8_Method3()
+        public static void Method3()
         {
             //TestSet8
             var container = new Container();
@@ -39,7 +39,7 @@ namespace TestSet8
         }
 
         [Fact]
-        public static void TestSet8_Method4()
+        public static void Method4()
         {
             //TestSet8
             var container = new Container();
@@ -50,7 +50,7 @@ namespace TestSet8
         }
 
         [Fact]
-        public static void TestSet8_Method5()
+        public static void Method5()
         {
             //TestSet8
             var container = new Container();
@@ -62,7 +62,7 @@ namespace TestSet8
         }
 
         [Fact]
-        public static void TestSet8_Method6()
+        public static void Method6()
         {
             //TestSet8
             var container = new Container();

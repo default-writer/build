@@ -6,7 +6,7 @@ namespace TestSet11
     public static class UnitTest
     {
         [Fact]
-        public static void TestSet11_Method1()
+        public static void Method1()
         {
             //TestSet11
             var container = new Container();
@@ -17,7 +17,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method10()
+        public static void Method10()
         {
             //TestSet11
             var container = new Container();
@@ -28,7 +28,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method11()
+        public static void Method11()
         {
             //TestSet11
             var container = new Container();
@@ -40,7 +40,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method12()
+        public static void Method12()
         {
             //TestSet11
             var container = new Container();
@@ -52,7 +52,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method13()
+        public static void Method13()
         {
             //TestSet11
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -63,7 +63,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method14()
+        public static void Method14()
         {
             //TestSet11
             var container = new Container();
@@ -74,7 +74,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method15()
+        public static void Method15()
         {
             //TestSet11
             var container = new Container();
@@ -85,7 +85,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method16()
+        public static void Method16()
         {
             //TestSet11
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -96,7 +96,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method17()
+        public static void Method17()
         {
             //TestSet11
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -108,7 +108,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method18()
+        public static void Method18()
         {
             //TestSet11
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -120,7 +120,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method19()
+        public static void Method19()
         {
             //TestSet11
             var container = new Container();
@@ -131,7 +131,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method2()
+        public static void Method2()
         {
             //TestSet11
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -142,7 +142,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method20()
+        public static void Method20()
         {
             //TestSet11
             var container = new Container();
@@ -152,7 +152,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method21()
+        public static void Method21()
         {
             //TestSet11
             var container = new Container();
@@ -162,7 +162,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method22()
+        public static void Method22()
         {
             //TestSet11
             var container = new Container();
@@ -172,7 +172,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method23()
+        public static void Method23()
         {
             //TestSet11
             var container = new Container();
@@ -183,7 +183,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method24()
+        public static void Method24()
         {
             //TestSet11
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -195,7 +195,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method25()
+        public static void Method25()
         {
             //TestSet11
             var container = new Container();
@@ -203,7 +203,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method26()
+        public static void Method26()
         {
             //TestSet11
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -211,7 +211,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method3()
+        public static void Method3()
         {
             //TestSet11
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -222,7 +222,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method4()
+        public static void Method4()
         {
             //TestSet11
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -233,7 +233,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method5()
+        public static void Method5()
         {
             //TestSet11
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
@@ -245,7 +245,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method6()
+        public static void Method6()
         {
             //TestSet11
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -257,7 +257,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method7()
+        public static void Method7()
         {
             //TestSet11
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -268,7 +268,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method8()
+        public static void Method8()
         {
             //TestSet11
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false, UseValueTypes = false });
@@ -279,7 +279,7 @@ namespace TestSet11
         }
 
         [Fact]
-        public static void TestSet11_Method9()
+        public static void Method9()
         {
             //TestSet11
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });

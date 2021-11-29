@@ -8,8 +8,9 @@
   <Import Project="$(MSBuildThisFileDirectory)../common.props" />
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <IsPackable>false</IsPackable>
+    <TargetFrameworks>
+		net5.0;
+	</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -85,10 +86,13 @@
       <Link>Build.Abstractions\IDependencyAttribute.cs</Link>
     </Compile>
     <Compile Include="..\Build.Abstractions\ITypeObject.cs">
-      <Link>Build.Abstractions\ITypeObject.cs</Link>
+		<Link>Build.Abstractions\ITypeObject.cs</Link>
     </Compile>
-    <Compile Include="..\Build.Abstractions\RuntimeInstance.cs">
-      <Link>Build.Abstractions\RuntimeInstance.cs</Link>
+	<Compile Include="..\Build.Abstractions\ParameterSource.cs">
+	    <Link>Build.Abstractions\ParameterSource.cs</Link>
+	</Compile>
+	<Compile Include="..\Build.Abstractions\Options.cs">
+      <Link>Build.Abstractions\Options.cs</Link>
     </Compile>
     <Compile Include="..\Build.Abstractions\IRuntimeType.cs">
       <Link>Build.Abstractions\IRuntimeType.cs</Link>

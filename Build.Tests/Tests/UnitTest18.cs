@@ -8,7 +8,7 @@ namespace UnitTests18
     public static class UnitTests
     {
         [Fact]
-        public static void TestSet18_Method1()
+        public static void Method1()
         {
             //TestSet18
             var container = new Container();
@@ -19,7 +19,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method10()
+        public static void Method10()
         {
             //TestSet18
             var container = new Container();
@@ -31,7 +31,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method100()
+        public static void Method100()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -45,7 +45,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method101()
+        public static void Method101()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -60,7 +60,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method102()
+        public static void Method102()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -73,7 +73,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method103()
+        public static void Method103()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -86,7 +86,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method104()
+        public static void Method104()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -102,7 +102,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method105()
+        public static void Method105()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -118,7 +118,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method106()
+        public static void Method106()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -129,7 +129,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method107()
+        public static void Method107()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
@@ -145,7 +145,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method108()
+        public static void Method108()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
@@ -158,17 +158,17 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method109()
+        public static void Method109()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
-            container.CreateInstance<IntPtrFactory>();
+            Assert.NotNull(container.CreateInstance<IntPtrFactory>());
         }
 
         [Fact]
-        public static void TestSet18_Method11()
+        public static void Method11()
         {
             //TestSet18
             var container = new Container();
@@ -179,7 +179,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method110()
+        public static void Method110()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
@@ -190,7 +190,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method111()
+        public static void Method111()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
@@ -198,7 +198,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method112()
+        public static void Method112()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
@@ -207,7 +207,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method113()
+        public static void Method113()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
@@ -217,17 +217,17 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method114()
+        public static void Method114()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
-            Assert.NotNull(container.GetInstance(typeof(IntPtrFactory).ToString(), Array.Empty<string>()));
+            Assert.NotNull(container.GetInstance(typeof(IntPtrFactory).ToString(), ArrayExtensions.Empty<string>()));
         }
 
         [Fact]
-        public static void TestSet18_Method115()
+        public static void Method115()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
@@ -237,7 +237,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method116()
+        public static void Method116()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
@@ -247,7 +247,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method117()
+        public static void Method117()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
@@ -258,7 +258,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method118()
+        public static void Method118()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
@@ -269,7 +269,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method119()
+        public static void Method119()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
@@ -280,7 +280,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method12()
+        public static void Method12()
         {
             //TestSet18
             var container = new Container();
@@ -292,7 +292,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method120()
+        public static void Method120()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
@@ -303,7 +303,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method121()
+        public static void Method121()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -315,18 +315,18 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method122()
+        public static void Method122()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             Func<EmptyClass> func = () => new EmptyClass();
             container.RegisterType<Factory2<EmptyClass>>(func);
-            var factory = (Factory2<EmptyClass>)container.CreateInstance(typeof(Factory2<EmptyClass>), Array.Empty<object>());
+            var factory = (Factory2<EmptyClass>)container.CreateInstance(typeof(Factory2<EmptyClass>), ArrayExtensions.Empty<object>());
             Assert.Null(factory.Func);
         }
 
         [Fact]
-        public static void TestSet18_Method123()
+        public static void Method123()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false, UseValueTypes = false });
@@ -338,7 +338,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method124()
+        public static void Method124()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -349,7 +349,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method125()
+        public static void Method125()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -363,7 +363,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method126()
+        public static void Method126()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -378,7 +378,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method127()
+        public static void Method127()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -392,7 +392,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method128()
+        public static void Method128()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -404,7 +404,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method129()
+        public static void Method129()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
@@ -418,7 +418,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method13()
+        public static void Method13()
         {
             //TestSet18
             var container = new Container();
@@ -428,7 +428,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method130()
+        public static void Method130()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false, UseValueTypes = false });
@@ -443,7 +443,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method131()
+        public static void Method131()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false, UseValueTypes = false });
@@ -458,7 +458,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method132()
+        public static void Method132()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false, UseValueTypes = false });
@@ -466,14 +466,14 @@ namespace UnitTests18
             container.RegisterType<IntPtrFactory>();
             container.RegisterType(typeof(Factory2<EmptyClass>), func);
             container.RegisterType<Factory5<EmptyClass>>();
-            var value = (Factory2<EmptyClass>)container.GetInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")", Array.Empty<string>());
+            var value = (Factory2<EmptyClass>)container.GetInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")", ArrayExtensions.Empty<string>());
             var constructorName = typeof(Factory5<EmptyClass>) + "(" + typeof(IFactory<EmptyClass>) + ")";
             container.RegisterType(constructorName, value);
             Assert.NotNull(value);
         }
 
         [Fact]
-        public static void TestSet18_Method133()
+        public static void Method133()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false, UseValueTypes = false });
@@ -482,12 +482,12 @@ namespace UnitTests18
             container.RegisterType(typeof(Factory2<EmptyClass>), func);
             container.RegisterType<Factory5<EmptyClass>>();
             container.Lock();
-            var value = (Factory2<EmptyClass>)container.GetInstance(typeof(Factory2<EmptyClass>), Array.Empty<string>());
+            var value = (Factory2<EmptyClass>)container.GetInstance(typeof(Factory2<EmptyClass>), ArrayExtensions.Empty<string>());
             Assert.NotNull(value);
         }
 
         [Fact]
-        public static void TestSet18_Method134()
+        public static void Method134()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false, UseValueTypes = false });
@@ -495,14 +495,14 @@ namespace UnitTests18
             container.RegisterType<IntPtrFactory>();
             container.RegisterType(typeof(Factory2<EmptyClass>), func);
             container.RegisterType<Factory5<EmptyClass>>();
-            var value = (Factory2<EmptyClass>)container.CreateInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")", Array.Empty<string>());
+            var value = (Factory2<EmptyClass>)container.CreateInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")", ArrayExtensions.Empty<string>());
             var constructorName = typeof(Factory5<EmptyClass>) + "(" + typeof(IFactory<EmptyClass>) + ")";
             container.RegisterType(constructorName, value);
             Assert.NotNull(value);
         }
 
         [Fact]
-        public static void TestSet18_Method135()
+        public static void Method135()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false, UseValueTypes = false });
@@ -510,14 +510,14 @@ namespace UnitTests18
             container.RegisterType<IntPtrFactory>();
             container.RegisterType(typeof(Factory2<EmptyClass>), func);
             container.RegisterType<Factory5<EmptyClass>>();
-            var value = (Factory2<EmptyClass>)container.CreateInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")", Array.Empty<Type>());
+            var value = (Factory2<EmptyClass>)container.CreateInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")", ArrayExtensions.Empty<Type>());
             var constructorName = typeof(Factory5<EmptyClass>) + "(" + typeof(IFactory<EmptyClass>) + ")";
             container.RegisterType(constructorName, value);
             Assert.NotNull(value);
         }
 
         [Fact]
-        public static void TestSet18_Method136()
+        public static void Method136()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -531,7 +531,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method137()
+        public static void Method137()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -545,7 +545,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method138()
+        public static void Method138()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -555,7 +555,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method139()
+        public static void Method139()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false, UseValueTypes = false });
@@ -563,14 +563,14 @@ namespace UnitTests18
             container.RegisterType<IntPtrFactory>();
             container.RegisterType(typeof(Factory2<EmptyClass>), func);
             container.RegisterType<Factory5<EmptyClass>>();
-            var value = (Factory2<EmptyClass>)container.GetInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")", Array.Empty<Type>());
+            var value = (Factory2<EmptyClass>)container.GetInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")", ArrayExtensions.Empty<Type>());
             var constructorName = typeof(Factory5<EmptyClass>) + "(" + typeof(IFactory<EmptyClass>) + ")";
             container.RegisterType(constructorName, value);
             Assert.NotNull(value);
         }
 
         [Fact]
-        public static void TestSet18_Method14()
+        public static void Method14()
         {
             //TestSet18
             var container = new Container();
@@ -582,49 +582,49 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method140()
+        public static void Method140()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
-            Assert.NotNull(container.GetInstance(typeof(IntPtrFactory).ToString(), Array.Empty<Type>()));
+            Assert.NotNull(container.GetInstance(typeof(IntPtrFactory).ToString(), ArrayExtensions.Empty<Type>()));
         }
 
         [Fact]
-        public static void TestSet18_Method141()
+        public static void Method141()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
-            Assert.Throws<TypeInstantiationException>(() => container.GetInstance((Type)null, Array.Empty<Type>()));
+            Assert.Throws<TypeInstantiationException>(() => container.GetInstance((Type)null, ArrayExtensions.Empty<Type>()));
         }
 
         [Fact]
-        public static void TestSet18_Method142()
+        public static void Method142()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
-            var factory = (IntPtrFactory)container.GetInstance(typeof(IntPtrFactory), Array.Empty<Type>());
+            var factory = (IntPtrFactory)container.GetInstance(typeof(IntPtrFactory), ArrayExtensions.Empty<Type>());
             Assert.NotNull(factory);
         }
 
         [Fact]
-        public static void TestSet18_Method143()
+        public static void Method143()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
             var value = IntPtr.Zero;
             container.RegisterType<IntPtrFactory>(value);
-            var factory = (IntPtrFactory)container.GetInstance(typeof(IntPtrFactory), Array.Empty<Type>());
+            var factory = (IntPtrFactory)container.GetInstance(typeof(IntPtrFactory), ArrayExtensions.Empty<Type>());
             Assert.Equal(value, factory.Handle);
         }
 
         [Fact]
-        public static void TestSet18_Method144()
+        public static void Method144()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -637,7 +637,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method145()
+        public static void Method145()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -650,32 +650,32 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method146()
+        public static void Method146()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
-            Assert.Throws<TypeRegistrationException>(() => container.RegisterType((Type)null, Array.Empty<object>()));
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType((Type)null, ArrayExtensions.Empty<object>()));
         }
 
         [Fact]
-        public static void TestSet18_Method147()
+        public static void Method147()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
             container.Lock();
-            Assert.Throws<TypeRegistrationException>(() => container.RegisterType(typeof(Factory2<EmptyClass>), Array.Empty<object>()));
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType(typeof(Factory2<EmptyClass>), ArrayExtensions.Empty<object>()));
         }
 
         [Fact]
-        public static void TestSet18_Method148()
+        public static void Method148()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
-            Assert.Throws<TypeRegistrationException>(() => container.RegisterType(typeof(MarshalByRefObject), Array.Empty<object>()));
+            Assert.Throws<TypeRegistrationException>(() => container.RegisterType(typeof(MarshalByRefObject), ArrayExtensions.Empty<object>()));
         }
 
         [Fact]
-        public static void TestSet18_Method149()
+        public static void Method149()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -689,7 +689,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method15()
+        public static void Method15()
         {
             //TestSet18
             var container = new Container();
@@ -700,7 +700,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method150()
+        public static void Method150()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -715,7 +715,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method151()
+        public static void Method151()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -730,7 +730,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method152()
+        public static void Method152()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -745,7 +745,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method153()
+        public static void Method153()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -761,7 +761,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method154()
+        public static void Method154()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -773,7 +773,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method155()
+        public static void Method155()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -784,7 +784,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method156()
+        public static void Method156()
         {
             //TestSet18
             var container = new Container();
@@ -793,7 +793,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method157()
+        public static void Method157()
         {
             //TestSet18
             var container = new Container();
@@ -802,7 +802,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method16()
+        public static void Method16()
         {
             //TestSet18
             var container = new Container();
@@ -812,7 +812,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method17()
+        public static void Method17()
         {
             //TestSet18
             var container = new Container();
@@ -829,7 +829,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method18()
+        public static void Method18()
         {
             //TestSet18
             var container = new Container();
@@ -840,7 +840,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method19()
+        public static void Method19()
         {
             //TestSet18
             var container = new Container();
@@ -850,7 +850,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method2()
+        public static void Method2()
         {
             //TestSet18
             var container = new Container();
@@ -862,7 +862,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method20()
+        public static void Method20()
         {
             //TestSet18
             var container = new Container();
@@ -871,27 +871,27 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method21()
+        public static void Method21()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
-            Func<EmptyClass> func = () => null;
-            container.RegisterType(typeof(Factory3<EmptyClass>), (object)(func));
+            static EmptyClass func() => null;
+            container.RegisterType(typeof(Factory3<EmptyClass>), (object)(Func<EmptyClass>)func);
             var factory = (Factory3<EmptyClass>)container.CreateInstance("TestSet18.Factory3`1[TestSet18.EmptyClass](System.Func`1[TestSet18.EmptyClass])");
             Assert.NotNull(factory);
         }
 
         [Fact]
-        public static void TestSet18_Method22()
+        public static void Method22()
         {
             //TestSet18
             var container = new Container();
-            object obj = new object();
+            object obj = new();
             Assert.Throws<TypeRegistrationException>(() => container.RegisterType(typeof(Factory2<EmptyClass>), new object[] { obj }));
         }
 
         [Fact]
-        public static void TestSet18_Method23()
+        public static void Method23()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
@@ -902,7 +902,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method25()
+        public static void Method25()
         {
             //TestSet18
             var container = new Container();
@@ -913,18 +913,18 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method26()
+        public static void Method26()
         {
             //TestSet18
             var container = new Container();
-            Func<EmptyClass> func = () => null;
-            container.RegisterType(typeof(Factory2<EmptyClass>), (object)func);
+            static EmptyClass func() => null;
+            container.RegisterType(typeof(Factory2<EmptyClass>), (object)(Func<EmptyClass>)func);
             var factory = (Factory2<EmptyClass>)container.CreateInstance(typeof(Factory2<EmptyClass>) + "(" + typeof(Func<EmptyClass>) + ")");
             Assert.NotNull(factory.Func);
         }
 
         [Fact]
-        public static void TestSet18_Method27()
+        public static void Method27()
         {
             //TestSet18
             var container = new Container();
@@ -935,7 +935,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method28()
+        public static void Method28()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions { UseDefaultTypeAttributeOverwrite = false });
@@ -945,7 +945,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method29()
+        public static void Method29()
         {
             //TestSet18
             var container = new Container();
@@ -956,7 +956,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method3()
+        public static void Method3()
         {
             //TestSet18
             var container = new Container();
@@ -967,7 +967,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method30()
+        public static void Method30()
         {
             //TestSet18
             var container = new Container();
@@ -979,7 +979,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method31()
+        public static void Method31()
         {
             //TestSet18
             var container = new Container();
@@ -990,7 +990,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method32()
+        public static void Method32()
         {
             //TestSet18
             var container = new Container();
@@ -1002,7 +1002,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method33()
+        public static void Method33()
         {
             //TestSet18
             var container = new Container();
@@ -1013,7 +1013,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method34()
+        public static void Method34()
         {
             //TestSet18
             var container = new Container();
@@ -1023,7 +1023,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method35()
+        public static void Method35()
         {
             //TestSet18
             var container = new Container();
@@ -1034,7 +1034,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method36()
+        public static void Method36()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -1045,7 +1045,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method37()
+        public static void Method37()
         {
             //TestSet18
             var container = new Container();
@@ -1057,7 +1057,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method38()
+        public static void Method38()
         {
             //TestSet18
             var container = new Container();
@@ -1068,7 +1068,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method39()
+        public static void Method39()
         {
             //TestSet18
             var container = new Container();
@@ -1079,7 +1079,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method4()
+        public static void Method4()
         {
             //TestSet18
             var container = new Container();
@@ -1091,7 +1091,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method40()
+        public static void Method40()
         {
             //TestSet18
             var container = new Container();
@@ -1102,7 +1102,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method41()
+        public static void Method41()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -1113,7 +1113,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method42()
+        public static void Method42()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -1124,7 +1124,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method43()
+        public static void Method43()
         {
             //TestSet18
             var container = new Container();
@@ -1134,7 +1134,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method44()
+        public static void Method44()
         {
             //TestSet18
             var container = new Container();
@@ -1144,7 +1144,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method45()
+        public static void Method45()
         {
             //TestSet18
             var container = new Container();
@@ -1155,7 +1155,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method46()
+        public static void Method46()
         {
             //TestSet18
             var container = new Container();
@@ -1166,7 +1166,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method47()
+        public static void Method47()
         {
             //TestSet18
             var container = new Container();
@@ -1177,7 +1177,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method48()
+        public static void Method48()
         {
             //TestSet18
             var container = new Container();
@@ -1188,7 +1188,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method49()
+        public static void Method49()
         {
             //TestSet18
             var container = new Container();
@@ -1199,7 +1199,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method5()
+        public static void Method5()
         {
             //TestSet18
             var container = new Container();
@@ -1210,7 +1210,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method50()
+        public static void Method50()
         {
             //TestSet18
             var container = new Container();
@@ -1218,7 +1218,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method51()
+        public static void Method51()
         {
             //TestSet18
             var container = new Container();
@@ -1226,7 +1226,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method52()
+        public static void Method52()
         {
             //TestSet18
             var container = new Container();
@@ -1234,7 +1234,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method53()
+        public static void Method53()
         {
             //TestSet18
             var container = new Container();
@@ -1242,7 +1242,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method54()
+        public static void Method54()
         {
             //TestSet18
             var container = new Container();
@@ -1251,7 +1251,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method55()
+        public static void Method55()
         {
             //TestSet18
             var container = new Container();
@@ -1259,7 +1259,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method56()
+        public static void Method56()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -1267,7 +1267,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method57()
+        public static void Method57()
         {
             //TestSet18
             var container = new Container();
@@ -1275,7 +1275,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method58()
+        public static void Method58()
         {
             //TestSet18
             var container = new Container();
@@ -1283,7 +1283,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method59()
+        public static void Method59()
         {
             //TestSet18
             var container = new Container();
@@ -1292,7 +1292,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method6()
+        public static void Method6()
         {
             //TestSet18
             var container = new Container();
@@ -1304,7 +1304,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method60()
+        public static void Method60()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -1315,7 +1315,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method61()
+        public static void Method61()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -1326,7 +1326,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method62()
+        public static void Method62()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -1337,7 +1337,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method63()
+        public static void Method63()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -1348,7 +1348,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method64()
+        public static void Method64()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -1358,7 +1358,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method65()
+        public static void Method65()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false, UseValueTypes = false });
@@ -1366,7 +1366,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method66()
+        public static void Method66()
         {
             //TestSet18
             var container = new Container();
@@ -1376,7 +1376,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method67()
+        public static void Method67()
         {
             //TestSet18
             var container = new Container();
@@ -1386,7 +1386,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method68()
+        public static void Method68()
         {
             //TestSet18
             var container = new Container();
@@ -1396,7 +1396,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method69()
+        public static void Method69()
         {
             //TestSet18
             var container = new Container();
@@ -1406,7 +1406,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method7()
+        public static void Method7()
         {
             //TestSet18
             var container = new Container();
@@ -1417,7 +1417,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method70()
+        public static void Method70()
         {
             //TestSet18
             var container = new Container();
@@ -1427,7 +1427,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method71()
+        public static void Method71()
         {
             //TestSet18
             var container = new Container();
@@ -1437,7 +1437,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method72()
+        public static void Method72()
         {
             //TestSet18
             var container = new Container();
@@ -1447,7 +1447,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method73()
+        public static void Method73()
         {
             //TestSet18
             var container = new Container();
@@ -1457,7 +1457,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method74()
+        public static void Method74()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseValueTypes = false });
@@ -1465,7 +1465,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method75()
+        public static void Method75()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseValueTypes = false });
@@ -1475,7 +1475,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method76()
+        public static void Method76()
         {
             //TestSet18
             var container = new Container();
@@ -1485,7 +1485,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method77()
+        public static void Method77()
         {
             //TestSet18
             var container = new Container();
@@ -1495,7 +1495,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method78()
+        public static void Method78()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseValueTypes = false });
@@ -1503,7 +1503,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method79()
+        public static void Method79()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseValueTypes = false, UseDefaultConstructor = false });
@@ -1511,7 +1511,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method8()
+        public static void Method8()
         {
             //TestSet18
             var container = new Container();
@@ -1522,7 +1522,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method80()
+        public static void Method80()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseValueTypes = false, UseDefaultConstructor = true });
@@ -1530,7 +1530,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method81()
+        public static void Method81()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseValueTypes = true });
@@ -1538,7 +1538,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method82()
+        public static void Method82()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseValueTypes = true });
@@ -1546,7 +1546,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method83()
+        public static void Method83()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -1556,23 +1556,23 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method84()
+        public static void Method84()
         {
             //TestSet18
             var container = new Container();
             try
             {
                 container.RegisterType(typeof(Func<EmptyClass>), (string[])null);
-                Assert.True(true);
+                Assert.True(false);
             }
             catch
             {
-                Assert.True(false);
+                Assert.True(true);
             }
         }
 
         [Fact]
-        public static void TestSet18_Method85()
+        public static void Method85()
         {
             //TestSet18
             var container = new Container();
@@ -1588,7 +1588,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method86()
+        public static void Method86()
         {
             //TestSet18
             var container = new Container();
@@ -1597,7 +1597,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method87()
+        public static void Method87()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -1609,7 +1609,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method88()
+        public static void Method88()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -1621,7 +1621,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method89()
+        public static void Method89()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -1633,7 +1633,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method9()
+        public static void Method9()
         {
             //TestSet18
             var container = new Container();
@@ -1644,7 +1644,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method90()
+        public static void Method90()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true, UseValueTypes = false });
@@ -1658,7 +1658,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method91()
+        public static void Method91()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -1672,17 +1672,17 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method92()
+        public static void Method92()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
             Func<EmptyClass> func = () => new EmptyClass();
             container.RegisterType<Factory2<EmptyClass>>(func);
-            Assert.NotNull(container.CreateInstance(typeof(Factory2<EmptyClass>), Array.Empty<object>()));
+            Assert.NotNull(container.CreateInstance(typeof(Factory2<EmptyClass>), ArrayExtensions.Empty<object>()));
         }
 
         [Fact]
-        public static void TestSet18_Method93()
+        public static void Method93()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -1693,7 +1693,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method94()
+        public static void Method94()
         {
             //TestSet18
             var container = new Container();
@@ -1704,7 +1704,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method95()
+        public static void Method95()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -1715,7 +1715,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method96()
+        public static void Method96()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -1728,7 +1728,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method97()
+        public static void Method97()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = true });
@@ -1739,7 +1739,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method98()
+        public static void Method98()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });
@@ -1750,7 +1750,7 @@ namespace UnitTests18
         }
 
         [Fact]
-        public static void TestSet18_Method99()
+        public static void Method99()
         {
             //TestSet18
             var container = new Container(new TypeBuilderOptions() { UseDefaultConstructor = false });

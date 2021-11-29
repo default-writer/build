@@ -3,29 +3,30 @@
   <PropertyGroup>
     <ProjectGuid>{9E5550A9-29B5-445A-B6C8-70E4C210AEE8}</ProjectGuid>
   </PropertyGroup>
-
+  
+  <PropertyGroup>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+  
   <Import Project="$(MSBuildThisFileDirectory)../common.props" />
   
   <PropertyGroup>
     <TargetFrameworks>
-      net451;
-      net452;
-      net46;
-      net461;
-      net462;
-      net47;
-      net471;
-      net472;
-      net48;
-      netstandard2.0;
-      netcoreapp2.1;
-      netcoreapp3.1;
-      net5.0;
-    </TargetFrameworks>
+		net46;
+		net461;
+		net462;
+		net47;
+		net471;
+		net472;
+		net48;
+		netstandard2.0;
+		netcoreapp2.1;
+		netcoreapp3.1;
+		net5.0;
+	</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
     <Platforms>AnyCPU</Platforms>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Artur Mustafin (funcelot)</Authors>
@@ -33,14 +34,13 @@
     <Description>.NET 5 Dependency Injection framework 
 Commit SHA: $(CommitHash)</Description>
     <Copyright>Artur Mustafin (funcelot)</Copyright>
-    <PackageLicenseUrl>https://github.com/funcelot/build/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://funcelot.github.io/build/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/funcelot/build.git</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Dependency Injection</PackageTags>
     <PackageReleaseNotes>
       Features:
-      - Added support for .NET 5 (5.0.100)
+      - Added support for .NET 5 (5.0.201)
     </PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>Build.DependencyInjection</PackageId>
@@ -67,7 +67,11 @@ Commit SHA: $(CommitHash)</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Build.DependencyInjection.Abstractions" Version="1.0.0.31" />
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Build.Abstractions\Build.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>
