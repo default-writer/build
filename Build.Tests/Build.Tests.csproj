@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProjectGuid>{08DFF287-D590-48D1-8000-F138CEC5FB57}</ProjectGuid>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Configurations>Release;Debug</Configurations>
   </PropertyGroup>
-  
+
   <Import Project="$(MSBuildThisFileDirectory)../common.props" />
 
   <PropertyGroup>
     <TargetFrameworks>
-		net5.0;
+    net6.0;
 	</TargetFrameworks>
   </PropertyGroup>
 

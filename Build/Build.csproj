@@ -3,13 +3,13 @@
   <PropertyGroup>
     <ProjectGuid>{9E5550A9-29B5-445A-B6C8-70E4C210AEE8}</ProjectGuid>
   </PropertyGroup>
-  
+
   <PropertyGroup>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
-  
+
   <Import Project="$(MSBuildThisFileDirectory)../common.props" />
-  
+
   <PropertyGroup>
     <TargetFrameworks>
 		net46;
@@ -20,9 +20,8 @@
 		net472;
 		net48;
 		netstandard2.0;
-		netcoreapp2.1;
 		netcoreapp3.1;
-		net5.0;
+    net6.0;
 	</TargetFrameworks>
   </PropertyGroup>
 
@@ -31,7 +30,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Artur Mustafin (funcelot)</Authors>
     <Company>Artur Mustafin (funcelot)</Company>
-    <Description>.NET 5 Dependency Injection framework 
+    <Description>.NET 5 Dependency Injection framework
 Commit SHA: $(CommitHash)</Description>
     <Copyright>Artur Mustafin (funcelot)</Copyright>
     <PackageProjectUrl>https://funcelot.github.io/build/</PackageProjectUrl>

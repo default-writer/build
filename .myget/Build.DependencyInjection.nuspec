@@ -19,19 +19,19 @@ Container.CreateInstance(string, object[])
 Container.CreateInstance(string, string[])
 Container.CreateInstance(string, System.Type[])
 
-Container.CreateInstance(System.Type) 
+Container.CreateInstance(System.Type)
 Container.CreateInstance(System.Type, object[])
 Container.CreateInstance(System.Type, string[])
 Container.CreateInstance(System.Type, System.Type[])
 
-Container.CreateInstance&lt;T&gt;() 
-Container.CreateInstance&lt;T&gt;(object[]) 
-Container.CreateInstance&lt;T&gt;(string[]) 
+Container.CreateInstance&lt;T&gt;()
+Container.CreateInstance&lt;T&gt;(object[])
+Container.CreateInstance&lt;T&gt;(string[])
 Container.CreateInstance&lt;T&gt;(System.Type[])
 
-Container.GetInstance(string) 
-Container.GetInstance(string, object[]) 
-Container.GetInstance(string, string[]) 
+Container.GetInstance(string)
+Container.GetInstance(string, object[])
+Container.GetInstance(string, string[])
 Container.GetInstance(string, System.Type[])
 
 Container.GetInstance(System.Type)
@@ -39,15 +39,15 @@ Container.GetInstance(System.Type, object[])
 Container.GetInstance(System.Type, string[])
 Container.GetInstance(System.Type, System.Type[])
 
-Container.RegisterType(string) 
-Container.RegisterType(string, object[]) 
-Container.RegisterType(string, string[]) 
+Container.RegisterType(string)
+Container.RegisterType(string, object[])
+Container.RegisterType(string, string[])
 Container.RegisterType(string, System.Type[])
 
-Container.RegisterType(System.Type) 
-Container.RegisterType(System.Type, object[]) 
-Container.RegisterType(System.Type, string[]) 
-Container.RegisterType(System.Type, System.Type[]) 
+Container.RegisterType(System.Type)
+Container.RegisterType(System.Type, object[])
+Container.RegisterType(System.Type, string[])
+Container.RegisterType(System.Type, System.Type[])
 
 Container.RegisterType&lt;T&gt;()
 Container.RegisterType&lt;T&gt;(object[])
@@ -69,7 +69,6 @@ Container.RegisterType&lt;T&gt;(System.Type[])
       <group targetFramework=".NETFramework4.7.2" />
       <group targetFramework=".NETFramework4.8" />
       <group targetFramework=".NETStandard2.0" />
-      <group targetFramework=".NETCoreApp2.1" />
       <group targetFramework=".NETCoreApp3.1" />
     </dependencies>
   </metadata>
@@ -83,7 +82,6 @@ Container.RegisterType&lt;T&gt;(System.Type[])
     <file src="..\Build\bin\Release\net471\Build.dll" target="lib\net471\Build.dll" />
     <file src="..\Build\bin\Release\net472\Build.dll" target="lib\net472\Build.dll" />
     <file src="..\Build\bin\Release\net48\Build.dll" target="lib\net48\Build.dll" />
-    <file src="..\Build\bin\Release\netcoreapp2.1\Build.dll" target="lib\netcoreapp2.1\Build.dll" />
     <file src="..\Build\bin\Release\netcoreapp3.1\Build.dll" target="lib\netcoreapp3.1\Build.dll" />
   </files>
 </package>

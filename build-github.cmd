@@ -8,7 +8,7 @@ setlocal enabledelayedexpansion
   set BuildConfiguration=Release
 
   set BuildSolution=.github/Build.sln
-  
+
   set LV_GIT_HEAD_SHA=
   for /f %%c in ('git rev-parse HEAD') do set "LV_GIT_HEAD_SHA=%%c"
 
@@ -26,7 +26,7 @@ setlocal enabledelayedexpansion
   echo/ ==================
   echo/  Building %BuildVersion% %BuildConfiguration% version of NuGet packages.
   echo/ ==================
-  
+
   set BuildSpec=
   set BuildSpec=Build.DependencyInjection.%BuildVersion%.nupkg
 
@@ -75,9 +75,9 @@ endlocal& exit /b %errorlevel%
   echo/ > build.log
   echo/
   echo/ ========== NuGet ==========
-  for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp2.1 netcoreapp3.1) do (
+  for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp3.1) do (
     echo/  Building %%v
-    dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log                             
+    dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log
   )
   echo/ ========== NuGet ==========
   exit /b 0

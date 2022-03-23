@@ -1,4 +1,4 @@
-& cd .nuget 
+& cd .nuget
 & ./NuGet-dotnet-install
 & cd ..
 
@@ -28,17 +28,17 @@ if(![System.IO.File]::Exists($(Join-Path -Path $CurrentDir -ChildPath "packages/
 
 & dotnet-sonarscanner begin /o:"funcelot" /d:sonar.login="$env:SONAR_TOKEN" /k:"build-core" /d:sonar.host.url="https://sonarcloud.io" /n:"build" /v:"1.0" /d:sonar.cs.opencover.reportsPaths="Build.Tests/coverage.opencover.xml" /d:sonar.coverage.inclusions="**/*.cs" /d:sonar.coverage.exclusions="**/Interface*.cs,**/*Test*.cs,**/*Exception*.cs,**/*Attribute*.cs,**/Middleware/*.cs,/Pages/*.cs,**/Program.cs,**/Startup.cs,**/sample/*,**/aspnetcore/*,**/wwwroot/*,**/xunit/*,**/*.js,**/coverage.opencover.xml,**/opencover.xml" /d:sonar.sourceEncoding="UTF-8" /d:sonar.language=cs
 & dotnet restore --packages packages/.packages
-& dotnet build -c Release -f net5.0
+& dotnet build -c Release -f net6.0
 & dotnet test -c Release --no-build Build.Tests /p:CollectCoverage=true /p:CoverletOutput="coverage.opencover.xml" /p:CoverletOutputFormat=opencover /p:Include="[Build.*]*" /p:Exclude="[Build]*AttributeProvider*" -v:n /p:CoverletOutputFormat=opencover /p:Threshold=80 /p:ThresholdType=line /p:ThresholdStat=total
 & $OPENCOVER `
   -target:"$($DOTNET)" `
-  -targetargs:"test -f net5.0 -c Release Build.Tests\Build.Tests.csproj" `
+  -targetargs:"test -f net6.0 -c Release Build.Tests\Build.Tests.csproj" `
   -mergeoutput `
   -hideskipped:File `
   -output:"Build.Tests\coverage.opencover.xml" `
   -oldStyle `
   -filter:"+[Build*]* -[Build*]*AttributeProvider*" `
-  -searchdirs:"Build.Tests/bin/Release/net5.0" `
+  -searchdirs:"Build.Tests/bin/Release/net6.0" `
   -register:user
 
 & dotnet-sonarscanner end /d:sonar.login="$env:SONAR_TOKEN"
