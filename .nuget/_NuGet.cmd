@@ -152,7 +152,7 @@ setlocal
   echo/ ========== NuGet ==========
   echo/  Publishing %cd%
   echo/ ========== NuGet ==========
-  dotnet.exe publish -f net6.0 -c %BuildConfiguration%                                                                    || exit /b 1
+  dotnet.exe publish -f %TargetFramework% -c %BuildConfiguration%                                                                    || exit /b 1
   echo/
   echo/ ========== NuGet ==========
   echo/  Packing %cd%
