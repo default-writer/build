@@ -36,9 +36,3 @@ Deramore Lane, York, YO10 5GH, UK.
 - [ASP.NET Core Middleware](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/index?view=aspnetcore-2.1&tabs=aspnetcore2x)
 - [Middleware activation with a third-party container in ASP.NET Core.](https://docs.microsoft.com/aspnet/core/fundamentals/middleware/extensibility-third-party-container)
 - [Simple Injector sample for ASP.NET](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/middleware/extensibility-third-party-container/sample)
-
-## Donate
-
-[![Support via PayPal](https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-200px.png)](https://www.paypal.me/experimentalworld/5)
-
-Please, feel free to donate me [5$](https://www.paypal.me/experimentalworld/5) to expand project development (wiki, samples, etc.)
