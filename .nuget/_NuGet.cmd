@@ -12,7 +12,10 @@ setlocal enabledelayedexpansion
 
   set BuildVersion=%~2
   if "%BuildVersion%"=="" set /p BuildVersion=<"%~dp0..\.config\BuildVersion.txt"
-  
+
+  set TargetFramework=%~3
+  if "%TargetFramework%"=="" set /p TargetFramework=<"%~dp0..\.config\TargetFramework.txt"
+
   echo/ ==================
   echo/  %LV_GIT_HEAD_SHA%
   echo/ ==================
@@ -20,7 +23,7 @@ setlocal enabledelayedexpansion
   echo/ ==================
   echo/  Building %BuildVersion% %BuildConfiguration% version of NuGet packages.
   echo/ ==================
-  
+
   set OutputDirectory=%~dp0nuget
   call :remove_directory "%OutputDirectory%" || exit /b 1
 
@@ -85,7 +88,7 @@ setlocal
     nuget pack .nuget\%%f -Properties Configuration=Release;BuildVersion=%BuildVersion%;GitHeadSha=%GitHeadSha% -OutputDirectory "%OutputDirectory%"
   )
   if "%NUGET_ACCESSTOKEN%" == "" (
-    echo/ 
+    echo/
     echo/ ========== NuGet ==========
     echo/ Missing NuGet access token environment variable API key
     echo/ ========== NuGet ==========
@@ -93,11 +96,11 @@ setlocal
   if not "%NUGET_ACCESSTOKEN%" == "" (
     del /f /s /q %OutputDirectory%\*.symbols.nupkg
     for /f "tokens=* usebackq" %%f in (`dir /B %OutputDirectory%\*.nupkg`) do (
-      echo/ 
+      echo/
       echo/ ========== NuGet ==========
      echo/ Uploading NuGet package %OutputDirectory%\%%f
       echo/ ========== NuGet ==========
-      dotnet nuget push %OutputDirectory%\%%f -k %NUGET_ACCESSTOKEN% -s https://api.nuget.org/v3/index.json                                   
+      dotnet nuget push %OutputDirectory%\%%f -k %NUGET_ACCESSTOKEN% -s https://api.nuget.org/v3/index.json
     )
   )
   call :remove_directory %~dp0..\packages\.packages
@@ -131,9 +134,9 @@ setlocal
   echo/ > build.log
   echo/
   echo/ ========== NuGet ==========
-  for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp2.1 netcoreapp3.1) do (
+  for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp3.1 net6.0) do (
     echo/  Building %%v
-    dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log                             
+    dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log
   )
   echo/ ========== NuGet ==========
   exit /b 0
@@ -149,7 +152,7 @@ setlocal
   echo/ ========== NuGet ==========
   echo/  Publishing %cd%
   echo/ ========== NuGet ==========
-  dotnet.exe publish -c %BuildConfiguration%                                                                              || exit /b 1
+  dotnet.exe publish -f %TargetFramework% -c %BuildConfiguration%                                                                    || exit /b 1
   echo/
   echo/ ========== NuGet ==========
   echo/  Packing %cd%

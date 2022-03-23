@@ -5,11 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": ".NET Core Tests (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/Build.Tests/bin/Debug/net6.0/Build.Tests.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
             "name": ".NET Core Launch (console)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Build.Console/bin/Debug/net5.0/Build.Console.dll",
+            "program": "${workspaceFolder}/Build.Console/bin/Debug/net6.0/Build.Console.dll",
             "args": [],
             "cwd": "${workspaceFolder}/Build.Console",
             "console": "internalConsole",

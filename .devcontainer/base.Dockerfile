@@ -25,7 +25,7 @@ ENV TZ=Europe/Moscow
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ###
-### .NET 5
+### .NET 6
 ###
 RUN wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O /tmp/packages-microsoft-prod.deb \
     && dpkg -i /tmp/packages-microsoft-prod.deb \
@@ -37,8 +37,8 @@ RUN wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-p
 ###
 ### Node.js
 ###
-RUN curl -sL https://deb.nodesource.com/setup_14.x -o /tmp/nodesource_setup.sh && chmod +x /tmp/nodesource_setup.sh \ 
-    && /tmp/nodesource_setup.sh && rm /tmp/nodesource_setup.sh \ 
+RUN curl -sL https://deb.nodesource.com/setup_14.x -o /tmp/nodesource_setup.sh && chmod +x /tmp/nodesource_setup.sh \
+    && /tmp/nodesource_setup.sh && rm /tmp/nodesource_setup.sh \
     && apt install nodejs
 
 ###
@@ -66,7 +66,7 @@ RUN apt install curl gnupg \
 ###
 ### LLDB
 ###
-RUN apt-get install gnupg lldb g++ valgrind -y 
+RUN apt-get install gnupg lldb g++ valgrind -y
 
 ###
 ### Unix ODBC driver for MSSQL Server 2017

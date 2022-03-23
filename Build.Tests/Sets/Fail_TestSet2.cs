@@ -12,7 +12,9 @@ namespace Fail_TestSet2
     {
         public int PersonId;
 
-        static ErrorStruct() => throw new NotImplementedException();
+        public ErrorStruct() {
+            throw new NotImplementedException();
+        }
 
         public static bool operator !=(ErrorStruct left, ErrorStruct right) => !(left == right);
 

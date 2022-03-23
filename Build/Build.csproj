@@ -3,13 +3,21 @@
   <PropertyGroup>
     <ProjectGuid>{9E5550A9-29B5-445A-B6C8-70E4C210AEE8}</ProjectGuid>
   </PropertyGroup>
-  
+
   <PropertyGroup>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
-  
+
+  <PropertyGroup>
+    <ProduceReferenceAssemblyInOutDir>true</ProduceReferenceAssemblyInOutDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="testhost.runtimeconfig.json" Link="testhost.runtimeconfig.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"/>
+  </ItemGroup>
+
   <Import Project="$(MSBuildThisFileDirectory)../common.props" />
-  
+
   <PropertyGroup>
     <TargetFrameworks>
 		net46;
@@ -20,9 +28,8 @@
 		net472;
 		net48;
 		netstandard2.0;
-		netcoreapp2.1;
 		netcoreapp3.1;
-		net5.0;
+    net6.0;
 	</TargetFrameworks>
   </PropertyGroup>
 
@@ -31,7 +38,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Artur Mustafin (funcelot)</Authors>
     <Company>Artur Mustafin (funcelot)</Company>
-    <Description>.NET 5 Dependency Injection framework 
+    <Description>.NET 6 Dependency Injection framework
 Commit SHA: $(CommitHash)</Description>
     <Copyright>Artur Mustafin (funcelot)</Copyright>
     <PackageProjectUrl>https://funcelot.github.io/build/</PackageProjectUrl>
@@ -40,7 +47,7 @@ Commit SHA: $(CommitHash)</Description>
     <PackageTags>Dependency Injection</PackageTags>
     <PackageReleaseNotes>
       Features:
-      - Added support for .NET 5 (5.0.201)
+      - Added support for .NET 6 (6.0.201)
     </PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>Build.DependencyInjection</PackageId>
@@ -52,13 +59,13 @@ Commit SHA: $(CommitHash)</Description>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>latest</LangVersion>
-    <DebugType>full</DebugType>
+    <DebugType>portable</DebugType>
     <DebugSymbols>True</DebugSymbols>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <LangVersion>latest</LangVersion>
-    <DebugType>full</DebugType>
+    <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 

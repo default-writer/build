@@ -1,6 +1,6 @@
 ﻿Welcome to the build wiki!
 
-# .NET 5 Dependency Injection framework
+# .NET 6 Dependency Injection framework
 
 [![build-core MyGet Build Status](https://www.myget.org/BuildSource/Badge/build-core?identifier=d1f39e87-090d-417a-9184-a1d45284a300)](https://www.myget.org/feed/Packages/build-core) [![VSTS](https://funcelot.visualstudio.com/_apis/public/build/definitions/6ec45376-8260-482c-906f-4bf4d4e8e451/4/badge)](https://funcelot.visualstudio.com/build) [![CircleCI](https://img.shields.io/circleci/project/github/funcelot/build.svg)](https://circleci.com/gh/funcelot/build) [![Build status](https://ci.appveyor.com/api/projects/status/k9d5256ualhy2skp/branch/master?svg=true)](https://ci.appveyor.com/project/funcelot/build/branch/master) [![Amazon AWS](https://codebuild.us-east-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiYU5ZMHd1WVdNdWZzdzlrTS96VEhJMnEvSFlQK2UxelZhWWMwa3hYclVmcjNGM05IaW5xcFdqY3JnNVJxUitnbkxCRWVPOGpYa1REU1czNmhNdUFmZzVjPSIsIml2UGFyYW1ldGVyU3BlYyI6IkUxaWd1YnRBUGpxTHBNY0MiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)](https://us-east-2.console.aws.amazon.com/codebuild/home?region=us-east-2#/projects/build/view) [![Travis CI](https://travis-ci.org/funcelot/build.svg?branch=master)](https://travis-ci.org/funcelot/build) [![CodeFactor](https://www.codefactor.io/repository/github/funcelot/build/badge)](https://www.codefactor.io/repository/github/funcelot/build)
 
@@ -12,7 +12,7 @@
 
 Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3NjQ2Nzc5MzAyLWE3MmFkOWFlNmY4NWJlMjU2YmVkNDNmNTI2YjUwMGIzNWY1MjAyNzU0NTUzNDU4MmViOGQxYTkwZDkwNTBjMTI) [#slack](https://join.slack.com/t/build-core/shared_invite/enQtMzY3NjQ2Nzc5MzAyLWE3MmFkOWFlNmY4NWJlMjU2YmVkNDNmNTI2YjUwMGIzNWY1MjAyNzU0NTUzNDU4MmViOGQxYTkwZDkwNTBjMTI)
 
-[![CodeFactor](https://www.codefactor.io/repository/github/funcelot/build/badge)](https://www.codefactor.io/repository/github/funcelot/build) [![NuGet version](https://img.shields.io/nuget/v/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build) [![NuGet version](https://img.shields.io/nuget/v/Build.DependencyInjection.svg)](https://www.nuget.org/packages/Build.DependencyInjection) [![NuGet downloads](https://img.shields.io/nuget/dt/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build) [![NuGet downloads](https://img.shields.io/nuget/dt/Build.DependencyInjection.svg)](https://www.nuget.org/packages/Build.DependencyInjection) [![Discord](https://img.shields.io/discord/446426366616010763.svg)](https://discord.gg/uqrmTY4) 
+[![CodeFactor](https://www.codefactor.io/repository/github/funcelot/build/badge)](https://www.codefactor.io/repository/github/funcelot/build) [![NuGet version](https://img.shields.io/nuget/v/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build) [![NuGet version](https://img.shields.io/nuget/v/Build.DependencyInjection.svg)](https://www.nuget.org/packages/Build.DependencyInjection) [![NuGet downloads](https://img.shields.io/nuget/dt/dependency_injection_build.svg)](https://www.nuget.org/packages/dependency_injection_build) [![NuGet downloads](https://img.shields.io/nuget/dt/Build.DependencyInjection.svg)](https://www.nuget.org/packages/Build.DependencyInjection) [![Discord](https://img.shields.io/discord/446426366616010763.svg)](https://discord.gg/uqrmTY4)
 
 ## Channels
 
@@ -22,7 +22,7 @@ Welcome to [#build](https://join.slack.com/t/build-core/shared_invite/enQtMzY3Nj
 
 [build](https://github.com/funcelot/build)
 
-## Docs 
+## Docs
 
 - [Build](https://github.com/funcelot/build/wiki)
 
@@ -40,23 +40,23 @@ Container.CreateInstance(string, System.Type[])
 ```
 
 ```c#
-Container.CreateInstance(System.Type) 
+Container.CreateInstance(System.Type)
 Container.CreateInstance(System.Type, object[])
 Container.CreateInstance(System.Type, string[])
 Container.CreateInstance(System.Type, System.Type[])
 ```
 
 ```c#
-Container.CreateInstance<T>() 
-Container.CreateInstance<T>(object[]) 
-Container.CreateInstance<T>(string[]) 
+Container.CreateInstance<T>()
+Container.CreateInstance<T>(object[])
+Container.CreateInstance<T>(string[])
 Container.CreateInstance<T>(System.Type[])
 ```
 
 ```c#
-Container.GetInstance(string) 
-Container.GetInstance(string, object[]) 
-Container.GetInstance(string, string[]) 
+Container.GetInstance(string)
+Container.GetInstance(string, object[])
+Container.GetInstance(string, string[])
 Container.GetInstance(string, System.Type[])
 ```
 
@@ -68,17 +68,17 @@ Container.GetInstance(System.Type, System.Type[])
 ```
 
 ```c#
-Container.RegisterType(string) 
-Container.RegisterType(string, object[]) 
-Container.RegisterType(string, string[]) 
+Container.RegisterType(string)
+Container.RegisterType(string, object[])
+Container.RegisterType(string, string[])
 Container.RegisterType(string, System.Type[])
 ```
 
 ```c#
-Container.RegisterType(System.Type) 
-Container.RegisterType(System.Type, object[]) 
-Container.RegisterType(System.Type, string[]) 
-Container.RegisterType(System.Type, System.Type[]) 
+Container.RegisterType(System.Type)
+Container.RegisterType(System.Type, object[])
+Container.RegisterType(System.Type, string[])
+Container.RegisterType(System.Type, System.Type[])
 ```
 
 ```c#
@@ -98,7 +98,7 @@ Container.RegisterType<T>(System.Type[])
 * Type aliases
 * External assembly types
 
-## Goal 
+## Goal
 
 The goal of development of this framework is to build automation of complex types initialization.
 Build can use declarative approach to define dependencies between types and their requirements.

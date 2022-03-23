@@ -1,3 +1,5 @@
 {
-    "dotnet-test-explorer.testProjectPath": "+(Build.Behave|Build.Tests)"
+    "dotnet-test-explorer.testProjectPath": "+(Build.Behave|Build.Tests)",
+    "editor.fontFamily": "Ubuntu Mono, Ubuntu Mono, Consolas, 'Courier New', monospace",
+    "terminal.integrated.fontFamily": "Ubuntu Mono"
 }

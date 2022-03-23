@@ -7,7 +7,7 @@ setlocal enabledelayedexpansion
 
   set BuildConfiguration=%~1
   if "%BuildConfiguration%"=="" set BuildConfiguration=Release
-  
+
   set BuildSolution=Build.sln
 
   set BuildVersion=%~2
@@ -20,7 +20,7 @@ setlocal enabledelayedexpansion
   echo/ ==================
   echo/  Building %BuildVersion% %BuildConfiguration% version of NuGet packages.
   echo/ ==================
-  
+
   set OutputDirectory=%~dp0myget
   call :remove_directory "%OutputDirectory%" || exit /b 1
 
@@ -83,14 +83,14 @@ setlocal
     nuget pack .myget\%%f -Properties Configuration=Release;BuildVersion=%BuildVersion%;GitHeadSha=%GitHeadSha% -OutputDirectory "%OutputDirectory%"
   )
   if "%MYGET_ACCESSTOKEN%" == "" (
-    echo/ 
+    echo/
     echo/ ========== MyGet ==========
     echo/ Missing MyGet access token environment variable API key
     echo/ ========== MyGet ==========
   )
   if not "%MYGET_ACCESSTOKEN%" == "" (
     for /f "tokens=* usebackq" %%f in (`dir /B %OutputDirectory%\*.nupkg`) do (
-      echo/ 
+      echo/
       echo/ ========== MyGet ==========
       echo/ Uploading MyGet package %OutputDirectory%\%%f
       echo/ ========== MyGet ==========
@@ -128,9 +128,9 @@ setlocal
   echo/ > build.log
   echo/
   echo/ ========== MyGet ==========
-  for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp2.1 netcoreapp3.1) do (
+  for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp3.1 net6.0) do (
     echo/  Building %%v
-    dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log                             
+    dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log
   )
   echo/ ========== MyGet ==========
   exit /b 0
