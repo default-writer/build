@@ -27,6 +27,7 @@
       <group targetFramework=".NETFramework4.8" />
       <group targetFramework=".NETStandard2.0" />
       <group targetFramework=".NETCoreApp3.1" />
+      <group targetFramework=".NET6.0" />
     </dependencies>
   </metadata>
   <files>
@@ -41,5 +42,6 @@
     <file src="..\Build.Abstractions\bin\Release\net48\Build.Abstractions.dll" target="lib\net48\Build.Abstractions.dll" />
     <file src="..\Build.Abstractions\bin\Release\netstandard2.0\Build.Abstractions.dll" target="lib\netstandard2.0\Build.Abstractions.dll" />
     <file src="..\Build.Abstractions\bin\Release\netcoreapp3.1\Build.Abstractions.dll" target="lib\netcoreapp3.1\Build.Abstractions.dll" />
+    <file src="..\Build.Abstractions\bin\Release\net6.0\Build.Abstractions.dll" target="lib\net6.0\Build.Abstractions.dll" />
   </files>
 </package>

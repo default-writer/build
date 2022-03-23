@@ -13,6 +13,9 @@ setlocal enabledelayedexpansion
   set BuildVersion=%~2
   if "%BuildVersion%"=="" set /p BuildVersion=<"%~dp0..\.config\BuildVersion.txt"
 
+  set TargetFramework=%~3
+  if "%TargetFramework%"=="" set /p TargetFramework=<"%~dp0..\.config\TargetFramework.txt"
+
   echo/ ==================
   echo/  %LV_GIT_HEAD_SHA%
   echo/ ==================
@@ -131,7 +134,7 @@ setlocal
   echo/ > build.log
   echo/
   echo/ ========== NuGet ==========
-  for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp3.1) do (
+  for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp3.1 net6.0) do (
     echo/  Building %%v
     dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log
   )
@@ -149,7 +152,7 @@ setlocal
   echo/ ========== NuGet ==========
   echo/  Publishing %cd%
   echo/ ========== NuGet ==========
-  dotnet.exe publish -c %BuildConfiguration%                                                                              || exit /b 1
+  dotnet.exe publish -f net6.0 -c %BuildConfiguration%                                                                    || exit /b 1
   echo/
   echo/ ========== NuGet ==========
   echo/  Packing %cd%
