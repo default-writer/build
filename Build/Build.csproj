@@ -30,7 +30,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Artur Mustafin (funcelot)</Authors>
     <Company>Artur Mustafin (funcelot)</Company>
-    <Description>.NET 5 Dependency Injection framework
+    <Description>.NET 6 Dependency Injection framework
 Commit SHA: $(CommitHash)</Description>
     <Copyright>Artur Mustafin (funcelot)</Copyright>
     <PackageProjectUrl>https://funcelot.github.io/build/</PackageProjectUrl>

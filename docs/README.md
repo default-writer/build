@@ -6,7 +6,7 @@
 
 [build](https://github.com/funcelot/build)
 
-## Docs 
+## Docs
 
 - [Build](https://github.com/funcelot/build/wiki)
 
@@ -14,7 +14,7 @@
 
 Prerequisites (.NET Framework 4.5.1):
 
-- Added support for .NET 5
+- Added support for .NET 6
 
 ## Continious Integration
 
