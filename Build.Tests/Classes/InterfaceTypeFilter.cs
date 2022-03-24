@@ -58,7 +58,7 @@ namespace Classes
         /// <returns>
         /// <c>true</c> if this instance can register the specified type; otherwise, <c>false</c>.
         /// </returns>
-        public static bool CanRegister(Type type, bool useValueTypes = false) => type != null && type.IsInterface && type.GetCustomAttributes(typeof(InterfaceAttribute), false).Length != 0;
+        public static bool CanRegister(Type type, bool useValueTypes = false) => type != null  && ((useValueTypes && (type.IsValueType || type.IsEnum)) || (!useValueTypes && type.IsInterface && type.GetCustomAttributes(typeof(InterfaceAttribute), false).Length != 0));
 
         /// <summary>
         /// Determines whether this instance can register the specified type.
@@ -67,7 +67,7 @@ namespace Classes
         /// <returns>
         /// <c>true</c> if this instance can register the specified type; otherwise, <c>false</c>.
         /// </returns>
-        public static bool CanRegisterParameter(Type type, bool useValueTypes = false) => type != null  && ((useValueTypes && (type.IsValueType || type.IsEnum)) || (!useValueTypes && type.IsInterface && type.GetCustomAttributes(typeof(InterfaceAttribute), false).Length != 0));
+        public static bool CanRegisterParameter(Type type, bool useValueTypes = false) => CanRegister(type, useValueTypes);
 
         /// <summary>
         /// Checks type compatibility
