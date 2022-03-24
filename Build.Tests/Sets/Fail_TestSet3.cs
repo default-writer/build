@@ -1,4 +1,7 @@
-﻿using Build;
+﻿#pragma warning disable IDE0060
+
+using System;
+using Build;
 
 namespace Fail_TestSet3
 {

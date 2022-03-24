@@ -1,4 +1,6 @@
-﻿namespace Build.Console
+﻿#pragma warning disable IDE0060
+
+namespace Build.Console
 {
     static class Program
     {

@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning disable IDE0039
+
+using System;
 using System.Collections.Generic;
 using Xunit;
 using Build;

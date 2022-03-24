@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning disable IDE0090
+
+using System;
 using Build;
 
 namespace Fail_TestSet2
@@ -12,7 +14,8 @@ namespace Fail_TestSet2
     {
         public int PersonId;
 
-        public ErrorStruct() {
+        public ErrorStruct()
+        {
             throw new NotImplementedException();
         }
 
