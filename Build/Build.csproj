@@ -41,7 +41,7 @@
 		<Company>Artur Mustafin (funcelot)</Company>
 		<Description>
 			.NET 6 Dependency Injection framework
-			Commit SHA: $(CommitHash)
+			Commit SHA: $(BuildHash)
 		</Description>
 		<Copyright>Artur Mustafin (funcelot)</Copyright>
 		<PackageProjectUrl>https://funcelot.github.io/build/</PackageProjectUrl>
