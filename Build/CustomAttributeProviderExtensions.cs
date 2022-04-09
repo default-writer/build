@@ -7,26 +7,8 @@ namespace Build
     public static class CustomAttributeProviderExtensions
     {
 #if NET35_OR_GREATER && !NET40_OR_GREATER
-        public static T GetCustomAttribute<T>(this Module p, bool inherit = false) where T : Attribute
-        {
-            if (p is null)
-            {
-                throw new ArgumentNullException(nameof(p));
-            }
-
-            return p.GetCustomAttribute<T, Module>(inherit);
-        }
-
-        public static T GetCustomAttribute<T>(this Assembly p, bool inherit = false) where T : Attribute
-        {
-            if (p is null)
-            {
-                throw new ArgumentNullException(nameof(p));
-            }
-
-            return p.GetCustomAttribute<T, Assembly>(inherit);
-        }
-
+        public static T GetCustomAttribute<T>(this Module p, bool inherit = false) where T : Attribute => p.GetCustomAttribute<T, Module>(inherit);
+        public static T GetCustomAttribute<T>(this Assembly p, bool inherit = false) where T : Attribute => p.GetCustomAttribute<T, Assembly>(inherit);
         public static T GetCustomAttribute<T>(this ParameterInfo p, bool inherit = false) where T : Attribute => p.GetCustomAttribute<T, ParameterInfo>(inherit);
         public static T GetCustomAttribute<T>(this PropertyInfo p, bool inherit = false) where T : Attribute => p.GetCustomAttribute<T, PropertyInfo>(inherit);
         public static T GetCustomAttribute<T>(this MethodInfo p, bool inherit = false) where T : Attribute => p.GetCustomAttribute<T, MethodInfo>(inherit);

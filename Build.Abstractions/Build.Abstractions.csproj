@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<ProjectGuid>{B8086CB3-54A4-40B7-B4BC-6DA7DEC8CB78}</ProjectGuid>
 	</PropertyGroup>
-
+	
 	<PropertyGroup>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>

@@ -4,8 +4,6 @@
 		<Configurations>Release;Debug</Configurations>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)../common.props" />
-
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
@@ -27,11 +25,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="testhost.runtimeconfig.json" Link="testhost.runtimeconfig.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"/>
+		<None Include="testhost.runtimeconfig.json" Link="testhost.runtimeconfig.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="coverlet.msbuild" Version="3.1.0">
+		<PackageReference Include="coverlet.msbuild" Version="3.1.2">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
@@ -50,14 +48,14 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="nunit" Version="3.13.2" />
-		<PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
+		<PackageReference Include="nunit" Version="3.13.3" />
+		<PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
 		<PackageReference Include="xunit.runner.console" Version="2.4.1" />
-		<PackageReference Include="SpecFlow" Version="3.9.22" />
-		<PackageReference Include="SpecFlow.NUnit" Version="3.9.22" />
-		<PackageReference Include="SpecFlow.NUnit.Runners" Version="3.9.22" />
-		<PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.9.22" />
+		<PackageReference Include="SpecFlow" Version="3.9.58" />
+		<PackageReference Include="SpecFlow.NUnit" Version="3.9.58" />
+		<PackageReference Include="SpecFlow.NUnit.Runners" Version="3.9.58" />
+		<PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.9.58" />
 	</ItemGroup>
 
 	<ItemGroup>
