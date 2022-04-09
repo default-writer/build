@@ -1,1 +1,1 @@
-& nuget setapikey ${env:GITHUB_APIKEY} -source github
+& nuget setapikey ${env:GITHUB_TOKEN} -source github
