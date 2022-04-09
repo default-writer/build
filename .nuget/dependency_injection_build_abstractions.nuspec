@@ -31,8 +31,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Build.Abstractions\bin\Release\net451\Build.Abstractions.dll" target="lib\net451\Build.Abstractions.dll" />
-    <file src="..\Build.Abstractions\bin\Release\net452\Build.Abstractions.dll" target="lib\net452\Build.Abstractions.dll" />
+    <file src="..\Build.Abstractions\bin\Release\net35\Build.Abstractions.dll" target="lib\net35\Build.Abstractions.dll" />
     <file src="..\Build.Abstractions\bin\Release\net46\Build.Abstractions.dll" target="lib\net46\Build.Abstractions.dll" />
     <file src="..\Build.Abstractions\bin\Release\net461\Build.Abstractions.dll" target="lib\net461\Build.Abstractions.dll" />
     <file src="..\Build.Abstractions\bin\Release\net462\Build.Abstractions.dll" target="lib\net462\Build.Abstractions.dll" />
