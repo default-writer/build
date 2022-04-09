@@ -1,0 +1,1 @@
+& nuget setapikey ${env:GITHUB_APIKEY} -source github
