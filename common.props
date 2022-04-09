@@ -1,4 +1,5 @@
 <Project>
+
 	<Target Name="GetGitHash" BeforeTargets="WriteGitHash" Condition="'$(BuildHash)' == ''">
 		<PropertyGroup>
 			<!-- temp file for the git version (lives in "obj" folder)-->
@@ -17,6 +18,7 @@
 			<BuildHash>@(GitVersion)</BuildHash>
 		</PropertyGroup>
 	</Target>
+
 	<Target Name="WriteGitHash" BeforeTargets="CoreCompile">
 		<!-- names the obj/.../CustomAssemblyInfo.cs file -->
 		<PropertyGroup>
@@ -35,12 +37,28 @@
 		<!-- writes the attribute to the customAssemblyInfo file -->
 		<WriteCodeFragment Language="C#" OutputFile="$(CustomAssemblyInfoFile)" AssemblyAttributes="@(AssemblyAttributes)" />
 	</Target>
+
 	<PropertyGroup>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	</PropertyGroup>
+
+	<PropertyGroup>
+		<GitHeadSha>$(GitHeadSha)</GitHeadSha>
+		<DotGitDir>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../../.git'))</DotGitDir>
+		<HeadFileContent Condition="Exists('$(DotGitDir)/HEAD')">$([System.IO.File]::ReadAllText('$(DotGitDir)/HEAD').Trim())</HeadFileContent>
+		<RefPath Condition="$(HeadFileContent.StartsWith('ref: '))">$(DotGitDir)/$(HeadFileContent.Substring(5))</RefPath>
+		<GitHeadSha Condition="'$(RefPath)' != '' AND Exists('$(RefPath)')">$([System.IO.File]::ReadAllText('$(RefPath)').Trim())</GitHeadSha>
+		<GitHeadSha Condition="'$(HeadFileContent)' != '' AND '$(RefPath)' == ''">$(HeadFileContent)</GitHeadSha>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(GitHeadSha)' != ''">
+		<CommitHash>$(GitHeadSha)</CommitHash>
+	</PropertyGroup>
+
 	<PropertyGroup Label="Signing">
 		<!-- <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)common/Build.snk</AssemblyOriginatorKeyFile> -->
 		<!-- <SignAssembly>true</SignAssembly> -->
 		<!-- <PublicSign Condition="'$(OS)' != 'Windows_NT'">true</PublicSign> -->
 	</PropertyGroup>
+
 </Project>

@@ -1,0 +1,86 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "circle", "circle", "{77701C22-8214-414B-9204-C38AEF64B6DE}"
+	ProjectSection(SolutionItems) = preProject
+		.circleci\config.yml = .circleci\config.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{3841B983-2EEA-4F5C-BE6E-8D8191A9AFA4}"
+	ProjectSection(SolutionItems) = preProject
+		docs\README.md = docs\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ci", "ci", "{56CD2471-65B0-4B05-8024-89C2121A102B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "travis", "travis", "{3C89ED61-97F9-42DC-BF0B-3D5C889B1593}"
+	ProjectSection(SolutionItems) = preProject
+		.travis.yml = .travis.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{C9F66766-F1C6-429D-8A52-4D45F7A5271C}"
+	ProjectSection(SolutionItems) = preProject
+		.config\BuildVersion.txt = .config\BuildVersion.txt
+		.config\DotNetCliVersion.txt = .config\DotNetCliVersion.txt
+		.config\NuGetCliVersion.txt = .config\NuGetCliVersion.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{2240316E-8F79-436E-A3E3-1F89BA710DB0}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "global", "global", "{03A42323-82A8-4897-A9CB-098055C69924}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "appveyour", "appveyour", "{A7881BDE-27D8-435A-99C4-FDC9DFE1D970}"
+	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
+		coverage.ps1 = coverage.ps1
+		docker-clean.ps1 = docker-clean.ps1
+		docker-init.ps1 = docker-init.ps1
+		.appveyour\Dockerfile = .appveyour\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "aws", "aws", "{E51C5E93-F354-4AF0-AAD0-E699D0C045AB}"
+	ProjectSection(SolutionItems) = preProject
+		.aws\webhook.js = .aws\webhook.js
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Build.Abstractions", "..\Build.Abstractions\Build.Abstractions.csproj", "{B8086CB3-54A4-40B7-B4BC-6DA7DEC8CB78}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B8086CB3-54A4-40B7-B4BC-6DA7DEC8CB78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8086CB3-54A4-40B7-B4BC-6DA7DEC8CB78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8086CB3-54A4-40B7-B4BC-6DA7DEC8CB78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8086CB3-54A4-40B7-B4BC-6DA7DEC8CB78}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{77701C22-8214-414B-9204-C38AEF64B6DE} = {56CD2471-65B0-4B05-8024-89C2121A102B}
+		{3C89ED61-97F9-42DC-BF0B-3D5C889B1593} = {56CD2471-65B0-4B05-8024-89C2121A102B}
+		{2240316E-8F79-436E-A3E3-1F89BA710DB0} = {56CD2471-65B0-4B05-8024-89C2121A102B}
+		{A7881BDE-27D8-435A-99C4-FDC9DFE1D970} = {56CD2471-65B0-4B05-8024-89C2121A102B}
+		{E51C5E93-F354-4AF0-AAD0-E699D0C045AB} = {56CD2471-65B0-4B05-8024-89C2121A102B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B8050DDE-235A-4B64-8B00-5F6C4FF85FCD}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+EndGlobal
