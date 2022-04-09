@@ -1,23 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>dependency_injection_build</id>
     <version>$BuildVersion$</version>
-    <authors>Artur Mustafin (hack2root)</authors>
-    <owners>Artur Mustafin (hack2root)</owners>
+    <authors>Artur Mustafin (funcelot)</authors>
+    <owners>Artur Mustafin (funcelot)</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <licenseUrl>https://github.com/hack2root/build/blob/master/LICENSE</licenseUrl>
-    <projectUrl>https://hack2root.github.io/build/</projectUrl>
-    <description>.NET Core 3.1 Dependency Injection framework</description>
+    <licenseUrl>https://github.com/funcelot/build/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://funcelot.github.io/build/</projectUrl>
+    <description>.NET 6 Dependency Injection</description>
     <releaseNotes>Features:
-      - Added support for .NET Core 3.1 (3.1.302)
+      - Added support for .NET Flamework 3.5, 4.6-4.8
     </releaseNotes>
-    <copyright>Artur Mustafin (hack2root)</copyright>
-    <tags>Dependency Injection Abstractions</tags>
-    <repository type="GitHub" url="https://github.com/hack2root/build.git" />
+    <copyright>Artur Mustafin (funcelot)</copyright>
+    <tags>Dependency Injection Abstractions Framework</tags>
+    <repository type="GitHub" url="https://github.com/funcelot/build.git" />
     <dependencies>
-      <group targetFramework=".NETFramework4.5.1" />
-      <group targetFramework=".NETFramework4.5.2" />
+      <group targetFramework=".NETFramework3.5" />
       <group targetFramework=".NETFramework4.6" />
       <group targetFramework=".NETFramework4.6.1" />
       <group targetFramework=".NETFramework4.6.2" />
@@ -31,8 +30,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Build\bin\Release\net451\Build.dll" target="lib\net451\Build.dll" />
-    <file src="..\Build\bin\Release\net452\Build.dll" target="lib\net452\Build.dll" />
+    <file src="..\Build\bin\Release\net35\Build.dll" target="lib\net35\Build.dll" />
     <file src="..\Build\bin\Release\net46\Build.dll" target="lib\net46\Build.dll" />
     <file src="..\Build\bin\Release\net461\Build.dll" target="lib\net461\Build.dll" />
     <file src="..\Build\bin\Release\net462\Build.dll" target="lib\net462\Build.dll" />
