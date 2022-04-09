@@ -10,7 +10,7 @@
     <projectUrl>https://funcelot.github.io/build/</projectUrl>
     <description>.NET 6 Dependency Injection</description>
     <releaseNotes>Features:
-      - Added support for .NET Flamework 3.5, 4.6-4.8
+      - Added support for .NET Framework 3.5, 4.6-4.8
     </releaseNotes>
     <copyright>Artur Mustafin (funcelot)</copyright>
     <tags>Dependency Injection Abstractions Framework</tags>

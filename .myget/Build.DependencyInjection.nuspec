@@ -3,64 +3,20 @@
   <metadata>
     <id>Build.DependencyInjection</id>
     <version>$BuildVersion$</version>
-    <authors>Artur Mustafin (hack2root)</authors>
-    <owners>Artur Mustafin (hack2root)</owners>
+    <authors>Artur Mustafin (funcelot)</authors>
+    <owners>Artur Mustafin (funcelot)</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <licenseUrl>https://github.com/hack2root/build/blob/master/LICENSE</licenseUrl>
-    <projectUrl>https://hack2root.github.io/build/</projectUrl>
-    <description>.NET Core 3.1 Dependency Injection framework</description>
+    <licenseUrl>https://github.com/funcelot/build/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://funcelot.github.io/build/</projectUrl>
+    <description>.NET 6 Dependency Injection</description>
     <releaseNotes>Features:
-      - Added API functions
-      - All CreateInstance, GetInstance, RegisterType now have the same semantics
-      - Exposed public Container API to IContainer
-
-Container.CreateInstance(string)
-Container.CreateInstance(string, object[])
-Container.CreateInstance(string, string[])
-Container.CreateInstance(string, System.Type[])
-
-Container.CreateInstance(System.Type)
-Container.CreateInstance(System.Type, object[])
-Container.CreateInstance(System.Type, string[])
-Container.CreateInstance(System.Type, System.Type[])
-
-Container.CreateInstance&lt;T&gt;()
-Container.CreateInstance&lt;T&gt;(object[])
-Container.CreateInstance&lt;T&gt;(string[])
-Container.CreateInstance&lt;T&gt;(System.Type[])
-
-Container.GetInstance(string)
-Container.GetInstance(string, object[])
-Container.GetInstance(string, string[])
-Container.GetInstance(string, System.Type[])
-
-Container.GetInstance(System.Type)
-Container.GetInstance(System.Type, object[])
-Container.GetInstance(System.Type, string[])
-Container.GetInstance(System.Type, System.Type[])
-
-Container.RegisterType(string)
-Container.RegisterType(string, object[])
-Container.RegisterType(string, string[])
-Container.RegisterType(string, System.Type[])
-
-Container.RegisterType(System.Type)
-Container.RegisterType(System.Type, object[])
-Container.RegisterType(System.Type, string[])
-Container.RegisterType(System.Type, System.Type[])
-
-Container.RegisterType&lt;T&gt;()
-Container.RegisterType&lt;T&gt;(object[])
-Container.RegisterType&lt;T&gt;(string[])
-Container.RegisterType&lt;T&gt;(System.Type[])
-
+      - Added support for .NET Framework 3.5, 4.6-4.8
     </releaseNotes>
-    <copyright>Artur Mustafin (hack2root)</copyright>
+    <copyright>Artur Mustafin (funcelot)</copyright>
     <tags>Dependency Injection</tags>
-    <repository type="GitHub" url="https://github.com/hack2root/build.git" />
+    <repository type="GitHub" url="https://github.com/funcelot/build.git" />
     <dependencies>
-      <group targetFramework=".NETFramework4.5.1" />
-      <group targetFramework=".NETFramework4.5.2" />
+      <group targetFramework=".NETFramework3.5" />
       <group targetFramework=".NETFramework4.6" />
       <group targetFramework=".NETFramework4.6.1" />
       <group targetFramework=".NETFramework4.6.2" />
@@ -74,8 +30,7 @@ Container.RegisterType&lt;T&gt;(System.Type[])
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Build\bin\Release\net451\Build.dll" target="lib\net451\Build.dll" />
-    <file src="..\Build\bin\Release\net452\Build.dll" target="lib\net452\Build.dll" />
+    <file src="..\Build\bin\Release\net35\Build.dll" target="lib\net35\Build.dll" />
     <file src="..\Build\bin\Release\net46\Build.dll" target="lib\net46\Build.dll" />
     <file src="..\Build\bin\Release\net461\Build.dll" target="lib\net461\Build.dll" />
     <file src="..\Build\bin\Release\net462\Build.dll" target="lib\net462\Build.dll" />
