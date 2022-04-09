@@ -2,26 +2,26 @@
 
 # .NET Dependency Injection Framework
 
-## Repository
-
+### Repository
 [build](https://github.com/funcelot/build)
 
-## Docs (a bit old, need updates)
-
+### Docs (a bit old, need updates)
 - [Build](https://github.com/funcelot/build/wiki)
 
-## Build
+### Build
 
-### Prerequisites: no
-### Supports:.NET Framework 3.5, 4.6-4.8, .NET 6
+### Prerequisites: 
+- no
 
-- Added support for .NET 6, .NET Framework 3.5, 4.6-4.8
+### Supports:
+- .NET Framework 3.5, 4.6-4.8, .NET 6
 
-## Continious Integration: no
+## Continious Integration
+- no (broken)
 
-## Versioning: yes
+### Versioning: yes
 
-## Academic papers:
+# Academic papers:
 
 [Dependency Injection for Programming by Optimization, Zoltan A. Kocsis and Jerry Swan](https://arxiv.org/pdf/1707.04016.pdf)
 
