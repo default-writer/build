@@ -29,14 +29,14 @@ namespace Build
         /// <param name="typeParser">Type parser</param>
         /// <param name="typeResolver">Type resolver</param>
         public Container(
-            
-            ITypeActivator typeActivator, 
-            ITypeConstructor typeConstructor, 
-            ITypeFilter typeFilter, 
-            ITypeParser typeParser, 
-            ITypeResolver typeResolver, 
-            ITypeDependencyAttributeProvider typeDependencyAttributeProvider = null, 
-            ITypeInjectionAttributeProvider typeInjectionAttributeProvider = null) => 
+
+            ITypeActivator typeActivator,
+            ITypeConstructor typeConstructor,
+            ITypeFilter typeFilter,
+            ITypeParser typeParser,
+            ITypeResolver typeResolver,
+            ITypeDependencyAttributeProvider typeDependencyAttributeProvider = null,
+            ITypeInjectionAttributeProvider typeInjectionAttributeProvider = null) =>
                 TypeBuilder = new TypeBuilder(typeActivator, typeConstructor, typeFilter, typeParser, typeResolver, typeDependencyAttributeProvider ?? new TypeDependencyAttributeProvider(), typeInjectionAttributeProvider ?? new TypeInjectionAttributeProvider());
 
         /// <summary>
@@ -176,7 +176,7 @@ namespace Build
         /// <param name="parameterSources">Parameter sources</param>
         /// <param name="args">Arguments to constuctor</param>
         /// <returns>Returns instance of identified type</returns>
-        public object CreateInstance( Type type, ParameterSource[] parameterSources = null, params string[] args) => TypeBuilder.CreateInstance(type, args, parameterSources);
+        public object CreateInstance(Type type, ParameterSource[] parameterSources = null, params string[] args) => TypeBuilder.CreateInstance(type, args, parameterSources);
 
         /// <summary>
         /// Creates an object

@@ -22,7 +22,11 @@ namespace Build
         /// <param name="constructor">The constructor.</param>
         /// <param name="parameters">The parameters.</param>
         /// <returns></returns>
+#if NET20_OR_GREATER && !NET40_OR_GREATER
+        public static string GetConstructor(string constructor, IEnumerable<string> parameters) => string.Format("{0}({1})", constructor, string.Join(",", parameters.ToArray()));
+#else
         public static string GetConstructor(string constructor, IEnumerable<string> parameters) => string.Format("{0}({1})", constructor, string.Join(",", parameters));
+#endif //NET20_OR_GREATER && !NET40_OR_GREATER
 
         /// <summary>
         /// Gets object full name

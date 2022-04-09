@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace Build
 {
@@ -14,14 +13,22 @@ namespace Build
             var constructors = type.GetConstructors();
             if (constructors.Length == 0 && typeof(ValueType).IsAssignableFrom(type))
             {
-                constructors = ((TypeInfo)type).DeclaredConstructors.ToArray();
+                constructors = type.GetConstructors().ToArray();
                 if (constructors.Length == 0)
-                    constructors = ((TypeInfo)type.BaseType).DeclaredConstructors.ToArray();
+                    constructors = type.BaseType.GetConstructors().ToArray();
+                if (constructors.Length == 0)
+                {
+                    var dependencyAttribute = typeDependencyAttributeProvider.GetAttribute(type, type);
+                    var injectionObjects = new List<ITypeInjectionObject>(); // { new TypeInjectionObject(runtimeTypeActivator, null, null, defaultTypeInstantiation) };
+                    var dependencyObject = new TypeDependencyObject(runtimeTypeActivator, dependencyAttribute, injectionObjects, type, defaultTypeInstantiation);
+                    dependencyObjects.Add(dependencyObject);
+                }
+                return dependencyObjects;
             }
             foreach (var constructorInfo in constructors)
             {
                 var dependencyAttribute = typeDependencyAttributeProvider.GetAttribute(constructorInfo, type);
-                var injectionObjects = constructorInfo.GetParameters().Select(p => new TypeInjectionObject(runtimeTypeActivator, typeInjectionAttributeProvider.GetAttribute(p, p.ParameterType), p.ParameterType, defaultTypeInstantiation));
+                var injectionObjects = constructorInfo.GetParameters().Select(p => (ITypeInjectionObject)new TypeInjectionObject(runtimeTypeActivator, typeInjectionAttributeProvider.GetAttribute(p, p.ParameterType), p.ParameterType, defaultTypeInstantiation));
                 dependencyObjects.Add(new TypeDependencyObject(runtimeTypeActivator, dependencyAttribute, injectionObjects, type, defaultTypeInstantiation));
             }
             return dependencyObjects;

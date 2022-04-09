@@ -165,7 +165,7 @@ namespace Build
         /// <param name="parameterSources">Parameter sources</param>
         /// <param name="args">Arguments to constuctor</param>
         /// <returns>Returns instance of identified type</returns>
-        object CreateInstance( Type type, ParameterSource[] parameterSources = null, params string[] args);
+        object CreateInstance(Type type, ParameterSource[] parameterSources = null, params string[] args);
 
         /// <summary>
         /// Creates an object
@@ -397,12 +397,12 @@ namespace Build
         /// Unlocks the container. Flushes all pre-computed registered type invariants for lookup table speed up
         /// </summary>
         void Unlock();
- 
+
         /// <summary>
         /// Registers all supported types in assembly
         /// </summary>
         /// <param name="assembly">Assembly for add type identifiers</param>
         /// <param name="exclusionTypes">List of assembly types to ignore</param>
         void RegisterAssembly(Assembly assembly, IEnumerable<string> exclusionTypes);
-   }
+    }
 }

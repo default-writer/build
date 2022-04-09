@@ -54,7 +54,7 @@ namespace Build
         /// </summary>
         ///
         public ITypeDependencyAttributeProvider DependencyAttributeExtractor { get; }
-        
+
         /// <summary>
         /// Extracts metadata from InjectionAttribute attribute
         /// </summary>
@@ -224,7 +224,7 @@ namespace Build
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static string ToString(Type type) =>                                                                                                                                          type != null ? type.ToString() : throw new TypeInstantiationException(string.Format("{0} is null (parameters required)", nameof(type)));
+        public static string ToString(Type type) => type != null ? type.ToString() : throw new TypeInstantiationException(string.Format("{0} is null (parameters required)", nameof(type)));
 
         /// <summary>
         /// Determines whether this instance can register the specified type.
@@ -233,7 +233,7 @@ namespace Build
         /// <returns>
         /// <c>true</c> if this instance can register the specified type; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanRegister(Type type) => (UseValueTypes || !type.IsValueType) && !type.IsSpecialName && Filter.CanRegister(type, this.UseValueTypes);
+        public bool CanRegister(Type type) => type != null && (UseValueTypes || !type.IsValueType) && !type.IsSpecialName && Filter.CanRegister(type, this.UseValueTypes);
 
         /// <summary>
         /// Creates the instance.
@@ -464,6 +464,9 @@ namespace Build
         /// <param name="type">The type.</param>
         public void RegisterType(Type type)
         {
+            if (type == null)
+                return;
+
             if (!Locked)
             {
                 Visited.Add(type);
@@ -815,6 +818,9 @@ namespace Build
         /// <exception cref="TypeRegistrationException"></exception>
         void RegisterConstructor(Type type)
         {
+            if (type == null)
+                return;
+
             if (CanRegister(type))
             {
                 var constructorEnumerator = Constructor.GetDependencyObjects(Activator, type, UseDefaultTypeInstantiation, DependencyAttributeExtractor, InjectionAttributeExtractor).GetEnumerator();
@@ -880,6 +886,9 @@ namespace Build
         /// <exception cref="TypeRegistrationException"></exception>
         void RegisterConstructorParameter(Type type)
         {
+            if (type == null)
+                return;
+
             if (Filter.CanRegisterParameter(type))
             {
                 if (Visited.Contains(type))
@@ -932,6 +941,9 @@ namespace Build
         /// <exception cref="TypeRegistrationException"></exception>
         void RegisterConstructorType(Type type)
         {
+            if (type == null)
+                return;
+
             if (CanRegister(type))
             {
                 if (Visited.Contains(type))
@@ -949,8 +961,11 @@ namespace Build
         void RegisterPrimitiveType(Type type, object value)
         {
             var runtimeType = Parser.FindRuntimeTypes(type.ToString(), ArrayExtensions.Empty<string>(), Types.Values).FirstOrDefault();
-            runtimeType.SetRuntimeInstance(Options.GetInstance);
-            runtimeType.SetValue(runtimeType.Attribute, runtimeType.Id, value);
+            if (runtimeType != null)
+            {
+                runtimeType.SetRuntimeInstance(Options.GetInstance);
+                runtimeType.SetValue(runtimeType.Attribute, runtimeType.Id, value);
+            }
         }
 
         void RegisterRuntimeType(ITypeDependencyObject dependencyObject, ITypeInjectionObject injectionObject)

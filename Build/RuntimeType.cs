@@ -357,7 +357,7 @@ namespace Build
         /// <returns>Returns true if parameters has written successfully, otherwize, false</returns>
         private bool RegisterConstructorParametersInternal(object[] args, ParameterSource[] parameterSources = null)
         {
-            if (args!= null && args.Length == _runtimeTypes.Count)
+            if (args != null && args.Length == _runtimeTypes.Count)
             {
                 for (int i = 0; i < _runtimeTypes.Count; i++)
                 {
@@ -474,14 +474,15 @@ namespace Build
         {
             try
             {
+                if (ActivatorType.IsEnum)
+                {
+                    var enums = Enum.GetValues(ActivatorType);
+                    if (enums.Length > 0)
+                        return enums.GetValue(0);
+                }
                 if (ActivatorType.IsValueType)
                 {
-                    if (ActivatorType.IsEnum)
-                    {
-                        var enums = Enum.GetValues(ActivatorType);
-                        if (enums.Length > 0)
-                            return enums.GetValue(0);
-                    }
+
                     return Activator.CreateValueInstance(this);
                 }
                 return default;

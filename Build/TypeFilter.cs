@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+
 namespace Build
 {
     /// <summary>
@@ -45,6 +46,6 @@ namespace Build
             || typeof(MarshalByRefObject).IsAssignableFrom(type)
             || typeof(Exception).IsAssignableFrom(type)
             || (typeof(Func<>).Name == type.Name)
-            || (!useValueTypes && typeof(object).Assembly.ExportedTypes.Contains(type));
+            || (!useValueTypes && typeof(object).Assembly.GetExportedTypes().Contains(type));
    }
 }
