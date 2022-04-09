@@ -1,78 +1,79 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <ProjectGuid>{B8086CB3-54A4-40B7-B4BC-6DA7DEC8CB78}</ProjectGuid>
-  </PropertyGroup>
+	<PropertyGroup>
+		<ProjectGuid>{B8086CB3-54A4-40B7-B4BC-6DA7DEC8CB78}</ProjectGuid>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-  </PropertyGroup>
+	<PropertyGroup>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <ProduceReferenceAssemblyInOutDir>true</ProduceReferenceAssemblyInOutDir>
-  </PropertyGroup>
+	<PropertyGroup>
+		<ProduceReferenceAssemblyInOutDir>true</ProduceReferenceAssemblyInOutDir>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="testhost.runtimeconfig.json" Link="testhost.runtimeconfig.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"/>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="testhost.runtimeconfig.json" Link="testhost.runtimeconfig.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"/>
+	</ItemGroup>
 
-  <Import Project="$(MSBuildThisFileDirectory)../common.props" />
+	<Import Project="$(MSBuildThisFileDirectory)../common.props" />
 
-  <PropertyGroup>
-    <TargetFrameworks>
-		net46;
-		net461;
-		net462;
-		net47;
-		net471;
-		net472;
-		net48;
-		netstandard2.0;
-		netcoreapp3.1;
-    net6.0;
-	</TargetFrameworks>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>
+			net35;
+			net46;
+			net461;
+			net462;
+			net47;
+			net471;
+			net472;
+			net48;
+			netstandard2.0;
+			netcoreapp3.1;
+			net6.0;
+		</TargetFrameworks>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <Platforms>AnyCPU</Platforms>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Artur Mustafin (funcelot)</Authors>
-    <Company>Artur Mustafin (funcelot)</Company>
-    <Description>
-      .NET 6 Dependency Injection framework
-      Commit SHA: $(CommitHash)
-    </Description>
-    <Copyright>Artur Mustafin (funcelot)</Copyright>
-    <PackageProjectUrl>https://funcelot.github.io/build/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/funcelot/build.git</RepositoryUrl>
-    <RepositoryType>GitHub</RepositoryType>
-    <PackageTags>Dependency Injection</PackageTags>
-    <PackageReleaseNotes>
-      Features:
-      - Added support for .NET 6 (6.0.201)
-    </PackageReleaseNotes>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageId>Build.DependencyInjection.Abstractions</PackageId>
-    <Version>$(BuildVersion)</Version>
-    <AssemblyVersion>$(BuildVersion)</AssemblyVersion>
-    <FileVersion>$(BuildVersion)</FileVersion>
-    <RunPostBuildEvent>Always</RunPostBuildEvent>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Platforms>AnyCPU</Platforms>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>Artur Mustafin (funcelot)</Authors>
+		<Company>Artur Mustafin (funcelot)</Company>
+		<Description>
+			.NET 6 Dependency Injection framework
+			Commit SHA: $(CommitHash)
+		</Description>
+		<Copyright>Artur Mustafin (funcelot)</Copyright>
+		<PackageProjectUrl>https://funcelot.github.io/build/</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/funcelot/build.git</RepositoryUrl>
+		<RepositoryType>GitHub</RepositoryType>
+		<PackageTags>Dependency Injection</PackageTags>
+		<PackageReleaseNotes>
+			Features:
+			- Added support for .NET 6 (6.0.201)
+		</PackageReleaseNotes>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageId>Build.DependencyInjection.Abstractions</PackageId>
+		<Version>$(BuildVersion)</Version>
+		<AssemblyVersion>$(BuildVersion)</AssemblyVersion>
+		<FileVersion>$(BuildVersion)</FileVersion>
+		<RunPostBuildEvent>Always</RunPostBuildEvent>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <LangVersion>latest</LangVersion>
-    <DebugType>portable</DebugType>
-    <DebugSymbols>True</DebugSymbols>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<LangVersion>latest</LangVersion>
+		<DebugType>portable</DebugType>
+		<DebugSymbols>True</DebugSymbols>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <LangVersion>latest</LangVersion>
-    <DebugType>portable</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<LangVersion>latest</LangVersion>
+		<DebugType>portable</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-    <DefineConstants>TRACE</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+		<DefineConstants>TRACE</DefineConstants>
+	</PropertyGroup>
 
 </Project>

@@ -1,229 +1,229 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <ProjectGuid>{08DFF287-D590-48D1-8000-F138CEC5FB57}</ProjectGuid>
-    <Configurations>Release;Debug</Configurations>
-  </PropertyGroup>
+	<PropertyGroup>
+		<ProjectGuid>{08DFF287-D590-48D1-8000-F138CEC5FB57}</ProjectGuid>
+		<Configurations>Release;Debug</Configurations>
+	</PropertyGroup>
 
-  <Import Project="$(MSBuildThisFileDirectory)../common.props" />
+	<Import Project="$(MSBuildThisFileDirectory)../common.props" />
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-   </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <LangVersion>latest</LangVersion>
-    <DebugType>portable</DebugType>
-    <DebugSymbols>True</DebugSymbols>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<LangVersion>latest</LangVersion>
+		<DebugType>portable</DebugType>
+		<DebugSymbols>True</DebugSymbols>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <LangVersion>latest</LangVersion>
-    <DebugType>portable</DebugType>
-    <DebugSymbols>True</DebugSymbols>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<LangVersion>latest</LangVersion>
+		<DebugType>portable</DebugType>
+		<DebugSymbols>True</DebugSymbols>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <ProduceReferenceAssemblyInOutDir>true</ProduceReferenceAssemblyInOutDir>
-  </PropertyGroup>
+	<PropertyGroup>
+		<ProduceReferenceAssemblyInOutDir>true</ProduceReferenceAssemblyInOutDir>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="testhost.runtimeconfig.json" Link="testhost.runtimeconfig.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"/>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="testhost.runtimeconfig.json" Link="testhost.runtimeconfig.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"/>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="coverlet.msbuild" Version="3.1.0">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="dotnet-xunit" Version="2.3.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
-    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
-    <PackageReference Include="OpenCover" Version="4.7.1221" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.analyzers" Version="0.10.0" />
-    <PackageReference Include="xunit.console" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.console" Version="2.4.1">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="nunit" Version="3.13.2" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
-    <PackageReference Include="xunit.runner.console" Version="2.4.1" />
-    <PackageReference Include="SpecFlow" Version="3.9.22" />
-    <PackageReference Include="SpecFlow.NUnit" Version="3.9.22" />
-    <PackageReference Include="SpecFlow.NUnit.Runners" Version="3.9.22" />
-    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.9.22" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="coverlet.msbuild" Version="3.1.0">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="dotnet-xunit" Version="2.3.1" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+		<DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+		<PackageReference Include="OpenCover" Version="4.7.1221" />
+		<PackageReference Include="xunit" Version="2.4.1" />
+		<PackageReference Include="xunit.analyzers" Version="0.10.0" />
+		<PackageReference Include="xunit.console" Version="2.4.1" />
+		<PackageReference Include="xunit.runner.console" Version="2.4.1">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="nunit" Version="3.13.2" />
+		<PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+		<PackageReference Include="xunit.runner.console" Version="2.4.1" />
+		<PackageReference Include="SpecFlow" Version="3.9.22" />
+		<PackageReference Include="SpecFlow.NUnit" Version="3.9.22" />
+		<PackageReference Include="SpecFlow.NUnit.Runners" Version="3.9.22" />
+		<PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.9.22" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Build.Abstractions\" />
-    <Folder Include="Build\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Build.Abstractions\" />
+		<Folder Include="Build\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Include="..\Build.Abstractions\ITypeFilter.cs">
-      <Link>Build.Abstractions\ITypeFilter.cs</Link>
-    </Compile>
-    <Compile Include="..\Build.Abstractions\ITypeParser.cs">
-      <Link>Build.Abstractions\ITypeParser.cs</Link>
-    </Compile>
-    <Compile Include="..\Build.Abstractions\ITypeDependencyAttributeProvider.cs">
-      <Link>Build.Abstractions\ITypeDependencyAttributeProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\Build.Abstractions\ITypeResolver.cs">
-      <Link>Build.Abstractions\ITypeResolver.cs</Link>
-    </Compile>
-    <Compile Include="..\Build.Abstractions\ITypeBuilder.cs">
-      <Link>Build.Abstractions\ITypeBuilder.cs</Link>
-    </Compile>
-    <Compile Include="..\Build.Abstractions\ITypeActivator.cs">
-      <Link>Build.Abstractions\ITypeActivator.cs</Link>
-    </Compile>
-    <Compile Include="..\Build.Abstractions\ITypeInjectionAttributeProvider.cs">
-      <Link>Build.Abstractions\ITypeInjectionAttributeProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\Build.Abstractions\IDependencyAttribute.cs">
-      <Link>Build.Abstractions\IDependencyAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Build.Abstractions\ITypeObject.cs">
-		<Link>Build.Abstractions\ITypeObject.cs</Link>
-    </Compile>
-	<Compile Include="..\Build.Abstractions\ParameterSource.cs">
-	    <Link>Build.Abstractions\ParameterSource.cs</Link>
-	</Compile>
-	<Compile Include="..\Build.Abstractions\Options.cs">
-      <Link>Build.Abstractions\Options.cs</Link>
-    </Compile>
-    <Compile Include="..\Build.Abstractions\IRuntimeType.cs">
-      <Link>Build.Abstractions\IRuntimeType.cs</Link>
-    </Compile>
-    <Compile Include="..\Build.Abstractions\ITypeInjectionObject.cs">
-      <Link>Build.Abstractions\ITypeInjectionObject.cs</Link>
-    </Compile>
-    <Compile Include="..\Build.Abstractions\IInjectionAttribute.cs">
-      <Link>Build.Abstractions\IInjectionAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Build.Abstractions\IRuntimeAttribute.cs">
-      <Link>Build.Abstractions\IRuntimeAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Build.Abstractions\ITypeConstructor.cs">
-      <Link>Build.Abstractions\ITypeConstructor.cs</Link>
-    </Compile>
-    <Compile Include="..\Build.Abstractions\ITypeDependencyObject.cs">
-      <Link>Build.Abstractions\ITypeDependencyObject.cs</Link>
-    </Compile>
-    <Compile Include="..\Build.Abstractions\IRuntimeAttributeExtractor.cs">
-      <Link>Build.Abstractions\IRuntimeAttributeExtractor.cs</Link>
-    </Compile>
-    <Compile Include="..\Build.Abstractions\Generics\ITypeDependencyAttributeProvider.cs">
-      <Link>Build.Abstractions\Generics\ITypeDependencyAttributeProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\Build.Abstractions\Generics\ITypeInjectionAttributeProvider.cs">
-      <Link>Build.Abstractions\Generics\ITypeInjectionAttributeProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\Build.Abstractions\Generics\IRuntimeAttributeProvider.cs">
-      <Link>Build.Abstractions\Generics\IRuntimeAttributeProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\PropertyCache.cs">
-      <Link>Build\PropertyCache.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\TypeResolver.cs">
-      <Link>Build\TypeResolver.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\AssemblyInfo.cs">
-      <Link>Build\AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\Format.cs">
-      <Link>Build\Format.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\IContainer.cs">
-      <Link>Build\IContainer.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\ArrayExtensions.cs">
-      <Link>Build\ArrayExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\TypeInstantiationException.cs">
-      <Link>Build\TypeInstantiationException.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\TypeInjectionAttributeProvider.cs">
-      <Link>Build\TypeInjectionAttributeProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\RuntimeTypeExtensions.cs">
-      <Link>Build\RuntimeTypeExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\InjectionAttribute.cs">
-      <Link>Build\InjectionAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\TypeExtensions.cs">
-      <Link>Build\TypeExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\TypeActivator.cs">
-      <Link>Build\TypeActivator.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\TypeParser.cs">
-      <Link>Build\TypeParser.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\RuntimeType.cs">
-      <Link>Build\RuntimeType.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\TypeDependencyObject.cs">
-      <Link>Build\TypeDependencyObject.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\DependencyAttribute.cs">
-      <Link>Build\DependencyAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\TypeParserExtensions.cs">
-      <Link>Build\TypeParserExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\TypeFilter.cs">
-      <Link>Build\TypeFilter.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\TypeInjectionObject.cs">
-      <Link>Build\TypeInjectionObject.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\TypeBuilder.cs">
-      <Link>Build\TypeBuilder.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\TypeRegistrationException.cs">
-      <Link>Build\TypeRegistrationException.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\Container.cs">
-      <Link>Build\Container.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\TypeConstructor.cs">
-      <Link>Build\TypeConstructor.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\CustomAttributeProviderExtensions.cs">
-      <Link>Build\CustomAttributeProviderExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\RuntimeAttributeExtensions.cs">
-      <Link>Build\RuntimeAttributeExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\TypeObject.cs">
-      <Link>Build\TypeObject.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\RuntimeAttribute.cs">
-      <Link>Build\RuntimeAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\TypeBuilderOptions.cs">
-      <Link>Build\TypeBuilderOptions.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\TypeDependencyAttributeProvider.cs">
-      <Link>Build\TypeDependencyAttributeProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\Generics\TypeInjectionAttributeProvider.cs">
-      <Link>Build\Generics\TypeInjectionAttributeProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\Generics\RuntimeAttributeProvider.cs">
-      <Link>Build\Generics\RuntimeAttributeProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\Build\Generics\TypeDependencyAttributeProvider.cs">
-      <Link>Build\Generics\TypeDependencyAttributeProvider.cs</Link>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Include="..\Build.Abstractions\ITypeFilter.cs">
+			<Link>Build.Abstractions\ITypeFilter.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\ITypeParser.cs">
+			<Link>Build.Abstractions\ITypeParser.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\ITypeDependencyAttributeProvider.cs">
+			<Link>Build.Abstractions\ITypeDependencyAttributeProvider.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\ITypeResolver.cs">
+			<Link>Build.Abstractions\ITypeResolver.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\ITypeBuilder.cs">
+			<Link>Build.Abstractions\ITypeBuilder.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\ITypeActivator.cs">
+			<Link>Build.Abstractions\ITypeActivator.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\ITypeInjectionAttributeProvider.cs">
+			<Link>Build.Abstractions\ITypeInjectionAttributeProvider.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\IDependencyAttribute.cs">
+			<Link>Build.Abstractions\IDependencyAttribute.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\ITypeObject.cs">
+			<Link>Build.Abstractions\ITypeObject.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\ParameterSource.cs">
+			<Link>Build.Abstractions\ParameterSource.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\Options.cs">
+			<Link>Build.Abstractions\Options.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\IRuntimeType.cs">
+			<Link>Build.Abstractions\IRuntimeType.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\ITypeInjectionObject.cs">
+			<Link>Build.Abstractions\ITypeInjectionObject.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\IInjectionAttribute.cs">
+			<Link>Build.Abstractions\IInjectionAttribute.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\IRuntimeAttribute.cs">
+			<Link>Build.Abstractions\IRuntimeAttribute.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\ITypeConstructor.cs">
+			<Link>Build.Abstractions\ITypeConstructor.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\ITypeDependencyObject.cs">
+			<Link>Build.Abstractions\ITypeDependencyObject.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\IRuntimeAttributeExtractor.cs">
+			<Link>Build.Abstractions\IRuntimeAttributeExtractor.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\Generics\ITypeDependencyAttributeProvider.cs">
+			<Link>Build.Abstractions\Generics\ITypeDependencyAttributeProvider.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\Generics\ITypeInjectionAttributeProvider.cs">
+			<Link>Build.Abstractions\Generics\ITypeInjectionAttributeProvider.cs</Link>
+		</Compile>
+		<Compile Include="..\Build.Abstractions\Generics\IRuntimeAttributeProvider.cs">
+			<Link>Build.Abstractions\Generics\IRuntimeAttributeProvider.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\PropertyCache.cs">
+			<Link>Build\PropertyCache.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\TypeResolver.cs">
+			<Link>Build\TypeResolver.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\AssemblyInfo.cs">
+			<Link>Build\AssemblyInfo.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\Format.cs">
+			<Link>Build\Format.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\IContainer.cs">
+			<Link>Build\IContainer.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\ArrayExtensions.cs">
+			<Link>Build\ArrayExtensions.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\TypeInstantiationException.cs">
+			<Link>Build\TypeInstantiationException.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\TypeInjectionAttributeProvider.cs">
+			<Link>Build\TypeInjectionAttributeProvider.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\RuntimeTypeExtensions.cs">
+			<Link>Build\RuntimeTypeExtensions.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\InjectionAttribute.cs">
+			<Link>Build\InjectionAttribute.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\TypeExtensions.cs">
+			<Link>Build\TypeExtensions.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\TypeActivator.cs">
+			<Link>Build\TypeActivator.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\TypeParser.cs">
+			<Link>Build\TypeParser.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\RuntimeType.cs">
+			<Link>Build\RuntimeType.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\TypeDependencyObject.cs">
+			<Link>Build\TypeDependencyObject.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\DependencyAttribute.cs">
+			<Link>Build\DependencyAttribute.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\TypeParserExtensions.cs">
+			<Link>Build\TypeParserExtensions.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\TypeFilter.cs">
+			<Link>Build\TypeFilter.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\TypeInjectionObject.cs">
+			<Link>Build\TypeInjectionObject.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\TypeBuilder.cs">
+			<Link>Build\TypeBuilder.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\TypeRegistrationException.cs">
+			<Link>Build\TypeRegistrationException.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\Container.cs">
+			<Link>Build\Container.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\TypeConstructor.cs">
+			<Link>Build\TypeConstructor.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\CustomAttributeProviderExtensions.cs">
+			<Link>Build\CustomAttributeProviderExtensions.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\RuntimeAttributeExtensions.cs">
+			<Link>Build\RuntimeAttributeExtensions.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\TypeObject.cs">
+			<Link>Build\TypeObject.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\RuntimeAttribute.cs">
+			<Link>Build\RuntimeAttribute.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\TypeBuilderOptions.cs">
+			<Link>Build\TypeBuilderOptions.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\TypeDependencyAttributeProvider.cs">
+			<Link>Build\TypeDependencyAttributeProvider.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\Generics\TypeInjectionAttributeProvider.cs">
+			<Link>Build\Generics\TypeInjectionAttributeProvider.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\Generics\RuntimeAttributeProvider.cs">
+			<Link>Build\Generics\RuntimeAttributeProvider.cs</Link>
+		</Compile>
+		<Compile Include="..\Build\Generics\TypeDependencyAttributeProvider.cs">
+			<Link>Build\Generics\TypeDependencyAttributeProvider.cs</Link>
+		</Compile>
+	</ItemGroup>
 </Project>
