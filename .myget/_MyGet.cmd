@@ -128,7 +128,7 @@ setlocal
   echo/ > build.log
   echo/
   echo/ ========== MyGet ==========
-  for %%v in (net451 net452 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp3.1 net6.0) do (
+  for %%v in (net35 net46 net461 net462 net47 net471 net472 net48 netstandard2.0 netcoreapp3.1 net6.0) do (
     echo/  Building %%v
     dotnet.exe build --verbosity normal --no-dependencies -c %BuildConfiguration% --framework "%%v" %BuildSolution% >> build.log
   )
