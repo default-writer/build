@@ -1,22 +1,25 @@
-﻿Welcome to the build wiki!
+﻿Welcome to the _build_!
 
-# .NET Dependency Injection framework
+# .NET Dependency Injection Framework
 
 ## Repository
 
 [build](https://github.com/funcelot/build)
 
-## Docs
+## Docs (a bit old, need updates)
 
 - [Build](https://github.com/funcelot/build/wiki)
 
 ## Build
 
-Prerequisites (.NET Framework 4.5.1):
+### Prerequisites: no
+### Supports:.NET Framework 3.5, 4.6-4.8, .NET 6
 
-- Added support for .NET 6
+- Added support for .NET 6, .NET Framework 3.5, 4.6-4.8
 
-## Continious Integration
+## Continious Integration: no
+
+## Versioning: yes
 
 ## Academic papers:
 
