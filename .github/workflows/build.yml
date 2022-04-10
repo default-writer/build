@@ -45,5 +45,5 @@ jobs:
           dotnet restore
           dotnet build --configuration Release --no-restore
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"funcelot_build" /o:"funcelot" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet test --no-restore --verbosity normal
+          dotnet test --no-restore --verbosity normal --no-build Build.Tests --framework net6.0
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"

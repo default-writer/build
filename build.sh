@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 set -e
 dotnet restore
-dotnet test
 dotnet build
+dotnet test --no-restore --verbosity normal --no-build Build.Tests --framework net6.0

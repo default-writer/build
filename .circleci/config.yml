@@ -13,7 +13,7 @@ jobs:
       - run: find .
       - run: dotnet restore
       - run: dotnet build
-      - run: dotnet test --no-build Build.Tests
+      - run: dotnet test --no-restore --verbosity normal --no-build Build.Tests --framework net6.0
       - sonarcloud/scan
 
 orbs:

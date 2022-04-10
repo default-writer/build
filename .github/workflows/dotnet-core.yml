@@ -22,7 +22,7 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test --no-restore --verbosity normal --no-build Build.Tests --framework net6.0
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
       env:
