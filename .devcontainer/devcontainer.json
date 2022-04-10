@@ -4,13 +4,22 @@
 	"name": "C# (.NET)",
 	"build": {
 		"dockerfile": "Dockerfile",
-		"args": { 
+		"args": {
 			// Update 'VARIANT' to pick a .NET Core version: 3.1, 5.0, 6.0
 			// Append -bullseye or -focal to pin to an OS version.
 			"VARIANT": "6.0",
 			// Options
 			"NODE_VERSION": "lts/*"
-		}
+		},
+	},
+
+	"containerEnv": {
+		"GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}",
+		"GITHUB_USERNAME": "${localEnv:GITHUB_USERNAME}",
+	},
+
+	"remoteEnv": {
+		"PATH": "${containerEnv:PATH}"
 	},
 
 	// Set *default* container specific settings.json values on container create.
@@ -31,7 +40,7 @@
 	//        dotnet dev-certs https --trust; dotnet dev-certs https -ep "$env:USERPROFILE/.aspnet/https/aspnetapp.pfx" -p "SecurePwdGoesHere"
 	//    * macOS/Linux terminal:
 	//        dotnet dev-certs https --trust; dotnet dev-certs https -ep "${HOME}/.aspnet/https/aspnetapp.pfx" -p "SecurePwdGoesHere"
-	// 
+	//
 	// 2. Uncomment these 'remoteEnv' lines:
 	//    "remoteEnv": {
 	// 	      "ASPNETCORE_Kestrel__Certificates__Default__Password": "SecurePwdGoesHere",
