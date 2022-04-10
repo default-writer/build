@@ -133,9 +133,6 @@
 		<Compile Include="..\Build\TypeResolver.cs">
 			<Link>Build\TypeResolver.cs</Link>
 		</Compile>
-		<Compile Include="..\Build\AssemblyInfo.cs">
-			<Link>Build\AssemblyInfo.cs</Link>
-		</Compile>
 		<Compile Include="..\Build\Format.cs">
 			<Link>Build\Format.cs</Link>
 		</Compile>

@@ -6,7 +6,7 @@ namespace Build
     /// <summary>
     /// Exception for type instantiation
     /// </summary>
-    /// <seealso cref="System.Exception"/>
+    /// <seealso cref="Exception"/>
     [Serializable]
     public sealed class TypeInstantiationException : Exception
     {

@@ -7,8 +7,8 @@ namespace Classes
     /// <summary>
     /// Injection attribute
     /// </summary>
-    /// <seealso cref="Build.RuntimeAttribute"/>
-    /// <seealso cref="Build.IRuntimeAttribute"/>
+    /// <seealso cref="RuntimeAttribute"/>
+    /// <seealso cref="IRuntimeAttribute"/>
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class PropertyInjectionAttribute : RuntimeAttribute, IInjectionAttribute
     {

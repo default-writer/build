@@ -26,7 +26,7 @@ namespace TestSet20
             //TestSet2
             var container = new Container();
             container.RegisterType<Class1>();
-            System.Func<Class1> class1FactoryMethod = () => new Class1();
+            Func<Class1> class1FactoryMethod = () => new Class1();
             container.RegisterType<Class2>(class1FactoryMethod);
             var srv1 = container.CreateInstance<Class2>();
             var srv2 = container.CreateInstance<Class2>();
@@ -427,7 +427,7 @@ namespace TestSet20
             var builder = (TypeBuilder)container.Builder;
             Func<Class1> class1FactoryMethod = () => new Class1();
             container.RegisterType<LazyFactory<Class1>>(class1FactoryMethod);
-            Assert.Throws<TypeInstantiationException>(() => builder.GetInstance(typeof(Class2).ToString(), new Type[] { typeof(System.IntPtr) }));
+            Assert.Throws<TypeInstantiationException>(() => builder.GetInstance(typeof(Class2).ToString(), new Type[] { typeof(IntPtr) }));
         }
 
         [Fact]

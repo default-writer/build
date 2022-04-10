@@ -39,7 +39,7 @@ namespace Fail_TestSet1
         Other()
         { }
 
-        public Person GetPerson(int personId) => throw new System.NotImplementedException();
+        public Person GetPerson(int personId) => throw new NotImplementedException();
     }
 
     public class Other2 : IPersonRepository
@@ -52,7 +52,7 @@ namespace Fail_TestSet1
         Other2()
         { }
 
-        public Person GetPerson(int personId) => throw new System.NotImplementedException();
+        public Person GetPerson(int personId) => throw new NotImplementedException();
     }
 
     public abstract class Other5 : IPersonRepository
@@ -65,7 +65,7 @@ namespace Fail_TestSet1
         Other5()
         { }
 
-        public Person GetPerson(int personId) => throw new System.NotImplementedException();
+        public Person GetPerson(int personId) => throw new NotImplementedException();
     }
 
     public class Person

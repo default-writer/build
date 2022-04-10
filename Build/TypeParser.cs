@@ -8,7 +8,7 @@ namespace Build
     /// <summary>
     /// Type parser
     /// </summary>
-    /// <seealso cref="Build.ITypeParser"/>
+    /// <seealso cref="ITypeParser"/>
     public sealed class TypeParser : ITypeParser
     {
         /// <summary>

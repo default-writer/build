@@ -6,8 +6,8 @@ namespace Classes
     /// <summary>
     /// Dependency attribute
     /// </summary>
-    /// <seealso cref="Build.RuntimeAttribute"/>
-    /// <seealso cref="Build.IRuntimeAttribute"/>
+    /// <seealso cref="RuntimeAttribute"/>
+    /// <seealso cref="IRuntimeAttribute"/>
     [AttributeUsage(AttributeTargets.Class)]
     public sealed class PropertyDependencyAttribute : RuntimeAttribute, IDependencyAttribute
     {

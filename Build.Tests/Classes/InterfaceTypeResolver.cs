@@ -7,7 +7,7 @@ namespace Classes
     /// <summary>
     /// Type resolver
     /// </summary>
-    /// <seealso cref="Build.ITypeResolver"/>
+    /// <seealso cref="ITypeResolver"/>
     public sealed class InterfaceTypeResolver : ITypeResolver
     {
         /// <summary>

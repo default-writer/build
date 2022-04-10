@@ -6,8 +6,8 @@ namespace Build
     /// <summary>
     /// Abstract class for runtime type attribute
     /// </summary>
-    /// <seealso cref="System.Attribute"/>
-    /// <seealso cref="Build.IRuntimeAttribute"/>
+    /// <seealso cref="Attribute"/>
+    /// <seealso cref="IRuntimeAttribute"/>
     public abstract class RuntimeAttribute : Attribute, IRuntimeAttribute
     {
         readonly string _id;

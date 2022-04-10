@@ -7,7 +7,7 @@ namespace Build
     /// <summary>
     /// Runtime information for type
     /// </summary>
-    /// <seealso cref="Build.IRuntimeType"/>
+    /// <seealso cref="IRuntimeType"/>
     internal class RuntimeType : IRuntimeType
     {
         /// <summary>

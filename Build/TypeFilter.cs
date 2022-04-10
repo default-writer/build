@@ -6,7 +6,7 @@ namespace Build
     /// <summary>
     /// Type filter
     /// </summary>
-    /// <seealso cref="Build.ITypeFilter"/>
+    /// <seealso cref="ITypeFilter"/>
     public sealed class TypeFilter : ITypeFilter
     {
         /// <summary>
