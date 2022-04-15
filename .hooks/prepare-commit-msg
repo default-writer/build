@@ -1,0 +1,5 @@
+#!/bin/sh
+#!C:/Program\ Files/Git/usr/bin/sh.exe
+echo
+exec pwsh -NoProfile -ExecutionPolicy Bypass -File ./.hooks/prepare-commit-msg.ps1 -CommitMessageFile $1
+exit
