@@ -50,7 +50,7 @@
 		<PackageTags>Dependency Injection</PackageTags>
 		<PackageReleaseNotes>
 			Features:
-			- Added support for .NET 6 (6.0.201)
+			- Added support for .NET 6 (6.0.408)
 		</PackageReleaseNotes>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageId>Build.DependencyInjection</PackageId>

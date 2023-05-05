@@ -12,5 +12,5 @@ sudo: required
 services:
   - docker
 script:
-  - docker build -t build-core-sdk-6.0.201-alpine3.12:latest .
-  - docker run --rm -it --name build-core-sdk-6.0.201-alpine3.12 build-core-sdk-6.0.201-alpine3.12:latest
+  - docker build -t build-core-sdk-6.0.408-alpine3.12:latest .
+  - docker run --rm -it --name build-core-sdk-6.0.408-alpine3.12 build-core-sdk-6.0.408-alpine3.12:latest
